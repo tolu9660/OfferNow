@@ -6,28 +6,32 @@
     <base target="_top">
   </head>
   <body>
+
+
     <h1>Contacto:</h1>
     <p>Muchas gracias contactar con nosotros.</p>
-    <p>Nombre: <input type="text" name="name"></p>
     <p> Tambien puedes hacerlo por medio de: <a href="mailto:offerNow@gmail.com"> offerNow </a></p>
     
-    <p> Escribe tu consulta aqui:</p>
-    <p> <input type="radio" name ="opciones" value="Evaluación">Evaluación</p>
-    <p> <input type="radio" name ="opciones" value="Sugerencias">Sugerencias</p>
-    <p> <input type="radio" name ="opciones" value="Críticas"> Críticas</p>
-      
 
-    <input type="text" width=100 length= "500" name="name">
-    <textarea name="comentarios" rows="10" cols="40">Escribe aquí tu consulta </textarea>
+<form action="mailto:offerNow@gmail.com" method="post" enctype="text/plain">
+  <p>Nombre: <input type="text" name="Nombre" value="" size="40"></p>
+  <p>Opciones:
+    <p> <input type="radio" name ="Opciones" value="Evaluación">Evaluación</p>
+    <p> <input type="radio" name ="Opciones" value="Sugerencias">Sugerencias</p>
+    <p> <input type="radio" name ="Opciones" value="Críticas"> Críticas</p>
     
+  </p>
+  <p>
+    <textarea name="Comentarios" placeholder= "Escribe aquí tu consulta" rows="10" cols="40"></textarea>
+ 
     <p>
-    <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Marque esta casilla para verificar que ha leído
-         nuestros términos y condiciones del servicio</label>
-    </p>
+      <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Marque esta casilla para verificar que ha leído
+           nuestros términos y condiciones del servicio</label>
+      </p>
+    <input type="submit" value="Enviar">
+    <input type="reset" value="Borrar">
+  </p>
 
-    <p>
-        <button type="button" >Enviar</button>
-    </p>
-    
+</form>
   </body>
 </html>

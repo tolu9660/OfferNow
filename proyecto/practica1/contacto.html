@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <meta charset= "utf-8">
     <title>Contacto</title>
@@ -10,7 +10,7 @@
 
     <h1>
       <br>
-      <a title="Logo" href="http://localhost/index.html"><img src="imagenes/OfferNow_Logo1.png" width="300" height="150"></a>
+      <a title="Logo" href="http://localhost/index.html"><img src="imagenes/OfferNow_Logo1.png" alt="Logo OfferNow" width="300" height="150"></a>
 	  <br>
       <a href="index.html">Index</a>
       <a href="detalles.html">Detalles</a>
@@ -24,23 +24,18 @@
     
 
 <form action="mailto:offerNow@gmail.com" method="post" enctype="text/plain">
-  <p>Nombre: <input type="text" name="Nombre" value="" size="40"></p>
-  <p>Opciones:
+	<p>Nombre: <input type="text" name="Nombre" value="" size="40"></p>
+	<p>Opciones:</p>
     <p> <input type="radio" name ="Opciones" value="Evaluación">Evaluación</p>
     <p> <input type="radio" name ="Opciones" value="Sugerencias">Sugerencias</p>
     <p> <input type="radio" name ="Opciones" value="Críticas"> Críticas</p>
-    
-  </p>
-  <p>
+
     <textarea name="Comentarios" placeholder= "Escribe aquí tu consulta" rows="10" cols="40"></textarea>
  
-    <p>
-      <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Marque esta casilla para verificar que ha leído
+    <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Marque esta casilla para verificar que ha leído
            nuestros términos y condiciones del servicio</label>
-      </p>
     <input type="submit" value="Enviar">
     <input type="reset" value="Borrar">
-  </p>
 
 </form>
   </body>

@@ -22,6 +22,11 @@
 			<p> - 3 meses por 7 euros. </p>
 			<p> - 12 meses por 25 euros. </p>
 	</main>
+	<?php
+			if (!isset($_SESSION["login"])) { //Usuario incorrecto
+			echo "Pincha <a href='login.php'>aquí</a> para iniciar sesión si todavía no tienes cuenta.";
+			}
+	?>
 </div>
 
 </body>

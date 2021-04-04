@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>" />
         <script src="/js/functions.js?v=<?php echo time(); ?>"></script>
-        
+
         <title>Inicio</title>
     </head>
 <body>
@@ -21,17 +21,10 @@
 			Usuario:
 			<input type="text" name="username"  />
 		<br/>
-			E-mail:
-			<input type="text" name="email"  />
-		<br/>
 			Contraseña:
 			<input type="text" name="password"  />
 		<br/>
-			Confirmar contraseña:
-			<input type="text" name="password"  />
-		<br/>
-			<input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
-			<input type="submit" value="crear">
+			<input type="submit" value="inicio">
 			</form>
 		</article>
 	</main>

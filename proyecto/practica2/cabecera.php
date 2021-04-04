@@ -17,8 +17,8 @@
 		</div>
 		<div class="sesion">
 			<ul>
-				<li><a href="#">Inicio Sesión</a></li>
-				<li><a href="#">Registro</a></li>
+				<li><a href='login.php'>Inicio Sesión</a></li>
+				<li><a href='registro.php'>Registro</a></li>
 				<li><a href="#">Hazte premium</a></li>
 			</ul>
 		</div>

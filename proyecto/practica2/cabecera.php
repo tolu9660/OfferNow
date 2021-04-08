@@ -19,7 +19,7 @@
 			<ul>
 				<li><a href='login.php'>Inicio Sesión</a></li>
 				<li><a href='registro.php'>Registro</a></li>
-				<li><a href='premium'>Hazte premium</a></li>
+				<li><a href='premium.php'>Hazte premium</a></li>
 			</ul>
 		</div>
 		<div class="carrito">

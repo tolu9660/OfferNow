@@ -5,15 +5,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="estilo.css" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Login</title>
-	</head>
+        <link rel="stylesheet" type="text/css" href="estilo.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>" />
+        <script src="/js/functions.js?v=<?php echo time(); ?>"></script>
+        <title>Subir Oferta</title>
+    </head>
 	<body>
 		<div id="contenedor">
 			<?php
-				//require("cabecera.php");
-				//require("sidebarIzq.php");
+                require('../cabecera.php');
 			?>
 			<main id="contenido">
 				<h1>Subir Oferta</h1>
@@ -32,10 +33,6 @@
 					<p><input type="submit" value="Publicar"></p>
 				</form>
 			</main>
-			<?php
-				//include("sidebarDer.php");
-				//include("pie.php");
-			?>
 		</div>
 	</body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2021 a las 18:57:32
+-- Tiempo de generación: 09-04-2021 a las 12:54:07
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -47,7 +47,7 @@ CREATE TABLE `comentarios` (
   `Numero` int(32) UNSIGNED NOT NULL,
   `Texto` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `Titulo` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `Valoracion utilidad` int(32) UNSIGNED NOT NULL,
+  `ValoracionUtilidad` int(32) UNSIGNED NOT NULL,
   `Usuario` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `Oferta` int(32) DEFAULT NULL,
   `Articulo2mano` int(32) DEFAULT NULL
@@ -70,6 +70,13 @@ CREATE TABLE `oferta` (
   `Creador` varchar(32) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `oferta`
+--
+
+INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imagen`, `Valoracion`, `Precio`, `Creador`) VALUES
+(1, 'Oferta1', 'Oferta numero 1', 'url', 'qga34gqqg', 0, 25, 'correo@correo.com');
+
 -- --------------------------------------------------------
 
 --
@@ -83,6 +90,13 @@ CREATE TABLE `usuario` (
   `Premium` tinyint(1) NOT NULL DEFAULT 0,
   `Admin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VALUES
+('correo@correo.com', 'UsuarioPrueba1', 'Password1', 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -133,13 +147,13 @@ ALTER TABLE `articulos_segunda_mano`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2415;
+  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2417;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2415;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2421;
 
 --
 -- Restricciones para tablas volcadas

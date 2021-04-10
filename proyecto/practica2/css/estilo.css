@@ -1,0 +1,208 @@
+body {
+	background-color: #CDCDCD;
+}
+div#titulo{
+	width: 100%;
+	height: 100px;
+	border: 1px solid black;
+	background-color: #f3a704;
+	margin-top: 30px;
+	
+}
+#titulo img { /* para que las imágenes se autoajusten si la rejilla es más pequeña */
+	max-width: 80%;
+	max-height: 80%;
+	margin-top: 10px;
+	margin-right:50px;
+	height: auto;
+	float: right
+  }
+  #titulo h1{
+	font-family: Sans-Serif;
+	color: #0b59eb;
+	margin-left:30px;
+	float: center;
+
+  }
+div#contenedor {
+	width: 900px;
+	margin: auto;
+	border: 1px solid black;
+	background-color: #aaaaaa;
+	margin-top: 30px;
+}
+
+
+div#tarjetaProducto {
+	width: 400px;
+	margin: auto;
+	border: 1px solid black;
+	background-color: #aaaaaa;
+	margin-top: 50px;
+
+
+	
+}
+div.imgProducto{
+	width: 0%;
+	background-color: #d10d0d;
+	margin-left: 100px;
+	margin-top: 30px;
+	float: center;
+	
+	color: #a80b0b;
+
+}
+div.desProducto{
+	width: 350px;
+	text-align: left;
+	background-color: #5f51516b;
+	margin-left: 10px;
+	float: center;
+    color: #a80b0b;
+}
+
+
+div#contenedor1 {
+	width: 100%;
+	height: 90px;
+	margin: auto;
+	border: 1px solid rgb(0, 0, 0);
+	background-color: #aaaaaa;
+	
+}
+div.carrito{
+	width: 10%;
+	text-align: left;
+	background-color: #FFFFFF;
+	float: left;
+    color: #32d17a;
+}
+
+div.imgcarrito{
+	width: 0%;
+	text-align: left;
+	background-color: #d10d0d;
+	margin-left: 100px;
+	margin-top: 30px;
+	float: center;
+	
+	color: #a80b0b;
+}
+div.precio {
+	text-align: center;
+}
+div.cantidad {
+	text-align: center;
+}
+div.descripcion {
+	width: 40%;
+	text-align: left;
+	background-color: #FFFFFF;
+	float: left;
+    color: #32d17a;
+
+}
+
+div.info {
+	width: 40%;
+	text-align: left;
+	background-color: #FFFFFF;
+	float: left;
+    color: #32d17a;
+
+}
+
+
+div.menu {
+	width: 40%;
+	text-align: left;
+	background-color: #FFFFFF;
+	float: left;
+    color: #32d17a;
+
+}
+div.sesion{
+	width: 50%;
+	text-align: left;
+	background-color: #FFFFFF;
+	float: left;
+    color: #a80b0b;
+
+}
+
+
+.rejilla * {
+	box-sizing: border-box; /* para que los padding y border no se sumen al width */
+  }
+.rejilla {
+	display: flex; /* esto es lo que lo convierte en una rejilla (unidimensional) */
+	flex-wrap: wrap; /* para que salte a diferentes filas si el ancho no da */
+	justify-content: center; /* todos los elementos centradicos, especialmente en la última fila (por esto prefiero usar display flex y no grid) */
+	text-align: center; /* todo el contenido centradico */
+	list-style: none; /* quita el estilo lista */
+	padding-left: 0; /* quita el margen interior izquierdo predeterminado de las listas */
+}
+.rejilla > li {
+	width: 100%;
+  }
+  @media (min-width: 425px) { /* para esta resolución mínima */
+	.rejilla > li {
+	  width: 50%; /* 2 columnas a partir de la resolución indicada */
+	}
+  }
+  @media (min-width: 768px) { /* para esta resolución mínima */
+	.rejilla > li {
+	  width: 33.33333333%; /* 3 columnas a partir de la resolución indicada */
+	}
+  }
+  @media (min-width: 992px) { /* para esta resolución mínima */
+	.rejilla > li {
+	  width: 25%; /* 4 columnas a partir de la resolución indicada */
+	}
+  }
+  .rejilla a {
+	display: block; /* para que el enlace abarque toda la "celda" del producto */
+	padding: 15px;
+  }
+  .rejilla a:hover {
+	box-shadow: 0 0 0 2px rgb(240, 5, 5); /* efecto para remarcar productos al pasar el cursor por encima */
+  }
+  .rejilla img { /* para que las imágenes se autoajusten si la rejilla es más pequeña */
+	max-width: 100%;
+	height: auto;
+  }
+
+  table {
+   width: 100%;
+   border: 2px solid black;
+   text-align: center;
+   border-collapse: collapse;
+   margin: 0 0 1em 0;
+   caption-side: top;
+   
+}
+th{
+	width: 25%;
+   text-align: center;
+   vertical-align: top;
+   border: 1px solid #000;
+   border-collapse: collapse;
+   background: SkyBlue;
+   
+}
+td {
+	width: 25%;
+	text-align: center;
+   vertical-align: center;
+   border-bottom: 1px solid black;
+   padding: 0.3em;
+   background: LightCyan;
+}
+caption {
+   font-weight: bold;
+   font-style: italic;
+   padding: 0.3em;
+   color: #fff;
+    background: #000;
+}

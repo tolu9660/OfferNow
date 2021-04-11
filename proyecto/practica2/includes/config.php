@@ -4,10 +4,11 @@
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
-define('BD_PASS', 'root');
+define('BD_PASS', '');
 define('RUTA_APP', '/AW/OfferNow/proyecto/practica2');
 define('RUTA_IMGS', RUTA_APP.'/imagenes');
 define('RUTA_CSS', RUTA_APP.'/css');
+define('COMUN', RUTA_APP.'/includes/comun');
 define('INSTALADA', true );
 
 

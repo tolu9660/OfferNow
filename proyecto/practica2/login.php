@@ -1,4 +1,6 @@
-<?php session_start() ?>
+<?php
+	require_once __DIR__.'/includes/config.php';
+?>
 <!DOCTYPE html>
 <html>
  <head>
@@ -12,19 +14,17 @@
 <body>
 <div id="contenedor">
 <?php
-	require ('cabecera.php');
+	//require_once COMUN.'/cabecera.php';
 ?>
 	<main>
 	  <article>
 			<h1>INICIO DE SESIÓN</h1>
 			<form method="get" action="procesarLogin.php">
-			Usuario:
-			<input type="text" name="username"  />
-		<br/>
-			Contraseña:
-			<input type="text" name="password"  />
-		<br/>
-			<input type="submit" value="inicio">
+				Correo:
+				<input type="text" name="email"  />
+				Contraseña:
+				<input type="text" name="password"  />
+				<input type="submit" value="Entrar">
 			</form>
 		</article>
 	</main>

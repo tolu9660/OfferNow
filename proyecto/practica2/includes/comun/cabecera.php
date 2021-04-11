@@ -22,7 +22,7 @@
 		</div>
 		<div class="sesion">
 			<ul>
-				<li><a href='login.php'>Inicio Sesión</a></li>
+				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
 				<li><a href='registro.php'>Registro</a></li>
 				<li><a href='premium.php'>Hazte premium</a></li>
 				

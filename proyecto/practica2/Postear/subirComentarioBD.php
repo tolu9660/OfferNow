@@ -19,11 +19,7 @@
 				$creador = 'correo@correo.com';//$_SESSION["correo"];
 				//crear el objeto e insertarlo producto 
 				
-				$mysqli = new mysqli("localhost", "root", "root", "aw_p2");
-				if ( mysqli_connect_errno() ) {
-					echo "Error de conexión a la BD: ".mysqli_connect_error();
-					exit();
-				}
+				$mysqli = getConexionBD();
 				//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
 				$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Oferta)
 							VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
@@ -33,7 +29,7 @@
 				} else {
 					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 				}
-				$mysqli->close();
+				cierraConexion();
 			?>
 		</div>
 	</body>

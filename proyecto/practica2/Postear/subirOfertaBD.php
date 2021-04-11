@@ -10,9 +10,9 @@
     <body>
 		<div="contenedor">
 			<?php
+				//require_once __DIR__.'/includes/config.php';
 				require_once __DIR__.'/../includes/comun/cabecera.php';
 				
-				session_start();
 				$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaNombre"])));
 				$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaDescripcion"])));
 				$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaUrl"])));
@@ -20,11 +20,7 @@
 				$precio = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaPrecio"])));
 				$creador = 'correo@correo.com';//$_SESSION["correo"];
 				
-				$mysqli = new mysqli("localhost", "root", "root", "aw_p2");
-				if ( mysqli_connect_errno() ) {
-					echo "Error de conexión a la BD: ".mysqli_connect_error();
-					exit();
-				}
+				$mysqli = getConexionBD();
 				//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
 				$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
 							VALUES ('$nombre', '$descripcion', '$urlOferta', '$urlImagen', 0, '$precio', '$creador')";
@@ -34,7 +30,7 @@
 				} else {
 					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 				}
-				$mysqli->close();
+				cierraConexion();
 			?>
 		</div>
 	</body>

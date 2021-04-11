@@ -19,11 +19,7 @@
 				$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
 				$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
 				
-				$mysqli = new mysqli("localhost", "root", "root", "aw_p2");
-				if ( mysqli_connect_errno() ) {
-					echo "Error de conexión a la BD: ".mysqli_connect_error();
-					exit();
-				}
+				$mysqli = getConexionBD();
 				//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
 				$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
 							VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
@@ -33,7 +29,7 @@
 				} else {
 					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 				}
-				$mysqli->close();
+				cierraConexion();
 			?>
 		</div>
 	</body>

@@ -10,7 +10,8 @@
     <body>
 		<div="contenedor">
 			<?php
-				require('../cabecera.php');
+				//require(__DIR__.'/cabecera.php');
+				//require(__DIR__.'/sidebarIzq.php');
 				session_start();
 				$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
 				$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioDescripcion"])));

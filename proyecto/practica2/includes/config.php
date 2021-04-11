@@ -3,9 +3,9 @@
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'aw_p2');
-define('BD_USER', 'aw_p2');
-define('BD_PASS', 'aw_p2');
-define('RUTA_APP', '/proyecto/practica2');
+define('BD_USER', 'root');
+define('BD_PASS', 'root');
+define('RUTA_APP', '/AW/OfferNow/proyecto/practica2');
 define('RUTA_IMGS', RUTA_APP.'/imagenes');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('INSTALADA', true );
@@ -69,7 +69,7 @@ register_shutdown_function('cierraConexion');
   /* Usuario almacenado en BD */
   /* */
   
-  require_once __DIR__.'/UsuarioBD.php';
+  //require_once __DIR__.'/UsuarioBD.php';
   
   // Abrimos la sesión por defecto en todas las peticiones
   session_start();

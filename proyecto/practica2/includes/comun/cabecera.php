@@ -1,5 +1,9 @@
 <header >
 
+	<?php
+		require_once __DIR__.'/../config.php';
+	?>
+
 	<div id= "titulo">
 	<img src="/../OfferNow_Logo.ico"  ALIGN=DOWN alt="OfferNowLogo"/>
 	
@@ -21,6 +25,11 @@
 				<li><a href='login.php'>Inicio Sesión</a></li>
 				<li><a href='registro.php'>Registro</a></li>
 				<li><a href='premium.php'>Hazte premium</a></li>
+				<?php
+					$direccion = RUTA_APP.'/Postear/subirComentarioFormulario.php';
+					echo"<li><a href= $direccion>Comenta puta</a></li>";
+				?>
+				
 			</ul>
 		</div>
 		<div class="carrito">

@@ -10,15 +10,14 @@
     <body>
 		<div="contenedor">
 			<?php
-				//require_once __DIR__.'/includes/config.php';
-				require_once __DIR__.'/../includes/comun/cabecera.php';
+				require_once __DIR__.'/../includes/config.php';
 				
 				$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaNombre"])));
 				$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaDescripcion"])));
 				$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaUrl"])));
 				$urlImagen = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaImagen"])));
 				$precio = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaPrecio"])));
-				$creador = 'correo@correo.com';//$_SESSION["correo"];
+				$creador = $_SESSION["correo"];
 				
 				$mysqli = getConexionBD();
 				//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES

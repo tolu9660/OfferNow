@@ -10,7 +10,7 @@
     <body>
 		<div="contenedor">
 			<?php
-				require_once __DIR__.'/../includes/comun/cabecera.php';
+				require_once __DIR__.'/../includes/config.php';
 				
 				//session_start();
 				$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));

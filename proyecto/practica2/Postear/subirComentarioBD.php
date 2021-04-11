@@ -10,14 +10,14 @@
     <body>
 		<div="contenedor">
 			<?php
-				//require(__DIR__.'/cabecera.php');
-				//require(__DIR__.'/sidebarIzq.php');
-				session_start();
+				require_once __DIR__.'/../includes/config.php';
+				
 				$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
 				$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioDescripcion"])));
 				$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioUrlDeOferta"])));
 				$creador = 'correo@correo.com';//$_SESSION["correo"];
 				//crear el objeto e insertarlo producto 
+				echo"<h1>PONER ESTO EN LA PAGINA DE LOS ARTICULOS Y PASARLE EL ID DEL ARTICULO</h1>";
 				
 				$mysqli = getConexionBD();
 				//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES

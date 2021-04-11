@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-04-2021 a las 12:54:07
+-- Tiempo de generación: 11-04-2021 a las 13:08:23
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -33,8 +33,7 @@ CREATE TABLE `articulos_segunda_mano` (
   `Descripcion` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `Unidades` int(32) UNSIGNED NOT NULL,
   `Precio` int(32) UNSIGNED NOT NULL,
-  `Imagen` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `Comentarios` int(32) NOT NULL
+  `Imagen` varchar(32) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -52,6 +51,13 @@ CREATE TABLE `comentarios` (
   `Oferta` int(32) DEFAULT NULL,
   `Articulo2mano` int(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`Numero`, `Texto`, `Titulo`, `ValoracionUtilidad`, `Usuario`, `Oferta`, `Articulo2mano`) VALUES
+(2419, 'adsfasdg', 'adasd', 0, 'correo@correo.com', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,8 +112,7 @@ INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VA
 -- Indices de la tabla `articulos_segunda_mano`
 --
 ALTER TABLE `articulos_segunda_mano`
-  ADD PRIMARY KEY (`Numero`),
-  ADD KEY `Comentarios` (`Comentarios`);
+  ADD PRIMARY KEY (`Numero`);
 
 --
 -- Indices de la tabla `comentarios`
@@ -147,13 +152,13 @@ ALTER TABLE `articulos_segunda_mano`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2417;
+  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2420;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2421;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2428;
 
 --
 -- Restricciones para tablas volcadas

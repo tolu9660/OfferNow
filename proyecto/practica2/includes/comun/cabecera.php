@@ -27,7 +27,7 @@
 				<li><a href='premium.php'>Hazte premium</a></li>
 				<?php
 					$direccion = RUTA_APP.'/Postear/subirComentarioFormulario.php';
-					echo"<li><a href= $direccion>Comenta puta</a></li>";
+					echo"<li><a href= $direccion>Comenta</a></li>";
 				?>
 				
 			</ul>

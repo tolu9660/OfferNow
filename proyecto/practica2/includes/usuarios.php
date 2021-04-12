@@ -32,7 +32,7 @@ function checkLogin() {
 	}
   }
 
-function logout() {
+    function logout() {
     //Doble seguridad: unset + destroy
     unset($_SESSION["login"]);
     unset($_SESSION["esAdmin"]);

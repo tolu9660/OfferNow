@@ -11,20 +11,24 @@ class Usuario{
     //echo $password;
     $user = self::buscaUsuario($username);
     //la clase usuario está creada:
-    echo "\ncorreo: ".$user->idCorreo();
-    echo "\nnombre: ".$user->nombre();
+    //echo "\ncorreo: ".$user->idCorreo();
+    //echo "\nnombre: ".$user->nombre();
    //IR AL METODO DE COMPROBACION DE CONTRASEÑA:
-    if ($user /*&& $user->compruebaPassword($password)*/) {
+   //echo "\n CONTRASEÑA: ".$user->contra();
+  
+    if ($user && $user->compruebaPassword($password)) {
       $conn = getConexionBD();
       echo "entro aqui";
       //hacer consulta de premium y admin
 
       //si devuelve un 1 el usuario es administrador 
-      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
-                                $conn->real_escape_string($username));
+      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='user'");
+                                //$conn->real_escape_string($username));
       //si devuelve un 1 el usuario es premium
       $consultaEsPremium=sprintf("SELECT US.Premium FROM usuario US WHERE US.Correo='%s'",
                                   $conn->real_escape_string($username));
+      echo $consultaEsAdmin; 
+      echo $consultaEsPremium;      
       $rs = $conn->query($consultaEsAdmin);
       $rs1 = $conn->query($consultaEsPremium);
       if ($rs && $rs1){
@@ -36,7 +40,7 @@ class Usuario{
         else if($consultaEsPremium==1){
           $user->esPremium();
         }
-        // echo "esAdmin:".$user->getAdmin();
+        echo "esAdmin:".$user->getAdmin();
         $rs->free();
         $rs1->free();
       } 
@@ -56,8 +60,8 @@ class Usuario{
     //echo "resultado de la consulta: ". $consultaUsuario;
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
-     /* //para ver los datos obtenidos de la BD
-      echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
+      //para ver los datos obtenidos de la BD
+     /* echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
       
@@ -102,7 +106,7 @@ class Usuario{
    function __construct($correo, $nombre,$contraseña){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
-    $this->password = $contraseña;
+    $this->password =  $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=55;
     $this->esPremium=0;
   }
@@ -125,6 +129,12 @@ class Usuario{
   {
     return $this->esAdmin;
   }
+  public function contra()
+  {
+    return $this->password;
+  }
+  
+
 ////////////
   public function idCorreo()
   {
@@ -138,13 +148,13 @@ class Usuario{
   }
 
   public function compruebaPassword($password)  {
-    echo "contraseña que llega:".$password;
+    //echo "contraseña que llega:".$password;
     //falla aqui no realiza bien la comprobacion
+   
     return password_verify($password, $this->password);
   }
 
-  public function cambiaPassword($nuevoPassword)
-  {
+  public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
   }
 }

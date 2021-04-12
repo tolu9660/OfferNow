@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2021 a las 13:08:23
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 12-04-2021 a las 21:15:18
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -92,7 +92,7 @@ INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imag
 CREATE TABLE `usuario` (
   `Correo` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `Contraseña` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
+  `Contraseña` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Premium` tinyint(1) NOT NULL DEFAULT 0,
   `Admin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -102,7 +102,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VALUES
-('correo@correo.com', 'UsuarioPrueba1', 'Password1', 0, 0);
+('correo@correo.com', 'UsuarioPrueba1', 'Password1', 0, 0),
+('user', 'userpass', '1234', 0, 1);
 
 --
 -- Índices para tablas volcadas

@@ -31,7 +31,7 @@
 					} else {
 						echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 					}
-					$mysqli->close();
+					mysqli::close();
 				}
 			?>
 		</div>

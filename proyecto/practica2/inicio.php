@@ -1,9 +1,9 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-//require_once RUTA_APP.'/Clases/OfertaObjeto.php';
+require __DIR__.'/Clases/OfertaObjeto.php';
 
-/*
+
 $mysqli = getConexionBD();
 $query = "SELECT * FROM 'oferta'";
 $result = $mysqli->query($query);
@@ -13,9 +13,9 @@ for ($i = 1; $i < $result->num_rows; $i++) {
 	$fila = $result->fetch_assoc();
     $ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 								$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
-	echo "<h1>$ofertasArray[$i]->muestraNombre()</h1>";
+	echo "<h1>$ofertasArray[$i]::muestraNombre()</h1>";
 }
-*/
+
    
 $tituloPagina = 'Inicio';
 

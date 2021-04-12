@@ -12,15 +12,15 @@ function checkLogin() {
     //sesion
     
     if ($usuario) {
-      if ($usuario->idCorreo()==="user") {
+      //if ($usuario->idCorreo()==="user") {
         $_SESSION["login"] = true;
         $_SESSION["correo"] = $usuario->idCorreo();
-        $_SESSION["Nombre"] = $usuario->nombre();
+        $_SESSION["nombre"] = $usuario->nombre();
         $_SESSION["esPremium"] =$usuario->esPremium();
 		$_SESSION["esAdmin"] = $usuario->esAdmin();
-
-      } 
-      echo"funciona";
+		echo"funciona";
+      //} 
+      echo"casi pero no xd";
     }
     else{
 		$_SESSION["login"] = false;

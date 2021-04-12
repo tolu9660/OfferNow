@@ -5,7 +5,7 @@
 
 	checkLogin();
 	$contenidoPrincipal='';
-if (! estaLogado()) {
+if (!isset($_SESSION['login'])) {
 	$contenidoPrincipal=<<<EOS
 		<h1>Error</h1>
 		<p>El usuario o contraseña no son válidos.</p>
@@ -71,10 +71,10 @@ require __DIR__.'/includes/comun/layout.php';
 		$_SESSION["esAdmin"] = null;
 	}
 	*/
-	/*
+	
 ?>
 <?php
-
+/*
 $tituloPagina = 'Login';
 $raizApp = RUTA_APP;
 if (!isset($_SESSION['login'])) {
@@ -90,4 +90,4 @@ if (!isset($_SESSION['login'])) {
 }
 require __DIR__.'/includes/comun/layout.php';
 
-/*
+*/

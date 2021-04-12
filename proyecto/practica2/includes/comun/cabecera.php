@@ -5,19 +5,15 @@
 	?>
 
 	<div id= "titulo">
-	<img src="/../OfferNow_Logo.ico"  ALIGN=DOWN alt="OfferNowLogo"/>
-	
-	<h1>
-	Tu página de ofertas preferida
-	</h1>
+		<img src="/../OfferNow_Logo.ico" ALIGN=DOWN alt="OfferNowLogo"/>
+		<h1>Tu página de ofertas preferida</h1>
 	</div>
 	<div id="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
 			<ul>
 				<li><a href="#">Destacados</a></li>
 				<li><a href="#">Todos</a></li>
-				<li><a href="#">Nuestra tienda</a></li>
-				
+				<li><a href="#">Nuestra tienda</a></li>				
 			</ul>
 		</div>
 		<div class="sesion">
@@ -25,8 +21,7 @@
 				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
 				<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
 				<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
-				<li><a href='premium.php'>Hazte premium</a></li>
-				
+				<li><a href='premium.php'>Hazte premium</a></li>				
 			</ul>
 		</div>
 		<div class="carrito">
@@ -36,15 +31,9 @@
             </button>
 
 			<a href="carrito.php" rel="nofollow" target="_blank" class="button" >
-			<img src="imagenes/iconos/carrito.png" width="40" height="40" alt="votos"/>    
-
+				<img src="imagenes/iconos/carrito.png" width="40" height="40" alt="votos"/>    
 			</a>
 		</div>
-
 	</div>
-
-	
-
-
 </header>
 		

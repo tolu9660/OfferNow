@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html>
  <head>
@@ -12,12 +11,12 @@
 <body>
 <div id="contenedor">
 <?php
-	require ('cabecera.php');
+	require_once __DIR__.'/includes/config.php';
 ?>
 	<main>
 	  <article>
-			<h1>INICIO DE SESIÓN</h1>
-			<form method="get" action="procesarLogin.php">
+			<h1>Registro de usuario</h1>
+			<form method="get" action="registroUsuarioBD.php">
 			Usuario:
 			<input type="text" name="username"  />
 		<br/>
@@ -25,10 +24,10 @@
 			<input type="text" name="email"  />
 		<br/>
 			Contraseña:
-			<input type="text" name="password"  />
+			<input type="text" name="password1"  />
 		<br/>
 			Confirmar contraseña:
-			<input type="text" name="password"  />
+			<input type="text" name="password2"  />
 		<br/>
 			<input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
 			<input type="submit" value="crear">

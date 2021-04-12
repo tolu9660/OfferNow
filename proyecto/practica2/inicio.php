@@ -1,7 +1,21 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+//require_once RUTA_APP.'/Clases/OfertaObjeto.php';
 
+/*
+$mysqli = getConexionBD();
+$query = "SELECT * FROM 'oferta'";
+$result = $mysqli->query($query);
+
+$ofertasArray;
+for ($i = 1; $i < $result->num_rows; $i++) {
+	$fila = $result->fetch_assoc();
+    $ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+								$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+	echo "<h1>$ofertasArray[$i]->muestraNombre()</h1>";
+}
+*/
    
 $tituloPagina = 'Inicio';
 
@@ -20,7 +34,7 @@ $contenidoPrincipal=<<<EOS
 				<h3>Movil Barato</h3>
 				<p>14.39 €</p>
 				</a>
-			  </la>
+			  </li>
 
 			  <li>
 				<a href="/enlace-producto-2" rel="nofollow" target="_blank">

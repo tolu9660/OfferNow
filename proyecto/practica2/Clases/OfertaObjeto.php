@@ -9,7 +9,7 @@ class OfertaObjeto{
 	private $precio;
 	private $creador;
 	
-	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador;) {
+	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
@@ -26,41 +26,43 @@ class OfertaObjeto{
                     $conn->real_escape_string($id));
 
     $rs = $conn->query($query);
+	
 
     if ($rs && $rs->num_rows == 1) {
       $fila = $rs->fetch_assoc();
       $ofert = new OfertaObjeto($fila['Numero'], $fila['Nombre'], $fila['Descripcion'],
 		$fila['URL_Oferta'], $fila['URL_Imagen'], $fila['Valoracion'], $fila['Precio'], $fila['Creador']);
       $rs->free();
-
+	
       return $ofert;
     }
     return false;
+	}
 	
-	public function muestraNombre() {
+	function muestraNombre() {
 		return $this->nombre;
 	}
-	public function muestraDescripcion() {
+	function muestraDescripcion() {
 		return $this->descripcion;
 	}
 	
-	public function muestraURLOferta() {
+	function muestraURLOferta() {
 		return $this->urlOferta;
 	}
 	
-	public function muestraURLImagen() {
+	function muestraURLImagen() {
 		return $this->urlImagen;
 	}
 	
-	public function muestraValoracion() {
+	function muestraValoracion() {
 		return $this->valoracion;
 	}
 	
-	public function muestraPrecio() {
+	function muestraPrecio() {
 		return $this->precio;
 	}
 	
-	public function muestraCreador() {
+	function muestraCreador() {
 		return $this->creador;
 	}
   }

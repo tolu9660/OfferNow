@@ -23,7 +23,8 @@
 		<div class="sesion">
 			<ul>
 				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
-				<li><a href='registro.php'>Registro</a></li>
+				<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
+				<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
 				<li><a href='premium.php'>Hazte premium</a></li>
 				
 			</ul>

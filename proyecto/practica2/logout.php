@@ -1,12 +1,12 @@
 <?php
-session_start();
-session_destroy();
+require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/usuarios.php';
 
-	require_once __DIR__.'/includes/config.php';
+	logout();
 	$contenidoPrincipal='';
 	$contenidoPrincipal=<<<EOS
-		<main>
-	  <article>
+	<main>
+		<article>
 			<h1>GRACIAS Y HASTA PRONTO!</h1>
 		</article>
 	</main>

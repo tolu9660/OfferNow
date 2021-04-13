@@ -27,7 +27,7 @@ class OfertaObjeto{
 	
 	function cargaComentarios() {
 		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentarios WHERE Oferta = '$this->id'";
+		$query = "SELECT * FROM comentarios WHERE Oferta = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
 	
 		$comen;

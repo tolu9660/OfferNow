@@ -45,11 +45,23 @@
                 <p>$Descripcion</p>
                 <p>
                     Enlaces: 
-                    <a href="$URLOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
+                    <a href="https://$URLOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
                     <a href="$URLOferta" rel="nofollow" target="_blank">Enlace a nuestra tienda</a>
                 </p>
             </div>
-            <div class="desProducto">
+            <div class="creaComentario">
+			
+				<h1>Subir Comentario</h1>
+				<form method="get" action="Postear/subirComentarioBD.php">
+					<p>Titulo</p>
+					<input type="text" name="comentarioTitulo"/>
+					<p>Descripcion:</p>
+					<textarea name="comentarioDescripcion" rows="10" cols="30"></textarea>
+					<input type="hidden" value="$id" name="comentarioUrlDeOferta"/>
+					<p><input type="submit" value="Publicar"></p>
+					
+				</form>
+			
                 <p>
                     Comentarios:
                 </p>    

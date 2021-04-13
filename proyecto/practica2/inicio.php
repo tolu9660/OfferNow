@@ -32,8 +32,8 @@
 	$tituloPagina = 'Inicio';
 	$productos = '';
 	$productos.=<<<EOS
-		<div>
-		<ul>
+		<div="contenedor">
+		<ul class="rejilla">
 	EOS;
 	
 	for ($i = 0; $i < $result->num_rows; $i++) {

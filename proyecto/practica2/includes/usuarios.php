@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__.'/usuarioBD.php';
 
+	function estaLogado() {
+		return isset($_SESSION['login']);
+	}
 
 	function checkLogin() {
 		$username = isset($_POST["email"]) ? $_POST["email"] : null;
@@ -15,7 +18,7 @@ require_once __DIR__.'/usuarioBD.php';
 		//if ($usuario->idCorreo()==="user") {
 			$_SESSION["login"] = true;
 			$_SESSION["correo"] = $usuario->idCorreo();
-			$_SESSION["Nombre"] = $usuario->nombre();
+			$_SESSION["nombre"] = $usuario->nombre();
 			$_SESSION["esPremium"] =$usuario->esPremium();
 			$_SESSION["esAdmin"] = $usuario->esAdmin();
 

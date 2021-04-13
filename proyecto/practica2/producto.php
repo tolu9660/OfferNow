@@ -79,7 +79,7 @@
             </div>              
         </div>
 EOS;
-
+$tituloPagina = $Nombre;
 $contenidoPrincipal=<<<EOS
 		$productos
 	EOS;

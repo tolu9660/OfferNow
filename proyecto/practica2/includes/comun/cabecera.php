@@ -5,7 +5,7 @@
 	?>
 
 	<div id= "titulo">
-	<img src="/../OfferNow_Logo.ico"  ALIGN=DOWN alt="OfferNowLogo"/>
+	<img src="<?=RUTA_IMGS.'/OfferNow_Logo.ico'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
 	
 	<h1>
 	Tu página de ofertas preferida

@@ -147,7 +147,7 @@ class Usuario{
   }
 
   public function compruebaPassword($password)  {
-    //echo "contraseña que llega:".$password;
+    echo "contraseña que llega:".$password;
     //falla aqui no realiza bien la comprobacion
    
     return password_verify($password, $this->password);

@@ -5,7 +5,7 @@
 
 	checkLogin();
 	$contenidoPrincipal='';
-if (! estaLogado()) {
+if (!estaLogado()) {
 	$contenidoPrincipal=<<<EOS
 		<h1>Error</h1>
 		<p>El usuario o contraseña no son válidos.</p>

@@ -61,15 +61,6 @@
 					<p><input type="submit" value="Publicar"></p>
 					
 				</form>
-			
-                <p>
-                    Comentarios:
-                </p>    
-                <p>
-                    <textarea name="Comentarios" placeholder= "Escribe tu comentario.." 
-                                    rows="2" cols="30"></textarea>
-                </p>
-                <input type="button" value="publicar">
             </div>              
         </div>
 EOS;

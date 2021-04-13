@@ -73,6 +73,7 @@
 				<p>Descripcion:</p>
 				<textarea name="comentarioDescripcion" rows="5" cols="48"></textarea>
 				<input type="hidden" value="$id" name="comentarioUrlDeOferta"/>
+				<input type="hidden" value="true" name="esOferta"/>
 				<p><input type="submit" value="Publicar"></p>
 				
 			</form>

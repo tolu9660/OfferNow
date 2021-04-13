@@ -4,12 +4,19 @@
 	$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
 	$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioDescripcion"])));
 	$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioUrlDeOferta"])));
+	$esOferta = htmlspecialchars(trim(strip_tags($_REQUEST["esOferta"])));
 	$creador = $_SESSION["correo"];
 	
 	$mysqli = getConexionBD();
 	//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
-	$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Oferta)
+	if($esOferta == "true"){
+		$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Oferta)
 				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+	}
+	else{
+		$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Articulo2mano)
+				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+	}
 				
 		
 	$contenidoPrincipal='';

@@ -1,65 +1,26 @@
-   
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="estilo.css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="menu" class="col-4 my-auto mx-auto">
+			<ul>
 
-        <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>" />
-        <script src="/js/functions.js?v=<?php echo time(); ?>"></script>
+			<div class="ch1">
 
-
-        <title>carrito</title>
-    </head>
-
-    <body>
-        <?php
-                    require('cabecera.php')	
-        ?>
-		
-        <table>
-		<caption>TU PEDIDO</caption>
-		<thead>
-			<tr>
-				<th>PRODUCTO</th>
-				<th>DESCRIPCION</th>
-				<th>PRECIO</th>
-				<th>CANTIDAD</th>
-			</tr>
-		</thead>	
-		<tr>
-			<div class="imgProducto">
-                <td> <img src="imagenes/productos/movil.png" width="200" height="200" alt="movil" /> </td>
-           </div>
-        </div>
-		<div class="descripcion">
-			<td>Iphone 12 </td>
+				<li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
+			</div>
+			<div class="ch2">
+				<li><a href="#">Todos</a></li>
+			</div>
+			<div class="ch3">
+				<li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
+			</div>
+										
+			</ul>
 		</div>
-			<div class="info">
-					<div class="precio">
-			<td>900</td>
+	
+		<div class="sesion">
+			<ul>
+				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
+				<!--<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
+				<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
+				<li><a href='premium.php'>Hazte premium</a></li>
+				-->
+			</ul>
 		</div>
-		<div class="cantidad">
-			<td>3</td>
-		</div>
-		</div>
-		
-		</tr>
-		<tr>
-			<div class="imgProducto">
-                <td> <img src="imagenes/productos/nevera.png" width="200" height="200" alt="nevera" /> </td>
-           </div>
-		<div class="descripcion">
-			<td>Bosh</td>
-		</div>
-			<div class="info">
-					<div class="precio">
-			<td>750</td>
-		</div>
-		<div class="cantidad">
-			<td>1</td>
-		</div>
-		</div>
-        </table>
-    </body>
-</html>

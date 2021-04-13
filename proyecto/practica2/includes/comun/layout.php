@@ -16,10 +16,6 @@
 					<?= $contenidoPrincipal ?>
 				</article>
 			</main>
-			<?php
-				require(__DIR__.'/sidebarDer.php');
-				require(__DIR__.'/pie.php');
-			?>
 		</div>
 	</body>
 </html>

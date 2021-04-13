@@ -13,42 +13,40 @@
 	</div>
 	<div id="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
-			<ul>
-				<li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
-				<li><a href="#">Todos</a></li>
-				<li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
-				
-			</ul>
-		</div>
-		<div class="sesion">
-			<ul>
-				<?php
-					if(!isset($_SESSION['login'])){
-						$dir = RUTA_APP.'/Postear/subirOfertaFormulario.php';
-						?>
-						<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
-						<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
-						<?php
-					}
-				?>
-				<?php
-					if(isset($_SESSION['login']) && !$_SESSION['esPremium']){
-						?>
-						<li><a href='premium.php'>Hazte premium - Aun no disponible</a></li>
-						<?php
-					}
-				?>
-				
-				
-			</ul>
-		</div>
+            <ul>
+
+            <div class="ch1">
+
+                <li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
+            </div>
+            <div class="ch2">
+                <li><a href="#">Todos</a></li>
+            </div>
+            <div class="ch3">
+                <li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
+            </div>
+
+            </ul>
+        </div>
+
+        <div class="sesion">
+            <ul>
+                <li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
+                <!--<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
+                <li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
+                <li><a href='premium.php'>Hazte premium</a></li>
+                -->
+            </ul>
+        </div>
 		<div class="carrito">
-			<!-- preguntar como darle funcionalidad al boton, ES CORRRECTO ?-->
+			<!-- preguntar como darle funcionalidad al boton, ES CORRRECTO ?
 			<button class="button">    
                 <img src="imagenes/iconos/carrito.png" width="30" height="30" alt="votos"/>    
             </button>
+            -->
 
-			<a href="carrito.php" rel="nofollow" target="_blank" class="button" >
+			<a href="<?=RUTA_APP.'/zcarrito.php'?>" rel="nofollow" target="_blank" class="button" >
+
 			<img src="imagenes/iconos/carrito.png" width="40" height="40" alt="votos"/>    
 
 			</a>

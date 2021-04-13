@@ -14,7 +14,7 @@
 	<div id="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
 			<ul>
-				<li><a href="inicio.php">Destacados</a></li>
+				<li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
 				<li><a href="#">Todos</a></li>
 				<li><a href="#">Nuestra tienda</a></li>
 				

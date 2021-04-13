@@ -11,7 +11,7 @@ class OfertaObjeto{
 	private $valoracion;
 	private $precio;
 	private $creador;
-	private $comentarios;
+	private $coment;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
 		$this->id = $id;
@@ -22,7 +22,7 @@ class OfertaObjeto{
 		$this->valoracion = $valoracion;
 		$this->precio = $precio;
 		$this->creador = $creador;
-		$this->comentarios = $this->cargaComentarios();
+		$this->coment = $this->cargaComentarios();
 	}
 	
 	function cargaComentarios() {
@@ -30,14 +30,14 @@ class OfertaObjeto{
 		$query = "SELECT * FROM comentarios WHERE Oferta = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
 	
-		$comen;
+		$coment;
 		if($result) {			
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$comen[] = new ComentarioObjeto($fila['Numero'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
+				$coment[] = new ComentarioObjeto($fila['Numero'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
 										$fila['Usuario'],$fila['Oferta'],$fila['Articulo2mano']);
 			}
-			return comen;
+			return $coment;
 		} else{
 			echo"Error al buscar en la base de datos, id:".$this->id;
 			return null;

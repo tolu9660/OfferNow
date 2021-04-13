@@ -1,4 +1,7 @@
 <?php
+
+require __DIR__.'/ComentarioObjeto.php';
+
 class OfertaObjeto{
 	private $id;
 	private $nombre;
@@ -8,6 +11,7 @@ class OfertaObjeto{
 	private $valoracion;
 	private $precio;
 	private $creador;
+	private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
 		$this->id = $id;
@@ -18,6 +22,23 @@ class OfertaObjeto{
 		$this->valoracion = $valoracion;
 		$this->precio = $precio;
 		$this->creador = $creador;
+		$this->cargaComentarios();
+	}
+	
+	private function cargaComentarios() {
+		$mysqli = getConexionBD();
+		$query = "SELECT * FROM comentarios WHERE Oferta = '$this->id' ORDER BY ValoracionUtilidad";
+		$result = $mysqli->query($query);
+
+		if($result) {			
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$this->comentariosArray[] = new ComentarioObjeto($fila['Numero'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
+										$fila['Usuario'],$fila['Oferta'],$fila['Articulo2mano']);
+			}
+		} else{
+			echo"Error al buscar en la base de datos, id:".$this->id;
+		}
 	}
 	
 	public static function buscaOferta($id) {
@@ -37,6 +58,10 @@ class OfertaObjeto{
       return $ofert;
     }
     return false;
+	}
+	
+	function muestraID() {
+		return $this->id;
 	}
 	
 	function muestraNombre() {
@@ -64,6 +89,10 @@ class OfertaObjeto{
 	
 	function muestraCreador() {
 		return $this->creador;
+	}
+	
+	function muestraComentarios() {
+		return $this->comentariosArray;
 	}
   }
 ?>

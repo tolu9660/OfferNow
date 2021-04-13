@@ -206,3 +206,22 @@ caption {
    color: #fff;
     background: #000;
 }
+
+nav {
+	padding: 10px;
+	float: left;
+	width: 170px;
+	height: 400px;
+	background-color: #dddddd;
+}
+
+nav a, nav a:visited {
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+nav a:hover {
+	color: red;
+	text-decoration: underline;
+} 

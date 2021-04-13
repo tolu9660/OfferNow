@@ -17,29 +17,33 @@ class Usuario{
   
     if ($user && $user->compruebaPassword($password)) {
       $conn = getConexionBD();
-      echo "entro aqui";
+      //echo "entro aqui";
       //hacer consulta de premium y admin
 
       //si devuelve un 1 el usuario es administrador 
-      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='user'");
-                                //$conn->real_escape_string($username));
+      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
+                                $conn->real_escape_string($username));
       //si devuelve un 1 el usuario es premium
       $consultaEsPremium=sprintf("SELECT US.Premium FROM usuario US WHERE US.Correo='%s'",
                                   $conn->real_escape_string($username));
-      echo $consultaEsAdmin; 
-      echo $consultaEsPremium;      
+      //echo $consultaEsAdmin; 
+      //echo $consultaEsPremium;      
       $rs = $conn->query($consultaEsAdmin);
       $rs1 = $conn->query($consultaEsPremium);
       if ($rs && $rs1){
-          
-        if($consultaEsAdmin==1){
+        $fila1 = $rs->fetch_assoc();
+        $fila2 = $rs1->fetch_assoc();
+        //echo "DATOS LEIDOS\n". "es admin:".$fila1['Admin']. "\t ".$fila2["Premium"];
+        if($fila1['Admin']==1){
           $user->esAdmin();
 
         }
-        else if($consultaEsPremium==1){
+        else if($fila2['Premium']==1){
           $user->esPremium();
         }
-        echo "esAdmin:".$user->getAdmin();
+        //para comprobar que los atributos se estan volcando correctamente
+        //echo "esAdmin:".$user->getAdmin();
+        //echo "esPremium:".$user->getPremium();
         $rs->free();
         $rs1->free();
       } 
@@ -106,9 +110,10 @@ class Usuario{
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
     $this->password =  $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
-    $this->esAdmin=55;
+    $this->esAdmin=0;
     $this->esPremium=0;
   }
+  //cogerlo con pinzas este constructor
   function __construct1($correo, $nombre,$contraseña,$premium,$admin){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
@@ -128,6 +133,10 @@ class Usuario{
   {
     return $this->esAdmin;
   }
+  public function getPremium()
+  {
+    return $this->esPremium;
+  } 
   public function contra()
   {
     return $this->password;

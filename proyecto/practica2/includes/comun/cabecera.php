@@ -5,7 +5,7 @@
 	?>
 
 	<div id= "titulo">
-	<img src="/../OfferNow_Logo.ico"  ALIGN=DOWN alt="OfferNowLogo"/>
+	<img src="<?=RUTA_IMGS.'/OfferNow_Logo.ico'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
 	
 	<h1>
 	Tu página de ofertas preferida
@@ -14,18 +14,31 @@
 	<div id="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
 			<ul>
-				<li><a href="#">Destacados</a></li>
+				<li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
 				<li><a href="#">Todos</a></li>
-				<li><a href="#">Nuestra tienda</a></li>
+				<li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
 				
 			</ul>
 		</div>
 		<div class="sesion">
 			<ul>
-				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
-				<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
-				<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
-				<li><a href='premium.php'>Hazte premium</a></li>
+				<?php
+					if(!isset($_SESSION['login'])){
+						$dir = RUTA_APP.'/Postear/subirOfertaFormulario.php';
+						?>
+						<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
+						<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
+						<?php
+					}
+				?>
+				<?php
+					if(isset($_SESSION['login']) && !$_SESSION['esPremium']){
+						?>
+						<li><a href='premium.php'>Hazte premium - Aun no disponible</a></li>
+						<?php
+					}
+				?>
+				
 				
 			</ul>
 		</div>

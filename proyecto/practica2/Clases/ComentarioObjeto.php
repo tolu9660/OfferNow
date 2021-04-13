@@ -19,22 +19,22 @@ class ComentarioObjeto{
 	}
 	
 	public static function buscaComentario($id) {
-    $conn = getConexionBD();
-    $query = sprintf("SELECT * FROM comentarios WHERE Numero='%id'",
-                    $conn->real_escape_string($id));
+		$conn = getConexionBD();
+		$query = sprintf("SELECT * FROM comentarios WHERE Numero='%id'",
+						$conn->real_escape_string($id));
 
-    $rs = $conn->query($query);
+		$rs = $conn->query($query);
 
-    if ($rs && $rs->num_rows == 1) {
-      $fila = $rs->fetch_assoc();
-      $coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
-		$fila['ValoracionUtilidad'], $fila['Usuario'], $fila['Oferta'], $fila['Articulo2mano']);
-      $rs->free();
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+				$fila['ValoracionUtilidad'], $fila['Usuario'], $fila['Oferta'], $fila['Articulo2mano']);
+			$rs->free();
 
-      return $coment;
-    }
-    return false;
-  }
+			return $coment;
+		}
+		return false;
+	}
   
 	public function muestraTitulo() {
 		return $this->titulo;
@@ -50,4 +50,5 @@ class ComentarioObjeto{
 	public function muestraUsuario() {
 		return $this->usuario;
 	}
+}
 ?>

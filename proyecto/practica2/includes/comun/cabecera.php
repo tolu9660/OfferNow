@@ -16,16 +16,29 @@
 			<ul>
 				<li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
 				<li><a href="#">Todos</a></li>
-				<li><a href="#">Nuestra tienda</a></li>
+				<li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
 				
 			</ul>
 		</div>
 		<div class="sesion">
 			<ul>
-				<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
-				<li><a href="<?=RUTA_APP.'/logout.php'?>">Cerrar Sesión</a></li>
-				<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
-				<li><a href='premium.php'>Hazte premium</a></li>
+				<?php
+					if(!isset($_SESSION['login'])){
+						$dir = RUTA_APP.'/Postear/subirOfertaFormulario.php';
+						?>
+						<li><a href="<?=RUTA_APP.'/login.php'?>">Inicio Sesión</a></li>
+						<li><a href="<?=RUTA_APP.'/registro.php'?>">Registro</a></li>
+						<?php
+					}
+				?>
+				<?php
+					if(isset($_SESSION['login']) && !$_SESSION['esPremium']){
+						?>
+						<li><a href='premium.php'>Hazte premium - Aun no disponible</a></li>
+						<?php
+					}
+				?>
+				
 				
 			</ul>
 		</div>

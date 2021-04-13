@@ -19,8 +19,8 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["login"] = true;
 			$_SESSION["correo"] = $usuario->idCorreo();
 			$_SESSION["nombre"] = $usuario->nombre();
-			$_SESSION["esPremium"] =$usuario->esPremium();
-			$_SESSION["esAdmin"] = $usuario->esAdmin();
+			$_SESSION["esPremium"] =$usuario->getPremium();
+			$_SESSION["esAdmin"] = $usuario->getAdmin();
 
 		  //} 
 		  echo"funciona";

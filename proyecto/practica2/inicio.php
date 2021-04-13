@@ -40,6 +40,9 @@ $url=strval($ofertasArray[2]->muestraURLOferta());
 $url1=strval($ofertasArray[2]->muestraURLImagen());
 */
 
+$id = $ofertasArray[1]->muestraID();
+echo'<a href="producto.php?id='.$id.'">Ir a producto.php</a>';
+
 $productos;
 for ($i = 0; $i < $result->num_rows; $i++) {
 	$url=strval($ofertasArray[$i]->muestraURLOferta());
@@ -58,6 +61,8 @@ EOS;
 }
 $contenidoPrincipal=<<<EOS
 	$productos;
+	</ul>
+	</div>
 EOS;
 
 /*$contenidoPrincipal=<<<EOS

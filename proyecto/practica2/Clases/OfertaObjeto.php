@@ -103,18 +103,20 @@ class OfertaObjeto{
 	//vista
 	private function muestraComentariosOfertaString() {
 		$productos = '';
-		for($i = 0; $i < sizeof($this->comentariosArray); $i++){
-			$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
-			$comTexto = $this->comentariosArray[$i]->muestraTexto();
-			$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
-			$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-			$productos.=<<<EOS
-				<div class="comProducto">
-					<p>$comTitulo - $comUsuario - </p>
-					<p>Valoración comentario: $comValoracion</p>
-					<p>$comTexto</p>
-				</div>
-			EOS;
+		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
+			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
+				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
+				$comTexto = $this->comentariosArray[$i]->muestraTexto();
+				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
+				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
+				$productos.=<<<EOS
+					<div class="comProducto">
+						<p>$comTitulo - $comUsuario - </p>
+						<p>Valoración comentario: $comValoracion</p>
+						<p>$comTexto</p>
+					</div>
+				EOS;
+			}
 		}
 		return $productos;
 	}

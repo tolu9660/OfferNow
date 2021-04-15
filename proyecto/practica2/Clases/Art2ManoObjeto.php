@@ -91,9 +91,12 @@ class Art2ManoObjeto{
 			return false;
 		}
 	}
-		//vista
-		private function muestraComentariosOfertaString() {
-			$productos = '';
+	
+	//vista
+	private function muestraComentariosOfertaString() {
+		$productos = '';
+		
+		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
 				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
 				$comTexto = $this->comentariosArray[$i]->muestraTexto();
@@ -107,8 +110,9 @@ class Art2ManoObjeto{
 					</div>
 				EOS;
 			}
-			return $productos;
 		}
+		return $productos;
+	}
 		
 	public function muestraOfertaString(){
 		$productos = '';

@@ -7,6 +7,8 @@ $tituloPagina = 'carrito';
 		
 $contenidoPrincipal=<<<EOS
 <div="contenedor">
+
+<h2> BORRADOR -- NO FUNCIONA</h2>
 <table>
    <caption>TU PEDIDO</caption>
    <thead>

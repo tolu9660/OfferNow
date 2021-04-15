@@ -4,6 +4,10 @@ require_once __DIR__.'/config.php';
 
 
 class Usuario{
+	
+	private $idCorreo;
+	private $nombre;
+	private $password;
 
   public static function login($username, $password){
     //echo $username."  ";
@@ -114,11 +118,7 @@ class Usuario{
 	      
     return false;
   }
-  private $idCorreo;
-
-  private $nombre;
-
-  private $password;
+  
 
 
 ////////////

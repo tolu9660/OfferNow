@@ -2,7 +2,12 @@
 require_once __DIR__.'/usuarioBD.php';
 
 	function estaLogado() {
-		return isset($_SESSION['login']);
+		if(isset($_SESSION["login"]) && $_SESSION["login"]){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	function checkLogin() {
@@ -13,19 +18,13 @@ require_once __DIR__.'/usuarioBD.php';
 		//si esta logeado y está en la BD voy a crear un objeto
 		// y voy a volcar por medio de getters a los atributos de la 
 		//sesion
-		
-		
-		
-		
-		//FALLA AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII DEBERIA HACER LO DE ABAJO
-		//if (($usuario->idCorreo()) === $username) { //comprobar como hacerlo  ien porque no va y deberia
 		if ($usuario) {
 			$_SESSION["login"] = true;
 			$_SESSION["correo"] = $usuario->idCorreo();
 			$_SESSION["nombre"] = $usuario->nombre();
 			$_SESSION["esPremium"] =$usuario->getPremium();
 			$_SESSION["esAdmin"] = $usuario->getAdmin();
-		  echo"funciona".$_SESSION["correo"];
+			//echo"funciona";
 		}
 		else{
 			$_SESSION["login"] = false;
@@ -33,7 +32,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["correo"] = null;
 			$_SESSION["esPremium"] = null;
 			$_SESSION["esAdmin"] = null;
-			echo" no funciona";
+			//echo" no funciona";
 		}
 	}
 

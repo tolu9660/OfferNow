@@ -21,7 +21,6 @@ class Usuario{
   
     if ($user && $user->compruebaPassword($password)) {
       $conn = getConexionBD();
-      //echo "entro aqui";
       //hacer consulta de premium y admin
       //si devuelve un 1 el usuario es administrador 
       $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
@@ -29,8 +28,7 @@ class Usuario{
       //si devuelve un 1 el usuario es premium
       $consultaEsPremium=sprintf("SELECT US.Premium FROM usuario US WHERE US.Correo='%s'",
                                   $conn->real_escape_string($username));
-      //echo $consultaEsAdmin; 
-      //echo $consultaEsPremium;      
+								  
       $rs = $conn->query($consultaEsAdmin);
       $rs1 = $conn->query($consultaEsPremium);
       if ($rs && $rs1){
@@ -58,11 +56,10 @@ class Usuario{
   public static function buscaUsuario($username){
   
     $conn = getConexionBD();
-    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%username'",
+    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                     $conn->real_escape_string($username));
  
     $rs = $conn->query($consultaUsuario);
-    //echo "resultado de la consulta: ". $consultaUsuario;
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
       //para ver los datos obtenidos de la BD
@@ -70,7 +67,7 @@ class Usuario{
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
       
-
+		echo"entrooo";
       $user = new Usuario($fila['Correo'], $fila['Nombre'],$fila['Contraseña']
                   /*, $fila['Premium'], $fila['Admin']*/);
       $rs->free();

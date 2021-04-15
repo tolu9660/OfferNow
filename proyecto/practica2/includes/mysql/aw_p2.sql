@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2021 a las 12:51:20
+-- Tiempo de generación: 15-04-2021 a las 16:15:08
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -85,11 +85,18 @@ INSERT INTO `comentarios` (`Numero`, `Texto`, `Titulo`, `ValoracionUtilidad`, `U
 CREATE TABLE `comentariosoferta` (
   `ID` int(32) NOT NULL,
   `Texto` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
-  `Titulo` int(64) NOT NULL,
+  `Titulo` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `ValoracionUtilidad` int(32) NOT NULL,
   `UsuarioID` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `OfertaID` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentariosoferta`
+--
+
+INSERT INTO `comentariosoferta` (`ID`, `Texto`, `Titulo`, `ValoracionUtilidad`, `UsuarioID`, `OfertaID`) VALUES
+(5, 'Buena capacidad y enfria bien', 'Muy buena nevera', 0, 'correo@correo.com', 2443);
 
 -- --------------------------------------------------------
 
@@ -100,11 +107,19 @@ CREATE TABLE `comentariosoferta` (
 CREATE TABLE `comentariossegundamano` (
   `ID` int(32) NOT NULL,
   `Texto` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
-  `Titulo` int(64) NOT NULL,
+  `Titulo` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `ValoracionUtilidad` int(32) NOT NULL,
   `UsuarioID` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `SegundaManoID` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentariossegundamano`
+--
+
+INSERT INTO `comentariossegundamano` (`ID`, `Texto`, `Titulo`, `ValoracionUtilidad`, `UsuarioID`, `SegundaManoID`) VALUES
+(1, 'Uno de los juegos mas entretenidos que he jugado', 'Muy buen juego', 0, 'correo@correo.com', 9),
+(3, 'Muy bueno', 'Juegazo', 0, 'correo@correo.com', 9);
 
 -- --------------------------------------------------------
 
@@ -229,13 +244,13 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de la tabla `comentariosoferta`
 --
 ALTER TABLE `comentariosoferta`
-  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `comentariossegundamano`
 --
 ALTER TABLE `comentariossegundamano`
-  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`

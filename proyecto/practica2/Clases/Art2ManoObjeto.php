@@ -23,14 +23,14 @@ class Art2ManoObjeto{
 	
 	private function cargaComentarios() {
 		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentarios WHERE Articulo2mano = '$this->id' ORDER BY ValoracionUtilidad";
+		$query = "SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
 
 		if($result) {			
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['Numero'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
-										$fila['Usuario'],$fila['Oferta'],$fila['Articulo2mano']);
+				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
+										$fila['UsuarioID'],$fila['SegundaManoID']);
 			}
 		} else{
 			echo"Error al buscar en la base de datos, id:".$this->id;

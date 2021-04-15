@@ -28,14 +28,14 @@ class OfertaObjeto{
 	
 	private function cargaComentarios() {
 		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentarios WHERE Oferta = '$this->id' ORDER BY ValoracionUtilidad";
+		$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
 
 		if($result) {			
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['Numero'],$fila['Texto'],$fila['Titulo'],
-						$fila['ValoracionUtilidad'], $fila['Usuario'],$fila['Oferta'],$fila['Articulo2mano']);
+				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
 			}
 		} else{
 			echo"Error al buscar en la base de datos, id:".$this->id;

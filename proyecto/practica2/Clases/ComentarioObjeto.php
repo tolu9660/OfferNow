@@ -5,22 +5,20 @@ class ComentarioObjeto{
 	private $texto;
 	private $valoracionUtilidad;
 	private $usuario;
-	private $oferta;
-	private $articulo2mano;
+	private $productoURL;
 	
-	function __construct($id, $texto, $titulo, $valoracionUtilidad, $usuario, $oferta, $articulo2mano) {
+	function __construct($id, $texto, $titulo, $valoracionUtilidad, $usuario, $productoURL) {
 		$this->id = $id;
 		$this->titulo = $titulo;
 		$this->texto = $texto;
 		$this->valoracionUtilidad = $valoracionUtilidad;
 		$this->usuario = $usuario;
-		$this->oferta = $oferta;
-		$this->articulo2mano = $articulo2mano;
+		$this->productoURL = $productoURL;
 	}
 	
-	public static function buscaComentario($id) {
+	public static function buscaComentarioOferta($id) {
 		$conn = getConexionBD();
-		$query = sprintf("SELECT * FROM comentarios WHERE Numero='%id'",
+		$query = sprintf("SELECT * FROM comentariosoferta WHERE ID='%id'",
 						$conn->real_escape_string($id));
 
 		$rs = $conn->query($query);
@@ -28,7 +26,25 @@ class ComentarioObjeto{
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
 			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
-				$fila['ValoracionUtilidad'], $fila['Usuario'], $fila['Oferta'], $fila['Articulo2mano']);
+				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
+			$rs->free();
+
+			return $coment;
+		}
+		return false;
+	}
+	
+	public static function buscaComentario2Mano($id) {
+		$conn = getConexionBD();
+		$query = sprintf("SELECT * FROM comentariossegundamano WHERE ID='%id'",
+						$conn->real_escape_string($id));
+
+		$rs = $conn->query($query);
+
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
 			$rs->free();
 
 			return $coment;

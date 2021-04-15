@@ -1,5 +1,6 @@
 <?php
 
+
 require __DIR__.'/ComentarioObjeto.php';
 
 class Art2ManoObjeto{
@@ -37,25 +38,7 @@ class Art2ManoObjeto{
 		}
 	}
 	
-	public static function subeArt2ManoBD() {
-		$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["articuloDescripcion"])));
-		$unidades = htmlspecialchars(trim(strip_tags($_REQUEST["articuloUnidades"])));
-		$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
-		$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
-		
-		$mysqli = getConexionBD();
-		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
-		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
-		
-		if (mysqli_query($mysqli, $sql)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
+	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarProductos2Mano(){
 		$mysqli = getConexionBD();
 		$query = sprintf("SELECT * FROM articulos_segunda_mano");
@@ -76,6 +59,25 @@ class Art2ManoObjeto{
 		}
 	}
 	
+	public static function subeArt2ManoBD() {
+		$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["articuloDescripcion"])));
+		$unidades = htmlspecialchars(trim(strip_tags($_REQUEST["articuloUnidades"])));
+		$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
+		$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
+		
+		$mysqli = getConexionBD();
+		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
+		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
+					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
+		
+		if (mysqli_query($mysqli, $sql)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public static function buscaArt2Mano($id) {
 		$mysqli = getConexionBD();
 		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
@@ -92,7 +94,7 @@ class Art2ManoObjeto{
 		}
 	}
 	
-	//vista
+	//--------------------------------------------------Vista-----------------------------------------------------
 	private function muestraComentariosOfertaString() {
 		$productos = '';
 		
@@ -133,6 +135,7 @@ class Art2ManoObjeto{
 		return $productos;
 	}
 	
+	//--------------------------------------------------GETTERS-----------------------------------------------------
 	public function muestraID() {
 		return $this->id;
 	}

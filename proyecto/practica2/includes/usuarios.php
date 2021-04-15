@@ -14,15 +14,13 @@ require_once __DIR__.'/usuarioBD.php';
 		// y voy a volcar por medio de getters a los atributos de la 
 		//sesion
 		
-		if (($usuario->idCorreo()) === $username) {
-		//if ($usuario->idCorreo()==="user") {
+		//if (($usuario->idCorreo()) === $username) { //comprobar como hacerlo  ien porque no va y deberia
+		if ($usuario) {
 			$_SESSION["login"] = true;
 			$_SESSION["correo"] = $usuario->idCorreo();
 			$_SESSION["nombre"] = $usuario->nombre();
 			$_SESSION["esPremium"] =$usuario->getPremium();
 			$_SESSION["esAdmin"] = $usuario->getAdmin();
-
-		  //} 
 		  echo"funciona".$_SESSION["correo"];
 		}
 		else{

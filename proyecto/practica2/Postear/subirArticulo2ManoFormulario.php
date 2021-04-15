@@ -1,9 +1,10 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	$tituloPagina = 'Subir Articulo 2ª';
-		
+	
+	$tituloPagina = 'Subir Articulo 2ª';		
 	$contenidoPrincipal=<<<EOS
-			
+		<div id="contenedor">
+			<main id="contenido">
 				<h1>Subir Articulo Segunda Mano</h1>
 				<form method="get" action="subirArticulo2ManoBD.php">
 					<p>Nombre Articulo:</p>
@@ -19,7 +20,7 @@
 					
 					<p><input type="submit" value="Publicar"></p>
 				</form>
-		
-	
+			</main>
+		</div>
 	EOS;
-	require __DIR__.'/../includes/comun/layout.php';
+require __DIR__.'/../includes/comun/layout.php';

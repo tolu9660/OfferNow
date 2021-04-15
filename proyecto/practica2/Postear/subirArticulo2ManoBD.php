@@ -2,6 +2,9 @@
 	require_once __DIR__.'/../includes/config.php';
 	require_once __DIR__.'/../Clases/Art2ManoObjeto.php';
 	
+	//Muestra si se ha subido o no
+	$tituloPagina = "Subir Oferta";
+	$contenidoPrincipal='';
 	if (Art2ManoObjeto::subeArt2ManoBD()) {
 		$contenidoPrincipal=<<<EOS
 			<h3>Articulo de segunda mano creado</h3>

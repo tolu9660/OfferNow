@@ -3,8 +3,7 @@
 
 	$tituloPagina = 'subirOferta';
 	$contenidoPrincipal=<<<EOS
-	<div id="contenedor">
-			
+		<div id="contenedor">
 			<main id="contenido">
 				<h1>Subir Oferta</h1>
 				<form method="get" action="subirOfertaBD.php">

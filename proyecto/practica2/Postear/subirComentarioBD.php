@@ -11,11 +11,11 @@
 	//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
 	if($esOferta == "true"){
 		$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Oferta)
-				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta', null)";
+				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta', 'NULL')";
 	}
 	else{
 		$sql = "INSERT INTO comentarios (Texto, Titulo, ValoracionUtilidad, Usuario, Articulo2mano)
-				VALUES ('$descripcion', '$titulo', 0, '$creador', null, '$urlOferta')";
+				VALUES ('$descripcion', '$titulo', 0, '$creador', 'NULL', '$urlOferta')";
 	}
 				
 		

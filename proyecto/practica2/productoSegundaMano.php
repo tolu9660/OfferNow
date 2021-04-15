@@ -21,47 +21,13 @@
 	*/
 	
 	$ofertaObj = Art2ManoObjeto::buscaArt2Mano($id);
-	
-	//Asigna valores a variables
-	$Nombre = $ofertaObj->muestraNombre();
-	$Descripcion = $ofertaObj->muestraDescripcion();
-	$URLImagen = $ofertaObj->muestraURLImagen();
-	$Precio = $ofertaObj->muestraPrecio();
-	$comentarios = $ofertaObj->muestraComentarios();
-
-	//Muestra las cosas
-	$productos = '';
+	$productos='';
+	$productos.=$ofertaObj->muestraOfertaString();
 	$productos.=<<<EOS
-		<div id="tarjetaProducto">
-			<div class="imgProducto">
-				<img src="$URLImagen" width="200" height="200" alt=$Nombre />
-			</div>
-			<div class="desProducto">
-				<p>Nombre del producto:</p>
-				<p>$Nombre</p>
-				<p>Descripcion:</p>
-				<p>$Descripcion</p>
-			</div>
-		</div>
-	EOS;
-	for($i = 0; $i < sizeof($comentarios); $i++){
-		$comTitulo = $comentarios[$i]->muestraTitulo();
-		$comTexto = $comentarios[$i]->muestraTexto();
-		$comValoracion = $comentarios[$i]->muestraValoracion();
-		$comUsuario = $comentarios[$i]->muestraUsuario();
-		$productos.=<<<EOS
-			<div class="comProducto">
-				<p>$comTitulo - $comUsuario - </p>
-				<p>Valoración comentario: $comValoracion</p>
-				<p>$comTexto</p>
-			</div>
-		EOS;
-	}
-	$productos.=<<<EOS
-            <div class="creaComentario">
+		<div id="tarjetacomentario">
 			
 				<h1>Subir Comentario</h1>
-				<form method="get" action="Postear/subirComentarioBD.php">
+				<form method="get" action="Postear/subirComentario2ManoBD.php">
 					<p>Titulo</p>
 					<input type="text" name="comentarioTitulo"/>
 					<p>Descripcion:</p>
@@ -73,7 +39,8 @@
 				</form>
             </div>
 EOS;
-$tituloPagina = $Nombre;
+
+$tituloPagina = $ofertaObj->muestraNombre();
 $contenidoPrincipal=<<<EOS
 		$productos
 	EOS;

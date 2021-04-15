@@ -35,6 +35,44 @@ class ComentarioObjeto{
 		}
 		return false;
 	}
+	
+	public static function subeComentarioOfertaBD() {
+		
+		$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioDescripcion"])));
+		$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioUrlDeOferta"])));
+		$esOferta = htmlspecialchars(trim(strip_tags($_REQUEST["esOferta"])));
+		$creador = $_SESSION["correo"];
+		
+		$mysqli = getConexionBD();			
+		$sql = "INSERT INTO comentariosoferta (Texto, Titulo, ValoracionUtilidad, UsuarioID, OfertaID)
+				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+		
+		if (mysqli_query($mysqli, $sql)) {
+			return true;
+		} else {
+			return false;
+		}		
+	}
+	
+	public static function subeComentario2ManoBD(){
+		$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioDescripcion"])));
+		$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioUrlDeOferta"])));
+		$esOferta = htmlspecialchars(trim(strip_tags($_REQUEST["esOferta"])));
+		$creador = $_SESSION["correo"];
+		
+		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
+		$mysqli = getConexionBD();
+		$sql = "INSERT INTO comentariossegundamano (Texto, Titulo, ValoracionUtilidad, UsuarioID, SegundaManoID)
+				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+		
+		if (mysqli_query($mysqli, $sql)) {
+			return true;
+		} else {
+			return false;
+		}	
+	}
   
 	public function muestraTitulo() {
 		return $this->titulo;

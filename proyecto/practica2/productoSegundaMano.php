@@ -22,7 +22,7 @@
 					<p><input type="submit" value="Publicar"></p>
 					
 				</form>
-            </div>
+			</div>
 	EOS;
 
 	$tituloPagina = $ofertaObj->muestraNombre();

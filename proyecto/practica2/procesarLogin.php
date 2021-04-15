@@ -3,6 +3,7 @@
 	require_once __DIR__.'/includes/usuarios.php';
 
 	checkLogin();
+	$tituloPagina = 'Login';
 	$contenidoPrincipal='';
 	if (!estaLogado()) {
 		$contenidoPrincipal=<<<EOS

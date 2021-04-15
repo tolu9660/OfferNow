@@ -6,7 +6,7 @@
 		<div id="contenedor">
 			<main id="contenido">
 				<h1>Subir Articulo Segunda Mano</h1>
-				<form method="get" action="subirArticulo2ManoBD.php">
+				<form method="post" action="subirArticulo2ManoBD.php">
 					<p>Nombre Articulo:</p>
 					<input type="text" name="articuloNombre"/>
 					<p>Descripción:</p>

@@ -60,11 +60,11 @@ class Art2ManoObjeto{
 	}
 	
 	public static function subeArt2ManoBD() {
-		$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["articuloDescripcion"])));
-		$unidades = htmlspecialchars(trim(strip_tags($_REQUEST["articuloUnidades"])));
-		$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
-		$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
+		$nombre = htmlspecialchars(trim(strip_tags($_POST["articuloNombre"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_POST["articuloDescripcion"])));
+		$unidades = htmlspecialchars(trim(strip_tags($_POST["articuloUnidades"])));
+		$precio = htmlspecialchars(trim(strip_tags($_POST["articuloPrecio"])));
+		$imagen = htmlspecialchars(trim(strip_tags($_POST["articuloImagen"])));
 		
 		$mysqli = getConexionBD();
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES

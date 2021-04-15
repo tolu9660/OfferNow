@@ -12,7 +12,7 @@
 		<div id="tarjetacomentario">
 			
 				<h1>Subir Comentario</h1>
-				<form method="get" action="Postear/subirComentario2ManoBD.php">
+				<form method="post" action="Postear/subirComentario2ManoBD.php">
 					<p>Titulo</p>
 					<input type="text" name="comentarioTitulo"/>
 					<p>Descripcion:</p>

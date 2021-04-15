@@ -6,7 +6,7 @@
 		<div id="contenedor">
 			<main id="contenido">
 				<h1>Subir Oferta</h1>
-				<form method="get" action="subirOfertaBD.php">
+				<form method="post" action="subirOfertaBD.php">
 					<p>Nombre oferta:</p>
 					<input type="text" name="ofertaNombre"/>
 					<p>Descripción:</p>

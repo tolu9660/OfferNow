@@ -66,11 +66,11 @@ class OfertaObjeto{
 	
 	public static function subeOfertaBD() {
 		
-		$nombre = htmlspecialchars(trim(strip_tags($_GET["ofertaNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_GET["ofertaDescripcion"])));
-		$urlOferta = htmlspecialchars(trim(strip_tags($_GET["ofertaUrl"])));
-		$urlImagen = htmlspecialchars(trim(strip_tags($_GET["ofertaImagen"])));
-		$precio = htmlspecialchars(trim(strip_tags($_GET["ofertaPrecio"])));
+		$nombre = htmlspecialchars(trim(strip_tags($_POST["ofertaNombre"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_POST["ofertaDescripcion"])));
+		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["ofertaUrl"])));
+		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["ofertaImagen"])));
+		$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
 		$creador = $_SESSION["correo"];
 		
 		$mysqli = getConexionBD();

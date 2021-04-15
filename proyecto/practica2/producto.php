@@ -13,7 +13,7 @@
 	$productos.=<<<EOS
 		<div id="tarjetacomentario">		
 			<h1>Subir Comentario</h1>
-			<form method="get" action="Postear/subirComentarioOfertaBD.php">
+			<form method="post" action="Postear/subirComentarioOfertaBD.php">
 				<p>Titulo</p>
 				<input type="text" name="comentarioTitulo"/>
 				<p>Descripcion:</p>

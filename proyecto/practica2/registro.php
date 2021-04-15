@@ -2,11 +2,11 @@
 	require_once __DIR__.'/includes/config.php';
 	require_once __DIR__.'/includes/usuarioBD.php';
 
+	//Muestra el registro
 	$tituloPagina = 'Registro nuevo usuario';
 	$contenidoPrincipal=<<<EOS
 		
-	<div id="contenedor">
-	
+	<div id="contenedor">	
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>

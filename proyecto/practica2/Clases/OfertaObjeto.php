@@ -42,6 +42,7 @@ class OfertaObjeto{
 		}
 	}
 	
+	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarOfertas(){
 		$mysqli = getConexionBD();
 		$query = sprintf("SELECT * FROM oferta");
@@ -100,7 +101,7 @@ class OfertaObjeto{
 		}	
 	}
 	
-	//vista
+	//--------------------------------------------------Vista-----------------------------------------------------
 	private function muestraComentariosOfertaString() {
 		$productos = '';
 		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
@@ -149,8 +150,7 @@ class OfertaObjeto{
 		return $productos;
 	}
 	
-	
-	
+	//--------------------------------------------------GETTERS-----------------------------------------------------
 	function muestraID() {
 		return $this->id;
 	}

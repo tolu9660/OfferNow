@@ -4,22 +4,7 @@
 	require __DIR__.'/Clases/Art2ManoObjeto.php';
 
 	$id = $_GET['id'];
-	
-	//Busca la oferta en la BD
-	/*
-	$mysqli = getConexionBD();
-	$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
-	$result = $mysqli->query($query);
-	
-	if($result) {
-		$fila = $result->fetch_assoc();
-		$ofertaObj = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-								$fila['Unidades'],$fila['Precio'],$fila['Imagen']);	
-	} else{
-		echo"Error al buscar en la base de datos";
-	}
-	*/
-	
+	//Muestra el articulo
 	$ofertaObj = Art2ManoObjeto::buscaArt2Mano($id);
 	$productos='';
 	$productos.=$ofertaObj->muestraOfertaString();
@@ -38,11 +23,11 @@
 					
 				</form>
             </div>
-EOS;
+	EOS;
 
-$tituloPagina = $ofertaObj->muestraNombre();
-$contenidoPrincipal=<<<EOS
+	$tituloPagina = $ofertaObj->muestraNombre();
+	$contenidoPrincipal=<<<EOS
 		$productos
 	EOS;
 
-require __DIR__.'/includes/comun/layout.php';
+	require __DIR__.'/includes/comun/layout.php';

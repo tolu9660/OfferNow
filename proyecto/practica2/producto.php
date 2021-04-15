@@ -3,7 +3,6 @@
 	require_once __DIR__.'/includes/config.php';
 	require __DIR__.'/Clases/OfertaObjeto.php';
 
-
 	$id = $_GET['id'];
 	
 	$ofertaObj = OfertaObjeto::buscaOferta($id);

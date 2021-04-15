@@ -7,16 +7,14 @@
 	$contenidoPrincipal=<<<EOS
 	<div="contenedor">	
 	EOS;			
-
-				if($password1 != $password2){
-					echo "<h3>Las contraseñas no coinciden!</h3>";
-				}
-				else{
-					if(usuario::altaNuevoUsuario()){
-						
-						$contenidoPrincipal.= "<h3>Usuario registrado con exito!</h3>";
-					}
-				}
+				
+	if(usuario::altaNuevoUsuario()){
+		$contenidoPrincipal.= "<h3>Usuario registrado con exito!</h3>";
+	}
+	else{
+		$contenidoPrincipal.= "<h3>Error en el registro!</h3>";
+	}
+				
 	$contenidoPrincipal.=<<<EOS
 		</div>
 	EOS;

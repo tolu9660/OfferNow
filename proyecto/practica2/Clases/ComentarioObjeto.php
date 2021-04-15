@@ -16,42 +16,7 @@ class ComentarioObjeto{
 		$this->productoURL = $productoURL;
 	}
 	
-	public static function buscaComentarioOferta($id) {
-		$conn = getConexionBD();
-		$query = sprintf("SELECT * FROM comentariosoferta WHERE ID='%id'",
-						$conn->real_escape_string($id));
-
-		$rs = $conn->query($query);
-
-		if ($rs && $rs->num_rows == 1) {
-			$fila = $rs->fetch_assoc();
-			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
-				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
-			$rs->free();
-
-			return $coment;
-		}
-		return false;
-	}
-	
-	public static function buscaComentario2Mano($id) {
-		$conn = getConexionBD();
-		$query = sprintf("SELECT * FROM comentariossegundamano WHERE ID='%id'",
-						$conn->real_escape_string($id));
-
-		$rs = $conn->query($query);
-
-		if ($rs && $rs->num_rows == 1) {
-			$fila = $rs->fetch_assoc();
-			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
-				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
-			$rs->free();
-
-			return $coment;
-		}
-		return false;
-	}
-	
+	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function subeComentarioOfertaBD() {
 		
 		$titulo = htmlspecialchars(trim(strip_tags($_REQUEST["comentarioTitulo"])));
@@ -89,7 +54,44 @@ class ComentarioObjeto{
 			return false;
 		}	
 	}
-  
+	
+	public static function buscaComentarioOferta($id) {
+		$conn = getConexionBD();
+		$query = sprintf("SELECT * FROM comentariosoferta WHERE ID='%id'",
+						$conn->real_escape_string($id));
+
+		$rs = $conn->query($query);
+
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
+			$rs->free();
+
+			return $coment;
+		}
+		return false;
+	}
+	
+	public static function buscaComentario2Mano($id) {
+		$conn = getConexionBD();
+		$query = sprintf("SELECT * FROM comentariossegundamano WHERE ID='%id'",
+						$conn->real_escape_string($id));
+
+		$rs = $conn->query($query);
+
+		if ($rs && $rs->num_rows == 1) {
+			$fila = $rs->fetch_assoc();
+			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
+			$rs->free();
+
+			return $coment;
+		}
+		return false;
+	}
+	
+	//--------------------------------------------------GETTERS-----------------------------------------------------
 	public function muestraTitulo() {
 		return $this->titulo;
 	}

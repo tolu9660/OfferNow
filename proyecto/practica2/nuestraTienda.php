@@ -2,7 +2,7 @@
 	require_once __DIR__.'/includes/config.php';
 	require __DIR__.'/Clases/Art2ManoObjeto.php';
 
-
+	//Carga los productos en un array
 	$ofertasArray = Art2ManoObjeto::cargarProductos2Mano();
 	
 	//Mostrar los productos

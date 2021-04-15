@@ -5,7 +5,6 @@
 	//Carga las ofertas en un array
 	$ofertasArray = OfertaObjeto::cargarOfertas();
 	
-	
 	//Mostrar las ofertas recorriendo el array
 	$tituloPagina = 'Inicio';
 	$productos = '';

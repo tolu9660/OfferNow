@@ -37,23 +37,59 @@ class Art2ManoObjeto{
 		}
 	}
 	
+	public static function subeArt2ManoBD() {
+		$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));
+		$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["articuloDescripcion"])));
+		$unidades = htmlspecialchars(trim(strip_tags($_REQUEST["articuloUnidades"])));
+		$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
+		$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
+		
+		$mysqli = getConexionBD();
+		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
+		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
+					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
+		
+		if (mysqli_query($mysqli, $sql)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static function cargarProductos2Mano(){
+		$mysqli = getConexionBD();
+		$query = sprintf("SELECT * FROM articulos_segunda_mano");
+		$result = $mysqli->query($query);
+
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
 	
 	public static function buscaArt2Mano($id) {
-    $conn = getConexionBD();
-    $query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Numero='%id'",
-                    $conn->real_escape_string($id));
-
-    $rs = $conn->query($query);
-
-    if ($rs && $rs->num_rows == 1) {
-      $fila = $rs->fetch_assoc();
-      $art = new Art2ManoObjeto($fila['Numero'], $fila['Nombre'], $fila['Descripcion'],
-		$fila['Unidades'], $fila['Precio'], $fila['Imagen']);
-      $rs->free();
-
-      return $art;
-    }
-    return false;
+		$mysqli = getConexionBD();
+		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
+		$result = $mysqli->query($query);
+		
+		if($result) {
+			$fila = $result->fetch_assoc();
+			$ofertaObj = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+			return $ofertaObj;
+		} else{
+			echo"Error al buscar en la base de datos";
+			return false;
+		}
 	}
 	
 	public function muestraID() {

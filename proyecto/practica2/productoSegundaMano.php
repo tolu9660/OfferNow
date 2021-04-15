@@ -6,6 +6,7 @@
 	$id = $_GET['id'];
 	
 	//Busca la oferta en la BD
+	/*
 	$mysqli = getConexionBD();
 	$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
 	$result = $mysqli->query($query);
@@ -17,6 +18,9 @@
 	} else{
 		echo"Error al buscar en la base de datos";
 	}
+	*/
+	
+	$ofertaObj = Art2ManoObjeto::buscaArt2Mano($id);
 	
 	//Asigna valores a variables
 	$Nombre = $ofertaObj->muestraNombre();

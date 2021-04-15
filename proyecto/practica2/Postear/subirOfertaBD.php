@@ -1,13 +1,9 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
+	require_once __DIR__.'/../Clases/OfertaObjeto.php';
 	
-	$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaNombre"])));
-	$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaDescripcion"])));
-	$urlOferta = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaUrl"])));
-	$urlImagen = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaImagen"])));
-	$precio = htmlspecialchars(trim(strip_tags($_REQUEST["ofertaPrecio"])));
-	$creador = $_SESSION["correo"];
-	
+	/*
+	echo $nombre.$creador.$precio;
 	$mysqli = getConexionBD();
 	//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
 	$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
@@ -23,6 +19,16 @@
 			<h3>Error: al crear la oferta</h3>;
 		EOS;
 	}
+	*/
+	$tituloPagina = "Subir Oferta";
+	if (OfertaObjeto::subeOfertaBD()) {
+		$contenidoPrincipal=<<<EOS
+			<h3>Oferta creada</h3>
+		EOS;
+	} else {
+		$contenidoPrincipal=<<<EOS
+			<h3>Error: al crear la oferta</h3>;
+		EOS;
+	}
 	require '../includes/comun/layout.php';
-	//cierraConexion();
 ?>

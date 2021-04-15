@@ -1,41 +1,19 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
 	require __DIR__.'/Clases/OfertaObjeto.php';
-
-
-	$mysqli = getConexionBD();
-	$query = sprintf("SELECT * FROM oferta");
-	$result = $mysqli->query($query);
-
-	$ofertasArray;
-	/*
-	$consulta=sprintf("SELECT * FROM oferta O WHERE O.Nombre='Oferta2'");
-	$rs = $mysqli->query($consulta);
-	$fila1 = $rs->fetch_assoc();
-
-	echo "CONSULTA :".$fila1['Numero'].$fila1['Nombre'].$fila1['Descripcion'].$fila1['URL_Oferta'].
-										$fila1['URL_Imagen'].$fila1['Valoracion'].
-										$fila1['Precio'].$fila1['Creador'];*/
-	if($result) {
-		for ($i = 0; $i < $result->num_rows; $i++) {
-			$fila = $result->fetch_assoc();
-			$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-										$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
-			
-		}
-	}
-	else{
-		echo "Error in ".$query."<br>".$mysqli->error;
-	}
 	
-	//Mostrar los productos
+	//Carga las ofertas en un array
+	$ofertasArray = OfertaObjeto::cargarOfertas();
+	
+	
+	//Mostrar las ofertas recorriendo el array
 	$tituloPagina = 'Inicio';
 	$productos = '';
 	$productos.=<<<EOS
 			<ul class="rejilla">
 	EOS;
 	
-	for ($i = 0; $i < $result->num_rows; $i++) {
+	for ($i = 0; $i < sizeof($ofertasArray); $i++) {
 		$nombreOferta=strval($ofertasArray[$i]->muestraNombre());
 		$precioOferta=strval($ofertasArray[$i]->muestraPrecio());
 		$urlImagen=strval($ofertasArray[$i]->muestraURLImagen());

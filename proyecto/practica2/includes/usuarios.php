@@ -23,7 +23,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["esAdmin"] = $usuario->getAdmin();
 
 		  //} 
-		  echo"funciona";
+		  echo"funciona".$_SESSION["correo"];
 		}
 		else{
 			$_SESSION["login"] = false;

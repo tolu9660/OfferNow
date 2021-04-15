@@ -1,20 +1,8 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
+	require_once __DIR__.'/../Clases/Art2ManoObjeto.php';
 	
-	//session_start();
-	$nombre = htmlspecialchars(trim(strip_tags($_REQUEST["articuloNombre"])));
-	$descripcion = htmlspecialchars(trim(strip_tags($_REQUEST["articuloDescripcion"])));
-	$unidades = htmlspecialchars(trim(strip_tags($_REQUEST["articuloUnidades"])));
-	$precio = htmlspecialchars(trim(strip_tags($_REQUEST["articuloPrecio"])));
-	$imagen = htmlspecialchars(trim(strip_tags($_REQUEST["articuloImagen"])));
-	
-	$mysqli = getConexionBD();
-	//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
-	$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-				VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
-	
-	$contenidoPrincipal='';
-	if (mysqli_query($mysqli, $sql)) {
+	if (Art2ManoObjeto::subeArt2ManoBD()) {
 		$contenidoPrincipal=<<<EOS
 			<h3>Articulo de segunda mano creado</h3>
 		EOS;

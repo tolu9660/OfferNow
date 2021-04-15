@@ -3,22 +3,7 @@
 	require __DIR__.'/Clases/Art2ManoObjeto.php';
 
 
-	$mysqli = getConexionBD();
-	$query = sprintf("SELECT * FROM articulos_segunda_mano");
-	$result = $mysqli->query($query);
-
-	$ofertasArray;
-	
-	if($result) {
-		for ($i = 0; $i < $result->num_rows; $i++) {
-			$fila = $result->fetch_assoc();
-			$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-								$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
-		}
-	}
-	else{
-		echo "Error in ".$query."<br>".$mysqli->error;
-	}
+	$ofertasArray = Art2ManoObjeto::cargarProductos2Mano();
 	
 	//Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';
@@ -28,7 +13,7 @@
 		<ul class="rejilla">
 	EOS;
 	
-	for ($i = 0; $i < $result->num_rows; $i++) {
+	for ($i = 0; $i < sizeof($ofertasArray); $i++) {
 		$nombreArticulo=strval($ofertasArray[$i]->muestraNombre());
 		$precioArticulo=strval($ofertasArray[$i]->muestraPrecio());
 		$urlImagen=strval($ofertasArray[$i]->muestraURLImagen());
@@ -65,9 +50,6 @@
 					<p>14.39 €</p>
 					</a>
 				</li>
-			
-		
-
 			</ul>
 		</div>
 EOS;*/

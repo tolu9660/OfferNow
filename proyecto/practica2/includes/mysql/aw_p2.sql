@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2021 a las 10:43:47
+-- Tiempo de generación: 15-04-2021 a las 12:51:20
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -45,7 +45,9 @@ INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidad
 (9, 'Uncharted 4', 'Juego Uncharted 4 PS4', 32, 19, 'imagenes/productos/Uncharted4.jpg'),
 (10, 'Pesas 4kg', '2 pesas de 4kg cada una', 3, 15, 'imagenes/productos/Pesas.jpg'),
 (11, 'Redmi Note 8T', 'Movil Xiaomi Redmi Note 8T', 2, 189, 'imagenes/productos/Redmi_Note_8T.jpg'),
-(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'imagenes/productos/Super_Mario_3D_World.jpg');
+(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'imagenes/productos/Super_Mario_3D_World.jpg'),
+(13, 'asdfghjkl', 'iul uvds', 23, 2423, 'sgbxzbfzbx'),
+(14, 'soy tonto', 'mucho', 222, 1111111, 'sdfghjklñ');
 
 -- --------------------------------------------------------
 
@@ -77,6 +79,36 @@ INSERT INTO `comentarios` (`Numero`, `Texto`, `Titulo`, `ValoracionUtilidad`, `U
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comentariosoferta`
+--
+
+CREATE TABLE `comentariosoferta` (
+  `ID` int(32) NOT NULL,
+  `Texto` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
+  `Titulo` int(64) NOT NULL,
+  `ValoracionUtilidad` int(32) NOT NULL,
+  `UsuarioID` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
+  `OfertaID` int(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentariossegundamano`
+--
+
+CREATE TABLE `comentariossegundamano` (
+  `ID` int(32) NOT NULL,
+  `Texto` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
+  `Titulo` int(64) NOT NULL,
+  `ValoracionUtilidad` int(32) NOT NULL,
+  `UsuarioID` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
+  `SegundaManoID` int(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `oferta`
 --
 
@@ -100,7 +132,8 @@ INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imag
 (2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'imagenes/productos/nevera.png', 1, 637, 'correo1@ucm.es'),
 (2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com'),
 (2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'https://images-na.ssl-images-amazon.com/images/I/514Y7g-JQDL._AC_SY355_.jpg', 0, 34, 'persona@gmail.com'),
-(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com');
+(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com'),
+(2478, 'fdg', 'safsa', 'dsfdsf', 'fdsfsd', 0, 43, 'correo@correo.com');
 
 -- --------------------------------------------------------
 
@@ -146,6 +179,22 @@ ALTER TABLE `comentarios`
   ADD KEY `Articulo2mano` (`Articulo2mano`);
 
 --
+-- Indices de la tabla `comentariosoferta`
+--
+ALTER TABLE `comentariosoferta`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `OfertaID` (`OfertaID`),
+  ADD KEY `CreadorID` (`UsuarioID`);
+
+--
+-- Indices de la tabla `comentariossegundamano`
+--
+ALTER TABLE `comentariossegundamano`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Creador` (`UsuarioID`),
+  ADD KEY `SegundaManoID` (`SegundaManoID`);
+
+--
 -- Indices de la tabla `oferta`
 --
 ALTER TABLE `oferta`
@@ -168,7 +217,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `articulos_segunda_mano`
 --
 ALTER TABLE `articulos_segunda_mano`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
@@ -177,10 +226,22 @@ ALTER TABLE `comentarios`
   MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2486;
 
 --
+-- AUTO_INCREMENT de la tabla `comentariosoferta`
+--
+ALTER TABLE `comentariosoferta`
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `comentariossegundamano`
+--
+ALTER TABLE `comentariossegundamano`
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2451;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2484;
 
 --
 -- Restricciones para tablas volcadas
@@ -193,6 +254,20 @@ ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuario` (`Correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`Articulo2mano`) REFERENCES `articulos_segunda_mano` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_3` FOREIGN KEY (`Oferta`) REFERENCES `oferta` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comentariosoferta`
+--
+ALTER TABLE `comentariosoferta`
+  ADD CONSTRAINT `comentariosoferta_ibfk_1` FOREIGN KEY (`OfertaID`) REFERENCES `oferta` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentariosoferta_ibfk_2` FOREIGN KEY (`UsuarioID`) REFERENCES `usuario` (`Correo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comentariossegundamano`
+--
+ALTER TABLE `comentariossegundamano`
+  ADD CONSTRAINT `comentariossegundamano_ibfk_1` FOREIGN KEY (`SegundaManoID`) REFERENCES `articulos_segunda_mano` (`Numero`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentariossegundamano_ibfk_2` FOREIGN KEY (`UsuarioID`) REFERENCES `usuario` (`Correo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `oferta`

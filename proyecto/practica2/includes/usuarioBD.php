@@ -19,7 +19,6 @@ class Usuario{
       $conn = getConexionBD();
       //echo "entro aqui";
       //hacer consulta de premium y admin
-
       //si devuelve un 1 el usuario es administrador 
       $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
                                 $conn->real_escape_string($username));
@@ -36,7 +35,6 @@ class Usuario{
         //echo "DATOS LEIDOS\n". "es admin:".$fila1['Admin']. "\t ".$fila2["Premium"];
         if($fila1['Admin']==1){
           $user->esAdmin();
-
         }
         else if($fila2['Premium']==1){
           $user->esPremium();
@@ -56,7 +54,7 @@ class Usuario{
   public static function buscaUsuario($username){
   
     $conn = getConexionBD();
-    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
+    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%username'",
                     $conn->real_escape_string($username));
  
     $rs = $conn->query($consultaUsuario);

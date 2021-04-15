@@ -95,6 +95,27 @@ class Usuario{
     return false;
   }
 
+  public static function altaNuevoUsuario(){
+    $email = htmlspecialchars(trim(strip_tags($_REQUEST["email"])));//get post
+    $username = htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
+    $password1 = htmlspecialchars(trim(strip_tags($_REQUEST["password1"])));
+    $password2 = htmlspecialchars(trim(strip_tags($_REQUEST["password2"])));
+       
+          //Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
+          $mysqli = getConexionBD();
+          $sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
+            VALUES ('$email','$username','$password1',0,0)";
+					if (mysqli_query($mysqli, $sql)) {
+            
+            return true;
+					} else {
+						echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+            return false;
+          }
+          mysqli::close();
+	      
+    return false;
+  }
   private $idCorreo;
 
   private $nombre;

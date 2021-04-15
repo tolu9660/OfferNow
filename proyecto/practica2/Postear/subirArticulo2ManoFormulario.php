@@ -1,22 +1,9 @@
 <?php
-	session_start();
-?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-        <link rel="stylesheet" type="text/css" href="../css/estilo.css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>" />
-        <script src="/js/functions.js?v=<?php echo time(); ?>"></script>
-        <title>Subir Oferta</title>
-    </head>
-	<body>
-		<div id="contenedor">
-			<?php
-               require_once __DIR__.'/../includes/comun/cabecera.php';
-			?>
-			<main id="contenido">
+	require_once __DIR__.'/../includes/config.php';
+	$tituloPagina = 'Subir Articulo 2ª';
+		
+	$contenidoPrincipal=<<<EOS
+			
 				<h1>Subir Articulo Segunda Mano</h1>
 				<form method="get" action="subirArticulo2ManoBD.php">
 					<p>Nombre Articulo:</p>
@@ -32,7 +19,7 @@
 					
 					<p><input type="submit" value="Publicar"></p>
 				</form>
-			</main>
-		</div>
-	</body>
-</html>
+		
+	
+	EOS;
+	require __DIR__.'/../includes/comun/layout.php';

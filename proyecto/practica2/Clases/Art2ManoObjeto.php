@@ -91,6 +91,43 @@ class Art2ManoObjeto{
 			return false;
 		}
 	}
+		//vista
+		private function muestraComentariosOfertaString() {
+			$productos = '';
+			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
+				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
+				$comTexto = $this->comentariosArray[$i]->muestraTexto();
+				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
+				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
+				$productos.=<<<EOS
+					<div class="comProducto">
+						<p>$comTitulo - $comUsuario - </p>
+						<p>Valoración comentario: $comValoracion</p>
+						<p>$comTexto</p>
+					</div>
+				EOS;
+			}
+			return $productos;
+		}
+		
+	public function muestraOfertaString(){
+		$productos = '';
+		$productos.=<<<EOS
+		<div id="tarjetaProducto">
+			<div class="imgProducto">
+				<img src="$this->urlImagen" width="200" height="200" alt=$this->nombre />
+			</div>
+			<div class="desProducto">
+				<p>Nombre del producto:</p>
+				<p>$this->nombre</p>
+				<p>Descripcion:</p>
+				<p>$this->descripcion</p>
+			</div>
+		</div>
+		EOS;
+		$productos.= $this->muestraComentariosOfertaString();
+		return $productos;
+	}
 	
 	public function muestraID() {
 		return $this->id;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2021 a las 16:53:27
+-- Tiempo de generación: 15-04-2021 a las 10:43:47
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `articulos_segunda_mano` (
   `Numero` int(32) NOT NULL,
-  `Nombre` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `Descripcion` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
+  `Nombre` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
+  `Descripcion` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
   `Unidades` int(32) UNSIGNED NOT NULL,
   `Precio` int(32) UNSIGNED NOT NULL,
-  `Imagen` varchar(32) COLLATE utf8_spanish_ci NOT NULL
+  `Imagen` varchar(128) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -41,9 +41,11 @@ CREATE TABLE `articulos_segunda_mano` (
 --
 
 INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidades`, `Precio`, `Imagen`) VALUES
-(1, 'Art 1', 'Articulo 1', 2, 55, 'fdsafadgg'),
-(2, 'Art 2', 'Descr 2', 35, 35, 'uysdudsfu'),
-(4, 'Lavadora 2 mano', 'Lavadora Siemens', 2, 247, 'imagenes/productos/Lavadora_Siem');
+(4, 'Lavadora 2 mano', 'Lavadora Siemens', 2, 247, 'imagenes/productos/Lavadora_Siemens.jpg'),
+(9, 'Uncharted 4', 'Juego Uncharted 4 PS4', 32, 19, 'imagenes/productos/Uncharted4.jpg'),
+(10, 'Pesas 4kg', '2 pesas de 4kg cada una', 3, 15, 'imagenes/productos/Pesas.jpg'),
+(11, 'Redmi Note 8T', 'Movil Xiaomi Redmi Note 8T', 2, 189, 'imagenes/productos/Redmi_Note_8T.jpg'),
+(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'imagenes/productos/Super_Mario_3D_World.jpg');
 
 -- --------------------------------------------------------
 
@@ -66,11 +68,11 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`Numero`, `Texto`, `Titulo`, `ValoracionUtilidad`, `Usuario`, `Oferta`, `Articulo2mano`) VALUES
-(2421, 'Muy buena calidad, 5 estrellas', 'Comentario1', 1, 'correo1@ucm.es', 2443, NULL),
-(2422, 'Se rompió a los 5 dias', 'Comentario2', 3, 'admin@admin.com', 2443, NULL),
+(2421, 'Muy buena calidad, 5 estrellas', 'Muy buena Nevera, un 10', 1, 'correo1@ucm.es', 2443, NULL),
+(2422, 'Se rompió a los 5 dias', 'Nevera muy mala', 3, 'admin@admin.com', 2443, NULL),
 (2423, 'Muy util', 'COMENTARO EN i7', 0, 'correo@correo.com', 2444, NULL),
 (2424, 'Buena ram', 'RAM COMENTARIO', 0, 'admin@admin.com', 2442, NULL),
-(2431, 'su iwuywe  ni', 'uydyuu', 0, 'correo1@ucm.es', 2442, NULL);
+(2432, 'Un 10', 'Muy buena lavadora', 4, 'correo1@ucm.es', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -82,8 +84,8 @@ CREATE TABLE `oferta` (
   `Numero` int(32) NOT NULL,
   `Nombre` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `Descripcion` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
-  `URL_Oferta` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
-  `URL_Imagen` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
+  `URL_Oferta` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
+  `URL_Imagen` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
   `Valoracion` int(32) UNSIGNED NOT NULL,
   `Precio` int(32) UNSIGNED NOT NULL,
   `Creador` varchar(32) COLLATE utf8_spanish_ci NOT NULL
@@ -94,10 +96,11 @@ CREATE TABLE `oferta` (
 --
 
 INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imagen`, `Valoracion`, `Precio`, `Creador`) VALUES
-(1, 'Oferta1', 'Oferta numero 1', 'url', 'qga34gqqg', 0, 25, 'correo@correo.com'),
 (2442, 'RAM 1', '16 Gb de RAM DDR4', 'amazon.es', 'imagenes/productos/ram.png', 0, 81, 'admin@admin.com'),
 (2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'imagenes/productos/nevera.png', 1, 637, 'correo1@ucm.es'),
-(2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com');
+(2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com'),
+(2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'https://images-na.ssl-images-amazon.com/images/I/514Y7g-JQDL._AC_SY355_.jpg', 0, 34, 'persona@gmail.com'),
+(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -165,19 +168,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `articulos_segunda_mano`
 --
 ALTER TABLE `articulos_segunda_mano`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2432;
+  MODIFY `Numero` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2486;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2449;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2451;
 
 --
 -- Restricciones para tablas volcadas

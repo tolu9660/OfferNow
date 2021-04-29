@@ -95,10 +95,10 @@ class Usuario{
   }
 
 	public static function altaNuevoUsuario(){
-		$email = htmlspecialchars(trim(strip_tags($_GET["email"])));//get post
-		$username = htmlspecialchars(trim(strip_tags($_GET["username"])));
-		$password1 = htmlspecialchars(trim(strip_tags($_GET["password1"])));
-		$password2 = htmlspecialchars(trim(strip_tags($_GET["password2"])));
+		$email = htmlspecialchars(trim(strip_tags($_POST["email"])));//get post
+		$username = htmlspecialchars(trim(strip_tags($_POST["username"])));
+		$password1 = htmlspecialchars(trim(strip_tags($_POST["password1"])));
+		$password2 = htmlspecialchars(trim(strip_tags($_POST["password2"])));
 		
 		if($password1 != $password2){
 			return false;

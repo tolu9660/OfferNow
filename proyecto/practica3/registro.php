@@ -10,7 +10,7 @@
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>
-				<form method="get" action="registroUsuarioBD.php">
+				<form method="post" action="registroUsuarioBD.php">
 				Usuario:
 				<input type="text" name="username"  />
 			<br/>

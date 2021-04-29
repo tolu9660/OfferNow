@@ -1,7 +1,7 @@
 <?php
 
 	require_once __DIR__.'/includes/config.php';
-	require __DIR__.'/Clases/OfertaObjeto.php';
+	require __DIR__.'/clases/OfertaObjeto.php';
 
 	$id = $_GET['id'];
 	

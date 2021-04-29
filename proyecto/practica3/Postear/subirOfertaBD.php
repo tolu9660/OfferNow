@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../Clases/OfertaObjeto.php';
+	require_once __DIR__.'/../clases/OfertaObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Subir Oferta";

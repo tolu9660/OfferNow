@@ -5,7 +5,14 @@
 	//Muestra si se ha subido o no
 	$tituloPagina = "Subir Oferta";
 	$contenidoPrincipal='';
-	if (Art2ManoObjeto::subeArt2ManoBD()) {
+	$nombre = htmlspecialchars(trim(strip_tags($_POST["articuloNombre"])));
+	$descripcion = htmlspecialchars(trim(strip_tags($_POST["articuloDescripcion"])));
+	$unidades = htmlspecialchars(trim(strip_tags($_POST["articuloUnidades"])));
+	$precio = htmlspecialchars(trim(strip_tags($_POST["articuloPrecio"])));
+	$imagen = htmlspecialchars(trim(strip_tags($_POST["articuloImagen"])));
+	
+	
+	if (Art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen)) {
 		$contenidoPrincipal=<<<EOS
 			<h3>Articulo de segunda mano creado</h3>
 		EOS;

@@ -17,13 +17,13 @@ class ComentarioObjeto{
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function subeComentarioOfertaBD() {
-		
+	public static function subeComentarioOfertaBD($titulo,$descripcion,$urlOferta,$esOferta,$creador) {//para que se usa esOferta
+		/*
 		$titulo = htmlspecialchars(trim(strip_tags($_POST["comentarioTitulo"])));
 		$descripcion = htmlspecialchars(trim(strip_tags($_POST["comentarioDescripcion"])));
 		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
 		$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
-		$creador = $_SESSION["correo"];
+		$creador = $_SESSION["correo"];*/
 		
 		$mysqli = getConexionBD();			
 		$sql = "INSERT INTO comentariosoferta (Texto, Titulo, ValoracionUtilidad, UsuarioID, OfertaID)
@@ -36,12 +36,12 @@ class ComentarioObjeto{
 		}		
 	}
 	
-	public static function subeComentario2ManoBD(){
-		$titulo = htmlspecialchars(trim(strip_tags($_POST["comentarioTitulo"])));
+	public static function subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador){
+		/*$titulo = htmlspecialchars(trim(strip_tags($_POST["comentarioTitulo"])));
 		$descripcion = htmlspecialchars(trim(strip_tags($_POST["comentarioDescripcion"])));
 		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
 		$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
-		$creador = $_SESSION["correo"];
+		$creador = $_SESSION["correo"];*/
 		
 		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
 		$mysqli = getConexionBD();

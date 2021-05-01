@@ -27,7 +27,7 @@ class OfertaObjeto{
 		$this->cargaComentarios();
 	}
 	
-	private function cargaComentarios() {
+	private function cargaComentarios() {// agregar Realescape string
 		$mysqli = getConexionBD();
 		$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
@@ -65,14 +65,14 @@ class OfertaObjeto{
 		}
 	}
 	
-	public static function subeOfertaBD() {
-		
+	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,	$precio,$creador ) {
+		/*
 		$nombre = htmlspecialchars(trim(strip_tags($_POST["ofertaNombre"])));
 		$descripcion = htmlspecialchars(trim(strip_tags($_POST["ofertaDescripcion"])));
 		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["ofertaUrl"])));
 		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["ofertaImagen"])));
 		$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
-		$creador = $_SESSION["correo"];
+		$creador = $_SESSION["correo"];*/
 		
 		$mysqli = getConexionBD();
 		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
@@ -86,9 +86,10 @@ class OfertaObjeto{
 		}
 	}
 	
-	public static function buscaOferta($id) {
+	public static function buscaOferta($id) {// agregar Realescape string
 		$mysqli = getConexionBD();
-		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
+		$query =sprintf("SELECT * FROM oferta WHERE Numero = '%s'",
+					$mysqli->real_escape_string($id));
 		$result = $mysqli->query($query);
 		
 		if($result) {

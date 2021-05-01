@@ -68,16 +68,20 @@ class Usuario{
       " es admin:". $fila['Admin']*/;
       
 	
-      $user = new Usuario($fila['Correo'], $fila['Nombre'],$fila['Contraseña']
+      $user = new Usuario($fila['Correo'], $fila['Nombre'],''
                   /*, $fila['Premium'], $fila['Admin']*/);
+      //hasta a qui la recoge bien.
+      $user->setPass($fila['Contraseña']);
+      //echo "Contraseña que se extrae de la BD".$fila['Contraseña'];
+      //echo $user->contra();
       $rs->free();
      
       return $user;
     }
     return false;
   }
-
-  public static function buscaPorId($idUsuario){
+// FUNCION DUPLICADA... NO SE USA -> QUE EL CONSTRUCTOR1 TAMPOCO SE USE.
+/*  public static function buscaPorId($idUsuario){
     $conn = getConexionBD();
     $query = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                       $conn->real_escape_string($idUsuario));
@@ -87,27 +91,33 @@ class Usuario{
       $fila = $rs->fetch_assoc();
       $user = new Usuario($fila['Correo'], $fila['Nombre'], 
                       $fila['Contraseña'],$fila['Premium'],$fila['Admin']);
+      echo "valor de ADMIN: ".$user-> getAdmin();
       $rs->free();
 
       return $user;
     }
     return false;
-  }
+  }*/
 
-	public static function altaNuevoUsuario(){
-		$email = htmlspecialchars(trim(strip_tags($_POST["email"])));//get post
-		$username = htmlspecialchars(trim(strip_tags($_POST["username"])));
-		$password1 = htmlspecialchars(trim(strip_tags($_POST["password1"])));
-		$password2 = htmlspecialchars(trim(strip_tags($_POST["password2"])));
+	public static function altaNuevoUsuario($email,$user,$password1,$password2){
+    
 		
 		if($password1 != $password2){
 			return false;
 		}
 		else{
+      //creo un objeto de tipo usuario para poder usarlo en caso de que el 
+      //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
+
+      $user = new Usuario($email, $user,$password1);
+      $correo=$user->idCorreo();
+      $usuario=$user->nombre();
+      $pass=$user->contra();
+      //echo $password1 ."---->". $pass;
 			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
 			$mysqli = getConexionBD();
 			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
-				VALUES ('$email','$username','$password1',0,0)";
+				VALUES ('$correo','$usuario','$pass',0,0)";
 			if (mysqli_query($mysqli, $sql)) {
 				//$mysqli->close();
 				return true;
@@ -128,18 +138,18 @@ class Usuario{
    function __construct($correo, $nombre,$contraseña){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
-    $this->password =  $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
   }
   //cogerlo con pinzas este constructor
-  function __construct1($correo, $nombre,$contraseña,$premium,$admin){
+  /*function __construct1($correo, $nombre,$contraseña,$premium,$admin){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
     $this->password = $contraseña;
     $this->esAdmin=$admin;
     $this->esPremium=$premium;
-  }
+  }*/
  
 /////////////
   public function esAdmin(){
@@ -156,8 +166,8 @@ class Usuario{
   {
     return $this->esPremium;
   } 
-  public function contra()
-  {
+  public function contra()  {
+
     return $this->password;
   }
   
@@ -179,6 +189,9 @@ class Usuario{
     //falla aqui no realiza bien la comprobacion
    
     return password_verify($password, $this->password);
+  }
+  public function setPass($pass){
+    $this->password= $pass;
   }
 
   public function cambiaPassword($nuevoPassword)  {

@@ -4,14 +4,14 @@
 		require_once __DIR__.'/../config.php';
 	?>
 
-	<div id= "titulo">
+	<div class= "titulo">
 	<img src="<?=RUTA_IMGS.'/OfferNow_Logo.ico'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
 	
 	<h1>
 	Tu página de ofertas preferida
 	</h1>
 	</div>
-	<div id="contenedor1">
+	<div class="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
             <ul>
 

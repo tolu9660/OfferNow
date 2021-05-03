@@ -6,7 +6,7 @@
 		<title><?= $tituloPagina ?></title>
 	</head>
 	<body>
-		<div id="contenedor">
+		<div class="contenedor">
 			<?php
 				require(__DIR__.'/cabecera.php');
 				require(__DIR__.'/sidebarIzq.php');

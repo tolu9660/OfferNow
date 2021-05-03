@@ -1,4 +1,4 @@
-<aside id="sidebarDer">
+<aside class="sidebarDer">
 
 		Texto del sidebar derecho.
 </aside>

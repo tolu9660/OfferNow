@@ -1,4 +1,4 @@
-<nav id="sidebarIzq">
+<nav class="sidebarIzq">
 
 	<?php
 		require_once __DIR__.'/../config.php';

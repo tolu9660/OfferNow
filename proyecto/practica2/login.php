@@ -6,7 +6,7 @@
 	$contenidoPrincipal=<<<EOS
 	<h1>Acceso al sistema</h1>
 	
-	<form id="formLogin" action="${raizApp}/procesarLogin.php" method="POST">
+	<form class="formLogin" action="${raizApp}/procesarLogin.php" method="POST">
 		<fieldset>
 			<legend>Usuario y contraseña</legend>
 			<div><label>Correo:</label> <input type="text" name="email" /></div>

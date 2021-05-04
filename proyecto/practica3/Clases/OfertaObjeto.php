@@ -28,30 +28,29 @@ class OfertaObjeto{
 	}
 	
 	private function cargaComentarios() {
-		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
-		$result = $mysqli->query($query);
+		//$mysqli = getConexionBD();
+		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
+		//$result = $mysqli->query($query);
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
 
-		if($result) {			
+		if($result != null) {		
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
 						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
 			}
-		} else{
-			echo"Error al buscar en la base de datos, id:".$this->id;
 		}
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarOfertas($orden){
-		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM oferta ORDER BY $orden");
-		$result = $mysqli->query($query);
-
+		//$mysqli = getConexionBD();
+		//$query = sprintf("SELECT * FROM oferta ORDER BY $orden");
+		//$result = $mysqli->query($query);
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
 	
-		if($result) {
+		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
@@ -66,13 +65,13 @@ class OfertaObjeto{
 	}
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarOfertasPremium($orden){
-		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
-		$result = $mysqli->query($query);
-
+		//$mysqli = getConexionBD();
+		//$query = sprintf("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		//$result = $mysqli->query($query);
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
 		$ofertasArray;
 	
-		if($result) {
+		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
@@ -83,6 +82,18 @@ class OfertaObjeto{
 		}
 		else{
 			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+
+	private static function hacerConsulta($query){
+		$mysqli = getConexionBD();
+		$result = $mysqli->query($query);	
+		if($result) {
+			return $result;
+		}
+		else{
+			echo"maaaaaaaaaaaaaaaaaal";
+			return null;
 		}
 	}
 	

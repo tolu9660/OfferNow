@@ -1,7 +1,7 @@
 <?php
 
-
-require __DIR__.'/ComentarioObjeto.php';
+require_once __DIR__.'/../includes/config.php';
+require_once __DIR__.'/ComentarioObjeto.php';
 
 class Art2ManoObjeto{
 	private $id;
@@ -39,9 +39,30 @@ class Art2ManoObjeto{
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarProductos2Mano(){
+	public static function cargarProductos2Mano($orden){
 		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM articulos_segunda_mano");
+		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
+		$result = $mysqli->query($query);
+
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarArticulos2ManoPremium($orden){
+		$mysqli = getConexionBD();
+		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
 		$result = $mysqli->query($query);
 
 		$ofertasArray;

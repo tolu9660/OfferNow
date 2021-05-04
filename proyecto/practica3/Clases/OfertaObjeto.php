@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/../includes/config.php';
-require __DIR__.'/ComentarioObjeto.php';
+require_once __DIR__.'/ComentarioObjeto.php';
 
 
 class OfertaObjeto{
@@ -44,9 +44,30 @@ class OfertaObjeto{
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarOfertas(){
+	public static function cargarOfertas($orden){
 		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM oferta");
+		$query = sprintf("SELECT * FROM oferta ORDER BY $orden");
+		$result = $mysqli->query($query);
+
+		$ofertasArray;
+	
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+				
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarOfertasPremium($orden){
+		$mysqli = getConexionBD();
+		$query = sprintf("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
 		$result = $mysqli->query($query);
 
 		$ofertasArray;

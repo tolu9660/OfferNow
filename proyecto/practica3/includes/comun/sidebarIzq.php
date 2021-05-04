@@ -22,12 +22,16 @@
 				<li><a href= "<?=$dir?>">Publica una oferta</a></li>
 				<?php
 			}
-		?>
-		<?php
 			if(estaLogado() && ($_SESSION['esAdmin'])){
 				$dir2 = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
 				?>
 				<li><a href= "<?=$dir2?>">Publica un articulo de segunda mano</a></li>
+				<?php
+			}
+			if(estaLogado() && ($_SESSION['esPremium'])){
+				$dir3 = RUTA_APP.'/tiendaPremium.php';
+				?>
+				<li><a href= "<?=$dir3?>">Comprueba las ofertas Premium!!</a></li>
 				<?php
 			}
 		?>

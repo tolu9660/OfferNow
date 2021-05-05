@@ -23,7 +23,8 @@ class Art2ManoObjeto{
 	}
 	
 	private function cargaComentarios() {
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad";
 		$result = $mysqli->query($query);
 
@@ -40,7 +41,8 @@ class Art2ManoObjeto{
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarProductos2Mano($orden){
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 		$result = $mysqli->query($query);
 
@@ -61,7 +63,8 @@ class Art2ManoObjeto{
 
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarArticulos2ManoPremium($orden){
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();;
 		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
 		$result = $mysqli->query($query);
 
@@ -87,7 +90,8 @@ class Art2ManoObjeto{
 		$precio = htmlspecialchars(trim(strip_tags($_POST["articuloPrecio"])));
 		$imagen = htmlspecialchars(trim(strip_tags($_POST["articuloImagen"])));
 		
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
 					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
@@ -100,7 +104,8 @@ class Art2ManoObjeto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
 		

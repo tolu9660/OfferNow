@@ -8,19 +8,39 @@
 	$nombre = htmlspecialchars(trim(strip_tags($_POST["ofertaNombre"])));
 	$descripcion = htmlspecialchars(trim(strip_tags($_POST["ofertaDescripcion"])));
 	$urlOferta = htmlspecialchars(trim(strip_tags($_POST["ofertaUrl"])));
-	$urlImagen = htmlspecialchars(trim(strip_tags($_POST["ofertaImagen"])));
 	$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
 	$creador = $_SESSION["correo"];
+
+	//comprobaciones para la subida de imagenes
+	$ofertaImagenDir = RUTA_IMGS."/productos/ofertas/".$_FILES["ofertaImagen"]["name"];
+	$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
 	
-	
-	
-	if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador )) {
-		$contenidoPrincipal=<<<EOS
-			<h3>Oferta creada</h3>
-		EOS;
+
+	//Comprueba la extension del archivo
+	$end = explode(".", $_FILES["ofertaImagen"]["name"]);
+	$extensionImagen = strtolower(end($end));
+	$extensionesValidas = array('jpg', 'gif', 'png');
+	if (in_array($extensionImagen, $extensionesValidas)) {
+		//Si la extension es correcta mueve la imagen
+		if (move_uploaded_file($_FILES['ofertaImagen']['tmp_name'], "$directorioServerImg")) {
+			//Si ha movido la imagen la sube a la BD
+			if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$ofertaImagenDir,$precio,$creador )) {
+				$contenidoPrincipal=<<<EOS
+					<h3>Oferta creada</h3>
+				EOS;
+			} else {
+				$contenidoPrincipal=<<<EOS
+					<h3>Error: al crear la oferta</h3>;
+				EOS;
+			}
+		} else {
+			$contenidoPrincipal=<<<EOS
+				<h3>La subida ha fallado</h3>;
+			EOS;
+		}
 	} else {
 		$contenidoPrincipal=<<<EOS
-			<h3>Error: al crear la oferta</h3>;
+			<h3>El archivo no es valido (png, jpg o gif)</h3>;
 		EOS;
 	}
 	require '../includes/comun/layout.php';

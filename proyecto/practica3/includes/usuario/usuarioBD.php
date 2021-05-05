@@ -65,7 +65,7 @@ class Usuario{
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
       //para ver los datos obtenidos de la BD
-     /* echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
+      /*echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
       

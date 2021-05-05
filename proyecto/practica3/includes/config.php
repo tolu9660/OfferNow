@@ -5,19 +5,18 @@ define('BD_HOST', 'localhost');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
 define('BD_PASS', '');
-define('RUTA_APP', '/proyecto/practica3');					//Ruta de Luis
-//define('RUTA_APP', '/AW/OfferNow/proyecto/practica3');	//Ruta de Pablo
+//define('RUTA_APP', '/proyecto/practica3');					//Ruta de Luis
+define('RUTA_APP', '/AW/OfferNow/proyecto/practica3');	//Ruta de Pablo
+//define('RUTA_SERVER', $_SERVER['DOCUMENT_ROOT'].RUTA_APP);//RUTA SERVER -> NO USAR
 define('RUTA_IMGS', RUTA_APP.'/imagenes');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('COMUN', RUTA_APP.'/includes/comun');
 define('USUARIO',RUTA_APP.'/includes/usuario'); //ruta global para usuarios
-define('PRODUCTOS',RUTA_APP.'/productos'); //ruta global para usuarios
-define('SESION',RUTA_APP.'/includes/login'); //ruta global para usuarios
-define('POSTEAR',RUTA_APP.'/postear'); //ruta global para usuarios
-
+define('PRODUCTOS',RUTA_APP.'/productos'); //ruta global para productos
+define('SESION',RUTA_APP.'/includes/login'); //ruta global para login
+define('POSTEAR',RUTA_APP.'/postear'); //ruta global para posts de objetos
 
 define('INSTALADA', true );
-
 
 if (! INSTALADA) {
     echo "La aplicación no está configurada";

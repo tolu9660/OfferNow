@@ -6,7 +6,7 @@
 		<div id="contenedor">
 			<main id="contenido">
 				<h1>Subir Oferta</h1>
-				<form method="post" action="subirOfertaBD.php">
+				<form method="post" action="subirOfertaBD.php" enctype="multipart/form-data">
 					<p>Nombre oferta:</p>
 					<input type="text" name="ofertaNombre"/>
 					<p>Descripción:</p>
@@ -16,7 +16,7 @@
 					<p>Url de la oferta:</p>
 					<input type="text" name="ofertaUrl"/>
 					<p>Imagen:</p>
-					<input type="text" name="ofertaImagen"/>
+					<input type="file" name="ofertaImagen"/>
 					
 					<p><input type="submit" value="Publicar"></p>
 				</form>

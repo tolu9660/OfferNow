@@ -152,8 +152,7 @@ class OfertaObjeto{
 	}
 	
 	public function muestraOfertaString(){
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen = $this->muestraURLImagen();
 	
 	
 		$productos = '';
@@ -201,9 +200,10 @@ class OfertaObjeto{
 	}
 	
 	function muestraURLImagen() {
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
-		return $DIRimagen;
+		//$DIRimagen=RUTA_IMGS;
+		//$DIRimagen.=$this->urlImagen;
+		//return $DIRimagen;
+		return $this->urlImagen;
 	}
 	
 	function muestraValoracion() {

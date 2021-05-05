@@ -25,7 +25,8 @@ class ComentarioObjeto{
 		$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
 		$creador = $_SESSION["correo"];
 		
-		$mysqli = getConexionBD();			
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();				
 		$sql = "INSERT INTO comentariosoferta (Texto, Titulo, ValoracionUtilidad, UsuarioID, OfertaID)
 				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
 		
@@ -44,7 +45,8 @@ class ComentarioObjeto{
 		$creador = $_SESSION["correo"];
 		
 		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();	
 		$sql = "INSERT INTO comentariossegundamano (Texto, Titulo, ValoracionUtilidad, UsuarioID, SegundaManoID)
 				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
 		
@@ -56,7 +58,8 @@ class ComentarioObjeto{
 	}
 	
 	public static function buscaComentarioOferta($id) {
-		$conn = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();	
 		$query = sprintf("SELECT * FROM comentariosoferta WHERE ID='%id'",
 						$conn->real_escape_string($id));
 
@@ -74,7 +77,8 @@ class ComentarioObjeto{
 	}
 	
 	public static function buscaComentario2Mano($id) {
-		$conn = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
 		$query = sprintf("SELECT * FROM comentariossegundamano WHERE ID='%id'",
 						$conn->real_escape_string($id));
 

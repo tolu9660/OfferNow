@@ -83,7 +83,7 @@ class Art2ManoObjeto{
 		}
 	}
 	
-	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen)) {
+	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
 
 		
 		$app = Aplicacion::getSingleton();

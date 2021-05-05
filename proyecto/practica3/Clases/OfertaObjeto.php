@@ -86,7 +86,8 @@ class OfertaObjeto{
 	}
 
 	private static function hacerConsulta($query){
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$result = $mysqli->query($query);	
 		if($result) {
 			return $result;
@@ -106,7 +107,8 @@ class OfertaObjeto{
 		$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
 		$creador = $_SESSION["correo"];
 		
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
 					VALUES ('$nombre', '$descripcion', '$urlOferta', '$urlImagen', 0, '$precio', '$creador')";
@@ -119,7 +121,8 @@ class OfertaObjeto{
 	}
 	
 	public static function buscaOferta($id) {
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
 		

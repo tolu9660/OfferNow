@@ -74,12 +74,15 @@ abstract class Form
             $result = $this->procesaFormulario($_POST);
             if ( is_array($result) ) {
                 echo $this->generaFormulario($result, $_POST);
-            } /*else {
-                header('Location: '.$result);
+            } else {
+                //echo $result;//como puedo gestionar este mensaje?
+                $nuevaURL=RUTA_APP."/inicio.php";
+                echo $nuevaURL;
+                header("Location:$nuevaURL");              
                 exit();
-            }*/
+            }
         }  
-        //echo " valor result en gestiona". $result;
+       
     }
 
     /**

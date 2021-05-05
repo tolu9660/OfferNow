@@ -10,7 +10,7 @@ class Usuario{
 	private $password;
 
   public static function login($username, $password){
-    //echo $username."  ";
+    //echo "nombre usuario ".$username."  ";
     //echo $password;
     $user = self::buscaUsuario($username);
     //la clase usuario está creada:
@@ -99,7 +99,7 @@ class Usuario{
     return false;
   }*/
 
-	public static function altaNuevoUsuario($email,$user,$password1,$password2){
+	public static function altaNuevoUsuario($email,$username,$password1,$password2){
 
 		
 		if($password1 != $password2){
@@ -109,7 +109,7 @@ class Usuario{
        //creo un objeto de tipo usuario para poder usarlo en caso de que el 
       //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
 
-      $user = new Usuario($email, $user,$password1);
+      $user = new Usuario($email, $username,$password1);
       $correo=$user->idCorreo();
       $usuario=$user->nombre();
       $pass=$user->contra();

@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/Form.php';
 require_once __DIR__.'/../usuario/usuarioBD.php';
+require_once __DIR__.'/../usuario/usuarios.php';
 
 class FormularioLogin extends Form{
 
@@ -45,9 +46,16 @@ class FormularioLogin extends Form{
         
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
-            //logout();
-           // checkLogin();
-            $usuario = usuario::login($nombreUsuario, $password);
+            logout();
+           checkLogin();
+           if (!estaLogado()) {
+            $result[]="El usuario o contraseña no son válidos";
+           }
+           else{
+            $result="Usa el menú de la izquierda para navegar.";
+			
+           }
+            /*$usuario = usuario::login($nombreUsuario, $password);
             if ( ! $usuario ) {
                 // No se da pistas a un posible atacante
                 $result[] = "El usuario o el password no coinciden";
@@ -59,7 +67,7 @@ class FormularioLogin extends Form{
                 $_SESSION['esAdmin'] =$usuario->getAdmin();
                 $result = 'inicio.php';
                 echo "valor de correo obtenido en la sesion: ". $_SESSION["correo"];
-            }
+            }*/
         }
         return $result;
     }

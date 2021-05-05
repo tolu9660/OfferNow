@@ -1,8 +1,29 @@
 <?php
 	require_once __DIR__.'/../config.php';
 	require_once __DIR__.'/../usuario/usuarioBD.php';
+	require_once __DIR__.'/FormularioRegistro.php';
 
-	$usuarios = USUARIO;
+
+
+
+	$form = new FormularioRegistro();
+	//como puedo colocarlo de tal manera que pueda moverlo libremente
+	$htmlFormLogin = $form->gestiona();
+	
+	$tituloPagina = 'Registro';
+	
+	$contenidoPrincipal = <<<EOS
+	
+	
+	<h1>Registro de usuario</h1>
+	$htmlFormRegistro
+	
+
+	EOS;
+	
+
+
+/*	$usuarios = USUARIO;
 	//Muestra el registro
 	$tituloPagina = 'Registro nuevo usuario';
 	$contenidoPrincipal=<<<EOS
@@ -30,5 +51,5 @@
 			</article>
 		</main>
 	</div>
-	EOS;
+	EOS;*/
 require __DIR__.'/../comun/layout.php';

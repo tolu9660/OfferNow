@@ -12,12 +12,32 @@ class FormularioRegistro extends Form{
     }
 
     protected function generaCamposFormulario($datos){
+        $usuarios = USUARIO;
         $nombreUsuario = '';
         $nombre = '';
         if ($datos) {
             $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
             $nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
         }
+        $html = <<<EOF
+            <h1>Registro de usuario</h1>
+            Usuario:
+            <input type="text" name="username"  />
+            <br/>
+            E-mail:
+            <input type="text" name="email"  />
+            <br/>
+            Contraseña:
+            <input type="text" name="password1"  />
+            <br/>
+            Confirmar contraseña:
+            <input type="text" name="password2"  />
+            <br/>
+            <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
+            <input type="submit" value="crear">
+        </form>
+        EOF;
+      /*
         $html = <<<EOF
 		<fieldset>
 			<div class="grupo-control">
@@ -32,42 +52,58 @@ class FormularioRegistro extends Form{
 			<div class="grupo-control"><label>Vuelve a introducir el Password:</label> <input class="control" type="password" name="password2" /><br /></div>
 			<div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
 		</fieldset>
-EOF;
+EOF;*/
+
         return $html;
     }
     
     protected function procesaFormulario($datos){
         $result = array();
         
-        $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : null;
+        $nombreUsuario = isset($datos["username"]) ? $datos["username"] : null;
         
         if ( empty($nombreUsuario) || mb_strlen($nombreUsuario) < 5 ) {
             $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
         }
         
-        $nombre = isset($datos['nombre']) ? $datos['nombre'] : null;
-        if ( empty($nombre) || mb_strlen($nombre) < 5 ) {
+        $correo = isset($datos["email"]) ? $datos["email"] : null;
+        if ( empty($correo) || mb_strlen($correo) < 5 ) {
             $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
         }
         
-        $password = isset($datos['password']) ? $datos['password'] : null;
-        if ( empty($password) || mb_strlen($password) < 5 ) {
+        $password1 = isset($datos["password1"]) ? $datos["password1"] : null;
+        if ( empty($password1) || mb_strlen($password1) < 5 ) {
             $result[] = "El password tiene que tener una longitud de al menos 5 caracteres.";
         }
         $password2 = isset($datos['password2']) ? $datos['password2'] : null;
-        if ( empty($password2) || strcmp($password, $password2) !== 0 ) {
+        if ( empty($password2) || strcmp($password1, $password2) !== 0 ) {
             $result[] = "Los passwords deben coincidir";
         }
-        
+
+      
         if (count($result) === 0) {
-            $user = usuario::crea($nombreUsuario, $nombre, $password, 'user');
-            if ( ! $user ) {
+        //echo "contraseña: ".$password1;
+           if(usuario::altaNuevoUsuario($correo,$nombreUsuario,$password1,$password2)){
+            $result ="Usuario registrado con exito!";
+            ////////////////////////////////////////////
+            //necesito darle valores de admin y premium.
+            $_SESSION['login'] = true;
+            $_SESSION['nombre'] = $nombreUsuario;
+			$_SESSION["correo"] = $correo;
+            $result = 'index.php';
+            }
+            else{
+                $result[]="Error en el registro!";
+            }
+            
+            // $user = usuario::crea($nombreUsuario, $nombre, $password, 'user');
+            /*if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombreUsuario;
                 $result = 'index.php';
-            }
+            }*/
         }
         return $result;
     }

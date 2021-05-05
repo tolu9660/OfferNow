@@ -83,12 +83,8 @@ class Art2ManoObjeto{
 		}
 	}
 	
-	public static function subeArt2ManoBD() {
-		$nombre = htmlspecialchars(trim(strip_tags($_POST["articuloNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_POST["articuloDescripcion"])));
-		$unidades = htmlspecialchars(trim(strip_tags($_POST["articuloUnidades"])));
-		$precio = htmlspecialchars(trim(strip_tags($_POST["articuloPrecio"])));
-		$imagen = htmlspecialchars(trim(strip_tags($_POST["articuloImagen"])));
+	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen)) {
+
 		
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();

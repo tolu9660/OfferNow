@@ -20,7 +20,8 @@ class Usuario{
    //echo "\n CONTRASEÑA: ".$user->contra();
   
     if ($user && $user->compruebaPassword($password)) {
-      $conn = getConexionBD();
+      $app = Aplicacion::getSingleton();
+		  $conn = $app->conexionBd();
       //hacer consulta de premium y admin
       //si devuelve un 1 el usuario es administrador 
       $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
@@ -55,7 +56,8 @@ class Usuario{
 
   public static function buscaUsuario($username){
   
-    $conn = getConexionBD();
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
     $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                     $conn->real_escape_string($username));
  
@@ -68,17 +70,20 @@ class Usuario{
       " es admin:". $fila['Admin']*/;
       
 	
-      $user = new Usuario($fila['Correo'], $fila['Nombre'],$fila['Contraseña']
+      $user = new Usuario($fila['Correo'], $fila['Nombre'],''
                   /*, $fila['Premium'], $fila['Admin']*/);
+      $user->setPass($fila['Contraseña']);
       $rs->free();
      
       return $user;
     }
     return false;
   }
-
+  // FUNCION DUPLICADA... NO SE USA -> QUE EL CONSTRUCTOR1 TAMPOCO SE USE.
+/*
   public static function buscaPorId($idUsuario){
-    $conn = getConexionBD();
+    $app = Aplicacion::getSingleton();
+		  $conn = $app->conexionBd();
     $query = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                       $conn->real_escape_string($idUsuario));
    
@@ -92,22 +97,27 @@ class Usuario{
       return $user;
     }
     return false;
-  }
+  }*/
 
-	public static function altaNuevoUsuario(){
-		$email = htmlspecialchars(trim(strip_tags($_POST["email"])));//get post
-		$username = htmlspecialchars(trim(strip_tags($_POST["username"])));
-		$password1 = htmlspecialchars(trim(strip_tags($_POST["password1"])));
-		$password2 = htmlspecialchars(trim(strip_tags($_POST["password2"])));
+	public static function altaNuevoUsuario($email,$user,$password1,$password2){
+
 		
 		if($password1 != $password2){
 			return false;
 		}
 		else{
+       //creo un objeto de tipo usuario para poder usarlo en caso de que el 
+      //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
+
+      $user = new Usuario($email, $user,$password1);
+      $correo=$user->idCorreo();
+      $usuario=$user->nombre();
+      $pass=$user->contra();
 			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
-			$mysqli = getConexionBD();
+			$app = Aplicacion::getSingleton();
+		  $mysqli = $app->conexionBd();
 			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
-				VALUES ('$email','$username','$password1',0,0)";
+					VALUES ('$correo','$usuario','$pass',0,0)";
 			if (mysqli_query($mysqli, $sql)) {
 				//$mysqli->close();
 				return true;
@@ -128,7 +138,7 @@ class Usuario{
    function __construct($correo, $nombre,$contraseña){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
-    $this->password =  $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
   }
@@ -180,6 +190,10 @@ class Usuario{
    
     return password_verify($password, $this->password);
   }
+  public function setPass($pass){
+    $this->password= $pass;
+  }
+
 
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);

@@ -98,14 +98,7 @@ class OfertaObjeto{
 		}
 	}
 	
-	public static function subeOfertaBD() {
-		
-		$nombre = htmlspecialchars(trim(strip_tags($_POST["ofertaNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_POST["ofertaDescripcion"])));
-		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["ofertaUrl"])));
-		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["ofertaImagen"])));
-		$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
-		$creador = $_SESSION["correo"];
+	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
 		
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();

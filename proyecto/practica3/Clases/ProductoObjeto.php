@@ -27,12 +27,8 @@ abstract class producto{
         $this->cargaComentarios($tablaDondeBuscarComentarios);
     }
 
-    //Creo que es mejor dividirla en 2 y bajarla a los hijos
+    //Creo que es mejor dividirla en 2 y bajarla a los hijos -> si lo haces no va por cosas estaticas y objetos no creados
     protected function cargaComentarios($tablaDondeBuscarComentarios) {
-		//$mysqli = getConexionBD();
-		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
-		//$result = $mysqli->query($query);
-		//$auxID = parent::muestraID();tablaDondeBuscarComentarios
         if($tablaDondeBuscarComentarios == "comentariosoferta"){
             $result = $this->hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
             if($result != null) {		
@@ -87,81 +83,10 @@ abstract class producto{
 		}
 		return $productos;
 	}
-
-    //tabla producto necesito id, idProducto, columana que indique el producto(realizo la consula en ambas tablas)
-    public static function buscaProducto($id) {// agregar Realescape string
-        $ofertaObj=false;
-        $app = Aplicacion::getSingleton();
-        $mysqli = $app->conexionBd();
-        $query =sprintf("SELECT * FROM producto WHERE idProductoAsociado  = '%s'",
-                    $mysqli->real_escape_string($id));
-        $result = $mysqli->query($query);
-        
-        if($result) {
-            //lectura del tipo de producto
-            $query =sprintf("SELECT * FROM oferta WHERE Numero = '%s'",
-                        $mysqli->real_escape_string($id));
-            $resultOferta = $mysqli->query($query);
-
-            //Si es oferta
-            if($resultOferta) {
-                $fila = $result->fetch_assoc();
-                $ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-                                        $fila['URL_Oferta'],$fila['URL_Imagen'],$fila['Valoracion'],
-                                        $fila['Precio'],$fila['Creador']);
-            }
-            //Si es 2mano
-            else{
-                $query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
-                $result = $mysqli->query($query);
-                
-                if($result) {
-                    $fila = $result->fetch_assoc();
-                    $ofertaObj = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-                                        $fila['Unidades'],$fila['Precio'],$fila['Imagen']);
-                }
-            }
-        } else{
-            echo"Error al buscar en la base de datos";
-        }
-        return $ofertaObj;
+    ///////////////////////////SETTERS//////////////////////////////////
+    protected function setComentariosArray($arrayComent){
+        $this->comentariosArray = $arrayComent;
     }
-    public static function cargarProductos($tipo){
-        $arrayProductos=false;
-        $app = Aplicacion::getSingleton();
-        $mysqli = $app->conexionBd();
-
-        $query = sprintf("SELECT * FROM producto WHERE tipoProducto = '%s'",
-                $mysqli->real_escape_string($tipo));
-
-        $result = $mysqli->query($query);
-        if($result) {   
-            if($tipo=="ofertaObjeto"){
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $fila = $result->fetch_assoc();
-                    $arrayProductos[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-                                                $fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
-                }
-            }
-            else if ($tipo=="2mano"){
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $fila = $result->fetch_assoc();
-                    $arrayProductos[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-                                        $fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
-                }
-            }
-        }
-        return $arrayProductos;
-    }
-    public static function subirProductos($tipo,$arrayDatos){
-        if($tipo=="ofertaObjeto"){
-        
-        }
-        else if ($tipo=="2mano"){
-        
-        }
-    }
-
     ///////////////////////////GETTERS//////////////////////////////////
     public function muestraID() {
 		return $this->id;

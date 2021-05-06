@@ -3,7 +3,7 @@
 	require __DIR__.'/clases/Art2ManoObjeto.php';
 
 	//Carga los productos en un array
-	$ofertasArray = Art2ManoObjeto::cargarProductos2Mano("Precio");
+	$ofertasArray = Art2ManoObjeto::cargarProductos2Mano("SELECT * FROM articulos_segunda_mano ORDER BY Precio");
 	
 	//Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';

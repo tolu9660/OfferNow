@@ -23,7 +23,6 @@ class OfertaObjeto extends producto{
 		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
 		//$result = $mysqli->query($query);
 		$auxID = parent::muestraID();
-		echo "<br>IDDDDDDDDDDDDD".$auxID."<br>";
 		$result = OfertaObjeto::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$auxID' ORDER BY ValoracionUtilidad");
 
 		if($result != null) {		
@@ -146,6 +145,9 @@ class OfertaObjeto extends producto{
 	
 	public function muestraOfertaString(){
 		$DIRimagen = $this->muestraURLImagen();
+
+		$nombreAux = parent::muestraNombre();
+		$descripcionAux = parent::muestraDescripcion();
 	
 		$productos = '';
 		$productos.=<<<EOS
@@ -156,13 +158,13 @@ class OfertaObjeto extends producto{
 				</button>
 				<div class="imgProducto">
 					
-					<img src="$DIRimagen" width="200" height="200" alt=$this->nombre />
+					<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 				</div>
 				<div class="desProducto">
 					<p>Nombre del producto:</p>
-					<p>$this->nombre</p>
+					<p>$nombreAux</p>
 					<p>Descripcion:</p>
-					<p>$this->descripcion</p>
+					<p>$descripcionAux</p>
 					<p>
 							Enlaces:
 							<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /

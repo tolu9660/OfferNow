@@ -2,28 +2,19 @@
 
 require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/ComentarioObjeto.php';
+require_once __DIR__.'/ProductoObjeto.php';
 
-
-class OfertaObjeto{
-	private $id;
-	private $nombre;
-	private $descripcion;
+class OfertaObjeto extends producto{
 	private $urlOferta;
-	private $urlImagen;
 	private $valoracion;
-	private $precio;
 	private $creador;
-	private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
-		$this->id = $id;
-		$this->nombre = $nombre;
-		$this->descripcion = $descripcion;
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $comentariosArray);
 		$this->urlOferta = $urlOferta;
-		$this->urlImagen = $urlImagen;
 		$this->valoracion = $valoracion;
-		$this->precio = $precio;
 		$this->creador = $creador;
+		///////////////////////////////////////////////FATLTA HACERLO BIEN EN EL PARENT
 		$this->cargaComentarios();
 	}
 	
@@ -31,7 +22,9 @@ class OfertaObjeto{
 		//$mysqli = getConexionBD();
 		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
 		//$result = $mysqli->query($query);
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
+		$auxID = parent::muestraID();
+		echo "<br>IDDDDDDDDDDDDD".$auxID."<br>";
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$auxID' ORDER BY ValoracionUtilidad");
 
 		if($result != null) {		
 			for ($i = 0; $i < $result->num_rows; $i++) {
@@ -154,7 +147,6 @@ class OfertaObjeto{
 	public function muestraOfertaString(){
 		$DIRimagen = $this->muestraURLImagen();
 	
-	
 		$productos = '';
 		$productos.=<<<EOS
 			<div id="tarjetaProducto">
@@ -184,42 +176,24 @@ class OfertaObjeto{
 	}
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
-	function muestraID() {
-		return $this->id;
-	}
-	
-	function muestraNombre() {
-		return $this->nombre;
-	}
-	function muestraDescripcion() {
-		return $this->descripcion;
-	}
-	
-	function muestraURLOferta() {
-		return $this->urlOferta;
-	}
 	
 	function muestraURLImagen() {
 		$DIRimagen=RUTA_IMGS."/ofertas/";
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen.=parent::muestraURLImagen();
 		echo $DIRimagen;
 		return $DIRimagen;
-	}
-	
-	function muestraValoracion() {
-		return $this->valoracion;
-	}
-	
-	function muestraPrecio() {
-		return $this->precio;
 	}
 	
 	function muestraCreador() {
 		return $this->creador;
 	}
-	
-	function muestraComentarios() {
-		return $this->comentariosArray;
+
+	function muestraValoracion() {
+		return $this->valoracion;
+	}
+
+	function muestraURLOferta() {
+		return $this->urlOferta;
 	}
   }
 ?>

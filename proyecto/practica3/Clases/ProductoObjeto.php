@@ -8,7 +8,17 @@ abstract class producto{
 	private $precio;
 	private $comentariosArray;
 
+    /*//No vale para nada ya que es abstracto
     function __construct($id, $nombre, $descripcion, $urlImagen, $precio) {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+        $this->urlImagen = $urlImagen;
+        $this->precio = $precio;
+    }
+    */
+
+    function creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $comentariosArray) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
@@ -89,4 +99,28 @@ abstract class producto{
         
         }
     }
+
+    ///////////////////////////GETTERS//////////////////////////////////
+    public function muestraID() {
+		return $this->id;
+	}
+	
+	public function muestraNombre() {
+		return $this->nombre;
+	}
+	public function muestraDescripcion() {
+		return $this->descripcion;
+	}
+
+    function muestraURLImagen() {
+        return $this->urlImagen;
+	}
+
+    public function muestraPrecio() {
+		return $this->precio;
+	}
+	
+	public function muestraComentarios() {
+		return $this->comentariosArray;
+	}
 }

@@ -90,6 +90,8 @@ EOF;*/
             $_SESSION['login'] = true;
             $_SESSION['nombre'] = $nombreUsuario;
 			$_SESSION["correo"] = $correo;
+            $_SESSION["esPremium"] = false;
+            $_SESSION["esAdmin"] = false;
             $result = 'index.php';
             }
             else{

@@ -2,15 +2,16 @@
 
 require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/ComentarioObjeto.php';
+require_once __DIR__.'/ProductoObjeto.php';
 
-class Art2ManoObjeto{
-	private $id;
-	private $nombre;
-	private $descripcion;
+class Art2ManoObjeto extends producto{
+	//private $id;
+	//private $nombre;
+	//private $descripcion;
 	private $unidades;
-	private $precio;
-	private $urlImagen;
-	private $comentariosArray;
+	//private $precio;
+	//private $urlImagen;
+	//private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		$this->id = $id;

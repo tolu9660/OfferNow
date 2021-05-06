@@ -10,36 +10,16 @@ class OfertaObjeto extends producto{
 	private $creador;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
-		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $comentariosArray);
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
+			"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
 		$this->urlOferta = $urlOferta;
 		$this->valoracion = $valoracion;
 		$this->creador = $creador;
-		///////////////////////////////////////////////FATLTA HACERLO BIEN EN EL PARENT
-		$this->cargaComentarios();
-	}
-	
-	private function cargaComentarios() {
-		//$mysqli = getConexionBD();
-		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
-		//$result = $mysqli->query($query);
-		$auxID = parent::muestraID();
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$auxID' ORDER BY ValoracionUtilidad");
-
-		if($result != null) {		
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
-						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
-			}
-		}
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarOfertas($orden){
-		//$mysqli = getConexionBD();
-		//$query = sprintf("SELECT * FROM oferta ORDER BY $orden");
-		//$result = $mysqli->query($query);
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
 	
 		if($result != null) {
@@ -57,9 +37,6 @@ class OfertaObjeto extends producto{
 	}
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarOfertasPremium($orden){
-		//$mysqli = getConexionBD();
-		//$query = sprintf("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
-		//$result = $mysqli->query($query);
 		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
 		$ofertasArray;
 	
@@ -68,7 +45,6 @@ class OfertaObjeto extends producto{
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
-				
 			}
 			return $ofertasArray;
 		}
@@ -76,22 +52,8 @@ class OfertaObjeto extends producto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
-
-	private static function hacerConsulta($query){
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$result = $mysqli->query($query);	
-		if($result) {
-			return $result;
-		}
-		else{
-			echo"maaaaaaaaaaaaaaaaaal";
-			return null;
-		}
-	}
 	
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
-		
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
@@ -123,35 +85,17 @@ class OfertaObjeto extends producto{
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
-	private function muestraComentariosOfertaString() {
-		$productos = '';
-		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
-			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
-				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
-				$comTexto = $this->comentariosArray[$i]->muestraTexto();
-				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
-				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-				$productos.=<<<EOS
-					<div class="comProducto">
-						<p>$comTitulo - $comUsuario - </p>
-						<p>Valoración comentario: $comValoracion</p>
-						<p>$comTexto</p>
-					</div>
-				EOS;
-			}
-		}
-		return $productos;
-	}
-	
 	public function muestraOfertaString(){
 		$DIRimagen = $this->muestraURLImagen();
 
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
-	
+		$creadornAux = $this->muestraCreador();
+
 		$productos = '';
 		$productos.=<<<EOS
 			<div id="tarjetaProducto">
+			<p>Creador: $creadornAux</p>
 				<button class="button" type="button">    
 					<img src="imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: $this->valoracion
@@ -161,28 +105,25 @@ class OfertaObjeto extends producto{
 					<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 				</div>
 				<div class="desProducto">
-					<p>Nombre del producto:</p>
-					<p>$nombreAux</p>
+					<p>Nombre del producto: $nombreAux</p>
 					<p>Descripcion:</p>
 					<p>$descripcionAux</p>
 					<p>
-							Enlaces:
-							<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
-							<a href="$this->urlOferta" rel="nofollow" target="_blank">Enlace a nuestra tienda -- no funciona--</a>
+						Enlaces:
+						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
+						<a href="$this->urlOferta" rel="nofollow" target="_blank">Enlace a nuestra tienda -- no funciona--</a>
 					</p>
 				</div>
 			</div>
 		EOS;
-		$productos.= $this->muestraComentariosOfertaString();
+		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
-	
 	function muestraURLImagen() {
 		$DIRimagen=RUTA_IMGS."/ofertas/";
 		$DIRimagen.=parent::muestraURLImagen();
-		echo $DIRimagen;
 		return $DIRimagen;
 	}
 	

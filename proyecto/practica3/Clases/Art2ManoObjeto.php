@@ -5,41 +5,17 @@ require_once __DIR__.'/ComentarioObjeto.php';
 require_once __DIR__.'/ProductoObjeto.php';
 
 class Art2ManoObjeto extends producto{
-	//private $id;
-	//private $nombre;
-	//private $descripcion;
 	private $unidades;
 	//private $precio;
 	//private $urlImagen;
 	//private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
-		$this->id = $id;
-		$this->nombre = $nombre;
-		$this->descripcion = $descripcion;
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
+			"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
 		$this->unidades = $unidades;
-		$this->urlImagen = $urlImagen;
-		$this->precio = $precio;
-		$this->cargaComentarios();
 	}
-	
-	private function cargaComentarios() {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad";
-		$result = $mysqli->query($query);
 
-		if($result) {			
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
-										$fila['UsuarioID'],$fila['SegundaManoID']);
-			}
-		} else{
-			echo"Error al buscar en la base de datos, id:".$this->id;
-		}
-	}
-	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarProductos2Mano($orden){
 		$app = Aplicacion::getSingleton();
@@ -85,8 +61,6 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-
-		
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
@@ -117,77 +91,39 @@ class Art2ManoObjeto extends producto{
 		}
 	}
 	
-	//--------------------------------------------------Vista-----------------------------------------------------
-	private function muestraComentariosOfertaString() {
-		$productos = '';
-		
-		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
-			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
-				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
-				$comTexto = $this->comentariosArray[$i]->muestraTexto();
-				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
-				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-				$productos.=<<<EOS
-					<div class="comProducto">
-						<p>$comTitulo - $comUsuario - </p>
-						<p>Valoración comentario: $comValoracion</p>
-						<p>$comTexto</p>
-					</div>
-				EOS;
-			}
-		}
-		return $productos;
-	}
-		
+	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen = $this->muestraURLImagen();
+		
+		$nombreAux = parent::muestraNombre();
+		$descripcionAux = parent::muestraDescripcion();
+
 		$productos = '';
 		$productos.=<<<EOS
 		<div id="tarjetaProducto">
 			<div class="imgProducto">
-				<img src="$DIRimagen" width="200" height="200" alt=$this->nombre />
+				<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 			</div>
 			<div class="desProducto">
-				<p>Nombre del producto:</p>
-				<p>$this->nombre</p>
+				<p>Nombre del producto: $nombreAux</p>
 				<p>Descripcion:</p>
-				<p>$this->descripcion</p>
+				<p>$descripcionAux</p>
 			</div>
 		</div>
 		EOS;
-		$productos.= $this->muestraComentariosOfertaString();
+		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
-	public function muestraID() {
-		return $this->id;
-	}
-	
-	public function muestraNombre() {
-		return $this->nombre;
-	}
-	public function muestraDescripcion() {
-		return $this->descripcion;
-	}
-	
 	public function muestraUnidades() {
 		return $this->unidades;
 	}
 	
 	public function muestraURLImagen() {
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen=RUTA_IMGS."/art2mano/";
+		$DIRimagen.=parent::muestraURLImagen();
 		return $DIRimagen;
-	}
-	
-	public function muestraPrecio() {
-		return $this->precio;
-	}
-	
-	public function muestraComentarios() {
-		return $this->comentariosArray;
 	}
   }
 ?>

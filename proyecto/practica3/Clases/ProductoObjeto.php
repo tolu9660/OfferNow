@@ -18,13 +18,63 @@ abstract class producto{
     }
     */
 
-    function creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $comentariosArray) {
+    protected function creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $queryComentarios) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->urlImagen = $urlImagen;
         $this->precio = $precio;
+        $this->cargaComentarios($queryComentarios);
     }
+
+    protected function cargaComentarios($queryComentarios) {
+		//$mysqli = getConexionBD();
+		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
+		//$result = $mysqli->query($query);
+		//$auxID = parent::muestraID();
+		$result = $this->hacerConsulta($queryComentarios);
+
+		if($result != null) {		
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
+			}
+		}
+	}
+
+    protected static function hacerConsulta($query){
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$result = $mysqli->query($query);	
+		if($result) {
+			return $result;
+		}
+		else{
+			echo"maaaaaaaaaaaaaaaaaal";
+			return null;
+		}
+	}
+
+    protected function muestraComentariosString() {
+		$productos = '';
+		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
+			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
+				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
+				$comTexto = $this->comentariosArray[$i]->muestraTexto();
+				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
+				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
+				$productos.=<<<EOS
+					<div class="comProducto">
+						<p>$comTitulo - $comUsuario - </p>
+						<p>Valoración comentario: $comValoracion</p>
+						<p>$comTexto</p>
+					</div>
+				EOS;
+			}
+		}
+		return $productos;
+	}
 
     //tabla producto necesito id, idProducto, columana que indique el producto(realizo la consula en ambas tablas)
     public static function buscaProducto($id) {// agregar Realescape string

@@ -12,7 +12,7 @@ class FormularioRegistro extends Form{
     }
 
     protected function generaCamposFormulario($datos){
-        $usuarios = USUARIO;
+     
         $nombreUsuario = '';
         $nombre = '';
         if ($datos) {
@@ -21,18 +21,15 @@ class FormularioRegistro extends Form{
         }
         $html = <<<EOF
             <h1>Registro de usuario</h1>
-            Usuario:
-            <input type="text" name="username"  />
-            <br/>
-            E-mail:
-            <input type="text" name="email"  />
-            <br/>
-            Contraseña:
-            <input type="text" name="password1"  />
-            <br/>
-            Confirmar contraseña:
-            <input type="text" name="password2"  />
-            <br/>
+           
+            <p><label> Usuario:  </label> <input type="text" name="username"/></p>
+       
+            <p><label>E-mail:</label> <input type="text" name="email" /></p>
+           
+            <p><label>Contraseña:</label> <input type="password" name="password1" /></p>
+            
+             <p><label>Confirmar contraseña:</label> <input type="password" name="password2" /></p>
+            
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
             <input type="submit" value="crear">
         </form>

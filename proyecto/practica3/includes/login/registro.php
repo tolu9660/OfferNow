@@ -1,29 +1,24 @@
 <?php
 	require_once __DIR__.'/../config.php';
-	require_once __DIR__.'/../usuario/usuarioBD.php';
+	//require_once __DIR__.'/../usuario/usuarioBD.php';
 	require_once __DIR__.'/FormularioRegistro.php';
 
 
-
+	$tituloPagina = 'Registro';
 
 	$form = new FormularioRegistro();
-	//como puedo colocarlo de tal manera que pueda moverlo libremente
-	$htmlFormLogin = $form->gestiona();
+	$htmlFormRegistro = $form->gestiona();
 	
-	$tituloPagina = 'Registro';
+
 	
 	$contenidoPrincipal = <<<EOS
 	
-	
-	<h1>Registro de usuario</h1>
-	$htmlFormRegistro
-	
-
+		$htmlFormRegistro
 	EOS;
 	
 
-
-/*	$usuarios = USUARIO;
+/*
+	$usuarios = USUARIO;
 	//Muestra el registro
 	$tituloPagina = 'Registro nuevo usuario';
 	$contenidoPrincipal=<<<EOS

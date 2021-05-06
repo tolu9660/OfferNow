@@ -69,11 +69,11 @@ abstract class Form
     public function gestiona()
     {   
         if ( ! $this->formularioEnviado($_POST) ) {
-            echo $this->generaFormulario();
+            return $this->generaFormulario();
         } else {
             $result = $this->procesaFormulario($_POST);
             if ( is_array($result) ) {
-                echo $this->generaFormulario($result, $_POST);
+                return $this->generaFormulario($result, $_POST);
             } else {
                 //echo $result;//como puedo gestionar este mensaje?
                 $nuevaURL=RUTA_APP."/inicio.php";

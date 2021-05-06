@@ -12,16 +12,39 @@ class Art2ManoObjeto extends producto{
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"comentariossegundamano");
-		//$comentariosArray = Art2ManoObjeto::cargaDeComentarios();
-		//parent::setComentariosArray(cargaDeComentarios());
+			"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
 		$this->unidades = $unidades;
 	}
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarArticulos2Mano($query){
-		//$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
-		$result = parent::hacerConsulta($query);
+	public static function cargarProductos2Mano($orden){
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
+		$result = $mysqli->query($query);
+
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarArticulos2ManoPremium($orden){
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();;
+		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
+		$result = $mysqli->query($query);
+
 		$ofertasArray;
 		
 		if($result) {
@@ -52,7 +75,10 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'");
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
+		$result = $mysqli->query($query);
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
@@ -60,23 +86,10 @@ class Art2ManoObjeto extends producto{
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 			return $ofertaObj;
 		} else{
+			echo"Error al buscar en la base de datos";
 			return false;
 		}
 	}
-	/*//no va por ser static pero si lo quitas no va porque el ojbeto aun no está construido
-	public static function cargaDeComentarios() {
-		$id = parent::muestraID();
-		$result = parent::hacerConsulta("SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
-        if($result != null) {		
-            for ($i = 0; $i < $result->num_rows; $i++) {
-                $fila = $result->fetch_assoc();
-                $comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
-                        $fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['SegundaManoID']);
-            }
-    	}
-		return $comentariosArray;
-	}
-	*/
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){

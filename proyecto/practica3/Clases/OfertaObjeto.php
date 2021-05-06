@@ -10,25 +10,41 @@ class OfertaObjeto extends producto{
 	private $creador;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
-		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariosoferta");
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
+			"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
 		$this->urlOferta = $urlOferta;
 		$this->valoracion = $valoracion;
 		$this->creador = $creador;
-		//$aux = cargaComentarios();
-		//parent::setComentariosArray($aux);
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarOfertas($query){
-		//$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
-		$result = parent::hacerConsulta($query);
+	public static function cargarOfertas($orden){
+		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
 	
 		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);		
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+				
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarOfertasPremium($orden){
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		$ofertasArray;
+	
+		if($result != null) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
 			}
 			return $ofertasArray;
 		}
@@ -38,7 +54,6 @@ class OfertaObjeto extends producto{
 	}
 	
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
-		parent::hacerConsulta();
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
@@ -53,9 +68,12 @@ class OfertaObjeto extends producto{
 	}
 	
 	public static function buscaOferta($id) {
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
+		$result = $mysqli->query($query);
 		
-		if($result != null) {
+		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
@@ -65,19 +83,7 @@ class OfertaObjeto extends producto{
 			return false;
 		}	
 	}
-	/*//no va por ser static pero si lo quitas no va porque el ojbeto aun no está construido
-	private function cargaComentarios() {
-		$result = parent::hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
-		if($result != null) {		
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
-						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
-			}
-		}
-		return $comentariosArray;
-	}
-	*/
+	
 	//--------------------------------------------------Vista-----------------------------------------------------
 	public function muestraOfertaString(){
 		$DIRimagen = $this->muestraURLImagen();

@@ -4,8 +4,9 @@
 	
 	
 	//Carga las ofertas en un array
-	$ofertasArray = OfertaObjeto::cargarOfertas("SELECT * FROM oferta ORDER BY Valoracion");
+	$ofertasArray = OfertaObjeto::cargarOfertas("Valoracion");
 
+	
 	//Mostrar las ofertas recorriendo el array
 	$tituloPagina = 'Inicio';
 	$productos = '';

@@ -4,8 +4,8 @@
     require __DIR__.'/clases/OfertaObjeto.php';
 
 	//Carga los productos en un array
-	$articulos2ManoArray = Art2ManoObjeto::cargarArticulos2Mano("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY Nombre");
-    $ofertasArray = OfertaObjeto::cargarOfertas("SELECT * FROM oferta WHERE Premium = 1 ORDER BY Nombre");
+	$articulos2ManoArray = Art2ManoObjeto::cargarArticulos2ManoPremium("Nombre");
+    $ofertasArray = OfertaObjeto::cargarOfertasPremium("Nombre");
     $articulosPremium = array_merge($articulos2ManoArray, $ofertasArray);
 	//Mostrar los productos
 	$tituloPagina = 'Zona Premium';

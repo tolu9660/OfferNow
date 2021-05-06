@@ -10,8 +10,7 @@ class OfertaObjeto extends producto{
 	private $creador;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
-		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariosoferta");
 		$this->urlOferta = $urlOferta;
 		$this->valoracion = $valoracion;
 		$this->creador = $creador;
@@ -68,12 +67,9 @@ class OfertaObjeto extends producto{
 	}
 	
 	public static function buscaOferta($id) {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
-		$result = $mysqli->query($query);
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
 		
-		if($result) {
+		if($result != null) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);

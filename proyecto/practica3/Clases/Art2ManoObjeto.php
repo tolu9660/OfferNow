@@ -12,7 +12,7 @@ class Art2ManoObjeto extends producto{
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
+			"comentariossegundamano");
 		$this->unidades = $unidades;
 	}
 
@@ -75,10 +75,7 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
-		$result = $mysqli->query($query);
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'");
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
@@ -86,7 +83,6 @@ class Art2ManoObjeto extends producto{
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 			return $ofertaObj;
 		} else{
-			echo"Error al buscar en la base de datos";
 			return false;
 		}
 	}

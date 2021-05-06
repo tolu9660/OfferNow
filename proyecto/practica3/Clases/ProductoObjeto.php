@@ -18,29 +18,42 @@ abstract class producto{
     }
     */
 
-    protected function creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $queryComentarios) {
+    protected function creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, $tablaDondeBuscarComentarios) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->urlImagen = $urlImagen;
         $this->precio = $precio;
-        $this->cargaComentarios($queryComentarios);
+        $this->cargaComentarios($tablaDondeBuscarComentarios);
     }
 
-    protected function cargaComentarios($queryComentarios) {
+    //Creo que es mejor dividirla en 2 y bajarla a los hijos
+    protected function cargaComentarios($tablaDondeBuscarComentarios) {
 		//$mysqli = getConexionBD();
 		//$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
 		//$result = $mysqli->query($query);
-		//$auxID = parent::muestraID();
-		$result = $this->hacerConsulta($queryComentarios);
-
-		if($result != null) {		
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
-						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
-			}
-		}
+		//$auxID = parent::muestraID();tablaDondeBuscarComentarios
+        if($tablaDondeBuscarComentarios == "comentariosoferta"){
+            $result = $this->hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
+            if($result != null) {		
+                for ($i = 0; $i < $result->num_rows; $i++) {
+                    $fila = $result->fetch_assoc();
+                    $this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+                            $fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
+                }
+            }
+        } else if ($tablaDondeBuscarComentarios == "comentariossegundamano"){
+            $result = $this->hacerConsulta("SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad");
+            if($result != null) {		
+                for ($i = 0; $i < $result->num_rows; $i++) {
+                    $fila = $result->fetch_assoc();
+                    $this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+                            $fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['SegundaManoID']);
+                }
+            }
+        } else{
+            $result = null;
+        }
 	}
 
     protected static function hacerConsulta($query){
@@ -51,7 +64,6 @@ abstract class producto{
 			return $result;
 		}
 		else{
-			echo"maaaaaaaaaaaaaaaaaal";
 			return null;
 		}
 	}

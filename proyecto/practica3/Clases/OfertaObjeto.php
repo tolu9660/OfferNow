@@ -200,10 +200,10 @@ class OfertaObjeto{
 	}
 	
 	function muestraURLImagen() {
-		//$DIRimagen=RUTA_IMGS;
-		//$DIRimagen.=$this->urlImagen;
-		//return $DIRimagen;
-		return $this->urlImagen;
+		$DIRimagen=RUTA_IMGS."/ofertas/";
+		$DIRimagen.=$this->urlImagen;
+		echo $DIRimagen;
+		return $DIRimagen;
 	}
 	
 	function muestraValoracion() {

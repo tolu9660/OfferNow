@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/OfertaObjeto.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/clases/OfertaObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Subir Oferta";
@@ -19,12 +19,13 @@
 	//Comprueba la extension del archivo
 	$end = explode(".", $_FILES["ofertaImagen"]["name"]);
 	$extensionImagen = strtolower(end($end));
-	$extensionesValidas = array('jpg', 'gif', 'png');
+	$extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');
 	if (in_array($extensionImagen, $extensionesValidas)) {
 		//Si la extension es correcta mueve la imagen
 		if (move_uploaded_file($_FILES['ofertaImagen']['tmp_name'], "$directorioServerImg")) {
 			//Si ha movido la imagen la sube a la BD
-			if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$ofertaImagenDir,$precio,$creador )) {
+			//if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$ofertaImagenDir,$precio,$creador )) {
+			if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["ofertaImagen"]["name"],$precio,$creador )) {
 				$contenidoPrincipal=<<<EOS
 					<h3>Oferta creada</h3>
 				EOS;
@@ -43,5 +44,5 @@
 			<h3>El archivo no es valido (png, jpg o gif)</h3>;
 		EOS;
 	}
-	require '../includes/comun/layout.php';
+	require $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/includes/comun/layout.php';
 ?>

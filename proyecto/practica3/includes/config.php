@@ -8,7 +8,7 @@ define('BD_PASS', '');
 define('RUTA_APP', '/proyecto/practica3');					//Ruta de Luis
 //efine('RUTA_APP', '/AW/OfferNow/proyecto/practica3');	//Ruta de Pablo
 //define('RUTA_SERVER', $_SERVER['DOCUMENT_ROOT'].RUTA_APP);//RUTA SERVER -> NO USAR
-define('RUTA_IMGS', RUTA_APP.'/imagenes');
+define('RUTA_IMGS', RUTA_APP.'/imagenes/productos');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('COMUN', RUTA_APP.'/includes/comun');
 define('USUARIO',RUTA_APP.'/includes/usuario'); //ruta global para usuarios

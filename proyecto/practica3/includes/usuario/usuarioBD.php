@@ -116,8 +116,14 @@ class Usuario{
 			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
 			$app = Aplicacion::getSingleton();
 		  $mysqli = $app->conexionBd();
+      //se filtra la informacion que se va a introducir en la BD:
+      
+      $usuarioFiltrado=$mysqli->real_escape_string($username);
+      $correoFiltrado=$mysqli->real_escape_string($correo);
+      $passFiltrado=$mysqli->real_escape_string($pass);
+      
 			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
-					VALUES ('$correo','$usuario','$pass',0,0)";
+					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0)";
 			if (mysqli_query($mysqli, $sql)) {
 				//$mysqli->close();
 				return true;

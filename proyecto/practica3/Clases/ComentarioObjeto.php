@@ -19,16 +19,18 @@ class ComentarioObjeto{
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function subeComentarioOfertaBD($titulo,$descripcion,$urlOferta,$esOferta,$creador) {
 		
-		/*$titulo = htmlspecialchars(trim(strip_tags($_POST["comentarioTitulo"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_POST["comentarioDescripcion"])));
-		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
-		$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
-		$creador = $_SESSION["correo"];
-		*/
 		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();				
+		$mysqli = $app->conexionBd();	
+		
+		$tituloFiltrado=$mysqli->real_escape_string($titulo);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
+		$esOfertaFiltrado=$mysqli->real_escape_string($esOferta);//no se usa ...
+		$creadorFiltrado=$mysqli->real_escape_string($creador);
+
+
 		$sql = "INSERT INTO comentariosoferta (Texto, Titulo, ValoracionUtilidad, UsuarioID, OfertaID)
-				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+				VALUES ('$descripcionFiltrado', '$tituloFiltrado', 0, '$creadorFiltrado', '$urlOfertaFiltrado')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -38,17 +40,20 @@ class ComentarioObjeto{
 	}
 	
 	public static function subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador){
-		/*$titulo = htmlspecialchars(trim(strip_tags($_POST["comentarioTitulo"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_POST["comentarioDescripcion"])));
-		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
-		$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
-		$creador = $_SESSION["correo"];*/
+		
 		
 		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();	
+
+		$tituloFiltrado=$mysqli->real_escape_string($titulo);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
+		$esOfertaFiltrado=$mysqli->real_escape_string($esOferta);//no se usa ...
+		$creadorFiltrado=$mysqli->real_escape_string($creador);
+
 		$sql = "INSERT INTO comentariossegundamano (Texto, Titulo, ValoracionUtilidad, UsuarioID, SegundaManoID)
-				VALUES ('$descripcion', '$titulo', 0, '$creador', '$urlOferta')";
+				VALUES ('$descripcionFiltrado', '$tituloFiltrado', 0, '$creadorFiltrado', '$urlOfertaFiltrado')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;

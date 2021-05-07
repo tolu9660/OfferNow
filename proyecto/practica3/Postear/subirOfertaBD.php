@@ -12,7 +12,7 @@
 	$creador = $_SESSION["correo"];
 
 	//comprobaciones para la subida de imagenes
-	$ofertaImagenDir = RUTA_IMGS."/productos/ofertas/".$_FILES["ofertaImagen"]["name"];
+	$ofertaImagenDir = RUTA_IMGS."/ofertas".$_FILES["ofertaImagen"]["name"];
 	$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
 	
 

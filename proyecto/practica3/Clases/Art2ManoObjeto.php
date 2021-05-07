@@ -51,7 +51,8 @@ class Art2ManoObjeto extends producto{
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+									
 			}
 			return $ofertasArray;
 		}
@@ -63,9 +64,17 @@ class Art2ManoObjeto extends producto{
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
+
+		$nombreFiltrado=$mysqli->real_escape_string($nombre);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
+		$precioFiltrado=$mysqli->real_escape_string($precio);
+		$imagenFiltrado=$mysqli->real_escape_string($imagen);
+	
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
+						VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado')";
+					
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;

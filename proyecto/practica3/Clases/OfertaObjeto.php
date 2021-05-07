@@ -21,7 +21,7 @@ class OfertaObjeto extends producto{
 	public static function cargarOfertas($orden){
 		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
-	
+		
 		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
@@ -56,9 +56,18 @@ class OfertaObjeto extends producto{
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
+		
+		$nombreFiltrado=$mysqli->real_escape_string($nombre);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
+		$urlImagenFiltrado=$mysqli->real_escape_string($urlImagen);
+		$precioFiltrado=$mysqli->real_escape_string($precio);
+		$creadorFiltrado=$mysqli->real_escape_string($creador);
+	
+	
 		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
-					VALUES ('$nombre', '$descripcion', '$urlOferta', '$urlImagen', 0, '$precio', '$creador')";
+					VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado', '$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;

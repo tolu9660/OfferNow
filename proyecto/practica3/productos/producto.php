@@ -13,7 +13,7 @@
 	$productos = '';
 	$productos .= $ofertaObj->muestraOfertaString();
 	$productos.=<<<EOS
-		<div id="tarjetacomentario">		
+		<div class="tarjetacomentario">		
 			<h1>Subir Comentario</h1>
 			<form method="post" action="${ruta}/subirComentarioOfertaBD.php">
 				<p>Titulo</p>

@@ -23,7 +23,7 @@
 	$tituloPagina = 'Registro nuevo usuario';
 	$contenidoPrincipal=<<<EOS
 		
-	<div id="contenedor">	
+	<div class="contenedor">	
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>

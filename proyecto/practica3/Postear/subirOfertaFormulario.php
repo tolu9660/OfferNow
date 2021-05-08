@@ -3,8 +3,8 @@
 
 	$tituloPagina = 'subirOferta';
 	$contenidoPrincipal=<<<EOS
-		<div id="contenedor">
-			<main id="contenido">
+		<div class="contenedor">
+			<main class="contenido">
 				<h1>Subir Oferta</h1>
 				<form method="post" action="subirOfertaBD.php" enctype="multipart/form-data">
 					<p>Nombre oferta:</p>

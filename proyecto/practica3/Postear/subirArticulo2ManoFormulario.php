@@ -3,8 +3,8 @@
 	
 	$tituloPagina = 'Subir Articulo 2ª';		
 	$contenidoPrincipal=<<<EOS
-		<div id="contenedor">
-			<main id="contenido">
+		<div class="contenedor">
+			<main class="contenido">
 				<h1>Subir Articulo Segunda Mano</h1>
 				<form method="post" action="subirArticulo2ManoBD.php">
 					<p>Nombre Articulo:</p>

@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__.'/../config.php';
+require_once __DIR__.'/../../Clases/Carrito.php';
+
 
 
 class Usuario{
@@ -140,6 +142,7 @@ class Usuario{
 ////////////
   private $esAdmin;
   private $esPremium;
+  private $carrito;
 ////////////
    function __construct($correo, $nombre,$contraseña){
     $this->idCorreo = $correo;
@@ -147,7 +150,9 @@ class Usuario{
     $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
+    $this->carrito= new Carrito( $this->idCorreo);
   }
+  /*
   //cogerlo con pinzas este constructor
   function __construct1($correo, $nombre,$contraseña,$premium,$admin){
     $this->idCorreo = $correo;
@@ -156,7 +161,7 @@ class Usuario{
     $this->esAdmin=$admin;
     $this->esPremium=$premium;
   }
- 
+ */
 /////////////
   public function esAdmin(){
     $this->esAdmin=1;
@@ -203,5 +208,14 @@ class Usuario{
 
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
+  }
+  private function cargaCarrito(){
+
+
+  }
+  public function muestraCarrito(){
+    $this->carrito->cargarCarrito($this->idCorreo);
+    $this->carrito->listarCarrito();
+
   }
 }

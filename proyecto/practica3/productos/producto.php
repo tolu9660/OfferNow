@@ -8,6 +8,7 @@
 	
 	$ofertaObj = OfertaObjeto::buscaOferta($id);
 	
+	
 	//Mostrar las cosas
 	$ruta=POSTEAR;
 	$productos = '';

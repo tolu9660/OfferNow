@@ -1,5 +1,5 @@
 body {
-	background-color: #CDCDCD;
+	background-color: #f80101;
 }
 div#titulo{
 	width: auto;
@@ -36,7 +36,7 @@ main {
 	width: 90%;
 	height:80%;
 	padding: 10px;
-	float: left;
+	float: center;
 	min-height: 600px;
 	width: 1675px;
 	background-color: #aaaaaa;
@@ -183,6 +183,7 @@ div.sesion{
 	box-sizing: border-box; /* para que los padding y border no se sumen al width */
   }
 .rejilla {
+	
 	display: flex; /* esto es lo que lo convierte en una rejilla (unidimensional) */
 	flex-wrap: wrap; /* para que salte a diferentes filas si el ancho no da */
 	justify-content: center; /* todos los elementos centradicos, especialmente en la Ãºltima fila (por esto prefiero usar display flex y no grid) */

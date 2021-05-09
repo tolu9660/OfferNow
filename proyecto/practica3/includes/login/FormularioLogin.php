@@ -17,12 +17,15 @@ class FormularioLogin extends Form{
             $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
         }
         $html = <<<EOF
+        <div id=contenedor>
         <fieldset>
             <legend>Usuario y contraseña</legend>
             <p><label>Nombre de usuario:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
             <p><label>Password:</label> <input type="password" name="password" /></p>
             <button type="submit" name="login">Entrar</button>
         </fieldset>
+        </div>
+      
         EOF;
         return $html;
     }

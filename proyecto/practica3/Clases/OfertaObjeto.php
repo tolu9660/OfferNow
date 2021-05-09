@@ -8,13 +8,16 @@ class OfertaObjeto extends producto{
 	private $urlOferta;
 	private $valoracion;
 	private $creador;
+	private $segundaMano;
 	
-	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
+	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador,$segundaMano) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
 			"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
 		$this->urlOferta = $urlOferta;
 		$this->valoracion = $valoracion;
 		$this->creador = $creador;
+		$this->segundaMano=$segundaMano;
+		
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
@@ -25,8 +28,9 @@ class OfertaObjeto extends producto{
 		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
+				
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 				
 			}
 			return $ofertasArray;
@@ -44,7 +48,7 @@ class OfertaObjeto extends producto{
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 			}
 			return $ofertasArray;
 		}
@@ -85,7 +89,8 @@ class OfertaObjeto extends producto{
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+			
 			return $ofertaObj;
 		} else{
 			echo"Error al buscar en la base de datos";
@@ -96,10 +101,12 @@ class OfertaObjeto extends producto{
 	//--------------------------------------------------Vista-----------------------------------------------------
 	public function muestraOfertaString(){
 		$DIRimagen = $this->muestraURLImagen();
-
+		
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
 		$creadornAux = $this->muestraCreador();
+		$valorSegundaMano=$this->getSegundamano();
+	
 
 		$productos = '';
 		$productos.=<<<EOS
@@ -119,9 +126,23 @@ class OfertaObjeto extends producto{
 					<p>$descripcionAux</p>
 					<p>
 						Enlaces:
-						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
-						<a href="$this->urlOferta" rel="nofollow" target="_blank">Enlace a nuestra tienda -- no funciona--</a>
 					</p>
+					<p>
+						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
+					<p> 
+			EOS;
+			
+		if($this->segundaMano){
+			$Ruta=RUTA_APP;
+			$productos.=<<<EOS
+			<p>
+			Tenemos el producto en nuestra tienda,<a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO</a>
+			</p>
+			EOS;
+		}
+		
+		$productos.=<<<EOS
+				</p>
 				</div>
 			</div>
 		EOS;
@@ -146,6 +167,10 @@ class OfertaObjeto extends producto{
 
 	function muestraURLOferta() {
 		return $this->urlOferta;
+	}
+	public function getSegundamano(){
+		//echo "valor dentro del metodo".$this->$segundaMano;
+		return $this->segundaMano;
 	}
   }
 ?>

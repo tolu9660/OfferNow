@@ -5,11 +5,11 @@
 	?>
 
 	<div id= "titulo">
-	<img src="<?=RUTA_IMGS.'/OfferNow_Logo.ico'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
-	
-	<h1>
-	Tu página de ofertas preferida
-	</h1>
+        <img src="<?=RUTA_APP.'/imagenes/OfferNow_Logo.ico'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
+        
+        <h1>
+        Tu página de ofertas preferida
+        </h1>
 	</div>
 	<div id="contenedor1">
 		<div class="menu" class="col-4 my-auto mx-auto">
@@ -49,9 +49,9 @@
             </button>
             -->
 
-			<a href="<?=RUTA_APP.'/zcarrito.php'?>" rel="nofollow" target="_blank" class="button" >
+			<a href="<?=RUTA_APP.'/procesarcarrito.php'?>" rel="nofollow" target="_blank" class="button" >
 
-			<img src="<?=RUTA_IMGS.'/iconos/carrito.png'?>" width="40" height="40" alt="carrito"/>    
+			<img src="<?=RUTA_APP.'/imagenes/iconos/carrito.png'?>" width="40" height="40" alt="carrito"/>    
 
 			</a>
 		</div>

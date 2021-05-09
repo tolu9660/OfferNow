@@ -20,6 +20,7 @@ class FormularioRegistro extends Form{
             $nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
         }
         $html = <<<EOF
+        <div id=contenedor>
             <h1>Registro de usuario</h1>
            
             <p><label> Usuario:  </label> <input type="text" name="username"/></p>
@@ -33,6 +34,7 @@ class FormularioRegistro extends Form{
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
             <input type="submit" value="crear">
         </form>
+        </div>
         EOF;
       /*
         $html = <<<EOF

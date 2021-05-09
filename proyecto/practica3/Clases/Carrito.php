@@ -1,5 +1,6 @@
 <?php
-
+require_once __DIR__.'/OfertaObjeto.php';
+require_once __DIR__.'/ProductoObjeto.php';
 
 class Carrito{
 
@@ -56,7 +57,7 @@ class Carrito{
      }
     
     public function listarCarrito(){
-        $productos = '';
+      $productos = '';
         $precioTotal=0;
 		if(is_array( $this->productos)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->productos); $i++){
@@ -74,8 +75,23 @@ class Carrito{
             <p> TOTAL: $precioTotal</p>
             </div>           
         EOS;
-		return $productos;
+		return $productos;       
+       
     }
-    
+    public function cargarCarrito($idUser){
+        $app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+        $consultaCarrito = sprintf("SELECT * FROM carrito WHERE idUsuario='%s'",
+                    $mysqli->real_escape_string($idUser));
+        $result = $mysqli->query($consultaCarrito);
+        if($result && $result->num_rows == 1){
+            $fila = $result->fetch_assoc();
+           
+            echo " valores del array:". $arrayphp;
+        }
+		
+
+
+    }
 }
 ?>

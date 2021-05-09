@@ -18,10 +18,13 @@ class Art2ManoObjeto extends producto{
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarProductos2Mano($orden){
+		/*
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 		$result = $mysqli->query($query);
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 
 		$ofertasArray;
 		
@@ -40,11 +43,13 @@ class Art2ManoObjeto extends producto{
 
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarArticulos2ManoPremium($orden){
+		/*
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();;
 		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
 		$result = $mysqli->query($query);
-
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
 		$ofertasArray;
 		
 		if($result) {
@@ -62,19 +67,24 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
 
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
 		$precioFiltrado=$mysqli->real_escape_string($precio);
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
-	
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
 						VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado')";
-					
+		*/
+
+		$result = parent::hacerConsulta("INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades,
+											Precio, Imagen)
+										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
+											'$precioFiltrado', '$imagenFiltrado'");
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;

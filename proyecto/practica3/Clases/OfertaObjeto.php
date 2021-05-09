@@ -41,7 +41,7 @@ class OfertaObjeto extends producto{
 	}
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarOfertasPremium($orden){
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
 		$ofertasArray;
 	
 		if($result != null) {
@@ -58,9 +58,6 @@ class OfertaObjeto extends producto{
 	}
 	
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
@@ -68,12 +65,17 @@ class OfertaObjeto extends producto{
 		$precioFiltrado=$mysqli->real_escape_string($precio);
 		$creadorFiltrado=$mysqli->real_escape_string($creador);
 	
-	
-		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
 					VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado', '$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')";
-		
-		if (mysqli_query($mysqli, $sql)) {
+		*/
+		$result = parent::hacerConsulta("INSERT INTO oferta (Nombre, Descripcion, URL_Oferta,
+											URL_Imagen, Valoracion, Precio, Creador)
+										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado',
+											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado'");
+		if ($result) {
 			return true;
 		} else {
 			return false;
@@ -81,11 +83,13 @@ class OfertaObjeto extends producto{
 	}
 	
 	public static function buscaOferta($id) {
+		/*
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
-		
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],

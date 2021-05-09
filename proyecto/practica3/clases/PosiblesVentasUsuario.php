@@ -20,14 +20,16 @@ class PosiblesVentasUsuario extends producto{
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarPosiblesCompras($orden){
+		/*
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$query = sprintf("SELECT * FROM posiblescompras ORDER BY $orden");
 		$result = $mysqli->query($query);
-
-		$ofertasArray;
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM posiblescompras ORDER BY $orden");
 		
 		if($result) {
+			$ofertasArray;
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new PosiblesVentasUsuario($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
@@ -41,9 +43,6 @@ class PosiblesVentasUsuario extends producto{
 	}
 	
 	public static function subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio,	$imagen, $usuario) {
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
@@ -51,11 +50,18 @@ class PosiblesVentasUsuario extends producto{
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
 		$usuarioFiltrado=$mysqli->real_escape_string($usuario);
 	
-		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$sql = "INSERT INTO posiblescompras (Nombre, Descripcion, Unidades, Precio, Imagen, UsuarioVendedor)
 						VALUES ('$nombreFiltrado', '$descripcionFiltrado',
 							'$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')";
-		
+		*/
+
+		$result = parent::hacerConsulta("INSERT INTO posiblescompras (Nombre, Descripcion, Unidades, Precio, Imagen, UsuarioVendedor)
+		VALUES ('$nombreFiltrado', '$descripcionFiltrado',
+			'$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado'");
+
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
 		} else {
@@ -64,7 +70,7 @@ class PosiblesVentasUsuario extends producto{
 	}
 	
 	public static function buscaPosiblesCompras($id) {
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM posiblescompras WHERE Numero = '$id'");
+		$result = parent::hacerConsulta("SELECT * FROM posiblescompras WHERE Numero = '$id'");
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new PosiblesVentasUsuario($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],

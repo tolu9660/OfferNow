@@ -1,9 +1,9 @@
 <?php
-	require_once __DIR__.'/includes/config.php';
-	require __DIR__.'/clases/PosiblesComprasObjeto.php';
+	require_once __DIR__.'/../includes/config.php';
+	require_once __DIR__.'/../clases/PosiblesVentasUsuario.php';
 
 	//Carga los productos en un array
-	$ofertasArray = PosiblesComprasObjeto::cargarPosiblesCompras("Precio");
+	$ofertasArray = PosiblesVentasUsuario::cargarPosiblesCompras("Precio");
 	
 	//Mostrar los productos
 	$tituloPagina = 'Valida Compras';
@@ -25,14 +25,16 @@
 				<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
 				<h3>$nombreArticulo</h3>
 				<p>$precioArticulo €</p>
-				<button class="button" type="button">    
-					<img src="imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
-					Aceptar compra
-				</button>
-				<button class="button" type="button">   
-					<img src="imagenes/iconos/cruz.png" width="15" height="15" alt="votos"/>   
-					Rechazar compra
-				</button>
+				<form method="post" action="procesarAdmitirVentasUsuario.php">
+					<input type="hidden" name="id" value=$id>
+					<img src="../imagenes/iconos/ok.png" width="15" height="15" alt="tick"/> 
+					<input type="submit" value="Aceptar compra">
+				</form>
+				<form method="post" action="procesarDenegarVentasUsuario.php">
+					<input type="hidden" name="id" value=$id>
+					<img src="../imagenes/iconos/cruz.png" width="15" height="15" alt="tick"/> 
+					<input type="submit" value="Rechazar compra">
+				</form>
 			</a>
 		</li>
 		EOS;
@@ -44,4 +46,4 @@
 		</div>
 	EOS;
 
-require __DIR__.'/includes/comun/layout.php';
+require __DIR__.'/../includes/comun/layout.php';

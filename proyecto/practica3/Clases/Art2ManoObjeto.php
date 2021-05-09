@@ -82,6 +82,30 @@ class Art2ManoObjeto extends producto{
 			return false;
 		}
 	}
+
+	public static function subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio,	$imagen, $usuario) {
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+
+		$nombreFiltrado=$mysqli->real_escape_string($nombre);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
+		$precioFiltrado=$mysqli->real_escape_string($precio);
+		$imagenFiltrado=$mysqli->real_escape_string($imagen);
+		$usuarioFiltrado=$mysqli->real_escape_string($usuario);
+	
+		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
+		$sql = "INSERT INTO posiblescompras (Nombre, Descripcion, Unidades, Precio, Imagen, UsuarioVendedor)
+						VALUES ('$nombreFiltrado', '$descripcionFiltrado',
+							'$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')";
+					
+		
+		if (mysqli_query($mysqli, $sql)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public static function buscaArt2Mano($id) {
 		$app = Aplicacion::getSingleton();

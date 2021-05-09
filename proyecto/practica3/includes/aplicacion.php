@@ -127,4 +127,29 @@ class Aplicacion
 		}
 		return $this->conn;
 	}
+
+	/**
+	 * Hace las comprobaciones para evr si el fichero subido es una imagen y la guarda en la ruta
+	 * El parametro $carpetaImgDir debe ser la subcarpeta dentro de la ruta RUTA_IMGS, ej:
+	 * 		"/ofertas/"
+	 */
+	public static function comprobarImagen($carpetaImgDir){
+		$ofertaImagenDir = RUTA_IMGS.$carpetaImgDir.$_FILES["productoImagen"]["name"];
+		$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
+		
+		//Comprueba la extension del archivo
+		$end = explode(".", $_FILES["productoImagen"]["name"]);
+		$extensionImagen = strtolower(end($end));
+		$extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');
+		if (in_array($extensionImagen, $extensionesValidas)) {
+			//Si la extension es correcta mueve la imagen
+			if (move_uploaded_file($_FILES['productoImagen']['tmp_name'], "$directorioServerImg")) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 }

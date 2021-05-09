@@ -16,7 +16,7 @@
 					<p>Url de la oferta:</p>
 					<input type="text" name="ofertaUrl"/>
 					<p>Imagen:</p>
-					<input type="file" name="ofertaImagen"/>
+					<input type="file" name="productoImagen"/>
 					
 					<p><input type="submit" value="Publicar"></p>
 				</form>

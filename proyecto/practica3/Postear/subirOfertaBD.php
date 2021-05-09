@@ -11,6 +11,7 @@
 	$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
 	$creador = $_SESSION["correo"];
 
+	/*
 	//comprobaciones para la subida de imagenes
 	$ofertaImagenDir = RUTA_IMGS."/ofertas".$_FILES["ofertaImagen"]["name"];
 	$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
@@ -42,6 +43,22 @@
 	} else {
 		$contenidoPrincipal=<<<EOS
 			<h3>El archivo no es valido (png, jpg o gif)</h3>;
+		EOS;
+	}
+	*/
+	if(aplicacion::comprobarImagen("/ofertas/")){
+		if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {
+			$contenidoPrincipal=<<<EOS
+				<h3>Oferta creada</h3>
+			EOS;
+		} else {
+			$contenidoPrincipal=<<<EOS
+				<h3>Error: al crear la oferta</h3>;
+			EOS;
+		}
+	} else {
+		$contenidoPrincipal=<<<EOS
+			<h3>Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif</h3>;
 		EOS;
 	}
 	require $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/includes/comun/layout.php';

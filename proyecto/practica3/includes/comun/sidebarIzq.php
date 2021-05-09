@@ -16,22 +16,26 @@
 		<li><a href="#">Contacto</a></li>
 		<?php
 			if(estaLogado()){
-				$dir = RUTA_APP.'/Postear/subirOfertaFormulario.php';
+				$oferta = RUTA_APP.'/Postear/subirOfertaFormulario.php';
+				$vender = RUTA_APP.'/Postear/peticionVentaArticuloFormulario.php';
 				?>
 				<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>
-				<li><a href= "<?=$dir?>">Publica una oferta</a></li>
+				<li><a href= "<?=$oferta?>">Publica una oferta</a></li>
+				<li><a href= "<?=$vender?>">¡¡Vendenos un articulo!!</a></li>
 				<?php
 			}
 			if(estaLogado() && ($_SESSION['esAdmin'])){
-				$dir2 = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
+				$articulo = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
+				$compraArticulos = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
 				?>
-				<li><a href= "<?=$dir2?>">Publica un articulo de segunda mano</a></li>
+				<li><a href= "<?=$articulo?>">Publica un articulo de segunda mano</a></li>
+				<li><a href= "<?=$compraArticulos?>">Valida solicitudes de compra</a></li>
 				<?php
 			}
 			if(estaLogado() && ($_SESSION['esPremium'])){
-				$dir3 = RUTA_APP.'/tiendaPremium.php';
+				$premium = RUTA_APP.'/tiendaPremium.php';
 				?>
-				<li><a href= "<?=$dir3?>">Comprueba las ofertas Premium!!</a></li>
+				<li><a href= "<?=$premium?>">Comprueba las ofertas Premium!!</a></li>
 				<?php
 			}
 		?>

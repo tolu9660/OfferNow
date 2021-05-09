@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/Art2ManoObjeto.php';
+	require_once __DIR__.'/../clases/PosiblesComprasObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Vender articulo";
@@ -12,8 +12,8 @@
 	//$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
 	$usuario = $_SESSION["correo"];
 	
-	if(aplicacion::comprobarImagen("/ofertas/")){
-		if (Art2ManoObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
+	if(aplicacion::comprobarImagen("/art2mano/")){
+		if (PosiblesComprasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
 			$contenidoPrincipal=<<<EOS
 				<h3>Tu peticion de venta ha sido enviada!</h3>
 			EOS;

@@ -4,23 +4,26 @@ require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/ComentarioObjeto.php';
 require_once __DIR__.'/ProductoObjeto.php';
 
-class Art2ManoObjeto extends producto{
+class PosiblesComprasObjeto extends producto{
+
 	private $unidades;
+	private $creador;
 	//private $precio;
 	//private $urlImagen;
 	//private $comentariosArray;
 	
-	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
+	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen, $creador) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
+			"SELECT * FROM posiblescompras WHERE SegundaManoID = '$id'");
 		$this->unidades = $unidades;
+		$this->creador = $creador;
 	}
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarProductos2Mano($orden){
+	public static function cargarPosiblesCompras($orden){
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
-		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
+		$query = sprintf("SELECT * FROM posiblescompras ORDER BY $orden");
 		$result = $mysqli->query($query);
 
 		$ofertasArray;
@@ -28,31 +31,8 @@ class Art2ManoObjeto extends producto{
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
-			}
-			return $ofertasArray;
-		}
-		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
-		}
-	}
-
-	//-------------------------------------------PREMIUM----------------------------------------
-	public static function cargarArticulos2ManoPremium($orden){
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();;
-		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
-		$result = $mysqli->query($query);
-
-		$ofertasArray;
-		
-		if($result) {
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
-									
+				$ofertasArray[] = new PosiblesComprasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen'], $fila['UsuarioVendedor']);		
 			}
 			return $ofertasArray;
 		}
@@ -61,7 +41,7 @@ class Art2ManoObjeto extends producto{
 		}
 	}
 	
-	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
+	public static function subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio,	$imagen, $usuario) {
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 
@@ -70,11 +50,12 @@ class Art2ManoObjeto extends producto{
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
 		$precioFiltrado=$mysqli->real_escape_string($precio);
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
+		$usuarioFiltrado=$mysqli->real_escape_string($usuario);
 	
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
-		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-						VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado')";
-					
+		$sql = "INSERT INTO posiblescompras (Nombre, Descripcion, Unidades, Precio, Imagen, UsuarioVendedor)
+						VALUES ('$nombreFiltrado', '$descripcionFiltrado',
+							'$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')";
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -83,16 +64,16 @@ class Art2ManoObjeto extends producto{
 		}
 	}
 	
-	public static function buscaArt2Mano($id) {
+	public static function buscaPosiblesCompras($id) {
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
+		$query = "SELECT * FROM posiblescompras WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
-			$ofertaObj = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+			$ofertaObj = new PosiblesComprasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+							$fila['Unidades'],$fila['Precio'],$fila['Imagen'], $fila['usuarioVendedor']);
 			return $ofertaObj;
 		} else{
 			echo"Error al buscar en la base de datos";
@@ -101,8 +82,9 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		
-	public function muestraOfertaString(){
+	public function muestraPosibleCompraString(){
 		$DIRimagen = $this->muestraURLImagen();
+		$usuarioCreador = $this->muestraCreador();
 		
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
@@ -117,6 +99,7 @@ class Art2ManoObjeto extends producto{
 				<p>Nombre del producto: $nombreAux</p>
 				<p>Descripcion:</p>
 				<p>$descripcionAux</p>
+				<p>Creador: $usuarioCreador</p>;
 			</div>
 		</div>
 		EOS;
@@ -127,6 +110,10 @@ class Art2ManoObjeto extends producto{
 	//--------------------------------------------------GETTERS-----------------------------------------------------
 	public function muestraUnidades() {
 		return $this->unidades;
+	}
+
+	public function muestraCreador() {
+		return $this->creador;
 	}
 	
 	public function muestraURLImagen() {

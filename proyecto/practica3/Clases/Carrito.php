@@ -57,28 +57,19 @@ class Carrito{
 
 
      }
-    
-    public function listarCarrito(){
-      $productos = '';
+     public function getCont(){
+         return $this->contador;
+     }
+    public function precioTotal(){
+      
         $precioTotal=0;
 		if(is_array( $this->productos)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->productos); $i++){
-				$articulo = $this->productos[$i]->muestraNombre();
                 $precio = $this->productos[$i]->muestraPrecio();
-                $descripcion = $this->productos[$i]->muestraDescripcion();
                 $precioTotal +=$precio;
-                $productos.=<<<EOS
-					<div class="comProducto">
-						<p>$articulo - $descripcion- $precio  </p>
-				EOS;
             }
 		}
-        $productos.=<<<EOS
-            <p> TOTAL: $precioTotal</p>
-            </div>           
-        EOS;
-		return $productos;       
-       
+		return $precioTotal;     
     }
     public function cargarCarrito($idUser){
     
@@ -108,6 +99,7 @@ class Carrito{
 
          }
         }
+        return $this->productos;
     }
 }
 ?>

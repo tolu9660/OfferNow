@@ -26,7 +26,7 @@
 			}
 			if(estaLogado() && ($_SESSION['esAdmin'])){
 				$articulo = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
-				$compraArticulos = RUTA_APP.'/PosiblesCompras/ventasUsuarioVista.php';
+				$compraArticulos = RUTA_APP.'/posiblesCompras.php';
 				?>
 				<li><a href= "<?=$articulo?>">Publica un articulo de segunda mano</a></li>
 				<li><a href= "<?=$compraArticulos?>">Valida solicitudes de compra</a></li>

@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__.'/OfertaObjeto.php';
 require_once __DIR__.'/ProductoObjeto.php';
+require_once __DIR__.'/Art2ManoObjeto.php';
+
 
 class Carrito{
 
@@ -79,19 +81,33 @@ class Carrito{
        
     }
     public function cargarCarrito($idUser){
+    
         $app = Aplicacion::getSingleton();
+     
 		$mysqli = $app->conexionBd();
+        
+        $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idUsuario='%s'",
+                    $mysqli->real_escape_string($idUser));
         $consultaCarrito = sprintf("SELECT * FROM carrito WHERE idUsuario='%s'",
                     $mysqli->real_escape_string($idUser));
+
         $result = $mysqli->query($consultaCarrito);
-        if($result && $result->num_rows == 1){
-            $fila = $result->fetch_assoc();
-           
-            echo " valores del array:". $arrayphp;
+        $result1 = $mysqli->query($consultaCarritoCount);
+        $fila1=$result1->fetch_assoc();
+        if(($result && $result->num_rows >0) && $fila1['total']>0 ){
+         $this->contador=$fila1['total'];
+        //echo $result->num_rows ."cont:". $fila1['total'];
+
+         for($i=0; $i < $result->num_rows; $i++){
+            
+            $fila=$result->fetch_assoc();
+            //echo $fila['idProducto']."----".$fila['idUsuario'];
+            $producto = Art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
+            $this->productos[$i]=$producto;
+           // echo"i:".$i ."valor del id producto". $fila['id'] . $fila['idUsuario'];
+
+         }
         }
-		
-
-
     }
 }
 ?>

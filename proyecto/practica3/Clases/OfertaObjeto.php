@@ -22,7 +22,7 @@ class OfertaObjeto extends producto{
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function cargarOfertas($orden){
-		$result = parent::hacerConsulta("INSERT * INTO oferta ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
 		
 		if($result != null) {
@@ -35,14 +35,13 @@ class OfertaObjeto extends producto{
 			}
 			return $ofertasArray;
 		}
-		/*
 		else{
 			echo "Error in ".$query."<br>".$mysqli->error;
-		}*/
+		}
 	}
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarOfertasPremium($orden){
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
 		$ofertasArray;
 	
 		if($result != null) {
@@ -83,13 +82,10 @@ class OfertaObjeto extends producto{
 	
 	public static function buscaOferta($id) {
 		$app = Aplicacion::getSingleton();
-		/*
 		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
-		*/
-		$result = OfertaObjeto::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
-
+		
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],

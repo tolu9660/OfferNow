@@ -13,8 +13,6 @@
 				require(__DIR__.'/sidebarIzq.php');
 			?>
 			<?= $contenidoPrincipal ?>
-				
-
-		
+	
 	</body>
 </html>

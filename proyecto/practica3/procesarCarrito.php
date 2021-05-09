@@ -8,9 +8,12 @@ require_once __DIR__.'/includes/usuario/usuarios.php';
 $tituloPagina = 'carrito';
 
 if(estaLogado()){
-	echo $_SESSION["nombre"];
-	$user=Usuario::buscaUsuario( $_SESSION["nombre"]);
+	
+	$user=Usuario::buscaUsuario( $_SESSION["correo"]);
+	
+	$contenidoPrincipal=<<<EOS
 	$user->muestraCarrito();
+	EOS;
 
 
 }

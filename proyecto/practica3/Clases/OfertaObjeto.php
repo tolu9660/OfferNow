@@ -1,23 +1,22 @@
 <?php
 
 require_once __DIR__.'/../includes/config.php';
-require_once __DIR__.'/ComentarioObjeto.php';
-require_once __DIR__.'/ProductoObjeto.php';
+require_once __DIR__.'/comentarioObjeto.php';
+require_once __DIR__.'/productoObjeto.php';
 
-class OfertaObjeto extends producto{
+class OfertaObjeto extends Producto{
 	private $urlOferta;
 	private $valoracion;
 	private $creador;
 	private $segundaMano;
 	
 	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador,$segundaMano) {
-		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariosoferta");
+			//"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
 		$this->urlOferta = $urlOferta;
 		$this->valoracion = $valoracion;
 		$this->creador = $creador;
 		$this->segundaMano=$segundaMano;
-		
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------

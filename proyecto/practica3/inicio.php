@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
-	require __DIR__.'/clases/OfertaObjeto.php';
+	require __DIR__.'/clases/ofertaObjeto.php';
 	
 	
 	//Carga las ofertas en un array

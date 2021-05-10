@@ -1,9 +1,9 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/PosiblesVentasUsuario.php';
+	require_once __DIR__.'/../clases/posiblesVentasObjeto.php';
 
 	//Carga los productos en un array
-	$ofertasArray = PosiblesVentasUsuario::cargarPosiblesCompras("Precio");
+	$ofertasArray = PosiblesVentasObjeto::cargarPosiblesCompras("Precio");
 	
 	//Mostrar los productos
 	$tituloPagina = 'Valida Compras';

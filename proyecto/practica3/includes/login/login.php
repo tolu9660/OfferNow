@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../config.php';
-	require_once __DIR__.'/FormularioLogin.php';
+	require_once __DIR__.'/formularioLogin.php';
 
 	$tituloPagina = 'Login';
 	

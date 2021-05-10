@@ -1,19 +1,23 @@
 <?php
 require_once __DIR__.'/aplicacion.php';
 //DEFINES PARA EL SERVIDOR
+//*
 define('BD_HOST', 'vm13.db.swarm.test');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'aw');
 define('BD_PASS', 'aw');
 define('RUTA_APP', '/practica3');	//Ruta del servidor
+//*/
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
-//define('BD_HOST', 'localhost');
-//define('BD_NAME', 'aw_p2');
-//define('BD_USER', 'root');
-//define('BD_PASS', '');
-//define('RUTA_APP', '/proyecto/practica3');				//Ruta de Luis
-//define('RUTA_APP', '/AW/OfferNow/proyecto/practica3');	//Ruta de Pablo
+/*
+define('BD_HOST', 'localhost');
+define('BD_NAME', 'aw_p2');
+define('BD_USER', 'root');
+define('BD_PASS', '');
+//define('RUTA_APP', '/proyecto/practica3');			//Ruta de Luis
+define('RUTA_APP', '/AW/OfferNow/proyecto/practica3');	//Ruta de Pablo
 //define('RUTA_SERVER', $_SERVER['DOCUMENT_ROOT'].RUTA_APP);//NO USAR
+//*/
 define('RUTA_IMGS', RUTA_APP.'/imagenes/productos');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('COMUN', RUTA_APP.'/includes/comun');

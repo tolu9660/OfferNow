@@ -1,11 +1,12 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require __DIR__.'/Clases/OfertaObjeto.php';
+require __DIR__.'/clases/ofertaObjeto.php';
 require_once __DIR__.'/includes/usuario/usuarios.php';
 
 
 $tituloPagina = 'carrito';
+$contenidoPrincipal = '';
 $productos = '';
 if(estaLogado()){
 	
@@ -13,7 +14,7 @@ if(estaLogado()){
 	
 	$carritoArray=$user->muestraCarrito();
 	$precioTotal=$user->Precio();
-	echo $precioTotal;
+	//echo $precioTotal;
 	$productos.=<<<EOS
 		<div="contenedor">
 		<table>
@@ -62,8 +63,6 @@ if(estaLogado()){
 		</div>
 		
 	EOS;
-
-
 }
 else{
 	$contenidoPrincipal=<<<EOS
@@ -71,12 +70,6 @@ else{
 	EOS;
 
 }
-
-
-
-
-
-
 /*
 $contenidoPrincipal=<<<EOS
 <div="contenedor">

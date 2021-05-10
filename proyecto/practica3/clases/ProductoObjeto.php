@@ -1,6 +1,6 @@
 <?php
 
-abstract class producto{
+abstract class Producto{
     private $id;
 	private $nombre;
 	private $descripcion;
@@ -65,6 +65,7 @@ abstract class producto{
 	}
 
     protected function muestraComentariosString() {
+        
 		$productos = '';
 		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->comentariosArray); $i++){

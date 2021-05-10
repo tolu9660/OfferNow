@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/Art2ManoObjeto.php';
+	require_once __DIR__.'/../clases/art2ManoObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Subir Oferta";
@@ -11,7 +11,7 @@
 	$precio = htmlspecialchars(trim(strip_tags($_POST["articuloPrecio"])));
 	//$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
 	
-	if(aplicacion::comprobarImagen("/art2mano/")){
+	if(Aplicacion::comprobarImagen("/art2mano/")){
 		if (Art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen)) {
 			$contenidoPrincipal=<<<EOS
 				<h3>Articulo de segunda mano creado</h3>

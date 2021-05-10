@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__.'/../includes/config.php';
-    require_once __DIR__.'/../clases/PosiblesVentasUsuario.php';
+    require_once __DIR__.'/../clases/posiblesVentasUsuario.php';
 
     $tituloPagina = "Vender articulo";
 	$contenidoPrincipal='';

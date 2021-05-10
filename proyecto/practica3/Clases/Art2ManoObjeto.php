@@ -1,18 +1,18 @@
 <?php
 
 require_once __DIR__.'/../includes/config.php';
-require_once __DIR__.'/ComentarioObjeto.php';
-require_once __DIR__.'/ProductoObjeto.php';
+require_once __DIR__.'/comentarioObjeto.php';
+require_once __DIR__.'/productoObjeto.php';
 
-class Art2ManoObjeto extends producto{
+class Art2ManoObjeto extends Producto{
 	private $unidades;
 	//private $precio;
 	//private $urlImagen;
 	//private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
-		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,
-			"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
+			//"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
 		$this->unidades = $unidades;
 	}
 

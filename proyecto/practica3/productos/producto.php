@@ -1,13 +1,9 @@
 <?php
-
 	require_once __DIR__.'/../includes/config.php';
-	require __DIR__.'/../clases/OfertaObjeto.php';
-
+	require __DIR__.'/../clases/ofertaObjeto.php';
 
 	$id = $_GET['id'];
-	
 	$ofertaObj = OfertaObjeto::buscaOferta($id);
-	
 	
 	//Mostrar las cosas
 	$ruta=POSTEAR;

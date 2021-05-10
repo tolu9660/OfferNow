@@ -7,12 +7,10 @@
 		<title><?= $tituloPagina ?></title>
 	</head>
 	<body>
-	
-			<?php
-				require(__DIR__.'/cabecera.php');
-				require(__DIR__.'/sidebarIzq.php');
-			?>
-			<?= $contenidoPrincipal ?>
-	
+		<?php
+			require(__DIR__.'/cabecera.php');
+			require(__DIR__.'/sidebarIzq.php');
+		?>
+		<?= $contenidoPrincipal ?>
 	</body>
 </html>

@@ -1,5 +1,4 @@
 <header >
-
 	<?php
 		require_once __DIR__.'/../config.php';
 	?>
@@ -28,7 +27,6 @@
 
             </ul>
         </div>
-
         <div class="sesion">
             <ul>
             

@@ -1,4 +1,5 @@
 <?php
+
 class ComentarioObjeto{
 	private $id;
 	private $titulo;
@@ -27,7 +28,6 @@ class ComentarioObjeto{
 		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
 		$esOfertaFiltrado=$mysqli->real_escape_string($esOferta);//no se usa ...
 		$creadorFiltrado=$mysqli->real_escape_string($creador);
-
 
 		$sql = "INSERT INTO comentariosoferta (Texto, Titulo, ValoracionUtilidad, UsuarioID, OfertaID)
 				VALUES ('$descripcionFiltrado', '$tituloFiltrado', 0, '$creadorFiltrado', '$urlOfertaFiltrado')";

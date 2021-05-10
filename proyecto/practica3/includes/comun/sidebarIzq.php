@@ -13,8 +13,8 @@
 		<li><a href="#">Contacto</a></li>
 		<?php
 			if(estaLogado()){
-				$oferta = RUTA_APP.'/Postear/subirOfertaFormulario.php';
-				$vender = RUTA_APP.'/Postear/peticionVentaArticuloFormulario.php';
+				$oferta = RUTA_APP.'/postear/subirOfertaFormulario.php';
+				$vender = RUTA_APP.'/postear/peticionVentaArticuloFormulario.php';
 				?>
 				<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>
 				<li><a href= "<?=$oferta?>">Publica una oferta</a></li>
@@ -22,8 +22,8 @@
 				<?php
 			}
 			if(estaLogado() && ($_SESSION['esAdmin'])){
-				$articulo = RUTA_APP.'/Postear/subirArticulo2ManoFormulario.php';
-				$compraArticulos = RUTA_APP.'/PosiblesCompras/ventasUsuarioVista.php';
+				$articulo = RUTA_APP.'/postear/subirArticulo2ManoFormulario.php';
+				$compraArticulos = RUTA_APP.'/posiblesCompras/ventasUsuarioVista.php';
 				?>
 				<li><a href= "<?=$articulo?>">Publica un articulo de segunda mano</a></li>
 				<li><a href= "<?=$compraArticulos?>">Valida solicitudes de compra</a></li>

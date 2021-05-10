@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/clases/OfertaObjeto.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/clases/ofertaObjeto.php';
 	//require_once __DIR__.'/../clases/OfertaObjeto.php';//por si el de arriba no va
 	
 	//Muestra si se ha subido o no
@@ -47,7 +47,7 @@
 		EOS;
 	}
 	*/
-	if(aplicacion::comprobarImagen("/ofertas/")){
+	if(Aplicacion::comprobarImagen("/ofertas/")){
 		if (OfertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {
 			$contenidoPrincipal=<<<EOS
 				<h3>Oferta creada</h3>

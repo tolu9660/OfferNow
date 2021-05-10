@@ -209,13 +209,14 @@ class Usuario{
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
   }
-  private function cargaCarrito(){
-
-
+  public function precio(){
+    return $this->carrito->precioTotal();
   }
   public function muestraCarrito(){
-    $this->carrito->cargarCarrito($this->idCorreo);
-    $this->carrito->listarCarrito();
+    
+    $array=$this->carrito->cargarCarrito($this->idCorreo);
+    
+    return $array;
 
   }
 }

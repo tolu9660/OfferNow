@@ -67,7 +67,6 @@ class Art2ManoObjeto extends producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);

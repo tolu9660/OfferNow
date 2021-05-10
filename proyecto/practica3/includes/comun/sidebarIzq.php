@@ -3,9 +3,6 @@
 	<?php
 		require_once __DIR__.'/../config.php';
 		require_once __DIR__."/../usuario/usuarios.php";
-		
-		
-
 	?>
 
 	<h3>Navegación</h3>

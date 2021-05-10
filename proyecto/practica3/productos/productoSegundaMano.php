@@ -1,7 +1,7 @@
 <?php
 
 	require_once __DIR__.'/../includes/config.php';
-	require __DIR__.'/../Clases/Art2ManoObjeto.php';
+	require __DIR__.'/../clases/Art2ManoObjeto.php';
 
 	$id = $_GET['id'];
 	//Muestra el articulo

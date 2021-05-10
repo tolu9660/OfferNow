@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].RUTA_APP.'/clases/OfertaObjeto.php';
+	//require_once __DIR__.'/../clases/OfertaObjeto.php';//por si el de arriba no va
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Subir Oferta";

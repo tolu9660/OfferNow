@@ -5,7 +5,7 @@ define('BD_HOST', 'vm13.db.swarm.test');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'aw');
 define('BD_PASS', 'aw');
-define('RUTA_APP', '/');	//Ruta del servidor
+define('RUTA_APP', '/practica3');	//Ruta del servidor
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
 //define('BD_HOST', 'localhost');
 //define('BD_NAME', 'aw_p2');

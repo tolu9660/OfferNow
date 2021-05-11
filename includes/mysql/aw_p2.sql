@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2021 a las 18:20:46
+-- Tiempo de generación: 11-05-2021 a las 17:26:18
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.15
 
@@ -42,11 +42,11 @@ CREATE TABLE `articulos_segunda_mano` (
 --
 
 INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidades`, `Precio`, `Imagen`, `Premium`) VALUES
-(4, 'Lavadora 2 mano', 'Lavadora Siemens', 2, 247, 'imagenes/productos/Lavadora_Siemens.jpg', 0),
-(9, 'Uncharted 4', 'Juego Uncharted 4 PS4', 32, 19, 'imagenes/productos/Uncharted4.jpg', 0),
-(10, 'Pesas 4kg', '2 pesas de 4kg cada una', 3, 15, 'imagenes/productos/Pesas.jpg', 0),
-(11, 'Redmi Note 8T', 'Movil Xiaomi Redmi Note 8T', 2, 189, 'imagenes/productos/Redmi_Note_8T.jpg', 1),
-(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'imagenes/productos/Super_Mario_3D_World.jpg', 1),
+(4, 'Lavadora 2 mano', 'Lavadora Siemens', 2, 200, 'Lavadora_Siemens.jpg', 0),
+(9, 'Uncharted 4', 'Juego Uncharted 4 PS4', 32, 19, 'Uncharted4.jpg', 0),
+(10, 'Pesas 4kg', '2 pesas de 4kg cada una', 3, 15, 'Pesas.jpg', 0),
+(11, 'Redmi Note 8T', 'Movil Xiaomi Redmi Note 8T', 2, 189, 'Redmi_Note_8T.jpg', 1),
+(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'Super_Mario_3D_World.jpg', 1),
 (16, 'tfyguhiol', 'hola caracolaaa', 1224, 123, 'rednty,u.iojasd', 0);
 
 -- --------------------------------------------------------
@@ -56,9 +56,18 @@ INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidad
 --
 
 CREATE TABLE `carrito` (
+  `id` int(32) NOT NULL,
   `idProducto` int(32) NOT NULL,
   `idUsuario` varchar(32) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `idProducto`, `idUsuario`) VALUES
+(1, 4, 'luisRoman'),
+(2, 12, 'luisRoman');
 
 -- --------------------------------------------------------
 
@@ -80,7 +89,8 @@ CREATE TABLE `comentariosoferta` (
 --
 
 INSERT INTO `comentariosoferta` (`ID`, `Texto`, `Titulo`, `ValoracionUtilidad`, `UsuarioID`, `OfertaID`) VALUES
-(5, 'Buena capacidad y enfria bien', 'Muy buena nevera', 0, 'correo@correo.com', 2443);
+(5, 'Buena capacidad y enfria bien', 'Muy buena nevera', 0, 'correo@correo.com', 2443),
+(8, 'es una nevera chula', 'nuevo comentario', 0, 'luisRoman', 2443);
 
 -- --------------------------------------------------------
 
@@ -122,25 +132,26 @@ CREATE TABLE `oferta` (
   `Valoracion` int(32) UNSIGNED NOT NULL,
   `Precio` int(32) UNSIGNED NOT NULL,
   `Creador` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `Premium` tinyint(1) NOT NULL DEFAULT 0
+  `Premium` tinyint(1) NOT NULL DEFAULT 0,
+  `segundaMano` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `oferta`
 --
 
-INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imagen`, `Valoracion`, `Precio`, `Creador`, `Premium`) VALUES
-(2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'imagenes/productos/nevera.png', 1, 637, 'correo1@ucm.es', 0),
-(2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com', 1),
-(2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'https://images-na.ssl-images-amazon.com/images/I/514Y7g-JQDL._AC_SY355_.jpg', 0, 34, 'persona@gmail.com', 0),
-(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com', 1),
-(2560, 'Subida1', 'subeeeeeeeeeeee', '324234234ewd', 'C:/Pablo/Universidad/xampp/htdocs/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Ejes1.PNG', 0, 999999999, 'usuario@usuario.com', 0),
-(2561, 'Subida 2222222222', 'Budeeeeeeeeee 2222222222', '2222222222222', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Snk.png', 0, 4294967295, 'usuario@usuario.com', 0),
-(2562, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0),
-(2563, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0),
-(2564, 'nyukasdnas', 'sdfafaufda', 'adadfa', 'infografia-iso15504-7.jpeg', 0, 44444444, 'usuario@usuario.com', 0),
-(2566, 'offf55555555555', '55555555555555', '555555555555', 'carro-de-comida.png', 0, 555555555, 'u@u.com', 0),
-(2567, 'uyadbubafs', 'dsadgda', 'fsdgtt2t3445', 'carro-de-comida.png', 0, 35534, 'u@u.com', 0);
+INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imagen`, `Valoracion`, `Precio`, `Creador`, `Premium`, `segundaMano`) VALUES
+(2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'nevera.png', 1, 637, 'correo1@ucm.es', 0, 0),
+(2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com', 1, 0),
+(2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'https://images-na.ssl-images-amazon.com/images/I/514Y7g-JQDL._AC_SY355_.jpg', 0, 34, 'persona@gmail.com', 0, 0),
+(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com', 1, 0),
+(2560, 'Subida1', 'subeeeeeeeeeeee', '324234234ewd', 'C:/Pablo/Universidad/xampp/htdocs/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Ejes1.PNG', 0, 999999999, 'usuario@usuario.com', 0, 0),
+(2561, 'Subida 2222222222', 'Budeeeeeeeeee 2222222222', '2222222222222', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Snk.png', 0, 4294967295, 'usuario@usuario.com', 0, 0),
+(2562, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0, 0),
+(2563, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0, 0),
+(2564, 'nyukasdnas', 'sdfafaufda', 'adadfa', 'infografia-iso15504-7.jpeg', 0, 44444444, 'usuario@usuario.com', 0, 0),
+(2566, 'offf55555555555', '55555555555555', '555555555555', 'carro-de-comida.png', 0, 555555555, 'u@u.com', 0, 0),
+(2567, 'uyadbubafs', 'dsadgda', 'fsdgtt2t3445', 'carro-de-comida.png', 0, 35534, 'u@u.com', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -188,6 +199,7 @@ INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VA
 ('correo@correo.com', 'UsuarioPrueba1', 'Password1', 1, 0),
 ('correo1@ucm.es', 'UsuarioPrueba2', 'Password2', 0, 0),
 ('hola@hola.com', 'Hola', 'Hola1', 0, 0),
+('luisRoman', 'luisroman', '$2y$10$Oc6Y08WldufL.xbpl1Npaur07d8RXtcqsoSDRN2jx6vLb2C087g3W', 0, 0),
 ('persona@gmail.com', 'Persona', 'Persona1', 0, 0),
 ('u@u.com', 'usuarioooo', '$2y$10$2Qx2N9DQtPhWQJMpRw0oH.ZMnI1QE61o7c/1yvn6qllHF8ykgFDNy', 1, 0),
 ('usuario@usuario.com', 'Usuario1', '$2y$10$j50qME.DF5OBCNAzt9ozWu6zVN5.qFw.7tCNVQkxVrYLua0oFk7ky', 0, 0);
@@ -206,6 +218,7 @@ ALTER TABLE `articulos_segunda_mano`
 -- Indices de la tabla `carrito`
 --
 ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `idProducto` (`idProducto`),
   ADD KEY `idUsuario` (`idUsuario`);
 
@@ -258,10 +271,16 @@ ALTER TABLE `articulos_segunda_mano`
   MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `comentariosoferta`
 --
 ALTER TABLE `comentariosoferta`
-  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `comentariossegundamano`

@@ -15,7 +15,7 @@ define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
 define('BD_PASS', '');
 //define('RUTA_APP', '/OfferNow-practica3/proyecto/OfferNow-practica3/proyecto/practica3');			//Ruta de Luis
-define('RUTA_APP', '/AW/OfferNow');	//Ruta de Pablo
+define('RUTA_APP', '/proyecto/OfferNow');	//Ruta de Pablo
 //define('RUTA_SERVER', $_SERVER['DOCUMENT_ROOT'].RUTA_APP);//NO USAR
 //*/
 define('RUTA_IMGS', RUTA_APP.'/imagenes/productos');

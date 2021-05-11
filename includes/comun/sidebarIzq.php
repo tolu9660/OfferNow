@@ -1,4 +1,4 @@
-<nav id="sidebarIzq">
+<div id="sidebarIzq">
 
 	<?php
 		require_once __DIR__.'/../config.php';
@@ -6,6 +6,8 @@
 	?>
 
 	<h3>Navegación</h3>
+	<nav class="menuizq">
+
 	<ul>
 		<li><a href="#">Inicio</a></li>
 		<li><a href="#">Quiénes somos</a></li>
@@ -38,3 +40,4 @@
 		?>
 	</ul>
 </nav>
+</div>

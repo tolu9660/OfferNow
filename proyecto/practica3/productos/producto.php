@@ -1,11 +1,8 @@
 <?php
-
 	require_once __DIR__.'/../includes/config.php';
-	require __DIR__.'/../Clases/OfertaObjeto.php';
-
+	require __DIR__.'/../clases/ofertaObjeto.php';
 
 	$id = $_GET['id'];
-	
 	$ofertaObj = OfertaObjeto::buscaOferta($id);
 	
 	//Mostrar las cosas
@@ -13,7 +10,7 @@
 	$productos = '';
 	$productos .= $ofertaObj->muestraOfertaString();
 	$productos.=<<<EOS
-		<div id="tarjetacomentario">		
+		<div class="tarjetacomentario">		
 			<h1>Subir Comentario</h1>
 			<form method="post" action="${ruta}/subirComentarioOfertaBD.php">
 				<p>Titulo</p>

@@ -1,48 +1,30 @@
 <?php
 
+require_once __DIR__.'/../includes/config.php';
+require_once __DIR__.'/comentarioObjeto.php';
+require_once __DIR__.'/productoObjeto.php';
 
-require __DIR__.'/ComentarioObjeto.php';
-
-class Art2ManoObjeto{
-	private $id;
-	private $nombre;
-	private $descripcion;
+class Art2ManoObjeto extends Producto{
 	private $unidades;
-	private $precio;
-	private $urlImagen;
-	private $comentariosArray;
+	//private $precio;
+	//private $urlImagen;
+	//private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
-		$this->id = $id;
-		$this->nombre = $nombre;
-		$this->descripcion = $descripcion;
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
+			//"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
 		$this->unidades = $unidades;
-		$this->urlImagen = $urlImagen;
-		$this->precio = $precio;
-		$this->cargaComentarios();
 	}
-	
-	private function cargaComentarios() {
-		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad";
-		$result = $mysqli->query($query);
 
-		if($result) {			
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],$fila['ValoracionUtilidad'],
-										$fila['UsuarioID'],$fila['SegundaManoID']);
-			}
-		} else{
-			echo"Error al buscar en la base de datos, id:".$this->id;
-		}
-	}
-	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarProductos2Mano(){
-		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM articulos_segunda_mano");
+	public static function cargarProductos2Mano($orden){
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 		$result = $mysqli->query($query);
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 
 		$ofertasArray;
 		
@@ -58,14 +40,50 @@ class Art2ManoObjeto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarArticulos2ManoPremium($orden){
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();;
+		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
+		$result = $mysqli->query($query);
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+									
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-		
-		
-		$mysqli = getConexionBD();
+		$nombreFiltrado=$mysqli->real_escape_string($nombre);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
+		$precioFiltrado=$mysqli->real_escape_string($precio);
+		$imagenFiltrado=$mysqli->real_escape_string($imagen);
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
 		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-					VALUES ('$nombre', '$descripcion', '$unidades', '$precio', '$imagen')";
+						VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado')";
+		*/
+
+		$result = parent::hacerConsulta("INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades,
+											Precio, Imagen)
+										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
+											'$precioFiltrado', '$imagenFiltrado'");
 		
 		if (mysqli_query($mysqli, $sql)) {
 			return true;
@@ -75,7 +93,8 @@ class Art2ManoObjeto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$mysqli = getConexionBD();
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
 		
@@ -90,77 +109,39 @@ class Art2ManoObjeto{
 		}
 	}
 	
-	//--------------------------------------------------Vista-----------------------------------------------------
-	private function muestraComentariosOfertaString() {
-		$productos = '';
-		
-		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
-			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
-				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
-				$comTexto = $this->comentariosArray[$i]->muestraTexto();
-				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
-				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-				$productos.=<<<EOS
-					<div class="comProducto">
-						<p>$comTitulo - $comUsuario - </p>
-						<p>Valoración comentario: $comValoracion</p>
-						<p>$comTexto</p>
-					</div>
-				EOS;
-			}
-		}
-		return $productos;
-	}
-		
+	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen = $this->muestraURLImagen();
+		
+		$nombreAux = parent::muestraNombre();
+		$descripcionAux = parent::muestraDescripcion();
+
 		$productos = '';
 		$productos.=<<<EOS
 		<div id="tarjetaProducto">
 			<div class="imgProducto">
-				<img src="$DIRimagen" width="200" height="200" alt=$this->nombre />
+				<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 			</div>
 			<div class="desProducto">
-				<p>Nombre del producto:</p>
-				<p>$this->nombre</p>
+				<p>Nombre del producto: $nombreAux</p>
 				<p>Descripcion:</p>
-				<p>$this->descripcion</p>
+				<p>$descripcionAux</p>
 			</div>
 		</div>
 		EOS;
-		$productos.= $this->muestraComentariosOfertaString();
+		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
-	public function muestraID() {
-		return $this->id;
-	}
-	
-	public function muestraNombre() {
-		return $this->nombre;
-	}
-	public function muestraDescripcion() {
-		return $this->descripcion;
-	}
-	
 	public function muestraUnidades() {
 		return $this->unidades;
 	}
 	
 	public function muestraURLImagen() {
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen=RUTA_IMGS."/art2mano/";
+		$DIRimagen.=parent::muestraURLImagen();
 		return $DIRimagen;
-	}
-	
-	public function muestraPrecio() {
-		return $this->precio;
-	}
-	
-	public function muestraComentarios() {
-		return $this->comentariosArray;
 	}
   }
 ?>

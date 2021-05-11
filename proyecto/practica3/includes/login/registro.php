@@ -1,13 +1,29 @@
 <?php
 	require_once __DIR__.'/../config.php';
-	require_once __DIR__.'/../usuario/usuarioBD.php';
+	//require_once __DIR__.'/../usuario/usuarioBD.php';
+	require_once __DIR__.'/formularioRegistro.php';
 
+
+	$tituloPagina = 'Registro';
+
+	$form = new FormularioRegistro();
+	$htmlFormRegistro = $form->gestiona();
+	
+
+	
+	$contenidoPrincipal = <<<EOS
+	
+		$htmlFormRegistro
+	EOS;
+	
+
+/*
 	$usuarios = USUARIO;
 	//Muestra el registro
 	$tituloPagina = 'Registro nuevo usuario';
 	$contenidoPrincipal=<<<EOS
 		
-	<div id="contenedor">	
+	<div class="contenedor">	
 		<main>
 		<article>
 				<h1>Registro de usuario</h1>
@@ -30,5 +46,5 @@
 			</article>
 		</main>
 	</div>
-	EOS;
+	EOS;*/
 require __DIR__.'/../comun/layout.php';

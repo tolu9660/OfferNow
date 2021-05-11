@@ -1,7 +1,6 @@
 <?php
-
 	require_once __DIR__.'/../includes/config.php';
-	require __DIR__.'/../Clases/Art2ManoObjeto.php';
+	require __DIR__.'/../clases/art2ManoObjeto.php';
 
 	$id = $_GET['id'];
 	//Muestra el articulo
@@ -10,7 +9,7 @@
 	$productos='';
 	$productos.=$ofertaObj->muestraOfertaString();
 	$productos.=<<<EOS
-		<div id="tarjetacomentario">
+		<div class="tarjetacomentario">
 			
 				<h1>Subir Comentario</h1>
 				<form method="post" action="${ruta}/subirComentario2ManoBD.php">

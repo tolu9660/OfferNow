@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__.'/../config.php';
+require_once __DIR__.'/../../clases/carrito.php';
+
 
 
 class Usuario{
@@ -10,7 +12,7 @@ class Usuario{
 	private $password;
 
   public static function login($username, $password){
-    //echo $username."  ";
+    //echo "nombre usuario ".$username."  ";
     //echo $password;
     $user = self::buscaUsuario($username);
     //la clase usuario está creada:
@@ -20,7 +22,8 @@ class Usuario{
    //echo "\n CONTRASEÑA: ".$user->contra();
   
     if ($user && $user->compruebaPassword($password)) {
-      $conn = getConexionBD();
+      $app = Aplicacion::getSingleton();
+		  $conn = $app->conexionBd();
       //hacer consulta de premium y admin
       //si devuelve un 1 el usuario es administrador 
       $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
@@ -55,7 +58,8 @@ class Usuario{
 
   public static function buscaUsuario($username){
   
-    $conn = getConexionBD();
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
     $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                     $conn->real_escape_string($username));
  
@@ -63,26 +67,25 @@ class Usuario{
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
       //para ver los datos obtenidos de la BD
-     /* echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
+      /*echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
       
 	
       $user = new Usuario($fila['Correo'], $fila['Nombre'],''
                   /*, $fila['Premium'], $fila['Admin']*/);
-      //hasta a qui la recoge bien.
       $user->setPass($fila['Contraseña']);
-      //echo "Contraseña que se extrae de la BD".$fila['Contraseña'];
-      //echo $user->contra();
       $rs->free();
      
       return $user;
     }
     return false;
   }
-// FUNCION DUPLICADA... NO SE USA -> QUE EL CONSTRUCTOR1 TAMPOCO SE USE.
-/*  public static function buscaPorId($idUsuario){
-    $conn = getConexionBD();
+  // FUNCION DUPLICADA... NO SE USA -> QUE EL CONSTRUCTOR1 TAMPOCO SE USE.
+/*
+  public static function buscaPorId($idUsuario){
+    $app = Aplicacion::getSingleton();
+		  $conn = $app->conexionBd();
     $query = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                       $conn->real_escape_string($idUsuario));
    
@@ -91,7 +94,6 @@ class Usuario{
       $fila = $rs->fetch_assoc();
       $user = new Usuario($fila['Correo'], $fila['Nombre'], 
                       $fila['Contraseña'],$fila['Premium'],$fila['Admin']);
-      echo "valor de ADMIN: ".$user-> getAdmin();
       $rs->free();
 
       return $user;
@@ -99,25 +101,31 @@ class Usuario{
     return false;
   }*/
 
-	public static function altaNuevoUsuario($email,$user,$password1,$password2){
-    
+	public static function altaNuevoUsuario($email,$username,$password1,$password2){
+
 		
 		if($password1 != $password2){
 			return false;
 		}
 		else{
-      //creo un objeto de tipo usuario para poder usarlo en caso de que el 
+       //creo un objeto de tipo usuario para poder usarlo en caso de que el 
       //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
 
-      $user = new Usuario($email, $user,$password1);
+      $user = new Usuario($email, $username,$password1);
       $correo=$user->idCorreo();
       $usuario=$user->nombre();
       $pass=$user->contra();
-      //echo $password1 ."---->". $pass;
 			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
-			$mysqli = getConexionBD();
+			$app = Aplicacion::getSingleton();
+		  $mysqli = $app->conexionBd();
+      //se filtra la informacion que se va a introducir en la BD:
+      
+      $usuarioFiltrado=$mysqli->real_escape_string($username);
+      $correoFiltrado=$mysqli->real_escape_string($correo);
+      $passFiltrado=$mysqli->real_escape_string($pass);
+      
 			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
-				VALUES ('$correo','$usuario','$pass',0,0)";
+					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0)";
 			if (mysqli_query($mysqli, $sql)) {
 				//$mysqli->close();
 				return true;
@@ -134,23 +142,26 @@ class Usuario{
 ////////////
   private $esAdmin;
   private $esPremium;
+  private $carrito;
 ////////////
    function __construct($correo, $nombre,$contraseña){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
-    $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
+    $this->carrito= new Carrito( $this->idCorreo);
   }
+  /*
   //cogerlo con pinzas este constructor
-  /*function __construct1($correo, $nombre,$contraseña,$premium,$admin){
+  function __construct1($correo, $nombre,$contraseña,$premium,$admin){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
     $this->password = $contraseña;
     $this->esAdmin=$admin;
     $this->esPremium=$premium;
-  }*/
- 
+  }
+ */
 /////////////
   public function esAdmin(){
     $this->esAdmin=1;
@@ -166,8 +177,8 @@ class Usuario{
   {
     return $this->esPremium;
   } 
-  public function contra()  {
-
+  public function contra()
+  {
     return $this->password;
   }
   
@@ -194,7 +205,18 @@ class Usuario{
     $this->password= $pass;
   }
 
+
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
+  }
+  public function precio(){
+    return $this->carrito->precioTotal();
+  }
+  public function muestraCarrito(){
+    
+    $array=$this->carrito->cargarCarrito($this->idCorreo);
+    
+    return $array;
+
   }
 }

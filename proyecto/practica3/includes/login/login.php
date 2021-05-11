@@ -1,8 +1,10 @@
 <?php
 	require_once __DIR__.'/../config.php';
+	require_once __DIR__.'/formularioLogin.php';
+
 	$tituloPagina = 'Login';
 	
-	$raizApp = SESION;
+	/*$raizApp = SESION;
 	$contenidoPrincipal=<<<EOS
 	<h1>Acceso al sistema</h1>
 	
@@ -15,5 +17,18 @@
 		</fieldset>
 	</form>
 	EOS;
-	
+*/
+
+//////////////////implementacion:
+$form = new FormularioLogin();
+$htmlFormLogin = $form->gestiona();
+
+$tituloPagina = 'Login';
+
+$contenidoPrincipal = <<<EOS
+<h1>Acceso al sistema</h1>
+$htmlFormLogin
+EOS;
+
+
 	require __DIR__.'/../comun/layout.php';

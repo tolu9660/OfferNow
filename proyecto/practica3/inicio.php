@@ -1,16 +1,17 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
-	require __DIR__.'/Clases/OfertaObjeto.php';
+	require __DIR__.'/clases/ofertaObjeto.php';
 	
 	
 	//Carga las ofertas en un array
-	$ofertasArray = OfertaObjeto::cargarOfertas();
+	$ofertasArray = OfertaObjeto::cargarOfertas("Valoracion");
 
 	
 	//Mostrar las ofertas recorriendo el array
 	$tituloPagina = 'Inicio';
 	$productos = '';
 	$productos.=<<<EOS
+		<div id="contenedor">
 			<ul class="rejilla">
 	EOS;
 
@@ -22,9 +23,10 @@
 		//URL del producto junto con el id
 		$id = PRODUCTOS.'/producto.php?id='.$ofertasArray[$i]->muestraID();
 		$productos.=<<<EOS
+		
 		<li>
 			<a href=$id rel="nofollow" target="_blank">
-				<img src=$urlImagen width="200" height="200" alt="movil" />
+				<img src=$urlImagen width="200" height="200" alt="Producto" />
 				<h3>$nombreOferta</h3>
 				<p>$precioOferta €</p>
 			</a>
@@ -33,30 +35,13 @@
 	}
 
 	$contenidoPrincipal=<<<EOS
+
 		$productos
 		</ul>
+		</div>
 		
 	EOS;
 
-/*$contenidoPrincipal=<<<EOS
-	<div="contenedor">
-				
-			<ul class="rejilla">
-			<!--buscar la manera de automatizar este proceso -->
-			<!-- otra manera es ir creando con clases dentro de otras, la gestion se haría con clases anidadas -->
-	
-				<li>
-					<a href=$url rel="nofollow" target="_blank">
-					<img src=$url1 width="200" height="200" alt="movil" />
-					<h3>Movil Barato</h3>
-					<p>14.39 €</p>
-					</a>
-				</li>
-			
-		
 
-			</ul>
-		</div>
-EOS;*/
 
 require __DIR__.'/includes/comun/layout.php';

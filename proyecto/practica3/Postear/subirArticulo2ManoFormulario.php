@@ -3,10 +3,10 @@
 	
 	$tituloPagina = 'Subir Articulo 2ª';		
 	$contenidoPrincipal=<<<EOS
-		<div id="contenedor">
-			<main id="contenido">
+		<div class="contenedor">
+			<main class="contenido">
 				<h1>Subir Articulo Segunda Mano</h1>
-				<form method="post" action="subirArticulo2ManoBD.php">
+				<form method="post" action="subirArticulo2ManoBD.php" enctype="multipart/form-data">
 					<p>Nombre Articulo:</p>
 					<input type="text" name="articuloNombre"/>
 					<p>Descripción:</p>
@@ -16,7 +16,7 @@
 					<p>Nº Unidades:</p>
 					<input type="number" name="articuloUnidades"/>
 					<p>Imagen:</p>
-					<input type="text" name="articuloImagen"/>
+					<input type="file" name="productoImagen"/>
 					
 					<p><input type="submit" value="Publicar"></p>
 				</form>

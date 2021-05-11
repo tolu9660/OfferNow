@@ -1,61 +1,35 @@
 <?php
 
 require_once __DIR__.'/../includes/config.php';
-require __DIR__.'/ComentarioObjeto.php';
+require_once __DIR__.'/comentarioObjeto.php';
+require_once __DIR__.'/productoObjeto.php';
 
-
-class OfertaObjeto{
-	private $id;
-	private $nombre;
-	private $descripcion;
+class OfertaObjeto extends Producto{
 	private $urlOferta;
-	private $urlImagen;
 	private $valoracion;
-	private $precio;
 	private $creador;
-	private $comentariosArray;
+	private $segundaMano;
 	
-	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador) {
-		$this->id = $id;
-		$this->nombre = $nombre;
-		$this->descripcion = $descripcion;
+	function __construct($id, $nombre, $descripcion, $urlOferta, $urlImagen, $valoracion, $precio, $creador,$segundaMano) {
+		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariosoferta");
+			//"SELECT * FROM comentariosoferta WHERE OfertaID = '$id' ORDER BY ValoracionUtilidad");
 		$this->urlOferta = $urlOferta;
-		$this->urlImagen = $urlImagen;
 		$this->valoracion = $valoracion;
-		$this->precio = $precio;
 		$this->creador = $creador;
-		$this->cargaComentarios();
-	}
-	
-	private function cargaComentarios() {// agregar Realescape string
-		$mysqli = getConexionBD();
-		$query = "SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad";
-		$result = $mysqli->query($query);
-
-		if($result) {			
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
-						$fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
-			}
-		} else{
-			echo"Error al buscar en la base de datos, id:".$this->id;
-		}
+		$this->segundaMano=$segundaMano;
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarOfertas(){
-		$mysqli = getConexionBD();
-		$query = sprintf("SELECT * FROM oferta");
-		$result = $mysqli->query($query);
-
+	public static function cargarOfertas($orden){
+		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
-	
-		if($result) {
+		
+		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
+				
 				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 				
 			}
 			return $ofertasArray;
@@ -64,38 +38,62 @@ class OfertaObjeto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarOfertasPremium($orden){
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		$ofertasArray;
 	
-	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,	$precio,$creador ) {
+		if($result != null) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+	
+	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
+		$nombreFiltrado=$mysqli->real_escape_string($nombre);
+		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
+		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
+		$urlImagenFiltrado=$mysqli->real_escape_string($urlImagen);
+		$precioFiltrado=$mysqli->real_escape_string($precio);
+		$creadorFiltrado=$mysqli->real_escape_string($creador);
+	
 		/*
-		$nombre = htmlspecialchars(trim(strip_tags($_POST["ofertaNombre"])));
-		$descripcion = htmlspecialchars(trim(strip_tags($_POST["ofertaDescripcion"])));
-		$urlOferta = htmlspecialchars(trim(strip_tags($_POST["ofertaUrl"])));
-		$urlImagen = htmlspecialchars(trim(strip_tags($_POST["ofertaImagen"])));
-		$precio = htmlspecialchars(trim(strip_tags($_POST["ofertaPrecio"])));
-		$creador = $_SESSION["correo"];*/
-		
-		$mysqli = getConexionBD();
-		//Insert into inserta en la tabla oferta y las columnas entre parentesis los valores en VALUES
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$sql = "INSERT INTO oferta (Nombre, Descripcion, URL_Oferta, URL_Imagen, Valoracion, Precio, Creador)
-					VALUES ('$nombre', '$descripcion', '$urlOferta', '$urlImagen', 0, '$precio', '$creador')";
-		
-		if (mysqli_query($mysqli, $sql)) {
+					VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado', '$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')";
+		*/
+		$result = parent::hacerConsulta("INSERT INTO oferta (Nombre, Descripcion, URL_Oferta,
+											URL_Imagen, Valoracion, Precio, Creador)
+										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado',
+											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado'");
+		if ($result) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public static function buscaOferta($id) {// agregar Realescape string
-		$mysqli = getConexionBD();
-		$query =sprintf("SELECT * FROM oferta WHERE Numero = '%s'",
-					$mysqli->real_escape_string($id));
+	public static function buscaOferta($id) {
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
-		
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador']);
+									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+			
 			return $ofertaObj;
 		} else{
 			echo"Error al buscar en la base de datos";
@@ -104,95 +102,78 @@ class OfertaObjeto{
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
-	private function muestraComentariosOfertaString() {
-		$productos = '';
-		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
-			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
-				$comTitulo = $this->comentariosArray[$i]->muestraTitulo();
-				$comTexto = $this->comentariosArray[$i]->muestraTexto();
-				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
-				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-				$productos.=<<<EOS
-					<div class="comProducto">
-						<p>$comTitulo - $comUsuario - </p>
-						<p>Valoración comentario: $comValoracion</p>
-						<p>$comTexto</p>
-					</div>
-				EOS;
-			}
-		}
-		return $productos;
-	}
-	
 	public function muestraOfertaString(){
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen = $this->muestraURLImagen();
+		
+		$nombreAux = parent::muestraNombre();
+		$descripcionAux = parent::muestraDescripcion();
+		$creadornAux = $this->muestraCreador();
+		$valorSegundaMano=$this->getSegundamano();
 	
-	
+
 		$productos = '';
 		$productos.=<<<EOS
 			<div id="tarjetaProducto">
+			<p>Creador: $creadornAux</p>
 				<button class="button" type="button">    
 					<img src="imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: $this->valoracion
 				</button>
 				<div class="imgProducto">
 					
-					<img src="$DIRimagen" width="200" height="200" alt=$this->nombre />
+					<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 				</div>
 				<div class="desProducto">
-					<p>Nombre del producto:</p>
-					<p>$this->nombre</p>
+					<p>Nombre del producto: $nombreAux</p>
 					<p>Descripcion:</p>
-					<p>$this->descripcion</p>
+					<p>$descripcionAux</p>
 					<p>
-							Enlaces:
-							<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a> /
-							<a href="$this->urlOferta" rel="nofollow" target="_blank">Enlace a nuestra tienda -- no funciona--</a>
+						Enlaces:
 					</p>
+					<p>
+						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
+					<p> 
+			EOS;
+			
+		if($this->segundaMano){
+			$Ruta=RUTA_APP;
+			$productos.=<<<EOS
+			<p>
+			Tenemos el producto en nuestra tienda,<a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO</a>
+			</p>
+			EOS;
+		}
+		
+		$productos.=<<<EOS
+				</p>
 				</div>
 			</div>
 		EOS;
-		$productos.= $this->muestraComentariosOfertaString();
+		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
-	function muestraID() {
-		return $this->id;
-	}
-	
-	function muestraNombre() {
-		return $this->nombre;
-	}
-	function muestraDescripcion() {
-		return $this->descripcion;
-	}
-	
-	function muestraURLOferta() {
-		return $this->urlOferta;
-	}
-	
 	function muestraURLImagen() {
-		$DIRimagen=RUTA_IMGS;
-		$DIRimagen.=$this->urlImagen;
+		$DIRimagen=RUTA_IMGS."/ofertas/";
+		$DIRimagen.=parent::muestraURLImagen();
 		return $DIRimagen;
-	}
-	
-	function muestraValoracion() {
-		return $this->valoracion;
-	}
-	
-	function muestraPrecio() {
-		return $this->precio;
 	}
 	
 	function muestraCreador() {
 		return $this->creador;
 	}
-	
-	function muestraComentarios() {
-		return $this->comentariosArray;
+
+	function muestraValoracion() {
+		return $this->valoracion;
+	}
+
+	function muestraURLOferta() {
+		return $this->urlOferta;
+	}
+	public function getSegundamano(){
+		//echo "valor dentro del metodo".$this->$segundaMano;
+		return $this->segundaMano;
 	}
   }
 ?>

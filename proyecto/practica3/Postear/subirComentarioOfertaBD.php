@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/ComentarioObjeto.php';
+	require_once __DIR__.'/../clases/comentarioObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = 'Subir comentario';
@@ -10,7 +10,6 @@
 	$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
 	$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
 	$creador = $_SESSION["correo"];
-
 	if (ComentarioObjeto::subeComentarioOfertaBD($titulo,$descripcion,$urlOferta,$esOferta,$creador)) {
 		$contenidoPrincipal=<<<EOS
 			<h3>Comentario en la oferta creado</h3>

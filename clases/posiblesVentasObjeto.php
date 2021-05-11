@@ -23,10 +23,10 @@ class PosiblesVentasObjeto extends Producto{
 		$result = parent::hacerConsulta("SELECT * FROM posiblescompras ORDER BY $orden");
 		
 		if($result) {
-			$ofertasArray;
+			$ofertasArray = null;
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new PosiblesVentasUsuario($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+				$ofertasArray[] = new PosiblesVentasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen'], $fila['UsuarioVendedor']);		
 			}
 			return $ofertasArray;
@@ -37,6 +37,8 @@ class PosiblesVentasObjeto extends Producto{
 	}
 	
 	public static function subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio,	$imagen, $usuario) {
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
@@ -55,7 +57,7 @@ class PosiblesVentasObjeto extends Producto{
 		$result = parent::hacerConsulta("INSERT INTO posiblescompras (Nombre, Descripcion, Unidades,
                                             Precio, Imagen, UsuarioVendedor)
 		                                VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
-                                            '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado'");
+                                            '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')");
 
 		if ($result != null) {
 			return true;
@@ -82,7 +84,7 @@ class PosiblesVentasObjeto extends Producto{
 		//Añadir el producto a la tabla de articulos segunda mano
 		//Busca el objeto en la bd
 		$result = parent::hacerConsulta("SELECT * FROM posiblescompras WHERE Numero = '$id2Mano'");
-		if($result) {
+		if($result != null) {
 			$fila = $result->fetch_assoc();
 			//Aqui habria que pagar a la persona
 			$vendedor = $fila['UsuarioVendedor'];

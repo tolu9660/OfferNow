@@ -67,6 +67,8 @@ class Art2ManoObjeto extends Producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
@@ -83,9 +85,9 @@ class Art2ManoObjeto extends Producto{
 		$result = parent::hacerConsulta("INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades,
 											Precio, Imagen)
 										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
-											'$precioFiltrado', '$imagenFiltrado'");
+											'$precioFiltrado', '$imagenFiltrado')");
 		
-		if (mysqli_query($mysqli, $sql)) {
+		if ($result != null) {
 			return true;
 		} else {
 			return false;

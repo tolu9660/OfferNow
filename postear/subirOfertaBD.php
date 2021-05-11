@@ -54,7 +54,7 @@
 			EOS;
 		} else {
 			$contenidoPrincipal=<<<EOS
-				<h3>Error: al crear la oferta</h3>;
+				<h3>Error: al crear la oferta</h3>
 			EOS;
 		}
 	} else {

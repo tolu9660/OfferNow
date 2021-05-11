@@ -15,21 +15,25 @@
 		<ul class="rejilla">
 	EOS;
 	
-	for ($i = 0; $i < sizeof($articulosPremium); $i++) {
-		$nombreArticulo=strval($articulosPremium[$i]->muestraNombre());
-		$precioArticulo=strval($articulosPremium[$i]->muestraPrecio());
-		$urlImagen=strval($articulosPremium[$i]->muestraURLImagen());
-		//URL del producto junto con el id
-		$id = PRODUCTOS.'/productoSegundaMano.php?id='.$articulosPremium[$i]->muestraID();
-		$productos.=<<<EOS
-		<li>
-			<a href=$id rel="nofollow" target="_blank">
-				<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
-				<h3>$nombreArticulo</h3>
-				<p>$precioArticulo €</p>
-			</a>
-		</li>	
-		EOS;
+	if(is_array($articulosPremium)) {
+		for ($i = 0; $i < sizeof($articulosPremium); $i++) {
+			$nombreArticulo=strval($articulosPremium[$i]->muestraNombre());
+			$precioArticulo=strval($articulosPremium[$i]->muestraPrecio());
+			$urlImagen=strval($articulosPremium[$i]->muestraURLImagen());
+			//URL del producto junto con el id
+			$id = PRODUCTOS.'/productoSegundaMano.php?id='.$articulosPremium[$i]->muestraID();
+			$productos.=<<<EOS
+			<li>
+				<a href=$id rel="nofollow" target="_blank">
+					<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
+					<h3>$nombreArticulo</h3>
+					<p>$precioArticulo €</p>
+				</a>
+			</li>	
+			EOS;
+		}
+	} else{
+		$productos.="<h3> No hay articulos premium en este momento en la tienda </h3>";
 	}
 
 	$contenidoPrincipal=<<<EOS

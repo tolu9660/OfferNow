@@ -4,7 +4,7 @@
 	$tituloPagina = 'Subir Articulo 2ª';		
 	$contenidoPrincipal=<<<EOS
 		<div class="subirOferta">
-			<main class="producto">
+			<div class="producto">
 				<h1>Subir Articulo Segunda Mano</h1>
 				<form method="post" action="subirArticulo2ManoBD.php" enctype="multipart/form-data">
 					<p>Nombre Articulo:</p>

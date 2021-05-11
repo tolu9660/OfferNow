@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/posiblesVentasUsuario.php';
+	require_once __DIR__.'/../clases/posiblesVentasObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = "Vender articulo";
@@ -13,7 +13,7 @@
 	$usuario = $_SESSION["correo"];
 	
 	if(Aplicacion::comprobarImagen("/art2mano/")){
-		if (PosiblesVentasUsuario::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
+		if (PosiblesVentasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
 			$contenidoPrincipal=<<<EOS
 				<h3>Tu peticion de venta ha sido enviada!</h3>
 			EOS;

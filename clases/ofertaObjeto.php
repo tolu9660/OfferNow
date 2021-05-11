@@ -57,6 +57,9 @@ class OfertaObjeto extends Producto{
 	}
 	
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
@@ -73,7 +76,7 @@ class OfertaObjeto extends Producto{
 		$result = parent::hacerConsulta("INSERT INTO oferta (Nombre, Descripcion, URL_Oferta,
 											URL_Imagen, Valoracion, Precio, Creador)
 										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado',
-											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado'");
+											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')");
 		if ($result) {
 			return true;
 		} else {
@@ -110,13 +113,9 @@ class OfertaObjeto extends Producto{
 		$creadornAux = $this->muestraCreador();
 		$valorSegundaMano=$this->getSegundamano();
 	
-
 		$productos = '';
 		$productos.=<<<EOS
-			
-				
 				<div class="imgProducto">
-					
 					<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 				</div>
 				<div class="desProducto">
@@ -128,7 +127,7 @@ class OfertaObjeto extends Producto{
 					</p>
 					<p>
 						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
-					<p> 
+					</p> 
 					<button class="button" type="button">    
 					<img src="imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: $this->valoracion
@@ -144,12 +143,6 @@ class OfertaObjeto extends Producto{
 			</p>
 			EOS;
 		}
-		
-		$productos.=<<<EOS
-				</p>
-				</div>
-			</div>
-		EOS;
 		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}

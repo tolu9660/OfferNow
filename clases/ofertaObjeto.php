@@ -106,6 +106,7 @@ class OfertaObjeto extends Producto{
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
 	public function muestraOfertaString(){
+		$Ruta=RUTA_APP;
 		$DIRimagen = $this->muestraURLImagen();
 		
 		$nombreAux = parent::muestraNombre();
@@ -116,33 +117,32 @@ class OfertaObjeto extends Producto{
 		$productos = '';
 		$productos.=<<<EOS
 				<div class="imgProducto">
-					<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
+				<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
 				</div>
 				<div class="desProducto">
-					<p>Nombre del producto: $nombreAux</p>
-					<p>Descripcion:</p>
-					<p>$descripcionAux</p>
-					<p>
-						Enlaces:
-					</p>
-					<p>
-						<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
-					</p> 
-					<button class="button" type="button">    
-					<img src="imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
+				<p>Nombre del producto: $nombreAux</p>
+				<p>Descripcion:</p>
+				<p>$descripcionAux</p>
+				<p>
+					Enlaces:
+					<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
+			EOS;
+				if($this->segundaMano){
+					$productos.=<<<EOS
+					/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO.</a>
+				</p>
+				EOS;
+				}
+		$productos.=<<<EOS
+			<div>	
+				<button class="button" type="button">    
+					<img src="{$Ruta}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: $this->valoracion
 				</button>
-				</div>
+			</div>
 			EOS;
 			
-		if($this->segundaMano){
-			$Ruta=RUTA_APP;
-			$productos.=<<<EOS
-			<p>
-			Tenemos el producto en nuestra tienda,<a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO</a>
-			</p>
-			EOS;
-		}
+		
 		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}

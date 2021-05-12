@@ -26,6 +26,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["esPremium"] =$usuario->getPremium();
 			$_SESSION["esAdmin"] = $usuario->getAdmin();
 			//echo"funciona";
+			return $usuario;
 		}
 		else{
 			$_SESSION["login"] = false;
@@ -34,6 +35,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["esPremium"] = null;
 			$_SESSION["esAdmin"] = null;
 			//echo" no funciona";
+			return false;
 		}
 	}
 

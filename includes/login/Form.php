@@ -134,35 +134,69 @@ abstract class Form
      */
     private function generaFormulario($errores = array(), &$datos = array())
     {
-
-        $html= $this->generaListaErrores($errores);
-
-        $html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" >';
-        $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
-
-        $html .= $this->generaCamposFormulario($datos);
-        $html .= '</form>';
-        return $html;
+        $htmlCamposFormularios = $this->generaCamposFormulario($datos, $errores);
+        //$html= $this->generaListaErrores($errores);
+        $htmlForm = <<<EOS
+        <form method="POST" action="$this->action" id="$this->formId" >
+            <input type="hidden" name="action" value="$this->formId" />
+            $htmlCamposFormularios
+        </form>
+    EOS;
+        return $htmlForm;
     }
 
-    /**
-     * Genera la lista de mensajes de error a incluir en el formulario.
+      /**
+     * Genera la lista de mensajes de errores globales (no asociada a un campo) a incluir en el formulario.
      *
-     * @param string[] $errores (opcional) Array con los mensajes de error de validación y/o procesamiento del formulario.
+     * @param string[] $errores (opcional) Array con los mensajes de error de validaciÃ³n y/o procesamiento del formulario.
+     *
+     * @param string $classAtt (opcional) Valor del atributo class de la lista de errores.
      *
      * @return string El HTML asociado a los mensajes de error.
      */
-    private function generaListaErrores($errores)
-    {
+    protected static function generaListaErroresGlobales($errores = array(), $classAtt=''){
         $html='';
-        $numErrores = count($errores);
-        if (  $numErrores == 1 ) {
-            $html .= "<ul><li>".$errores[0]."</li></ul>";
-        } else if ( $numErrores > 1 ) {
-            $html .= "<ul><li>";
-            $html .= implode("</li><li>", $errores);
-            $html .= "</li></ul>";
+        $clavesErroresGenerales = array_filter(array_keys($errores), function ($elem) {
+            return is_numeric($elem);
+        });
+
+        $numErrores = count($clavesErroresGenerales);
+        if ($numErrores > 0) {
+            $html = "<ul class=\"$classAtt\">";
+            if (  $numErrores == 1 ) {
+                $html .= "<li>$errores[0]</li>";
+            } else {
+                foreach($clavesErroresGenerales as $clave) {
+                    $html .= "<li>$errores[$clave]</li>";
+                }
+                $html .= "</li>";
+            }
+            $html .= '</ul>';
         }
         return $html;
     }
+    /**
+     * Crea una etiqueta para mostrar un mensaje de error. Sólo creará el mensaje de error
+     * si existe una clave <code>$idError</code> dentro del array <code>$errores</code>.
+     * 
+     * @param string[] $errores     (opcional) Array con los mensajes de error de validación y/o procesamiento del formulario.
+     * @param string   $idError     (opcional) Clave dentro de <code>$errores</code> del error a mostrar.
+     * @param string   $htmlElement (opcional) Etiqueta HTML a crear para mostrar el error.
+     * @param array    $atts        (opcional) Tabla asociativa con los atributos a añadir a la etiqueta que mostrará el error.
+     */
+    protected static function createMensajeError($errores=array(), $idError='', $htmlElement='span', $atts = array())
+    {
+       
+        $html = '';
+        if (isset($errores[$idError])) {
+            $att = '';
+            foreach($atts as $key => $value) {
+                $att .= "$key=$value";
+            }
+            $html = " <$htmlElement $att>{$errores[$idError]}</$htmlElement>";
+        }
+
+        return $html;
+    }
+
 }

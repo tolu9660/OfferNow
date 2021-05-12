@@ -10,17 +10,23 @@ class FormularioLogin extends Form{
         parent::__construct('formLogin');
     }
 
-    protected function generaCamposFormulario($datos){
+    protected function generaCamposFormulario($datos, $errores = array()){
    
-        $nombreUsuario = '';
-        if ($datos) {
-            $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
-        }
+        $nombreUsuario =$datos['nombreUsuario'] ?? '';
+
+        // Se generan los mensajes de error si existen.
+        $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
+        $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
+        $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
+      
         $html = <<<EOF
         <div class="iniciosesion">
             <h1>Acceso al sistema</h1>
-            <p><label>Nombre de usuario:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
-            <p><label>Password:</label> <input type="password" name="password" /></p>
+           
+            <p><label>Nombre de usuario:</label> <input type="text" name="nombreUsuario" 
+                value="$nombreUsuario"/>$errorNombreUsuario</p>
+            <p><label>Password:</label> <input type="password" name="password" />$errorPassword</p>
+            $htmlErroresGlobales
             <button type="submit" name="login">Entrar</button>
         </div>
       
@@ -30,46 +36,43 @@ class FormularioLogin extends Form{
 
     protected function procesaFormulario($datos){
         $result = array();
-       //comprobacion de que llega bien los datos->ok
-       //echo  "usuario Introducido:". $datos['nombreUsuario'];
-       //echo " contraseña ". $datos['password'];
-
-        $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : null;
-                
+        $nombreUsuario =$datos['nombreUsuario'] ?? null;
+       
         if ( empty($nombreUsuario) ) {
-            $result[] = "El nombre de usuario no puede estar vacío";
+            $result['nombreUsuario'] = "El nombre de usuario no puede estar vacio";
         }
         
-        $password = isset($datos['password']) ? $datos['password'] : null;
+        $password = $datos['password'] ?? null;
+       
         if ( empty($password) ) {
-            $result[] = "El password no puede estar vacío.";
+            $result['password'] = "El password no puede estar vaci­o.";
         }
-        
+
+       
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
-            logout();
-           checkLogin();
-           if (!estaLogado()) {
-            $result[]="El usuario o contraseña no son válidos";
-           }
-           else{
-            $result="Usa el menú de la izquierda para navegar.";
-			
-           }
-            /*$usuario = usuario::login($nombreUsuario, $password);
-            if ( ! $usuario ) {
-                // No se da pistas a un posible atacante
-                $result[] = "El usuario o el password no coinciden";
-            } else {
-                $_SESSION['login'] = true;
-                $_SESSION["nombre"] = $usuario->nombre();
-                $_SESSION["correo"] = $usuario->idCorreo();
-                $_SESSION["esPremium"] =$usuario->getPremium();
-                $_SESSION['esAdmin'] =$usuario->getAdmin();
-                $result = 'inicio.php';
-                echo "valor de correo obtenido en la sesion: ". $_SESSION["correo"];
-            }*/
+           logout();
+           $usuario=checkLogin(); 
+         
+           if ( ! $usuario ) {
+            // No se da pistas a un posible atacante
+           
+            $result[] = "El usuario o el password no coinciden";
+            }
+            else{
+               
+                if (!estaLogado()) {
+                    $result[]="Inicia Sesión";
+                }
+                else{
+                    $result="Usa el menú de la izquierda para navegar.";
+                      
+                }
+
+            }
+           
         }
+        
         return $result;
     }
 }

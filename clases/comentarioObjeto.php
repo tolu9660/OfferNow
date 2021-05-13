@@ -1,6 +1,6 @@
 <?php
 
-class ComentarioObjeto{
+class comentarioObjeto{
 	private $id;
 	private $titulo;
 	private $texto;
@@ -72,7 +72,7 @@ class ComentarioObjeto{
 
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
-			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+			$coment = new comentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
 				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
 			$rs->free();
 
@@ -91,7 +91,7 @@ class ComentarioObjeto{
 
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
-			$coment = new ComentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
+			$coment = new comentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
 				$fila['ValoracionUtilidad'], $fila['UsuarioID'], $fila['OfertaID']);
 			$rs->free();
 

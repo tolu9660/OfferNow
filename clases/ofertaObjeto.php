@@ -4,7 +4,7 @@ require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/comentarioObjeto.php';
 require_once __DIR__.'/productoObjeto.php';
 
-class OfertaObjeto extends Producto{
+class ofertaObjeto extends producto{
 	private $urlOferta;
 	private $valoracion;
 	private $creador;
@@ -28,7 +28,7 @@ class OfertaObjeto extends Producto{
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				
-				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 				
 			}
@@ -46,7 +46,7 @@ class OfertaObjeto extends Producto{
 		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 			}
 			return $ofertasArray;
@@ -94,7 +94,7 @@ class OfertaObjeto extends Producto{
 		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
 		if($result) {
 			$fila = $result->fetch_assoc();
-			$ofertaObj = new OfertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
+			$ofertaObj = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
 			
 			return $ofertaObj;

@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<!--
 <!DOCTYPE html>
 <html>
  <head>
@@ -12,7 +12,7 @@
 <body>
 <div class ="contenedor">
 <?php
-	require ('cabecera.php');
+	//require ('cabecera.php');
 ?>
 	<main>
 	  <article>
@@ -23,11 +23,33 @@
 			<p> - 12 meses por 25 euros. </p>
 	</main>
 	<?php
-			if (!isset($_SESSION["login"])) { //Usuario incorrecto
-			echo "Pincha <a href='login.php'>aquí</a> para iniciar sesión si todavía no tienes cuenta.";
-			}
+			//if (!isset($_SESSION["login"])) { //Usuario incorrecto
+			//echo "Pincha <a href='login.php'>aquí</a> para iniciar sesión si todavía no tienes cuenta.";
+			//}
 	?>
 </div>
 
 </body>
 </html>
+-->
+<?php
+	require_once __DIR__.'/includes/config.php';
+
+	$tituloPagina = 'Hazte Premium';
+	$contenidoPrincipal=<<<EOS
+	<div id = "producto">
+	<ul class = "rejilla">
+		<main>
+		<article>
+			  <h1>¿QUIERES ENTERARTE DE LAS OFERTAS ANTES QUE NADIE?</h1>
+			  <h2>ESCOGE TU PACK: </h2>
+			  <p> - 1 mes por 3 euros. </p>
+			  <p> - 3 meses por 7 euros. </p>
+			  <p> - 12 meses por 25 euros. </p>
+	  </main>
+		</ul>
+		</div>
+	EOS;
+
+	require __DIR__.'/includes/comun/layout.php';
+?>

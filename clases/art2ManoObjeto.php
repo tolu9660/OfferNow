@@ -4,7 +4,7 @@ require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/comentarioObjeto.php';
 require_once __DIR__.'/productoObjeto.php';
 
-class Art2ManoObjeto extends Producto{
+class art2ManoObjeto extends producto{
 	private $unidades;
 	//private $precio;
 	//private $urlImagen;
@@ -31,7 +31,7 @@ class Art2ManoObjeto extends Producto{
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
 			}
 			return $ofertasArray;
@@ -55,7 +55,7 @@ class Art2ManoObjeto extends Producto{
 		if($result) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 									
 			}
@@ -102,7 +102,7 @@ class Art2ManoObjeto extends Producto{
 		
 		if($result) {
 			$fila = $result->fetch_assoc();
-			$ofertaObj = new Art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+			$ofertaObj = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 			return $ofertaObj;
 		} else{

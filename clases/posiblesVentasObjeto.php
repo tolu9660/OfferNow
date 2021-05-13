@@ -4,7 +4,7 @@ require_once __DIR__.'/../includes/config.php';
 require_once __DIR__.'/productoObjeto.php';
 require_once __DIR__.'/art2ManoObjeto.php';
 
-class PosiblesVentasObjeto extends Producto{
+class posiblesVentasObjeto extends producto{
 
 	private $unidades;
 	private $creador;
@@ -26,7 +26,7 @@ class PosiblesVentasObjeto extends Producto{
 			$ofertasArray = null;
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new PosiblesVentasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+				$ofertasArray[] = new posiblesVentasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen'], $fila['UsuarioVendedor']);		
 			}
 			return $ofertasArray;
@@ -70,7 +70,7 @@ class PosiblesVentasObjeto extends Producto{
 		$result = parent::hacerConsulta("SELECT * FROM posiblescompras WHERE Numero = '$id'");
 		if($result != null) {
 			$fila = $result->fetch_assoc();
-			$ofertaObj = new PosiblesVentasUsuario($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+			$ofertaObj = new posiblesVentasObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 							$fila['Unidades'],$fila['Precio'],$fila['Imagen'], $fila['usuarioVendedor']);
 			return $ofertaObj;
 		} else{

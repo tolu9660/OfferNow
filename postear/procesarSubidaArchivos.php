@@ -13,14 +13,14 @@
             if(!file_exists($directorioServerArchivo)) {
                 if (move_uploaded_file($nuevoNombre, "$directorioServerImg")) {
                     return $nuevoNombre;
-                } else{
+                } else {
                     return false;
                 }
             } else {
                 //El fichero existe por lo que no se copia y se devuelve el nuevo nombre
                 return $nuevoNombre;
             }
-        } else{
+        } else {
             return false;
         }        
     }

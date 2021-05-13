@@ -1,6 +1,6 @@
 <?php
 
-abstract class Producto{
+abstract class producto{
     private $id;
 	private $nombre;
 	private $descripcion;
@@ -34,7 +34,7 @@ abstract class Producto{
             if($result != null) {		
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+                    $this->comentariosArray[] = new comentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
                             $fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['OfertaID']);
                 }
             }
@@ -43,7 +43,7 @@ abstract class Producto{
             if($result != null) {		
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
-                    $this->comentariosArray[] = new ComentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
+                    $this->comentariosArray[] = new comentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
                             $fila['ValoracionUtilidad'], $fila['UsuarioID'],$fila['SegundaManoID']);
                 }
             }

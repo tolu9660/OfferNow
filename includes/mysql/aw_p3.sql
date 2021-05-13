@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: vm13.db.swarm.test
--- Tiempo de generación: 13-05-2021 a las 16:05:23
+-- Tiempo de generación: 13-05-2021 a las 16:06:59
 -- Versión del servidor: 10.5.9-MariaDB-1:10.5.9+maria~focal
 -- Versión de PHP: 7.4.15
 
@@ -179,8 +179,7 @@ INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VA
 ('luis@gmail.com', 'Luis Premium', '$2y$10$HDRa/.8XW/ZCh3I0VpOHI.CEm1XQaC5SN1q/IgIbF6hcqyIRp1iOi', 1, 0),
 ('luisRoman', 'luisRoman', '$2y$10$pTSRPIxFTVwuCPFJnIP1zu103rs9gZWzBfie2P/dtmwiSFHlxSANm', 1, 1),
 ('pablo@gmail.com', 'Pablo', '$2y$10$AfE.i.LSxEUL3KZ9iyhn/OzgW1u.qtYDf8k159zoNAJ6gCPgEXn2.', 0, 0),
-('paco@gmail.com', 'Paco Admin', '$2y$10$4UcIO5u2Mu91/cNpV5QOw.U3PIP1czSl53eYsLtRJt8NnhZS0ekMu', 0, 0),
-('persona@gmail.com', 'Persona', 'Persona1', 0, 0);
+('paco@gmail.com', 'Paco Admin', '$2y$10$4UcIO5u2Mu91/cNpV5QOw.U3PIP1czSl53eYsLtRJt8NnhZS0ekMu', 0, 0);
 
 --
 -- Índices para tablas volcadas

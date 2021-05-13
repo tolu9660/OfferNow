@@ -26,29 +26,23 @@ class Usuario{
 		  $conn = $app->conexionBd();
       //hacer consulta de premium y admin
       //si devuelve un 1 el usuario es administrador 
-      $consultaEsAdmin=sprintf("SELECT US.Admin FROM usuario US WHERE US.Correo='%s'",
-                                $conn->real_escape_string($username));
-      //si devuelve un 1 el usuario es premium
-      $consultaEsPremium=sprintf("SELECT US.Premium FROM usuario US WHERE US.Correo='%s'",
-                                  $conn->real_escape_string($username));
-								  
+      $consultaEsAdmin=sprintf("SELECT * FROM usuario WHERE Correo='%s'",
+                                $conn->real_escape_string($username));			  
       $rs = $conn->query($consultaEsAdmin);
-      $rs1 = $conn->query($consultaEsPremium);
-      if ($rs && $rs1){
+      echo $consultaEsAdmin;
+      if ($rs){
         $fila1 = $rs->fetch_assoc();
-        $fila2 = $rs1->fetch_assoc();
         //echo "DATOS LEIDOS\n". "es admin:".$fila1['Admin']. "\t ".$fila2["Premium"];
         if($fila1['Admin']==1){
           $user->esAdmin();
         }
-        else if($fila2['Premium']==1){
+        if($fila1['Premium']==1){
           $user->esPremium();
         }
         //para comprobar que los atributos se estan volcando correctamente
         //echo "esAdmin:".$user->getAdmin();
         //echo "esPremium:".$user->getPremium();
         $rs->free();
-        $rs1->free();
       } 
       return $user;
     }

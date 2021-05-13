@@ -51,7 +51,7 @@ class formularioVentaArticulo extends form{
         $usuario = $_SESSION["correo"];
         
         if(Aplicacion::comprobarImagen("/art2mano/")){
-            if (PosiblesVentasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
+            if (posiblesVentasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
                 $result=<<<EOS
                     <h3>Tu peticion de venta ha sido enviada!</h3>
                 EOS;

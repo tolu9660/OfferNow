@@ -50,7 +50,7 @@ class formularioSubir2Mano extends form{
 	//$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
 	
 	if(Aplicacion::comprobarImagen("/art2mano/")){
-		if (Art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
+		if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
         
             $result=<<<EOS
                 <h3>Articulo de segunda mano creado</h3>

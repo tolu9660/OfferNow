@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2021 a las 17:26:18
+-- Tiempo de generación: 13-05-2021 a las 11:48:27
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.15
 
@@ -46,8 +46,7 @@ INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidad
 (9, 'Uncharted 4', 'Juego Uncharted 4 PS4', 32, 19, 'Uncharted4.jpg', 0),
 (10, 'Pesas 4kg', '2 pesas de 4kg cada una', 3, 15, 'Pesas.jpg', 0),
 (11, 'Redmi Note 8T', 'Movil Xiaomi Redmi Note 8T', 2, 189, 'Redmi_Note_8T.jpg', 1),
-(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'Super_Mario_3D_World.jpg', 1),
-(16, 'tfyguhiol', 'hola caracolaaa', 1224, 123, 'rednty,u.iojasd', 0);
+(12, 'Super Mario 3D World', 'Juego Super MArio 3D World Nintendo Switch', 5, 40, 'Super_Mario_3D_World.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -60,14 +59,6 @@ CREATE TABLE `carrito` (
   `idProducto` int(32) NOT NULL,
   `idUsuario` varchar(32) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `carrito`
---
-
-INSERT INTO `carrito` (`id`, `idProducto`, `idUsuario`) VALUES
-(1, 4, 'luisRoman'),
-(2, 12, 'luisRoman');
 
 -- --------------------------------------------------------
 
@@ -84,14 +75,6 @@ CREATE TABLE `comentariosoferta` (
   `OfertaID` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `comentariosoferta`
---
-
-INSERT INTO `comentariosoferta` (`ID`, `Texto`, `Titulo`, `ValoracionUtilidad`, `UsuarioID`, `OfertaID`) VALUES
-(5, 'Buena capacidad y enfria bien', 'Muy buena nevera', 0, 'correo@correo.com', 2443),
-(8, 'es una nevera chula', 'nuevo comentario', 0, 'luisRoman', 2443);
-
 -- --------------------------------------------------------
 
 --
@@ -106,16 +89,6 @@ CREATE TABLE `comentariossegundamano` (
   `UsuarioID` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
   `SegundaManoID` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `comentariossegundamano`
---
-
-INSERT INTO `comentariossegundamano` (`ID`, `Texto`, `Titulo`, `ValoracionUtilidad`, `UsuarioID`, `SegundaManoID`) VALUES
-(1, 'Uno de los juegos mas entretenidos que he jugado', 'Muy buen juego', 0, 'correo@correo.com', 9),
-(3, 'Muy bueno', 'Juegazo', 0, 'correo@correo.com', 9),
-(4, 'un 15', 'Perfecta', 0, 'correo@correo.com', 4),
-(6, 'sdagdgd', 'safasf', 0, 'u@u.com', 9);
 
 -- --------------------------------------------------------
 
@@ -141,17 +114,9 @@ CREATE TABLE `oferta` (
 --
 
 INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imagen`, `Valoracion`, `Precio`, `Creador`, `Premium`, `segundaMano`) VALUES
-(2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'nevera.png', 1, 637, 'correo1@ucm.es', 0, 0),
-(2444, 'Intel Core I7', 'Procesador Intel i7 rebajado', 'www.amazon.es/Intel-Core-i7-10700K-Procesador-Casquillo/dp/B0883P8CNM/ref=sr_1_1', 'https://www.adslzone.net/app/uploads-adslzone.net/2016/07/Intel.jpg', 67, 293, 'correo@correo.com', 1, 0),
-(2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'https://images-na.ssl-images-amazon.com/images/I/514Y7g-JQDL._AC_SY355_.jpg', 0, 34, 'persona@gmail.com', 0, 0),
-(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'https://cdn.juguetilandia.com/images/articulos/1999954422g00.jpg', 30, 23, 'persona@gmail.com', 1, 0),
-(2560, 'Subida1', 'subeeeeeeeeeeee', '324234234ewd', 'C:/Pablo/Universidad/xampp/htdocs/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Ejes1.PNG', 0, 999999999, 'usuario@usuario.com', 0, 0),
-(2561, 'Subida 2222222222', 'Budeeeeeeeeee 2222222222', '2222222222222', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/Snk.png', 0, 4294967295, 'usuario@usuario.com', 0, 0),
-(2562, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0, 0),
-(2563, 'iusmmufds', 'dsagadga', 'dasfadg', '/AW/OfferNow/proyecto/practica3/imagenes/productos/ofertas/EzgzWIAXoAE0uCI.png', 0, 35, 'usuario@usuario.com', 0, 0),
-(2564, 'nyukasdnas', 'sdfafaufda', 'adadfa', 'infografia-iso15504-7.jpeg', 0, 44444444, 'usuario@usuario.com', 0, 0),
-(2566, 'offf55555555555', '55555555555555', '555555555555', 'carro-de-comida.png', 0, 555555555, 'u@u.com', 0, 0),
-(2567, 'uyadbubafs', 'dsadgda', 'fsdgtt2t3445', 'carro-de-comida.png', 0, 35534, 'u@u.com', 0, 0);
+(2443, 'Nevera 1', 'Nevera Samsung 1000 litros capacidad con congelador', 'uuurfweqg', 'nevera.png', 1, 637, 'persona@gmail.com', 0, 1),
+(2449, 'Willful Smartwatch', 'Willful Smartwatch,Reloj Inteligente con Pulsómetro,Cronómetros,', 'www.amazon.es/Willful-Smartwatch-Inteligente-Cron%C3%B3metros-Impermeable/dp/B083DZPKTW', 'Lavadora_Siemens.jpg', 0, 34, 'persona@gmail.com', 0, 0),
+(2450, 'Monopoly para malos perdedores', 'Juego de Monopoly donde si pierdes gans', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'monopoly.png', 30, 23, 'persona@gmail.com', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +139,8 @@ CREATE TABLE `posiblescompras` (
 --
 
 INSERT INTO `posiblescompras` (`Numero`, `Nombre`, `Descripcion`, `Unidades`, `Precio`, `Imagen`, `UsuarioVendedor`) VALUES
-(1, 'Venta11111111', '111111111111vendidoooololxd', 111, 111111, '170c6a2d3817b80630704114ca8ce5c3.jpg', 'u@u.com');
+(3, 'raton', 'sadasd', 111, 212, 'Pesas.jpg', 'luisRoman'),
+(4, 'raton', 'sadasd', 111, 212, 'Pesas.jpg', 'luisRoman');
 
 -- --------------------------------------------------------
 
@@ -196,13 +162,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`) VALUES
 ('admin@admin.com', 'Admin1', '$2y$10$Lg9eC/a5y6EG4ImYqlX6WeHyE/03UGW6SUE8qD3nUHAbvZhmgIT5y', 1, 1),
-('correo@correo.com', 'UsuarioPrueba1', 'Password1', 1, 0),
-('correo1@ucm.es', 'UsuarioPrueba2', 'Password2', 0, 0),
-('hola@hola.com', 'Hola', 'Hola1', 0, 0),
-('luisRoman', 'luisroman', '$2y$10$Oc6Y08WldufL.xbpl1Npaur07d8RXtcqsoSDRN2jx6vLb2C087g3W', 0, 0),
-('persona@gmail.com', 'Persona', 'Persona1', 0, 0),
-('u@u.com', 'usuarioooo', '$2y$10$2Qx2N9DQtPhWQJMpRw0oH.ZMnI1QE61o7c/1yvn6qllHF8ykgFDNy', 1, 0),
-('usuario@usuario.com', 'Usuario1', '$2y$10$j50qME.DF5OBCNAzt9ozWu6zVN5.qFw.7tCNVQkxVrYLua0oFk7ky', 0, 0);
+('luisRoman', 'luisRoman', '$2y$10$pTSRPIxFTVwuCPFJnIP1zu103rs9gZWzBfie2P/dtmwiSFHlxSANm', 1, 1),
+('persona@gmail.com', 'Persona', 'Persona1', 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -268,7 +229,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `articulos_segunda_mano`
 --
 ALTER TABLE `articulos_segunda_mano`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `carrito`
@@ -286,19 +247,19 @@ ALTER TABLE `comentariosoferta`
 -- AUTO_INCREMENT de la tabla `comentariossegundamano`
 --
 ALTER TABLE `comentariossegundamano`
-  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2568;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2579;
 
 --
 -- AUTO_INCREMENT de la tabla `posiblescompras`
 --
 ALTER TABLE `posiblescompras`
-  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Numero` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

@@ -5,19 +5,20 @@
 		require_once __DIR__."/../usuario/usuarios.php";
 	?>
 
-	<h3>Navegación</h3>
 	<nav class="menuizq">
 
 	<ul>
-		<li><a href="#">Inicio</a></li>
-		<li><a href="#">Quiénes somos</a></li>
-		<li><a href="#">Servicios</a></li>
-		<li><a href="#">Contacto</a></li>
+	<h3>Ordenar por:</h3>
+		<li><a href="#">Valoración</a></li>
+		<li><a href="#">Precio</a></li>
+		<li><a href="#">Fecha</a></li>
+		<li><a href="#">Nombre</a></li>
 		<?php
 			if(estaLogado()){
 				$oferta = RUTA_APP.'/postear/subirOferta.php';
 				$vender = RUTA_APP.'/postear/peticionVentaArticulo.php';
 				?>
+				<h3>Navegacion:</h3>
 				<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>
 				<li><a href= "<?=$oferta?>">Publica una oferta</a></li>
 				<li><a href= "<?=$vender?>">¡¡Vendenos un articulo!!</a></li>

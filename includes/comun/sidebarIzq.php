@@ -1,4 +1,4 @@
-<div id="sidebarIzq">
+<div id="sidebarizq">
 
 	<?php
 		require_once __DIR__.'/../config.php';
@@ -8,7 +8,7 @@
 	<nav class="menuizq">
 
 	<ul>
-	<h3>Ordenar por:</h3>
+		<h3>Ordenar</h3>
 		<li><a href="#">Valoración</a></li>
 		<li><a href="#">Precio</a></li>
 		<li><a href="#">Fecha</a></li>

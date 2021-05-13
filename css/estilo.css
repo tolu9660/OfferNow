@@ -2,14 +2,17 @@ body {
 	background-color: #CDCDCD;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+
 div#titulo{
 	border-bottom: black 1px solid;
-	border-top: 2px solid black;
+	border-top: 3px solid black;
 	width: auto;
 	height: 100px;
 	text-align:center;
 	border-bottom: rgb(9, 9, 12) 1px solid;
-	background-color: rgb(133, 197, 38);
+	background-color: #D4F1FF;
+	min-width: 100vh;
 }
 
 #logo {
@@ -34,15 +37,19 @@ div#titulo{
 /* contenedores principales */
 div.contenedor {
 	display: flex;
-flex-flow: row;
-align-items: stretch;
-min-height: 80%;
-	background-color: rgb(197, 145, 235);
+	flex-flow: row;
+	align-items: stretch;
+	min-height: 80%;
+	background-color: white; /*rgb(197, 145, 235);*/
+	min-height: calc(100vh - 100px - 60px);
+	min-width: 100vh;
+	
 }
 div.iniciosesion{
 	margin-top:2%;
 	margin-left:5%;
 	margin-bottom:3%;
+	min-width: 100vh;
 }
 div.subirOferta{
 	margin-top:2%;
@@ -51,12 +58,13 @@ div.subirOferta{
 }
 div.cabecera{
 	height:20%;
+	min-width: 100vh;
 }
 
 div.general{
-	border-left: black 2px solid;
-	border-right: black 2px solid;
-  border-bottom: black 2px solid;
+	border-left: black 4px solid;
+	border-right: black 4px solid;
+  	border-bottom: black 4px solid;
 }
 
 div.producto{
@@ -85,8 +93,8 @@ div#contenedor1 {
 	width: auto;
 	height: 100px;
 	margin: auto;
-	border-bottom: rgb(9, 9, 12) 1px solid;
-
+	border-bottom: rgb(9, 9, 12) 3px solid;
+	min-width: 100vh;
 	
 }
 
@@ -106,7 +114,7 @@ div#contenedor1 {
     width: 100%;
     height: 100px;
     text-align: left;
-	background-color: pink;
+	background-color: #FFE0F2;
     float: left;
 }
 
@@ -114,7 +122,7 @@ div#contenedor1 {
 	list-style: none;
 	display:flex;
 	justify-content: space-between;
-	margin: 45px;
+	margin: 47px;
 }
 
 .menu ul li {
@@ -127,15 +135,23 @@ div#contenedor1 {
 	color: black;
 	align-items: center;
 	font-size: 20px;
-	padding: 16px;
+	padding: 5px;
 	display: block;
 }
 
 .menu a:hover{
-	background-color: rgb(179, 109, 230);
+	background-color: #CE97FB;
 	color: white;
 }
 
+
+#sidebarizq {
+	width: 200px;
+	border-right: black 3px solid;
+	display: flex;
+	background-color: #D4F1FF; /*rgb(179, 109, 230);*/
+	text-align:left;
+}
 .carrito{
 	width: 20px;
 	height: 20px;
@@ -145,7 +161,7 @@ div.sesion{
     width: 35%;
     height: 100%;
     text-align: left;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; 
     float: left;
     color: #32d17a;
 
@@ -167,7 +183,6 @@ div.imgProducto{
 div.desProducto{
 	
 	text-align: left;
-	background-color: #e0cb27;
 	align-content: center;
 	margin-left: 30%;
 	float: center;
@@ -189,7 +204,6 @@ div.tarjetacomentario{
 	margin-top: 5%;
 	margin-bottom: 5%;
 	text-align: left;
-	background-color: #e0cb27;
 	margin-left: 30%;
 	float: center;
     color: #1d1212;
@@ -248,6 +262,7 @@ div.info {
 	text-align: center; /* todo el contenido centradico */
 	list-style: none; /* quita el estilo lista */
 	padding-left: 0; /* quita el margen interior izquierdo predeterminado de las listas */
+	margin: 10px;
 }
 .rejilla > li {
 	width: 100%;
@@ -268,15 +283,20 @@ div.info {
 	}
   }
   .rejilla a {
+	text-decoration: none;
+	color: black;
 	display: block; /* para que el enlace abarque toda la "celda" del producto */
 	padding: 15px;
   }
   .rejilla a:hover {
-	box-shadow: 0 0 0 2px rgb(240, 5, 5); /* efecto para remarcar productos al pasar el cursor por encima */
+	box-shadow: 0 0 0 2px #D4F1FF;; /* efecto para remarcar productos al pasar el cursor por encima */
+	text-decoration: underline;
   }
   .rejilla img { /* para que las imÃ¡genes se autoajusten si la rejilla es mÃ¡s pequeÃ±a */
-	max-width: 100%;
-	height: auto;
+	/*max-width: 100%;
+	height: auto;*/
+	height: 200px;
+	width: 200px;
   }
 
   table {

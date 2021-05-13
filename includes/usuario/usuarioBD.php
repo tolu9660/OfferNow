@@ -29,7 +29,7 @@ class usuario{
       $consultaEsAdmin=sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                                 $conn->real_escape_string($username));			  
       $rs = $conn->query($consultaEsAdmin);
-      echo $consultaEsAdmin;
+      //echo $consultaEsAdmin;
       if ($rs){
         $fila1 = $rs->fetch_assoc();
         //echo "DATOS LEIDOS\n". "es admin:".$fila1['Admin']. "\t ".$fila2["Premium"];

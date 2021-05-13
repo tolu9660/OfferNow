@@ -5,7 +5,7 @@ require_once __DIR__.'/form.php';
 require_once __DIR__.'/../usuario/usuarioBD.php';
 
 
-class FormularioRegistro extends Form{
+class formularioRegistro extends form{
 
     public function __construct() {
         parent::__construct('formRegistro');
@@ -37,7 +37,7 @@ class FormularioRegistro extends Form{
              $htmlErroresGlobales
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
             <input type="submit" value="crear">
-        </form>
+      
         </div>
         EOF;
     

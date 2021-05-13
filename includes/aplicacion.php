@@ -134,7 +134,9 @@ class Aplicacion
 	 * 		"/ofertas/"
 	 */
 	public static function comprobarImagen($carpetaImgDir){
-		$ofertaImagenDir = RUTA_IMGS.$carpetaImgDir.$_FILES["productoImagen"]["name"];
+		
+		$ofertaImagenDir = RUTA_IMGS . $carpetaImgDir . $_FILES["productoImagen"]["name"];
+		//echo $ofertaImagenDir;
 		$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
 		
 		//Comprueba la extension del archivo

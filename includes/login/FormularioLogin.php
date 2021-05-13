@@ -4,7 +4,7 @@ require_once __DIR__.'/form.php';
 require_once __DIR__.'/../usuario/usuarioBD.php';
 require_once __DIR__.'/../usuario/usuarios.php';
 
-class FormularioLogin extends Form{
+class formularioLogin extends form{
 
     public function __construct() {
         parent::__construct('formLogin');

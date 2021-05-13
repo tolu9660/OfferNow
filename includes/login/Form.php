@@ -6,7 +6,7 @@
  *
  * Además de la gestión básica de los formularios.
  */
-abstract class Form
+abstract class form
 {
 
     /**
@@ -20,7 +20,7 @@ abstract class Form
      * envío del formulario.
      */
     private $action;
-
+    private $att;
     /**
      * Crea un nuevo formulario.
      *
@@ -59,6 +59,14 @@ abstract class Form
         if ( !$this->action ) {
             $this->action = htmlentities($_SERVER['PHP_SELF']);
         }
+        if($formId==='formOferta' || $formId === 'formOferta2Mano' || $formId ==='formVentaArticulo'  ){
+          
+            $this->att ='multipart/form-data';
+        }
+        else{
+            
+            $this->att='';
+        }
         //echo "formId". $this->formId;
         //echo "acciones".$this->action;
     }
@@ -67,8 +75,9 @@ abstract class Form
      * Se encarga de orquestar todo el proceso de gestión de un formulario.
      */
     public function gestiona()
-    {   
+    {
         if ( ! $this->formularioEnviado($_POST) ) {
+           
             return $this->generaFormulario();
         } else {
             $result = $this->procesaFormulario($_POST);
@@ -77,7 +86,7 @@ abstract class Form
             } else {
                 //echo $result;//como puedo gestionar este mensaje?
                 $nuevaURL=RUTA_APP."/inicio.php";
-                echo $nuevaURL;
+                
                 header("Location:$nuevaURL");              
                 exit();
             }
@@ -136,8 +145,9 @@ abstract class Form
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos, $errores);
         //$html= $this->generaListaErrores($errores);
+       
         $htmlForm = <<<EOS
-        <form method="POST" action="$this->action" id="$this->formId" >
+        <form method="POST" action="$this->action" id="$this->formId" enctype= "$this->att">
             <input type="hidden" name="action" value="$this->formId" />
             $htmlCamposFormularios
         </form>

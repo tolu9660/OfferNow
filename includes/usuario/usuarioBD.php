@@ -5,7 +5,7 @@ require_once __DIR__.'/../../clases/carrito.php';
 
 
 
-class Usuario{
+class usuario{
 	
 	private $idCorreo;
 	private $nombre;
@@ -22,7 +22,7 @@ class Usuario{
    //echo "\n CONTRASEÑA: ".$user->contra();
   
     if ($user && $user->compruebaPassword($password)) {
-      $app = Aplicacion::getSingleton();
+      $app = aplicacion::getSingleton();
 		  $conn = $app->conexionBd();
       //hacer consulta de premium y admin
       //si devuelve un 1 el usuario es administrador 
@@ -52,7 +52,7 @@ class Usuario{
 
   public static function buscaUsuario($username){
   
-    $app = Aplicacion::getSingleton();
+    $app = aplicacion::getSingleton();
     $conn = $app->conexionBd();
     $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                     $conn->real_escape_string($username));
@@ -66,7 +66,7 @@ class Usuario{
       " es admin:". $fila['Admin']*/;
       
 	
-      $user = new Usuario($fila['Correo'], $fila['Nombre'],''
+      $user = new usuario($fila['Correo'], $fila['Nombre'],''
                   /*, $fila['Premium'], $fila['Admin']*/);
       $user->setPass($fila['Contraseña']);
       $rs->free();
@@ -105,12 +105,12 @@ class Usuario{
        //creo un objeto de tipo usuario para poder usarlo en caso de que el 
       //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
 
-      $user = new Usuario($email, $username,$password1);
+      $user = new usuario($email, $username,$password1);
       $correo=$user->idCorreo();
       $usuario=$user->nombre();
       $pass=$user->contra();
 			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
-			$app = Aplicacion::getSingleton();
+			$app = aplicacion::getSingleton();
 		  $mysqli = $app->conexionBd();
       //se filtra la informacion que se va a introducir en la BD:
       
@@ -144,7 +144,7 @@ class Usuario{
     $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
-    $this->carrito= new Carrito( $this->idCorreo);
+    $this->carrito= new carrito( $this->idCorreo);
   }
   /*
   //cogerlo con pinzas este constructor

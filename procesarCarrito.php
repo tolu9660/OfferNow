@@ -10,7 +10,7 @@ $contenidoPrincipal = '';
 $productos = '';
 if(estaLogado()){
 	
-	$user=Usuario::buscaUsuario( $_SESSION["correo"]);
+	$user=usuario::buscaUsuario( $_SESSION["correo"]);
 	
 	$carritoArray=$user->muestraCarrito();
 	$precioTotal=$user->Precio();

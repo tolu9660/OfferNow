@@ -1,15 +1,15 @@
 <?php
 require_once __DIR__.'/aplicacion.php';
 //DEFINES PARA EL SERVIDOR
-/*
+//
 define('BD_HOST', 'vm13.db.swarm.test');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'aw');
 define('BD_PASS', 'aw');
 define('RUTA_APP', '/practica3');	//Ruta del servidor
-*/
+//*/
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
-
+/*
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
@@ -39,7 +39,7 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 /* Funciones de gestión de la conexión a la BD */
 /* */
 
-$APP =Aplicacion::getSingleton();
+$APP =aplicacion::getSingleton();
 $APP->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS));
 register_shutdown_function(array($APP, 'shutdown'));
 

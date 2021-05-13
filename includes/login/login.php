@@ -20,7 +20,7 @@
 */
 
 //////////////////implementacion:
-$form = new FormularioLogin();
+$form = new formularioLogin();
 $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Login';

@@ -10,7 +10,7 @@
 	$urlOferta = htmlspecialchars(trim(strip_tags($_POST["comentarioUrlDeOferta"])));
 	$esOferta = htmlspecialchars(trim(strip_tags($_POST["esOferta"])));
 	$creador = $_SESSION["correo"];
-	if (ComentarioObjeto::subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador)) {
+	if (comentarioObjeto::subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador)) {
 		$contenidoPrincipal=<<<EOS
 			<h3>Comentario en el producto de 2 mano creado</h3>
 		EOS;

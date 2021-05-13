@@ -86,7 +86,7 @@ class formularioSubirOferta extends form{
             EOS;
         }
         */
-        if(Aplicacion::comprobarImagen("/ofertas/")){
+        if(aplicacion::comprobarImagen("/ofertas/")){
             if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {
                 $result=<<<EOS
                     <h3>Oferta creada</h3>

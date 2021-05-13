@@ -6,7 +6,7 @@
 	$contenidoPrincipal='';
 
     $id2Mano = htmlspecialchars(trim(strip_tags($_POST["id"])));
-    if(PosiblesVentasObjeto::aceptaCompra($id2Mano)){
+    if(posiblesVentasObjeto::aceptaCompra($id2Mano)){
         $contenidoPrincipal=<<<EOS
             <h3>El producto se ha admitido correctamente</h3>
         EOS;

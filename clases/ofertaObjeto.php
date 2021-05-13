@@ -57,7 +57,7 @@ class ofertaObjeto extends producto{
 	}
 	
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);

@@ -4,7 +4,7 @@
 
 	$id = $_GET['id'];
 	//Muestra el articulo
-	$ofertaObj = Art2ManoObjeto::buscaArt2Mano($id);
+	$ofertaObj = art2ManoObjeto::buscaArt2Mano($id);
 	$ruta=POSTEAR;
 	$productos='';
 	$productos.=$ofertaObj->muestraOfertaString();

@@ -4,8 +4,8 @@
     require __DIR__.'/clases/ofertaObjeto.php';
 
 	//Carga los productos en un array
-	$articulos2ManoArray = Art2ManoObjeto::cargarArticulos2ManoPremium("Nombre");
-    $ofertasArray = OfertaObjeto::cargarOfertasPremium("Nombre");
+	$articulos2ManoArray = art2ManoObjeto::cargarArticulos2ManoPremium("Nombre");
+    $ofertasArray = ofertaObjeto::cargarOfertasPremium("Nombre");
     $articulosPremium = array_merge($articulos2ManoArray, $ofertasArray);
 	//Mostrar los productos
 	$tituloPagina = 'Zona Premium';

@@ -49,7 +49,7 @@ class formularioSubir2Mano extends form{
 	$precio = htmlspecialchars(trim(strip_tags($datos["articuloPrecio"])));
 	//$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
 	
-	if(Aplicacion::comprobarImagen("/art2mano/")){
+	if(aplicacion::comprobarImagen("/art2mano/")){
 		if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
         
             $result=<<<EOS

@@ -53,7 +53,7 @@ abstract class producto{
 	}
 
     protected static function hacerConsulta($query){
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$result = $mysqli->query($query);	
 		if($result) {

@@ -67,7 +67,7 @@ class art2ManoObjeto extends producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
@@ -95,7 +95,7 @@ class art2ManoObjeto extends producto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
 		$result = $mysqli->query($query);

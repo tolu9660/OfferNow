@@ -37,7 +37,7 @@ class posiblesVentasObjeto extends producto{
 	}
 	
 	public static function subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio,	$imagen, $usuario) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
@@ -89,7 +89,7 @@ class posiblesVentasObjeto extends producto{
 			//Aqui habria que pagar a la persona
 			$vendedor = $fila['UsuarioVendedor'];
 			//Sube el objeto comprado a la bd
-			Art2ManoObjeto::subeArt2ManoBD($fila['Nombre'],$fila['Descripcion'],
+			art2ManoObjeto::subeArt2ManoBD($fila['Nombre'],$fila['Descripcion'],
 							$fila['Unidades'] ,$fila['Precio'],	$fila['Imagen']);
 			//Quitar el producto de la tabla deposibles compras
 			$result2 = parent::hacerConsulta("DELETE FROM posiblescompras WHERE Numero = '$id2Mano'");

@@ -20,7 +20,7 @@ class comentarioObjeto{
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function subeComentarioOfertaBD($titulo,$descripcion,$urlOferta,$esOferta,$creador) {
 		
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();	
 		
 		$tituloFiltrado=$mysqli->real_escape_string($titulo);
@@ -43,7 +43,7 @@ class comentarioObjeto{
 		
 		
 		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();	
 
 		$tituloFiltrado=$mysqli->real_escape_string($titulo);
@@ -63,7 +63,7 @@ class comentarioObjeto{
 	}
 	
 	public static function buscaComentarioOferta($id) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$conn = $app->conexionBd();	
 		$query = sprintf("SELECT * FROM comentariosoferta WHERE ID='%id'",
 						$conn->real_escape_string($id));
@@ -82,7 +82,7 @@ class comentarioObjeto{
 	}
 	
 	public static function buscaComentario2Mano($id) {
-		$app = Aplicacion::getSingleton();
+		$app = aplicacion::getSingleton();
 		$conn = $app->conexionBd();
 		$query = sprintf("SELECT * FROM comentariossegundamano WHERE ID='%id'",
 						$conn->real_escape_string($id));

@@ -15,7 +15,7 @@ require_once __DIR__.'/usuarioBD.php';
 		$password = isset($_POST["password"]) ? $_POST["password"] : null;
 		//echo $username;
 		//echo $password;
-		$usuario = Usuario::login($username, $password);
+		$usuario = usuario::login($username, $password);
 		//si esta logeado y está en la BD voy a crear un objeto
 		// y voy a volcar por medio de getters a los atributos de la 
 		//sesion

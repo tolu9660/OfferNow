@@ -67,7 +67,7 @@ class carrito{
     }
     public function cargarCarrito($idUser){
     
-        $app = Aplicacion::getSingleton();
+        $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
         $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idUsuario='%s'",
                     $mysqli->real_escape_string($idUser));
@@ -85,7 +85,7 @@ class carrito{
                 
                 $fila=$result->fetch_assoc();
                 //echo $fila['idProducto']."----".$fila['idUsuario'];
-                $producto = Art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
+                $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
                 $this->productos[$i]=$producto;
                 // echo"i:".$i ."valor del id producto". $fila['id'] . $fila['idUsuario'];
 

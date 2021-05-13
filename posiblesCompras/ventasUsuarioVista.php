@@ -3,7 +3,7 @@
 	require_once __DIR__.'/../clases/posiblesVentasObjeto.php';
 
 	//Carga los productos en un array
-	$ofertasArray = PosiblesVentasObjeto::cargarPosiblesCompras("Precio");
+	$ofertasArray = posiblesVentasObjeto::cargarPosiblesCompras("Precio");
 	
 	//Mostrar los productos
 	$tituloPagina = 'Valida Compras';

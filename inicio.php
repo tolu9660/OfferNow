@@ -4,7 +4,7 @@
 	
 	
 	//Carga las ofertas en un array
-	$ofertasArray = OfertaObjeto::cargarOfertas("Valoracion");
+	$ofertasArray = ofertaObjeto::cargarOfertas("Valoracion");
 
 	
 	//Mostrar las ofertas recorriendo el array

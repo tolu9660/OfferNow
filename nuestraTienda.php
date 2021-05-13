@@ -3,7 +3,7 @@
 	require __DIR__.'/clases/art2ManoObjeto.php';
 
 	//Carga los productos en un array
-	$ofertasArray = Art2ManoObjeto::cargarProductos2Mano("Precio");
+	$ofertasArray = art2ManoObjeto::cargarProductos2Mano("Precio");
 	
 	//Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';

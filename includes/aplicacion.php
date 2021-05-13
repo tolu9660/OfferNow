@@ -3,14 +3,14 @@
 /**
  * Clase que mantiene el estado global de la aplicación.
  */
-class Aplicacion
+class aplicacion
 {
 	private static $instancia;
 	
 	/**
 	 * Permite obtener una instancia de <code>Aplicacion</code>.
 	 * 
-	 * @return Applicacion Obtiene la única instancia de la <code>Aplicacion</code>
+	 * @return aplicacion Obtiene la única instancia de la <code>Aplicacion</code>
 	 */
 	public static function getSingleton() {
 		if (  !self::$instancia instanceof self) {

@@ -6,7 +6,7 @@
 
 	$tituloPagina = 'Registro';
 
-	$form = new FormularioRegistro();
+	$form = new formularioRegistro();
 	$htmlFormRegistro = $form->gestiona();
 	
 

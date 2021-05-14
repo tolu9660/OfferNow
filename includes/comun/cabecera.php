@@ -7,7 +7,7 @@
         <img id="logo" src="<?=RUTA_APP.'/imagenes/OfferNow_Logo.png'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
         
         <h1>
-        Tu página de ofertas preferida
+        OFFERNOW
         </h1>
 	</div>
 

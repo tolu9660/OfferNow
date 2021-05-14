@@ -126,6 +126,7 @@ class ofertaObjeto extends producto{
 				<p>
 					Enlaces:
 					<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
+				
 			EOS;
 				if($this->segundaMano){
 					$productos.=<<<EOS
@@ -134,12 +135,12 @@ class ofertaObjeto extends producto{
 				EOS;
 				}
 		$productos.=<<<EOS
-			<div>	
+				
 				<button class="button" type="button">    
 					<img src="{$Ruta}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: $this->valoracion
 				</button>
-			</div>
+				</div>
 			EOS;
 			
 		

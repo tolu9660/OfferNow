@@ -16,7 +16,7 @@ if(estaLogado()){
 	$precioTotal=$user->Precio();
 	//echo $precioTotal;
 	$productos.=<<<EOS
-		<div="contenedor">
+		<div class="iniciosesion">
 		<table>
 			<caption>TU PEDIDO</caption>
 			<thead>

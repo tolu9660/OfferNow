@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: vm13.db.swarm.test
--- Tiempo de generación: 13-05-2021 a las 16:06:59
+-- Tiempo de generación: 14-05-2021 a las 14:08:56
 -- Versión del servidor: 10.5.9-MariaDB-1:10.5.9+maria~focal
 -- Versión de PHP: 7.4.15
 

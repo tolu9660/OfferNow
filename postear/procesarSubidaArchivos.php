@@ -1,5 +1,4 @@
 <?php
-
     public function subirArchivo($carpetaArchivoDir){
         //Comprueba la extension del archivo
         if (comprobarNombreArchivo($_FILES["productoImagen"]["name"]) &&

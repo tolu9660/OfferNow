@@ -85,7 +85,7 @@ abstract class form
                 return $this->generaFormulario($result, $_POST);
             } else {
                 //echo $result;//como puedo gestionar este mensaje?
-                $nuevaURL=RUTA_APP."/inicio.php";
+                $nuevaURL=RUTA_APP."/index.php";
                 
                 header("Location:$nuevaURL");              
                 exit();

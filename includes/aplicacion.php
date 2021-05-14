@@ -135,17 +135,18 @@ class aplicacion
 	 */
 	public static function comprobarImagen($carpetaImgDir){
 		
-		$ofertaImagenDir = RUTA_IMGS . $carpetaImgDir . $_FILES["productoImagen"]["name"];
-		//echo $ofertaImagenDir;
-		$directorioServerImg = $_SERVER['DOCUMENT_ROOT'].$ofertaImagenDir;
+		$ofertaImagenDir = $carpetaImgDir . $_FILES["productoImagen"]["name"];
+		$directorioServerImg = ALMACEN.$ofertaImagenDir;
+		$tmp_name = $_FILES['productoImagen']['tmp_name'];
 		
 		//Comprueba la extension del archivo
 		$end = explode(".", $_FILES["productoImagen"]["name"]);
 		$extensionImagen = strtolower(end($end));
 		$extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');
+		
 		if (in_array($extensionImagen, $extensionesValidas)) {
 			//Si la extension es correcta mueve la imagen
-			if (move_uploaded_file($_FILES['productoImagen']['tmp_name'], "$directorioServerImg")) {
+			if (move_uploaded_file($tmp_name, "$directorioServerImg")) {
 				return true;
 			} else {
 				return false;

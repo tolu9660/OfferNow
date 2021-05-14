@@ -15,7 +15,7 @@
 	<div id="contenedor1">
 		<nav class="menu" class="col-4 my-auto mx-auto">
             <ul>
-                <li><a href="<?=RUTA_APP.'/inicio.php'?>">Destacados</a></li>
+                <li><a href="<?=RUTA_APP.'/index.php'?>">Destacados</a></li>
                 <li><a href="#">Todos -- No implementado</a></li>            
                 <li><a href="<?=RUTA_APP.'/nuestraTienda.php'?>">Nuestra tienda</a></li>
                 <li><a href="<?=SESION.'/login.php'?>">Inicio Sesión</a></li>

@@ -11,12 +11,6 @@ class formularioSubir2Mano extends form{
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
-   
-        // Se generan los mensajes de error si existen.
-       /* $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
-        $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-      */
         $html = <<<EOF
             <div class="subirOferta">
             <div class="producto">

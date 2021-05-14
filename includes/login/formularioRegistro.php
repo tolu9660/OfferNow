@@ -75,13 +75,11 @@ class formularioRegistro extends form{
 			$_SESSION["correo"] = $correo;
             $_SESSION["esPremium"] = false;
             $_SESSION["esAdmin"] = false;
-            $result = 'index.php';
+            $result = RUTA_APP.'/index.php';
             }
             else{
                 $result[]="Error en el registro!";
             }
-            
-    
         }
         return $result;
     }

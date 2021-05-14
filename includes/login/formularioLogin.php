@@ -62,10 +62,10 @@ class formularioLogin extends form{
             else{
                
                 if (!estaLogado()) {
-                    $result[]="Inicia Sesión";
+                    $result = RUTA_APP.'/index.php';
                 }
                 else{
-                    $result="Usa el menú de la izquierda para navegar.";
+                    $result = RUTA_APP.'/index.php';
                       
                 }
 

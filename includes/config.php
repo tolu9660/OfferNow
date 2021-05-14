@@ -1,12 +1,12 @@
 <?php
 require_once __DIR__.'/aplicacion.php';
 //DEFINES PARA EL SERVIDOR
-/*
+//
 define('BD_HOST', 'vm13.db.swarm.test');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'aw');
 define('BD_PASS', 'aw');
-define('RUTA_APP', '/practica3');	//Ruta del servidor
+define('RUTA_APP', '/');	//Ruta del servidor
 //*/
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
 //*
@@ -14,14 +14,14 @@ define('BD_HOST', 'localhost');
 define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
 define('BD_PASS', '');
+/*
 //define('RUTA_APP', '/proyecto/practica3');	//Ruta de Luis
 //define('RUTA_APP', '/OfferNow-practica3/proyecto/OfferNow-practica3/proyecto/practica3');			//Ruta de Jorge
 //define('RUTA_APP', '/proyecto/OfferNow');	//Ruta de Olga
-define('RUTA_APP', '/AW/OfferNow');	//Ruta de Pablo
-//define('RUTA_SERVER', $_SERVER['DOCUMENT_ROOT'].RUTA_APP);//NO USAR
+//define('RUTA_APP', '/AW/OfferNow');	//Ruta de Pablo
 //*/
-define('RAIZ_APP', __DIR__);	                //Raiz del servidor
-define('ALMACEN', RAIZ_APP.'/imagenes/productos');
+define('RAIZ_APP', __DIR__.'/..');	                //Raiz de la aplicacion
+define('ALMACEN', RAIZ_APP.'/imagenes/productos');  //Carpeta de subida de imagenes del usuario
 define('RUTA_IMGS', RUTA_APP.'/imagenes/productos');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('COMUN', RUTA_APP.'/includes/comun');

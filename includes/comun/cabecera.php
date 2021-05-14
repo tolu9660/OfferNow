@@ -22,7 +22,7 @@
                 <li><a href="<?=SESION.'/registro.php'?>">Registro</a></li>
                 <!--<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>-->
                 <li><a href="<?=RUTA_APP.'/premium.php'?>">Hazte premium -- No implementado</a></li>
-                <li><a href="<?=RUTA_APP.'/procesarcarrito.php'?>" rel="nofollow" target="_blank" class="button" > 
+                <li><a href="<?=RUTA_APP.'/procesarCarrito.php'?>" rel="nofollow" target="_blank" class="button" > 
                     <img src="<?=RUTA_APP.'/imagenes/iconos/carrito.png'?>" class="carrito" alt="carrito"/> </a></li>
             </ul>
         </nav>

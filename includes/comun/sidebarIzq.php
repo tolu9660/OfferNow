@@ -15,27 +15,22 @@
 		<li><a href="#">Nombre</a></li>
 		<?php
 			if(estaLogado()){
-				$oferta = RUTA_APP.'/vistas/subirOferta.php';
-				$vender = RUTA_APP.'/vistas/peticionVentaArticulo.php';
 				?>
 				<h3>Navegacion:</h3>
-				<li><a href="<?=RUTA_VISTAS.'/logout.php'?>">Cerrar Sesión</a></li>
-				<li><a href= "<?=$oferta?>">Publica una oferta</a></li>
-				<li><a href= "<?=$vender?>">¡¡Vendenos un articulo!!</a></li>
+				<li><a href="<?=RUTA_APP.'/vistas/logout.php'?>">Cerrar Sesión</a></li>
+				<li><a href= "<?=RUTA_APP.'/vistas/subirOferta.php'?>">Publica una oferta</a></li>
+				<li><a href= "<?=RUTA_APP.'/vistas/peticionVentaArticulo.php'?>">¡¡Vendenos un articulo!!</a></li>
 				<?php
 			}
 			if(estaLogado() && ($_SESSION['esAdmin'])){
-				$articulo = RUTA_APP.'/vistas/subirArticulo2Mano.php';
-				$compraArticulos = RUTA_APP.'/ventasUsuarioVista.php';
 				?>
-				<li><a href= "<?=$articulo?>">Publica un articulo de segunda mano</a></li>
-				<li><a href= "<?=$compraArticulos?>">Valida solicitudes de compra</a></li>
+				<li><a href= "<?=RUTA_APP.'/vistas/subirArticulo2Mano.php'?>">Publica un articulo de segunda mano</a></li>
+				<li><a href= "<?=RUTA_APP.'/ventasUsuarioVista.php'?>">Valida solicitudes de compra</a></li>
 				<?php
 			}
 			if(estaLogado() && ($_SESSION['esPremium'])){
-				$premium = RUTA_APP.'/tiendaPremium.php';
 				?>
-				<li><a href= "<?=$premium?>">Comprueba las ofertas Premium!!</a></li>
+				<li><a href= "<?=RUTA_APP.'/tiendaPremium.php'?>">Comprueba las ofertas Premium!!</a></li>
 				<?php
 			}
 		?>

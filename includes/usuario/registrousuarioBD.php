@@ -1,4 +1,5 @@
 <?php
+/*
 	require_once __DIR__.'/../config.php';
 	require_once __DIR__.'/usuarioBD.php';
 	
@@ -24,3 +25,4 @@
 		</div>
 	EOS;
 		require RUTA_LAYOUT.'/layout.php';
+		*/

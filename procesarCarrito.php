@@ -52,7 +52,6 @@ if(estaLogado()){
 				</div>
 			</tr>
 		EOS;
-
 	}
 	$contenidoPrincipal.=<<<EOS
 			$productos;
@@ -61,7 +60,6 @@ if(estaLogado()){
 		</div>
 		</table>
 		</div>
-		
 	EOS;
 }
 else{

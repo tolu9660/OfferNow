@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';	
 	require_once RUTA_FORMS.'/formularioSubir2Mano.php';
+	
 	$tituloPagina = 'Subir Articulo 2ª';	
 	
 	$form = new formularioSubir2Mano();

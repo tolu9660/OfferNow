@@ -145,7 +145,7 @@ abstract class form
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos, $errores);
         //$html= $this->generaListaErrores($errores);
-       
+        
         $htmlForm = <<<EOS
         <form method="POST" action="$this->action" id="$this->formId" enctype= "$this->att">
             <input type="hidden" name="action" value="$this->formId" />
@@ -196,7 +196,6 @@ abstract class form
      */
     protected static function createMensajeError($errores=array(), $idError='', $htmlElement='span', $atts = array())
     {
-       
         $html = '';
         if (isset($errores[$idError])) {
             $att = '';
@@ -205,8 +204,6 @@ abstract class form
             }
             $html = " <$htmlElement $att>{$errores[$idError]}</$htmlElement>";
         }
-
         return $html;
     }
-
 }

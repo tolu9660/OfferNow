@@ -2,10 +2,8 @@
 require_once __DIR__.'/../includes/config.php';
 require_once RUTA_FORMS.'/form.php';
 require_once RUTA_CLASES.'/art2ManoObjeto.php';
-//require_once __DIR__.'/../clases/OfertaObjeto.php';//por si el de arriba no va
 
 class formularioSubir2Mano extends form{
-
     public function __construct() {
         parent::__construct('formOferta2Mano');
     }

@@ -1,9 +1,7 @@
 <?php
 
 require_once __DIR__.'/../config.php';
-require_once RUTA_CLASES.'/carrito.php';
-
-
+require_once RUTA_CLASES.'/carritoObjeto.php';
 
 class usuario{
 	
@@ -144,7 +142,7 @@ class usuario{
     $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
-    $this->carrito= new carrito( $this->idCorreo);
+    $this->carrito= new carritoObjeto( $this->idCorreo);
   }
   /*
   //cogerlo con pinzas este constructor

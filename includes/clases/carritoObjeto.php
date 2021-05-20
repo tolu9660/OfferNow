@@ -3,7 +3,7 @@ require_once __DIR__.'/ofertaObjeto.php';
 require_once RUTA_CLASES.'/productoObjeto.php';
 require_once RUTA_CLASES.'/art2ManoObjeto.php';
 
-class carrito{
+class carritoObjeto{
     private $id;
     private $contador;
     private $contDeseos;

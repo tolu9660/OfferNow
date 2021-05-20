@@ -29,4 +29,4 @@
 		$productos
 	EOS;
 
-require RUTA_LAYOUT.'layout.php';
+require RUTA_LAYOUT.'/layout.php';

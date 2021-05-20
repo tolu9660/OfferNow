@@ -32,7 +32,7 @@ define('POSTEAR', RUTA_APP.'/postear'); //ruta global para posts de objetos
 define('RAIZ_APP', __DIR__.'/..');	                //Raiz de la aplicacion
 define('ALMACEN', RAIZ_APP.'/imagenes/productos');  //Carpeta de subida de imagenes del usuario
 define('RUTA_CLASES', RAIZ_APP.'/includes/clases');
-define('RUTA_FORMS', RAIZ_APP.'/includes/login');
+define('RUTA_FORMS', RAIZ_APP.'/includes/formularios');
 define('RUTA_USUARIO', RAIZ_APP.'/includes/usuario');
 define('RUTA_LAYOUT', RAIZ_APP.'/includes/comun');      //USARLO
 

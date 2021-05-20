@@ -130,9 +130,9 @@ class ofertaObjeto extends producto{
 			EOS;
 				if($this->segundaMano){
 					$productos.=<<<EOS
-					/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO.</a>
-				</p>
-				EOS;
+						/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO.</a>
+					</p>
+					EOS;
 				}
 		$productos.=<<<EOS
 				

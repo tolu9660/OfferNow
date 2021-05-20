@@ -29,13 +29,14 @@ class formularioSubirOferta extends form{
                     <textarea name="ofertaDescripcion" rows="10" cols="30"></textarea>
                     <p>Precio:</p>
                     <input type="number" name="ofertaPrecio"  />
-                    <p>Url de la oferta:</p>
+                    <p>Url de la oferta (incluyendo https://):</p>
                     <input type="text" name="ofertaUrl"/>
+                    <p>¿Tenemos esta oferta en nuestra tienda? ¡¡Pon el enlace!!:</p>
+                    <input type="text" name="oferta2ManoUrl"/>
                     <p>Imagen:</p>
                     <input type="file" name="productoImagen"/>
                     
                     <p><input type="submit" value="Publicar"></p>
-               
                 </div>
             </div>
         EOF;

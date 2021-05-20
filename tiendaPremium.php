@@ -3,25 +3,23 @@
 	require __DIR__.'/clases/art2ManoObjeto.php';
     require __DIR__.'/clases/ofertaObjeto.php';
 
-	//Carga los productos en un array
-	$articulos2ManoArray = art2ManoObjeto::cargarArticulos2ManoPremium("Nombre");
-    $ofertasArray = ofertaObjeto::cargarOfertasPremium("Nombre");
-    $articulosPremium = array_merge($articulos2ManoArray, $ofertasArray);
-	//Mostrar los productos
 	$tituloPagina = 'Zona Premium';
 	$productos = '';
 	$productos.=<<<EOS
 		<div="contenedor">
 		<ul class="rejilla">
 	EOS;
-	
-	if(is_array($articulosPremium)) {
-		for ($i = 0; $i < sizeof($articulosPremium); $i++) {
-			$nombreArticulo=strval($articulosPremium[$i]->muestraNombre());
-			$precioArticulo=strval($articulosPremium[$i]->muestraPrecio());
-			$urlImagen=strval($articulosPremium[$i]->muestraURLImagen());
+
+	//Carga los productos de 2 mano en un array
+	$articulos2ManoArray = art2ManoObjeto::cargarArticulos2ManoPremium("Nombre");
+	$articulosPremiumString;
+	if(is_array($articulos2ManoArray)) {
+		for ($i = 0; $i < sizeof($articulos2ManoArray); $i++) {
+			$nombreArticulo=strval($articulos2ManoArray[$i]->muestraNombre());
+			$precioArticulo=strval($articulos2ManoArray[$i]->muestraPrecio());
+			$urlImagen=strval($articulos2ManoArray[$i]->muestraURLImagen());
 			//URL del producto junto con el id
-			$id = PRODUCTOS.'/productoSegundaMano.php?id='.$articulosPremium[$i]->muestraID();
+			$id = PRODUCTOS.'/productoSegundaMano.php?id='.$articulos2ManoArray[$i]->muestraID();
 			$productos.=<<<EOS
 			<li>
 				<a href=$id rel="nofollow" target="_blank">
@@ -33,9 +31,33 @@
 			EOS;
 		}
 	} else{
-		$productos.="<h3> No hay articulos premium en este momento en la tienda </h3>";
+		$productos.="<h3> No hay articulos premium de SEGUNDA MANO en este momento en la tienda </h3>";
 	}
 
+	//Carga las ofertas en un array
+	$ofertasArray = ofertaObjeto::cargarOfertasPremium("Nombre");
+	if(is_array($ofertasArray)) {
+		for ($i = 0; $i < sizeof($ofertasArray); $i++) {
+			$nombreArticulo=strval($ofertasArray[$i]->muestraNombre());
+			$precioArticulo=strval($ofertasArray[$i]->muestraPrecio());
+			$urlImagen=strval($ofertasArray[$i]->muestraURLImagen());
+			//URL del producto junto con el id
+			$id = PRODUCTOS.'/producto.php?id='.$ofertasArray[$i]->muestraID();
+			$productos.=<<<EOS
+			<li>
+				<a href=$id rel="nofollow" target="_blank">
+					<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
+					<h3>$nombreArticulo</h3>
+					<p>$precioArticulo €</p>
+				</a>
+			</li>	
+			EOS;
+		}
+	} else{
+		$productos.="<h3> No hay OFERTAS premium en este momento en la tienda </h3>";
+	}
+
+	//Muestra todos los productos premium
 	$contenidoPrincipal=<<<EOS
 		$productos
 		</ul>

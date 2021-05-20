@@ -1,8 +1,8 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require __DIR__.'/clases/ofertaObjeto.php';
-require_once __DIR__.'/includes/usuario/usuarios.php';
+require RUTA_CLASES.'/ofertaObjeto.php';
+require_once RUTA_USUARIO.'/usuarios.php';
 
 
 $tituloPagina = 'carrito';
@@ -70,4 +70,4 @@ else{
 	EOS;
 
 }
-require __DIR__.'/includes/comun/layout.php';
+require RUTA_LAYOUT.'/layout.php';

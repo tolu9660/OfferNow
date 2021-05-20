@@ -29,4 +29,4 @@
 		$productos
 	EOS;
 
-require RAIZ_APP.'/includes/comun/layout.php';
+require RUTA_LAYOUT.'layout.php';

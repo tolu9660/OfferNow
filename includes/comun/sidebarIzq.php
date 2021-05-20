@@ -19,7 +19,7 @@
 				$vender = RUTA_APP.'/postear/peticionVentaArticulo.php';
 				?>
 				<h3>Navegacion:</h3>
-				<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>
+				<li><a href="<?=RUTA_APP.'/vistas/logout.php'?>">Cerrar Sesión</a></li>
 				<li><a href= "<?=$oferta?>">Publica una oferta</a></li>
 				<li><a href= "<?=$vender?>">¡¡Vendenos un articulo!!</a></li>
 				<?php

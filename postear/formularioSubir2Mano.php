@@ -60,5 +60,4 @@ class formularioSubir2Mano extends form{
 }
 
 }
-
 ?>

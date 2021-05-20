@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/form.php';
-require_once __DIR__.'/../usuario/usuarioBD.php';
+require_once RUTA_USUARIO.'/usuarioBD.php';
 
 
 class formularioRegistro extends form{

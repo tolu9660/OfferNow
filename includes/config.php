@@ -24,15 +24,17 @@ define('RUTA_APP', '/AW/OfferNow');	//Ruta de Pablo
 define('RUTA_IMGS', RUTA_APP.'/imagenes/productos');
 define('RUTA_CSS', RUTA_APP.'/css');
 define('COMUN', RUTA_APP.'/includes/comun');
-define('USUARIO',RUTA_APP.'/includes/usuario'); //ruta global para usuarios
-define('PRODUCTOS',RUTA_APP.'/productos'); //ruta global para productos
-define('SESION',RUTA_APP.'/includes/login'); //ruta global para login
-define('POSTEAR',RUTA_APP.'/postear'); //ruta global para posts de objetos
+define('USUARIO', RUTA_APP.'/includes/usuario'); //ruta global para usuarios
+define('PRODUCTOS', RUTA_APP.'/vistas'); //ruta global para productos
+define('SESION', RUTA_APP.'/includes/login'); //ruta global para login
+define('POSTEAR', RUTA_APP.'/postear'); //ruta global para posts de objetos
 
 define('RAIZ_APP', __DIR__.'/..');	                //Raiz de la aplicacion
 define('ALMACEN', RAIZ_APP.'/imagenes/productos');  //Carpeta de subida de imagenes del usuario
 define('RUTA_CLASES', RAIZ_APP.'/includes/clases');
 define('RUTA_FORMS', RAIZ_APP.'/includes/login');
+define('RUTA_USUARIO', RAIZ_APP.'/includes/usuario');
+define('RUTA_LAYOUT', RAIZ_APP.'/includes/comun');      //USARLO
 
 /* */
 /* Configuración de Codificación */

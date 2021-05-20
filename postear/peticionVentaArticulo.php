@@ -9,4 +9,4 @@
 	$contenidoPrincipal=<<<EOS
 		$htmlFormVentaArticulo
 	EOS;
-require __DIR__.'/../includes/comun/layout.php';
+require RUTA_LAYOUT.'/layout.php';

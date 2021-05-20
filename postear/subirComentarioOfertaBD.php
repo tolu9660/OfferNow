@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/../clases/comentarioObjeto.php';
+	require_once RUTA_CLASES.'/comentarioObjeto.php';
 	
 	//Muestra si se ha subido o no
 	$tituloPagina = 'Subir comentario';
@@ -19,5 +19,5 @@
 			<h3>Error: al crear el comentario </h3>;
 		EOS;
 	}
-	require '../includes/comun/layout.php';
+	require RUTA_LAYOUT.'/layout.php';
 ?>

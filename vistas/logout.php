@@ -1,8 +1,8 @@
 <?php
 
-	require_once __DIR__.'/../usuario/usuarios.php';
-	require_once __DIR__.'/../config.php';
-
+	require_once __DIR__.'/../includes/config.php';
+	require_once RUTA_USUARIO.'/usuarios.php';
+	
 	$usuario=$_SESSION['nombre'];
 	logout();
 
@@ -15,4 +15,4 @@
 		</div>
 	EOS;
 	
-	require __DIR__.'/../comun/layout.php';
+	require RUTA_LAYOUT.'/layout.php';

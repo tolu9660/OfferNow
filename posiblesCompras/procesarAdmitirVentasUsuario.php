@@ -16,5 +16,5 @@
         EOS;
     }
 
-    require '../includes/comun/layout.php';
+    require RUTA_LAYOUT.'/layout.php';
 ?>

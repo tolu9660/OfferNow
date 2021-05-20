@@ -23,4 +23,4 @@
 	$contenidoPrincipal.=<<<EOS
 		</div>
 	EOS;
-		require __DIR__.'/../comun/layout.php';
+		require RUTA_LAYOUT.'/layout.php';

@@ -1,8 +1,8 @@
 <?php
 
 require_once __DIR__.'/../config.php';
-require_once __DIR__.'/comentarioObjeto.php';
-require_once __DIR__.'/productoObjeto.php';
+require_once RUTA_CLASES.'/comentarioObjeto.php';
+require_once RUTA_CLASES.'/productoObjeto.php';
 
 class art2ManoObjeto extends producto{
 	private $unidades;

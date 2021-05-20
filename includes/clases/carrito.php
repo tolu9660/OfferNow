@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/ofertaObjeto.php';
-require_once __DIR__.'/productoObjeto.php';
-require_once __DIR__.'/art2ManoObjeto.php';
+require_once RUTA_CLASES.'/productoObjeto.php';
+require_once RUTA_CLASES.'/art2ManoObjeto.php';
 
 class carrito{
     private $id;

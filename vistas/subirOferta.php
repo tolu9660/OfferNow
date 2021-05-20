@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/formularioSubirOferta.php';
+	require_once RUTA_FORMS.'/formularioSubirOferta.php';
 
 	$tituloPagina = 'subirOferta';
 	

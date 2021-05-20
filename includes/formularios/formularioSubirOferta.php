@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../includes/config.php';
+require_once __DIR__.'/../config.php';
 require_once RUTA_FORMS.'/form.php';
 require_once RUTA_CLASES.'/ofertaObjeto.php';
 //require_once __DIR__.'/../clases/OfertaObjeto.php';//por si el de arriba no va

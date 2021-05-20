@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once __DIR__.'/formularioVentaArticulo.php';
+	require_once RUTA_FORMS.'/formularioVentaArticulo.php';
 	
 	$tituloPagina = 'Vender Articulo';
 	$form= new formularioVentaArticulo();

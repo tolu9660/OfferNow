@@ -34,7 +34,8 @@ define('ALMACEN', RAIZ_APP.'/imagenes/productos');  //Carpeta de subida de image
 define('RUTA_CLASES', RAIZ_APP.'/includes/clases');
 define('RUTA_FORMS', RAIZ_APP.'/includes/formularios');
 define('RUTA_USUARIO', RAIZ_APP.'/includes/usuario');
-define('RUTA_LAYOUT', RAIZ_APP.'/includes/comun');      //USARLO
+define('RUTA_LAYOUT', RAIZ_APP.'/includes/comun');
+define('RUTA_VISTAS', RAIZ_APP.'/vistas');
 
 /* */
 /* Configuración de Codificación */

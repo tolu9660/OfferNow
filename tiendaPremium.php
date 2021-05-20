@@ -7,6 +7,7 @@
 	$productos = '';
 	$productos.=<<<EOS
 		<div="contenedor">
+		<h3>¡¡¡Aqui puedes ver todas las ofertass para usuarios Premium!!!</h3>
 		<ul class="rejilla">
 	EOS;
 

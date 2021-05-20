@@ -1,5 +1,5 @@
 <?php
-	require_once __DIR__.'/../includes/config.php';
+	require_once __DIR__.'/includes/config.php';
 	require RUTA_CLASES.'/posiblesVentasObjeto.php';
 
 	//Carga los productos en un array
@@ -10,6 +10,7 @@
 	$productos = '';
 	$productos.=<<<EOS
 		<div="contenedor">
+		<h3>¡¡¡Valida las solicitudes de compra de otros usuarios!!!</h3>
 		<ul class="rejilla">
 	EOS;
 	if(is_array($ofertasArray)) {

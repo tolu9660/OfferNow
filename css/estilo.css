@@ -298,6 +298,56 @@ div.info {
 	height: 200px;
 	width: 200px;
   }
+  /*para la rejilla de la configuracion */
+
+.rejillaPerfil * {
+	box-sizing: border-box; /* para que los padding y border no se sumen al width */
+  }
+.rejillaPerfil {
+	display: flex; /* esto es lo que lo convierte en una rejilla (unidimensional) */
+	flex-wrap: wrap; /* para que salte a diferentes filas si el ancho no da */
+	justify-content: center; /* todos los elementos centradicos, especialmente en la Ãºltima fila (por esto prefiero usar display flex y no grid) */
+	text-align: center; /* todo el contenido centradico */
+	list-style: none; /* quita el estilo lista */
+	padding-left: 0; /* quita el margen interior izquierdo predeterminado de las listas */
+	margin: 10px;
+}
+.rejillaPerfil > li {
+	width: 100%;
+  }
+  @media (min-width: 425px) { /* para esta resoluciÃ³n mÃ­nima */
+	.rejillaPerfil > li {
+	  width: 50%; /* 2 columnas a partir de la resoluciÃ³n indicada */
+	}
+  }
+  @media (min-width: 768px) { /* para esta resoluciÃ³n mÃ­nima */
+	.rejillaPerfil > li {
+	  width: 33.33333333%; /* 3 columnas a partir de la resoluciÃ³n indicada */
+	}
+  }
+  @media (min-width: 992px) { /* para esta resoluciÃ³n mÃ­nima */
+	.rejillaPerfil > li {
+	  width: 25%; /* 4 columnas a partir de la resoluciÃ³n indicada */
+	}
+  }
+  .rejillaPerfil a {
+	text-decoration: none;
+	color: black;
+	display: block; /* para que el enlace abarque toda la "celda" del producto */
+	padding: 15px;
+  }
+  .rejillaPerfil a:hover {
+	box-shadow: 0 0 0 2px #D4F1FF;; /* efecto para remarcar productos al pasar el cursor por encima */
+	text-decoration: underline;
+  }
+  .rejillaPerfil img { /* para que las imÃ¡genes se autoajusten si la rejilla es mÃ¡s pequeÃ±a */
+	/*max-width: 100%;
+	height: auto;*/
+	height: 100px;
+	width: 100px;
+  }
+
+
 
   table {
    border: 2px solid black;

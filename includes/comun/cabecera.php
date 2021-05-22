@@ -9,7 +9,22 @@
         <h1>
         OFFERNOW
         </h1>
-	</div>
+        <?php
+        	$ruta = SESION;
+                if (isset($_SESSION["login"]) ) {
+                        $ruta.='/logout.php';
+                        echo "Bienvenido, " . $_SESSION['nombre']."<a href=$ruta>(salir)</a>";
+                        
+                } else {
+                        $ruta.='/login.php';
+                        echo "Usuario desconocido. <a href=$ruta>Login</a>";
+                }
+	?>
+     
+        <a href="<?=RUTA_APP.'/perfil.php'?>">Mi Perfil</a>
+        <!-- NO FUNCIONA ESTA RUTA <a href="<?=RUTA_VISTAS.'/perfil.php'?>">Mi Perfil</a>
+	-->
+        </div>
 
 
 	<div id="contenedor1">

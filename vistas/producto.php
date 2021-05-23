@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
 	require RUTA_CLASES.'/ofertaObjeto.php';
+	require_once RUTA_USUARIO.'/usuarios.php';
 
 	$id = $_GET['id'];
 	$ofertaObj = ofertaObjeto::buscaOferta($id);
@@ -9,6 +10,7 @@
 	$ruta=POSTEAR;
 	$productos = '';
 	$productos .= $ofertaObj->muestraOfertaString();
+	if(estaLogado() ){
 	$productos.=<<<EOS
 		<div class="tarjetacomentario">		
 			<h1>Subir Comentario</h1>
@@ -24,6 +26,12 @@
 			</form>
 		</div>
 	EOS;
+}
+else{
+	$productos.=<<<EOS
+			<h3>Para poder publicar comentarios, inicia sesión <a href='vistas/login.php'>aquí</a>.</h3>	
+		EOS;
+}
 	$tituloPagina = $ofertaObj->muestraNombre();
 	$contenidoPrincipal=<<<EOS
 		$productos

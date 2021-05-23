@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
 	require RUTA_CLASES.'/art2ManoObjeto.php';
+	require_once RUTA_USUARIO.'/usuarios.php';
 
 	$id = $_GET['id'];
 	//Muestra el articulo
@@ -8,6 +9,7 @@
 	$ruta=POSTEAR;
 	$productos='';
 	$productos.=$ofertaObj->muestraOfertaString();
+	if(estaLogado() ){
 	$productos.=<<<EOS
 		<div class="tarjetacomentario">
 			
@@ -23,7 +25,13 @@
 					
 				</form>
 			</div>
-	EOS;
+		EOS;
+	}
+	else{
+		$productos.=<<<EOS
+			<h3>Para poder publicar comentarios o agregar al carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h3>	
+		EOS;
+	}
 
 	$tituloPagina = $ofertaObj->muestraNombre();
 	$contenidoPrincipal=<<<EOS

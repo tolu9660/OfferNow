@@ -22,7 +22,7 @@
 				$id = PRODUCTOS.'/productoSegundaMano.php?id='.$ofertasArray[$i]->muestraID();
 				$productos.=<<<EOS
 				<li>
-					<a href=$id rel="nofollow" target="_blank">
+					<a href=$id rel="nofollow">
 						<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
 						<h3>$nombreArticulo</h3>
 						<p>$precioArticulo €</p>

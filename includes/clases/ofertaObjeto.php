@@ -125,12 +125,12 @@ class ofertaObjeto extends producto{
 				<p>$descripcionAux</p>
 				<p>
 					Enlaces:
-					<a href="$this->urlOferta" rel="nofollow" target="_blank" >Enlace Oferta</a>
+					<a href="$this->urlOferta" rel="nofollow" >Enlace Oferta</a>
 				
 			EOS;
 				if($this->segundaMano){
 					$productos.=<<<EOS
-						/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" target="_blank" >MIRALO.</a>
+						/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" >MIRALO.</a>
 					</p>
 					EOS;
 				}

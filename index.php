@@ -23,7 +23,7 @@
 			$productos.=<<<EOS
 			
 			<li>
-				<a href=$id rel="nofollow" target="_blank">
+				<a href=$id rel="nofollow">
 					<img src=$urlImagen width="200" height="200" alt="Producto" />
 					<h3>$nombreOferta</h3>
 					<p>$precioOferta €</p>

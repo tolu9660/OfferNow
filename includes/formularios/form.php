@@ -85,10 +85,10 @@ abstract class form
                 return $this->generaFormulario($result, $_POST);
             } else {
                 //echo $result;//como puedo gestionar este mensaje?
-                //$nuevaURL=RUTA_APP."/index.php";
                 
-               // header("Location:$result");              
-                //exit();
+                
+                   header("Location:$result");              
+                   exit();
             }
         }  
        

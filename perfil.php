@@ -23,7 +23,7 @@
             </li>	
             <li>
                 <a href=$rutaDirecciones rel="nofollow">
-                    <img src=$IconoDirecciones width="100" height="100" alt="Pedidos" />
+                    <img src=$IconoDirecciones width="100" height="100" alt="Direcciones" />
                     <h3>TUS DIRECCIONES</h3>
                     <p>Modifica tus direcciones</p>
                 </a>

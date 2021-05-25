@@ -62,7 +62,7 @@ class usuario{
       /*echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
- 
+  
       $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']
                   /*, $fila['Premium'], $fila['Admin']*/);
       $user->setPass($fila['Contraseña']);
@@ -175,16 +175,30 @@ class usuario{
   }
 
   public function compruebaPassword($password)  {
-    //echo "contraseña que llega:".$password;
-    //falla aqui no realiza bien la comprobacion
-   
+      
     return password_verify($password, $this->password);
   }
   public function setPass($pass){
     $this->password= $pass;
   }
 
-
+  
+  public function cambiaDireccion($nuevaDireccion)  {
+    $this->calle = $nuevaDireccion;
+    
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd();
+    $sql="UPDATE usuario SET Direccion='$nuevaDireccion'
+    WHERE Correo='$this->idCorreo'";
+          	if (mysqli_query($mysqli, $sql)) {
+              //$mysqli->close();
+              return true;
+            } else {
+              //$mysqli->close();
+              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+              return false;
+            }
+  }
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
   }

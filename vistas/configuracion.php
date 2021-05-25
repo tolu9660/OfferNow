@@ -4,7 +4,7 @@
 	
 	$usuario=$_SESSION['nombre'];
 	$user= usuario::buscaUsuario($usuario);
-  echo "saqui";
+
     $tituloPagina = 'Configuracion';
     $nombre=$user->nombre();
     $correo=$user->idCorreo();

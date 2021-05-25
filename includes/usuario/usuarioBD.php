@@ -95,8 +95,8 @@ class usuario{
       $usuarioFiltrado=$mysqli->real_escape_string($username);
       $correoFiltrado=$mysqli->real_escape_string($correo);
       $passFiltrado=$mysqli->real_escape_string($pass);
-      $calleFiltrado=$mysqli->real_escape_string($calle);
-      
+      $calleAUX=$mysqli->real_escape_string($calle);
+      $calleFiltrado=str_replace(' ', ',', $calleAUX);
 			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin,Direccion)
 					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0,'$calleFiltrado')";
 			if (mysqli_query($mysqli, $sql)) {
@@ -165,7 +165,7 @@ class usuario{
   }
   public function Direccion(){
 
-    return $this->calle;
+    return explode(",",$this->calle);
   }
 
 
@@ -182,7 +182,22 @@ class usuario{
     $this->password= $pass;
   }
 
-  
+  public function cambiarNombre($nuevoNombe)  {
+   
+    
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd();
+    $sql="UPDATE usuario SET Nombre='$nuevoNombe'
+    WHERE Correo='$this->idCorreo'";
+          	if (mysqli_query($mysqli, $sql)) {
+              //$mysqli->close();
+              return true;
+            } else {
+              //$mysqli->close();
+              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+              return false;
+            }
+  }
   public function cambiaDireccion($nuevaDireccion)  {
     $this->calle = $nuevaDireccion;
     

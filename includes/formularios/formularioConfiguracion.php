@@ -4,10 +4,10 @@ require_once __DIR__.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
-class formularioDirecciones extends form{
+class formularioConfiguracion extends form{
 
     public function __construct() {
-        parent::__construct('formDirecciones');
+        parent::__construct('formConfiguracion');
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
@@ -15,23 +15,34 @@ class formularioDirecciones extends form{
         $nombreUsuario =$_SESSION['nombre'];
         
         $user=usuario::buscaUsuario($nombreUsuario);
-        
+        $nombre=$user->nombre();
+        $correo=$user->idCorreo();
+        $calle= $user->Direccion();//str_replace(' ', '-nº', $user->Direccion());
+        if($user->getPremium()){
+            $esPremium="Eres premium";
+        }
+        else{
+            $ruta = SESION.'/premium.php';
+            $esPremium=<<<EOS
+                Puedes serlo pinchando aqui <a href="$ruta">Hazte premium;</a>
+            EOS;
+        }
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorDireccion = self::createMensajeError($errores, 'NuevaDir', 'span', array('class' => 'error'));
-       $dir=$user->Direccion();
+        $errorDireccion = self::createMensajeError($errores, 'NuevoNombre', 'span', array('class' => 'error'));
        
-         
         /*mostrar el contenido previo*/
         $html = <<<EOF
         <div class="iniciosesion">
-            <h2>TUS DIRECCIONES </h2>
+            <h2>TUS DATOS </h2>
+            <p><label>Nombre de usuario: </label><input type="text" name="NuevoNombre" value=$nombre /> $errorDireccion </p>  
+            <p><label>Correo: </label> $correo</p>  
             <p>
-            <label>Nueva Direccion:</label> <input type="text" name="NuevaDir" value=$dir[0] />
-            <label>Nº:</label> <input type="text" name="numero" value=$dir[1] />
+            <label>Direccion: </label>$calle[0]  <label> Nº</label> $calle[1] 
             $errorDireccion
-            </p>
-          
+            </p> 
+            <p><label>Eres premium: </label> $esPremium</p>  
+            
             $htmlErroresGlobales
             <button type="submit" name="login">Cambiar</button>
         </div>
@@ -43,15 +54,10 @@ class formularioDirecciones extends form{
     protected function procesaFormulario($datos){
         $result = array();
         
-        $dir =$datos['NuevaDir'] ?? null;
-        $numero =$datos['numero'] ?? null;
+        $nuevoNombre =$datos['NuevoNombre'] ?? null;
         
-        
-        if ( empty($dir) ) {
-            $result['NuevaDir'] = "La direccion no puede estar vacia";
-        }
-        if ( empty($numero) ) {
-            $result['numero'] = "El número no puede estar vacia";
+        if ( empty($nuevoNombre) ) {
+            $result['NuevoNombre'] = "El campo correo no puede estar vacia";
         }
       
     
@@ -60,9 +66,7 @@ class formularioDirecciones extends form{
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
             $nombreUsuario =$_SESSION['nombre'];
             $user=usuario::buscaUsuario($nombreUsuario);
-            $nuevaDireccion=$dir.','.$numero;
-           
-            if($user->cambiaDireccion($nuevaDireccion)){
+            if($user->cambiarNombre($nuevoNombre)){
                 $result = RUTA_APP.'/perfil.php';
 
             }

@@ -87,8 +87,8 @@ abstract class form
                 //echo $result;//como puedo gestionar este mensaje?
                 //$nuevaURL=RUTA_APP."/index.php";
                 
-                header("Location:$result");              
-                exit();
+               // header("Location:$result");              
+                //exit();
             }
         }  
        

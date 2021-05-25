@@ -5,9 +5,8 @@
 	$usuario=$_SESSION['nombre'];
 	$user= usuario::buscaUsuario($usuario);
   echo "saqui";
-    $tituloPagina = 'Configuracion';
-    $nombre=$user->nombre();
-    $correo=$user->idCorreo();
+    $tituloPagina = 'Direcciones';
+   
     $calle=$user-> Direccion();
    if($user->getPremium()){
     $esPremiun="Eres premium";
@@ -21,10 +20,9 @@
 
 //meterlo dentro de un formulario
     $contenidoPrincipal=<<<EOS
-      <p>nombre de usuario: $nombre </p>  
-      <p>correo: $correo </p>  
-      <p>Dirección: $calle    </p>  
-      <p>Eres premium: $esPremiun    </p>  
+    <h2>TU DIRECCION ACTUAL</h2>
+    <p>Dirección: $calle </p>  
+   
     EOS;
 
 require RUTA_LAYOUT.'/layout.php';

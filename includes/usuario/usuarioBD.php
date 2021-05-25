@@ -54,7 +54,7 @@ class usuario{
     $conn = $app->conexionBd();
     $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                     $conn->real_escape_string($username));
- 
+    
     $rs = $conn->query($consultaUsuario);
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
@@ -62,9 +62,8 @@ class usuario{
       /*echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
       " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
       " es admin:". $fila['Admin']*/;
-      
-	
-      $user = new usuario($fila['Correo'], $fila['Nombre'],''
+ 
+      $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']
                   /*, $fila['Premium'], $fila['Admin']*/);
       $user->setPass($fila['Contraseña']);
       $rs->free();
@@ -73,27 +72,8 @@ class usuario{
     }
     return false;
   }
-  // FUNCION DUPLICADA... NO SE USA -> QUE EL CONSTRUCTOR1 TAMPOCO SE USE.
-/*
-  public static function buscaPorId($idUsuario){
-    $app = Aplicacion::getSingleton();
-		  $conn = $app->conexionBd();
-    $query = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
-                      $conn->real_escape_string($idUsuario));
-   
-    $rs = $conn->query($query);
-    if ($rs && $rs->num_rows == 1) {
-      $fila = $rs->fetch_assoc();
-      $user = new Usuario($fila['Correo'], $fila['Nombre'], 
-                      $fila['Contraseña'],$fila['Premium'],$fila['Admin']);
-      $rs->free();
 
-      return $user;
-    }
-    return false;
-  }*/
-
-	public static function altaNuevoUsuario($email,$username,$password1,$password2){
+	public static function altaNuevoUsuario($email,$username,$password1,$password2,$calle){
 
 		
 		if($password1 != $password2){
@@ -103,7 +83,7 @@ class usuario{
        //creo un objeto de tipo usuario para poder usarlo en caso de que el 
       //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
 
-      $user = new usuario($email, $username,$password1);
+      $user = new usuario($email, $username,$password1,$calle);
       $correo=$user->idCorreo();
       $usuario=$user->nombre();
       $pass=$user->contra();
@@ -115,9 +95,10 @@ class usuario{
       $usuarioFiltrado=$mysqli->real_escape_string($username);
       $correoFiltrado=$mysqli->real_escape_string($correo);
       $passFiltrado=$mysqli->real_escape_string($pass);
+      $calleFiltrado=$mysqli->real_escape_string($calle);
       
-			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin)
-					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0)";
+			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin,Direccion)
+					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0,'$calleFiltrado')";
 			if (mysqli_query($mysqli, $sql)) {
 				//$mysqli->close();
 				return true;
@@ -135,13 +116,15 @@ class usuario{
   private $esAdmin;
   private $esPremium;
   private $carrito;
+  private $calle;
 ////////////
-   function __construct($correo, $nombre,$contraseña){
+   function __construct($correo, $nombre,$contraseña,$calle){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
     $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
+    $this->calle = $calle;
     $this->carrito= new carritoObjeto( $this->idCorreo);
   }
   /*
@@ -179,6 +162,10 @@ class usuario{
   public function idCorreo()
   {
     return $this->idCorreo;
+  }
+  public function Direccion(){
+
+    return $this->calle;
   }
 
 

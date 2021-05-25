@@ -8,6 +8,7 @@
     $IconoPagos=RUTA_ICONOS.'/TusPagos.png';
     $IconoConfiguracion=RUTA_ICONOS.'/inicioSeguridad.png';
     $rutaConfiguracion=SESION.'/configuracion.php';
+    $rutaDirecciones=SESION.'/direcciones.php';
    
     if (isset($_SESSION["login"]) ) {
         $contenidoPrincipal=<<<EOS
@@ -21,7 +22,7 @@
                 </a>
             </li>	
             <li>
-                <a href=# rel="nofollow">
+                <a href=$rutaDirecciones rel="nofollow">
                     <img src=$IconoDirecciones width="100" height="100" alt="Pedidos" />
                     <h3>TUS DIRECCIONES</h3>
                     <p>Modifica tus direcciones</p>

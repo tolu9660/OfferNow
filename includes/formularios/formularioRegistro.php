@@ -17,6 +17,7 @@ class formularioRegistro extends form{
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorNombreUsuario = self::createMensajeError($errores, 'email', 'span', array('class' => 'error'));
         $errorNombre = self::createMensajeError($errores, 'username', 'span', array('class' => 'error'));
+        $errorCalle=self::createMensajeError($errores, 'calle', 'span', array('class' => 'error'));
         $errorPassword = self::createMensajeError($errores, 'password1', 'span', array('class' => 'error'));
         $errorPassword2 = self::createMensajeError($errores, 'password2', 'span', array('class' => 'error'));
 
@@ -28,6 +29,7 @@ class formularioRegistro extends form{
             <p><label> Usuario:  </label> <input type="text" name="username"/>$errorNombre</p>
        
             <p><label>E-mail:</label> <input type="text" name="email" />$errorNombreUsuario</p>
+            <p><label>Direccion:</label> <input type="text" name="calle" />$errorCalle</p>
            
             <p><label>Contraseña:</label> <input type="password" name="password1" />$errorPassword</p>
             
@@ -55,6 +57,10 @@ class formularioRegistro extends form{
         if ( empty($correo) || mb_strlen($correo) < 5 ) {
             $result['email']  = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
         }
+        $calle = isset($datos["calle"]) ? $datos["calle"] : null;
+        if ( empty($calle)) {
+            $result['calle']  = "el campo no puede estar vacio.";
+        }
         
         $password1 = isset($datos["password1"]) ? $datos["password1"] : null;
         if ( empty($password1) || mb_strlen($password1) < 5 ) {
@@ -68,7 +74,7 @@ class formularioRegistro extends form{
       
         if (count($result) === 0) {
        
-           if(usuario::altaNuevoUsuario($correo,$nombreUsuario,$password1,$password2)){
+           if(usuario::altaNuevoUsuario($correo,$nombreUsuario,$password1,$password2,$calle)){
             $result ="Usuario registrado con exito!";
             $_SESSION['login'] = true;
             $_SESSION['nombre'] = $nombreUsuario;

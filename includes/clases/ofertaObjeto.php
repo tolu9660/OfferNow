@@ -20,6 +20,15 @@ class ofertaObjeto extends producto{
 	}
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
+
+	public static function incrementarVotos($idOferta){
+		var_dump($idOferta);
+		$result = parent::hacerConsulta("SELECT Valoracion FROM oferta WHERE Numero = $idOferta LIMIT 1");
+		//var_dump($result->fetch_object()->Valoracion);
+		$valoracion = $result->fetch_object()->Valoracion + 1;
+		parent::hacerConsulta("UPDATE oferta SET Valoracion = $valoracion WHERE Numero = $idOferta");
+	}
+
 	public static function cargarOfertas($orden){
 		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
 		$ofertasArray;
@@ -105,6 +114,8 @@ class ofertaObjeto extends producto{
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
+	//esta función no debería estar aquí, si no en una clase de vista (en esta clase solo deberiamos tener la logica con el servidor,
+	// no un html que hable con el cliente)
 	public function muestraOfertaString(){
 		$Ruta=RUTA_APP;
 		$DIRimagen = $this->muestraURLImagen();
@@ -113,6 +124,7 @@ class ofertaObjeto extends producto{
 		$descripcionAux = parent::muestraDescripcion();
 		$creadornAux = $this->muestraCreador();
 		$valorSegundaMano=$this->getSegundamano();
+	
 	
 		$productos = '';
 		$productos.=<<<EOS
@@ -134,19 +146,38 @@ class ofertaObjeto extends producto{
 					</p>
 					EOS;
 				}
-		$productos.=<<<EOS
+		$productos.=<<<HTML
 				
-				<button class="button" type="button">    
+				
+				<button class="button" type="button"
+					onclick="incrementarVotos$this->id(this)">    
 					<img src="{$Ruta}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
-					VOTOS: $this->valoracion
+					VOTOS: <span class = "count">$this->valoracion</span>
 				</button>
+				<script>
+					function incrementarVotos$this->id(button){
+						var xhttp = new XMLHttpRequest();
+						xhttp.open("POST", "http://localhost/proyecto/OfferNow/postear/votosBD.php", true); 
+						xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+						button.querySelector('.count').innerText = parseInt (button.querySelector('.count').innerText)+1 ;
+						//console.log(button.querySelector('.count').innerText);
+						//console.log(button);
+						//console.log(this);
+						}
+						};
+						xhttp.send($this->id);
+					}
+				</script>
 				</div>
-			EOS;
+			HTML;
 			
 		
 		$productos.= parent::muestraComentariosString();
 		return $productos;
 	}
+
+
 	
 	//--------------------------------------------------GETTERS-----------------------------------------------------
 	function muestraURLImagen() {

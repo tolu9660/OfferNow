@@ -1,7 +1,7 @@
 <?php
 
 abstract class producto{
-    private $id;
+    protected $id;
 	private $nombre;
 	private $descripcion;
 	private $urlImagen;

@@ -54,7 +54,7 @@ if(estaLogado()){
 		EOS;
 	}
 	$contenidoPrincipal.=<<<EOS
-			$productos;
+			$productos
 		<div class="precioTotal">
 				<td>total:$precioTotal</td>
 		</div>

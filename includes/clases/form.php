@@ -57,7 +57,7 @@ abstract class form
         $this->action   = $opciones['action'];
         
         if ( !$this->action ) {
-            $this->action = htmlentities($_SERVER['PHP_SELF']);
+            $this->action = htmlentities($_SERVER['REQUEST_URI']);
         }
         if($formId==='formOferta' || $formId === 'formOferta2Mano' || $formId ==='formVentaArticulo'  ){
           
@@ -94,7 +94,9 @@ abstract class form
                     ?>
                     <script type="text/javascript">
                         alert("<?php echo $mensaje; ?>");
-                        window.location.href="<?php echo $result; ?>";
+                        window.location.href="<?php
+                          /  echo $result; 
+                        ?>";
                     </script>';
                 <?php
                 }

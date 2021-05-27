@@ -28,9 +28,12 @@
 		EOS;
 	}
 	else{
-		$productos.=<<<EOS
-			<h3>Para poder publicar comentarios o agregar al carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h3>	
+		$ruta = SESION;//RUTA_VISTAS;
+	$ruta.='/login.php';
+	$productos.=<<<EOS
+			<h3>Para poder publicar comentarios o añadir al carrito, inicia sesión <a href=$ruta>aquí</a>.</h3>	
 		EOS;
+
 	}
 
 	$tituloPagina = $ofertaObj->muestraNombre();

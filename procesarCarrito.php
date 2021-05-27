@@ -5,6 +5,7 @@ require RUTA_CLASES.'/ofertaObjeto.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
 
+
 $tituloPagina = 'carrito';
 $contenidoPrincipal = '';
 $productos = '';
@@ -53,14 +54,20 @@ if(estaLogado()){
 			</tr>
 		EOS;
 	}
+	$ruta = 'vistas/pagos.php';
 	$contenidoPrincipal.=<<<EOS
-			$productos;
+			$productos
 		<div class="precioTotal">
 				<td>total:$precioTotal</td>
 		</div>
 		</table>
+			<form action= $ruta>
+	<h2><button type ="submit" >Pagar</button></h2>	
+	</form>
 		</div>
+
 	EOS;
+	
 }
 else{
 	$contenidoPrincipal=<<<EOS

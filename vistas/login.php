@@ -7,9 +7,11 @@
 
 //////////////////implementacion:
 if(estaLogado()){
+	$ruta = SESION;//RUTA_VISTAS;
+	$ruta.='/logout.php';
 	$contenidoPrincipal = <<<EOS
 	<h2>Ya tienes la sesión iniciada.</h2>
-	<h2>Para cerrar la sesión, pulsa <a href='vistas/logout.php'>aquí</a>.</h3>	
+	<h2>Para cerrar la sesión, pulsa <a href=$ruta>aquí</a>.</h2>	
 	EOS;
 }
 else{

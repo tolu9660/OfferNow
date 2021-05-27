@@ -23,7 +23,7 @@ class formularioLogin extends form{
         <div class="iniciosesion">
             <h1>Acceso al sistema</h1>
            
-            <p><label>Nombre de usuario:</label> <input type="text" name="nombreUsuario" 
+            <p><label>Correo:</label> <input type="text" name="nombreUsuario" 
                 value="$nombreUsuario"/>$errorNombreUsuario</p>
             <p><label>Password:</label> <input type="password" name="password" />$errorPassword</p>
             $htmlErroresGlobales

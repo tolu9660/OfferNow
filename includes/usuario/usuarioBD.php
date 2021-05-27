@@ -227,4 +227,8 @@ class usuario{
     return $array;
 
   }
+  public function addCarrito($idProducto){
+    $this->carrito->AgregarCarrito($idProducto);
+  }
+
 }

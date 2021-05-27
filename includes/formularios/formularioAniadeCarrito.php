@@ -9,6 +9,7 @@ class formularioAniadeCarrito extends form{
     public function __construct($id) {
         parent::__construct('formAniadeCarrito');
         $this->idProducto=$id;
+        $this->ok=false;
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
@@ -30,12 +31,31 @@ class formularioAniadeCarrito extends form{
 
     protected function procesaFormulario($datos){
         $result = array();
+        if(isset($datos['idProducto']) && isset($_SESSION["login"])){
+            
         $idProducto = $datos['idProducto'] ?? '' ;
-        
-        
+        $nombreUsuario =$_SESSION['nombre'];
+        $this->ok=true;
+        $result= RUTA_APP.'/nuestraTienda.php';
+        $user=usuario::buscaUsuario($nombreUsuario);
+        $user->addCarrito($idProducto);
+            
+        }
+        else{
+            $result=SESION.'/login.php';
+        }
         
         
         return $result;
+    }
+    protected function muestraResultadoCorrecto() {
+        if($this->ok){
+            return "producto añadido al carrito";
+        }
+        else{
+            return "no estas logeado";
+        }
+        
     }
 }
 

@@ -53,9 +53,7 @@ class formularioDirecciones extends form{
         if ( empty($numero) ) {
             $result['numero'] = "El número no puede estar vacia";
         }
-      
-    
-       
+        
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
             $nombreUsuario =$_SESSION['nombre'];
@@ -64,17 +62,16 @@ class formularioDirecciones extends form{
            
             if($user->cambiaDireccion($nuevaDireccion)){
                 $result = RUTA_APP.'/perfil.php';
-
             }
             else{
                 $result[]="no se ha podido cambiar la direccion";
-            }
-            
-                        
+            }        
         }
-        
         return $result;
     }
-}
 
+    protected function muestraResultadoCorrecto() {
+        return "La dirección se ha modificado correctamente";
+    } 
+}
 ?>

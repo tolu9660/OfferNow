@@ -43,9 +43,7 @@ class formularioVentaArticulo extends form{
         
         if(aplicacion::comprobarImagen("/art2mano/")){
             if (posiblesVentasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
-                $result=<<<EOS
-                    <h3>Tu peticion de venta ha sido enviada!</h3>
-                EOS;
+                $result = RUTA_APP.'/index.php';
             } else {
                 $result[]=<<<EOS
                     <h3>Error al enviar la peticion de venta</h3>;
@@ -57,6 +55,9 @@ class formularioVentaArticulo extends form{
   
         return $result;
     }
-}
 
+    protected function muestraResultadoCorrecto() {
+        return "¡Tu peticion de venta ha sido enviada!";
+    } 
+}
 ?>

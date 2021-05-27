@@ -70,7 +70,6 @@ class formularioRegistro extends form{
         if ( empty($password2) || strcmp($password1, $password2) !== 0 ) {
             $result['password2'] = "Los passwords deben coincidir";
         }
-
       
         if (count($result) === 0) {
        
@@ -88,6 +87,10 @@ class formularioRegistro extends form{
             }
         }
         return $result;
+    }
+
+    protected function muestraResultadoCorrecto() {
+        return false;
     }
 }
 ?>

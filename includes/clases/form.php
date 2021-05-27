@@ -77,21 +77,31 @@ abstract class form
     public function gestiona()
     {
         if ( ! $this->formularioEnviado($_POST) ) {
-           
             return $this->generaFormulario();
         } else {
             $result = $this->procesaFormulario($_POST);
             if ( is_array($result) ) {
                 return $this->generaFormulario($result, $_POST);
             } else {
-                //echo $result;//como puedo gestionar este mensaje?
-                
-                
-                   header("Location:$result");              
-                   exit();
+                $mensaje = $this->muestraResultadoCorrecto();
+                //Si es false no se muestra la alerta y solo se redirige
+                if($mensaje == false){
+                    header("Location:$result");
+                    exit();
+                }
+                //Sino se muestra la alerta y se redirige
+                else{
+                    ?>
+                    <script type="text/javascript">
+                        alert("<?php echo $mensaje; ?>");
+                        window.location.href="<?php echo $result; ?>";
+                    </script>';
+                <?php
+                }
+                //header("Location:$result");
+                //exit();
             }
-        }  
-       
+        }
     }
 
     /**

@@ -71,6 +71,7 @@ if(estaLogado()){
 }
 else{
 	$contenidoPrincipal=<<<EOS
+	
 		<h3>Para poder ver tu carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h3>	
 	EOS;
 

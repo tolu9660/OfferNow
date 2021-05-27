@@ -158,21 +158,21 @@ class ofertaObjeto extends producto{
 				</button>
 				
 				<script type="text/javascript">
-					const miVariableEnJavaScript = "$ruta";
-					console.log("El contenido de la variable es: " + miVariableEnJavaScript)
+					const rutaLocal = "$ruta";
+					console.log("El contenido de la variable es: " + rutaLocal)
 					function incrementarVotos$this->id(button){
 					
 						
 						
 						var xhttp = new XMLHttpRequest();
-						xhttp.open("POST", miVariableEnJavaScript, true); 
+						xhttp.open("POST", rutaLocal, true); 
 						xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
 							
 						button.querySelector('.count').innerText = parseInt (button.querySelector('.count').innerText)+1 ;
-						console.log(button.querySelector('.count').innerText);
-						console.log(button);
-						console.log(this);
+						//console.log(button.querySelector('.count').innerText);
+						//console.log(button);
+						//console.log(this);
 						}
 						};
 						xhttp.send($this->id);

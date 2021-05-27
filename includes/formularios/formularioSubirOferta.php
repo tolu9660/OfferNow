@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__.'/../config.php';
-require_once RUTA_FORMS.'/form.php';
+require_once RUTA_CLASES.'/form.php';
 require_once RUTA_CLASES.'/ofertaObjeto.php';
-//require_once __DIR__.'/../clases/OfertaObjeto.php';//por si el de arriba no va
 
 class formularioSubirOferta extends form{
 
@@ -44,6 +43,19 @@ class formularioSubirOferta extends form{
     }
 
     protected function procesaFormulario($datos){
+        //Temporal
+        //Si hay un link para el artciulo de 2 mano se procesa
+        if(!empty($datos["oferta2ManoUrl"])){
+            $cadena_buscada   = '?id=';
+            $buscarCadena = explode($cadena_buscada, $datos["oferta2ManoUrl"]);
+            //Se ha encontrado
+            if($buscarCadena[1] == '') {
+                echo $buscarCadena[1];
+            } else {
+                $result[]= "Error: el enlace a nuestro producto es incorrecto";
+            }
+        }
+
         $result = array();
         
         $nombre = htmlspecialchars(trim(strip_tags($datos["ofertaNombre"])));
@@ -52,10 +64,8 @@ class formularioSubirOferta extends form{
         $precio = htmlspecialchars(trim(strip_tags($datos["ofertaPrecio"])));
         $creador = $_SESSION["correo"];
         if(aplicacion::comprobarImagen("/ofertas/")){
-            if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {
-                $result=<<<EOS
-                    <h3>Oferta creada</h3>
-                EOS;
+            if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {   
+                $result = RUTA_APP.'/index.php';
             } else {
                 $result[]= "Error: al crear la oferta";
                
@@ -63,10 +73,12 @@ class formularioSubirOferta extends form{
         } else {
             $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
         }
-    
         
         return $result;
     }
-}
 
+    protected function muestraResultadoCorrecto() {
+        return "Oferta creada";
+    } 
+}
 ?>

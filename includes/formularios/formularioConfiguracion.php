@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/form.php';
+require_once RUTA_CLASES.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
@@ -59,8 +59,6 @@ class formularioConfiguracion extends form{
         if ( empty($nuevoNombre) ) {
             $result['NuevoNombre'] = "El campo correo no puede estar vacia";
         }
-      
-    
        
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
@@ -68,17 +66,17 @@ class formularioConfiguracion extends form{
             $user=usuario::buscaUsuario($nombreUsuario);
             if($user->cambiarNombre($nuevoNombre)){
                 $result = RUTA_APP.'/perfil.php';
-
             }
             else{
                 $result[]="no se ha podido cambiar la direccion";
-            }
-            
-                        
+            }            
         }
-        
         return $result;
     }
+
+    protected function muestraResultadoCorrecto() {
+        return "La configuración se ha modificado correctamente";
+    } 
 }
 
 ?>

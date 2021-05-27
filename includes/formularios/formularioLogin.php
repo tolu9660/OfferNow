@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/form.php';
+require_once RUTA_CLASES.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
@@ -47,7 +47,6 @@ class formularioLogin extends form{
         if ( empty($password) ) {
             $result['password'] = "El password no puede estar vaci­o.";
         }
-
        
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
@@ -60,20 +59,16 @@ class formularioLogin extends form{
             $result[] = "El usuario o el password no coinciden";
             }
             else{
-               
-                if (!estaLogado()) {
-                    $result = RUTA_APP.'/index.php';
-                }
-                else{
-                    $result = RUTA_APP.'/index.php';
-                      
-                }
-
+                $result = RUTA_APP.'/index.php';
             }
            
         }
         
         return $result;
+    }
+
+    protected function muestraResultadoCorrecto() {
+        return false;
     }
 }
 

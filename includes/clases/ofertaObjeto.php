@@ -146,20 +146,29 @@ class ofertaObjeto extends producto{
 					</p>
 					EOS;
 				}
+				$ruta=POSTEAR."/votosBD.php";
+				
 		$productos.=<<<HTML
 				
-				
+			
 				<button class="button" type="button"
 					onclick="incrementarVotos$this->id(this)">    
 					<img src="{$Ruta}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
 					VOTOS: <span class = "count">$this->valoracion</span>
 				</button>
-				<script>
+				
+				<script type="text/javascript">
+					const rutaLocal = "$ruta";
+					console.log("El contenido de la variable es: " + rutaLocal)
 					function incrementarVotos$this->id(button){
+					
+						
+						
 						var xhttp = new XMLHttpRequest();
-						xhttp.open("POST", "http://localhost/proyecto/OfferNow/postear/votosBD.php", true); 
+						xhttp.open("POST", rutaLocal, true); 
 						xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
+							
 						button.querySelector('.count').innerText = parseInt (button.querySelector('.count').innerText)+1 ;
 						//console.log(button.querySelector('.count').innerText);
 						//console.log(button);

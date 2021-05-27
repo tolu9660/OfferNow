@@ -3,6 +3,7 @@
 require_once __DIR__.'/../config.php';
 require_once RUTA_CLASES.'/comentarioObjeto.php';
 require_once RUTA_CLASES.'/productoObjeto.php';
+require_once RUTA_FORMS.'/formularioAniadeCarrito.php';
 
 class art2ManoObjeto extends producto{
 	private $unidades;
@@ -117,7 +118,8 @@ class art2ManoObjeto extends producto{
 		
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
-
+		$form = new formularioAniadeCarrito(parent::muestraID());
+		$htmlFormAniadirCarrito = $form->gestiona();
 		$productos = '';
 		$productos.=<<<EOS
 			<div class="imgProducto">
@@ -127,6 +129,7 @@ class art2ManoObjeto extends producto{
 				<p>Nombre del producto: $nombreAux</p>
 				<p>Descripcion:</p>
 				<p>$descripcionAux</p>
+				<p>$htmlFormAniadirCarrito</p>
 			</div>
 		EOS;
 		$productos.= parent::muestraComentariosString();

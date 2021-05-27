@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../config.php';
-require_once RUTA_FORMS.'/form.php';
+require_once RUTA_CLASES.'/form.php';
 require_once RUTA_CLASES.'/art2ManoObjeto.php';
 
 class formularioSubir2Mano extends form{
@@ -35,27 +35,26 @@ class formularioSubir2Mano extends form{
         $result = array();
         
        //Muestra si se ha subido o no
-	$nombre = htmlspecialchars(trim(strip_tags($datos["articuloNombre"])));
-	$descripcion = htmlspecialchars(trim(strip_tags($datos["articuloDescripcion"])));
-	$unidades = htmlspecialchars(trim(strip_tags($datos["articuloUnidades"])));
-	$precio = htmlspecialchars(trim(strip_tags($datos["articuloPrecio"])));
-	//$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
-	
-	if(aplicacion::comprobarImagen("/art2mano/")){
-		if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
+        $nombre = htmlspecialchars(trim(strip_tags($datos["articuloNombre"])));
+        $descripcion = htmlspecialchars(trim(strip_tags($datos["articuloDescripcion"])));
+        $unidades = htmlspecialchars(trim(strip_tags($datos["articuloUnidades"])));
+        $precio = htmlspecialchars(trim(strip_tags($datos["articuloPrecio"])));
+        //$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
         
-            $result=<<<EOS
-                <h3>Articulo de segunda mano creado</h3>
-            EOS;
-			
-		} else {
-            $result[]="Error: al crear articulo de segunda mano";
-		}
-	} else {
-        $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
-	}
-    return $result;
-}
+        if(aplicacion::comprobarImagen("/art2mano/")){
+            if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
+                $result = RUTA_APP.'/nuestraTienda.php';
+            } else {
+                $result[]="Error: al crear articulo de segunda mano";
+            }
+        } else {
+            $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
+        }
+        return $result;
+    }
 
+    protected function muestraResultadoCorrecto() {
+        return "Articulo de segunda mano creado";
+    } 
 }
 ?>

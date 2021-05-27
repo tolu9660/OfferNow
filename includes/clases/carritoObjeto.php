@@ -25,6 +25,7 @@ class carritoObjeto{
     public function AgregarCarrito($producto) {     
         $this->productos[$this->contador]=$producto;
         $this->contador++;
+      
     }
 
     public function eliminarCarrito($producto){

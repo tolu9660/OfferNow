@@ -3,12 +3,16 @@
 		require_once __DIR__.'/../config.php';
 	?>
     
-	<div id= "titulo">
-        <img id="logo" src="<?=RUTA_APP.'/imagenes/OfferNow_Logo.png'?>"  ALIGN=DOWN alt="OfferNowLogo"/>
-        
-        <h1>
-        OFFERNOW
-        </h1>
+	<div id= "titulo">      
+        <nav class="titulocabecera">
+        <ul> 
+        <li> 
+        <img src="<?=RUTA_APP.'/imagenes/OfferNow_Logo1.png'?>" class="logo" alt="logo"/>
+        </li> 
+
+        <li>
+               <h2>Tú página de ofertas preferida</h2>
+        <li>      
         <?php
         	$ruta = SESION;
                 if (isset($_SESSION["login"]) ) {
@@ -17,15 +21,23 @@
                         
                 } else {
                         $ruta.='/login.php';
-                        echo "Usuario desconocido. <a href=$ruta>Login</a>";
+                        echo "Usuario desconocido <a href=$ruta>Login</a>";
                 }
 	?>
-     
+        </li>
+        <li>
         <a href="<?=RUTA_APP.'/perfil.php'?>">Mi Perfil</a>
         <!-- NO FUNCIONA ESTA RUTA <a href="<?=RUTA_VISTAS.'/perfil.php'?>">Mi Perfil</a>
 	-->
+        </li>
+       
+       <li>
+       <a href="<?=RUTA_APP.'/procesarCarrito.php'?>" rel="nofollow" target="_blank" class="button" > 
+                    <img src="<?=RUTA_APP.'/imagenes/iconos/carrito.png'?>" class="carrito" alt="carrito"/> </a>
+        </li>  
+        </ul>
+        </nav>
         </div>
-
 
 	<div id="contenedor1">
 		<nav class="menu" class="col-4 my-auto mx-auto">
@@ -37,8 +49,6 @@
                 <li><a href="<?=RUTA_APP.'/vistas/registro.php'?>">Registro</a></li>
                 <!--<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>-->
                 <li><a href="<?=RUTA_APP.'/vistas/premium.php'?>">Hazte premium -- No implementado</a></li>
-                <li><a href="<?=RUTA_APP.'/procesarCarrito.php'?>" rel="nofollow" class="button" > 
-                    <img src="<?=RUTA_APP.'/imagenes/iconos/carrito.png'?>" class="carrito" alt="carrito"/> </a></li>
             </ul>
         </nav>
 	</div>

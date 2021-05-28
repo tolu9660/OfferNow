@@ -31,8 +31,11 @@ else{
 	$ruta = SESION;//RUTA_VISTAS;
 	$ruta.='/login.php';
 	$productos.=<<<EOS
+		<div class="tarjetacomentario">
 			<h3>Para poder publicar comentarios, inicia sesión <a href=$ruta>aquí</a>.</h3>	
+		</div>
 		EOS;
+		
 }
 	$tituloPagina = $ofertaObj->muestraNombre();
 	$contenidoPrincipal=<<<EOS

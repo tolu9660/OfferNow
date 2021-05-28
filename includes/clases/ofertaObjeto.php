@@ -38,7 +38,7 @@ class ofertaObjeto extends producto{
 				$fila = $result->fetch_assoc();
 				
 				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
 				
 			}
 			return $ofertasArray;
@@ -65,7 +65,7 @@ class ofertaObjeto extends producto{
 		}
 	}
 	
-	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador) {
+	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador,$url2Mano) {
 		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
 
@@ -83,9 +83,9 @@ class ofertaObjeto extends producto{
 					VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado', '$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')";
 		*/
 		$result = parent::hacerConsulta("INSERT INTO oferta (Nombre, Descripcion, URL_Oferta,
-											URL_Imagen, Valoracion, Precio, Creador)
+											URL_Imagen, Valoracion, Precio, Creador, ID2Mano)
 										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$urlOfertaFiltrado',
-											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado')");
+											'$urlImagenFiltrado', 0, '$precioFiltrado', '$creadorFiltrado','$url2Mano')");
 		if ($result) {
 			return true;
 		} else {
@@ -104,7 +104,7 @@ class ofertaObjeto extends producto{
 		if($result) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
 			
 			return $ofertaObj;
 		} else{
@@ -137,20 +137,18 @@ class ofertaObjeto extends producto{
 				<p>$descripcionAux</p>
 				<p>
 					Enlaces:
-					<a href="$this->urlOferta" rel="nofollow" >Enlace Oferta</a>
-				
+					<a href="$this->urlOferta" rel="nofollow" >Enlace Oferta</a>				
 			EOS;
-				if($this->segundaMano){
+				if($this->segundaMano != 0){
+					$IDSegundaMano = PRODUCTOS.'/productoSegundaMano.php?id='.$this->segundaMano;
 					$productos.=<<<EOS
-						/ Tenemos el producto en nuestra tienda, <a href="{$Ruta}/nuestraTienda.php" rel="nofollow" >MIRALO.</a>
+						/ Tenemos el producto en nuestra tienda, <a href="{$IDSegundaMano}" rel="nofollow" >MIRALO.</a>
 					</p>
 					EOS;
 				}
 				$ruta=POSTEAR."/votosBD.php";
 				
 		$productos.=<<<HTML
-				
-			
 				<button class="button" type="button"
 					onclick="incrementarVotos$this->id(this)">    
 					<img src="{$Ruta}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    

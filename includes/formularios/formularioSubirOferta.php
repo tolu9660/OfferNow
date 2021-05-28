@@ -45,15 +45,20 @@ class formularioSubirOferta extends form{
     protected function procesaFormulario($datos){
         //Temporal
         //Si hay un link para el artciulo de 2 mano se procesa
+
+        $url2Mano;
+
         if(!empty($datos["oferta2ManoUrl"])){
             $cadena_buscada   = '?id=';
             $buscarCadena = explode($cadena_buscada, $datos["oferta2ManoUrl"]);
             //Se ha encontrado
-            if($buscarCadena[1] == '') {
-                echo $buscarCadena[1];
+            if(is_array($buscarCadena)) {
+                $url2Mano = $buscarCadena[1];
             } else {
                 $result[]= "Error: el enlace a nuestro producto es incorrecto";
             }
+        } else{
+            $url2Mano = NULL;
         }
 
         $result = array();
@@ -64,11 +69,12 @@ class formularioSubirOferta extends form{
         $precio = htmlspecialchars(trim(strip_tags($datos["ofertaPrecio"])));
         $creador = $_SESSION["correo"];
         if(aplicacion::comprobarImagen("/ofertas/")){
-            if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,$_FILES["productoImagen"]["name"],$precio,$creador )) {   
+            if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,
+                    $_FILES["productoImagen"]["name"],$precio,$creador, $url2Mano)) {   
                 $result = RUTA_APP.'/index.php';
             } else {
+                echo"maaaaaaaal";
                 $result[]= "Error: al crear la oferta";
-               
             }
         } else {
             $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";

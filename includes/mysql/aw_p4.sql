@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2021 a las 17:28:53
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 30-05-2021 a las 12:20:52
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,8 +62,20 @@ CREATE TABLE `carrito` (
   `id` int(32) NOT NULL,
   `idProducto` int(32) NOT NULL,
   `idUsuario` varchar(32) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `Comprado` tinyint(1) NOT NULL
+  `Comprado` tinyint(1) NOT NULL,
+  `unidades` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `idProducto`, `idUsuario`, `Comprado`, `unidades`) VALUES
+(14, 9, 'luisRoman', 0, 79),
+(15, 4, 'luisRoman', 0, 1),
+(16, 11, 'luisRoman', 0, 1),
+(17, 10, 'luisRoman', 0, 1),
+(18, 9, 'luisRoman', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +137,7 @@ INSERT INTO `oferta` (`Numero`, `Nombre`, `Descripcion`, `URL_Oferta`, `URL_Imag
 (2450, 'Monopoly_para_malos_perdedores', 'Este toque divertido al juego Monopoly cambia el sentido de la palabra “perder” y lo celebra. Los jugadores pueden ganar dinero en efectivo al hacer cosas que, por lo general, generan frustración en el juego, como ir a la Cárcel, pagar el alquiler de una propiedad o entrar en bancarrota.', 'www.juguetilandia.com/producto/monopoly-para-malos-perdedores-hasbro-e9972-108833.htm?utm_source=www.chollometro.com&utm_campaign=idealo', 'monopoly.png', 259, 23, 'persona@gmail.com', 1, NULL),
 (2451, 'Silla_gaming', 'La silla de diseño Racing, Stinger Station Alien está creada para que disfrutes al máximo de una experiencia envolvente y confortable en tus largas e intensas sesiones de juegos y también en tus jornadas de trabajo o estudios. Podrás disfrutar de un diseño deportivo y ergonómico, fabricado en materiales de máxima calidad, muy duraderos, suaves y acolchados que duplican su confort. La serie ALIEN se define por su estética racing, su diseño \"de otra galaxia\" y su máxima calidad en la configuración de sus materiales.', 'https://www.pccomponentes.com/woxter-stinger-station-alien-silla-gaming-blue', 'sillagaming.jpg', 211, 109, 'persona@gmail.com', 0, NULL),
 (2452, 'Logitech_Stereo_Speakers_Z120', 'Te presentamos los Logitech Stereo Speakers Z120, unos compactos altavoces USB con controles de volumen y encendido integrados facilitan la conexión de casi cualquier fuente de audio. Para que pueda disfrutar fácilmente de la música, el vídeo, etc. que prefiera. Estos altavoces compactos y versátiles son fáciles de conectar y controlar.', 'https://www.pccomponentes.com/logitech-stereo-speakers-z120', 'altavoceslogitech.jpg', 158, 15, 'persona@gmail.com', 0, NULL),
-(2453, 'Logitech_M705_Raton_Inalambrico', 'El ratón Logitech Marathon Mouse M705 dura... y dura... y dura. Usa mucha menos energía que los ratones inalámbricos comparables de otras empresas, por lo que pueden pasar hasta tres años sin tener que cambiar las pilas. Además, cuenta con un receptor inalámbrico minúsculo que está acoplado permanentemente al ordenador, para que el ratón siempre esté listo para funcionar, en cualquier momento, en cualquier lugar y durante el tiempo necesario. Asimismo, el desplazamiento superrápido te permitirá desplazarte a gran velocidad por documentos largos para buscar lo que necesites sin pérdida de tiempo. El seguimiento láser ofrece un control preciso y uniforme del cursor. Y el diseño contorneado del ratón para la mano derecha resulta cómodo de principio a fin de la sesión.', 'https://www.pccomponentes.com/logitech-m705-marathon-mouse-raton-inalambrico-1000-dpi', 'raton.jpg', 80, 38, 'persona@gmail.com', 0, NULL),
+(2453, 'Logitech_M705_Raton_Inalambrico', 'El ratón Logitech Marathon Mouse M705 dura... y dura... y dura. Usa mucha menos energía que los ratones inalámbricos comparables de otras empresas, por lo que pueden pasar hasta tres años sin tener que cambiar las pilas. Además, cuenta con un receptor inalámbrico minúsculo que está acoplado permanentemente al ordenador, para que el ratón siempre esté listo para funcionar, en cualquier momento, en cualquier lugar y durante el tiempo necesario. Asimismo, el desplazamiento superrápido te permitirá desplazarte a gran velocidad por documentos largos para buscar lo que necesites sin pérdida de tiempo. El seguimiento láser ofrece un control preciso y uniforme del cursor. Y el diseño contorneado del ratón para la mano derecha resulta cómodo de principio a fin de la sesión.', 'https://www.pccomponentes.com/logitech-m705-marathon-mouse-raton-inalambrico-1000-dpi', 'raton.jpg', 81, 38, 'persona@gmail.com', 0, NULL),
 (2454, 'Television LG 32LM6370PLA 32 pulgadas LED FullHD', 'Nuevo televisor 32LM6370PLA de LG, su pantalla Full HD ofrece imágenes precisas con una resolución extraordinaria y colores ricos.', 'https://www.pccomponentes.com/lg-32lm6370pla-32-led-fullhd-hdr10', 'televisionLG.jpg', 41, 278, 'persona@gmail.com', 0, NULL);
 
 -- --------------------------------------------------------
@@ -248,7 +260,7 @@ ALTER TABLE `articulos_segunda_mano`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `comentariosoferta`

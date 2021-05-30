@@ -22,12 +22,30 @@ class carritoObjeto{
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
     // que encuentre
-    public function AgregarCarrito($producto) {     
-        $this->productos[$this->contador]=$producto;
-        $this->contador++;
-      
-    }
+    public function AgregarCarrito($producto,$cantidad) {   
+        $app = aplicacion::getSingleton();
+        $mysqli = $app->conexionBd(); 
+        $sql;
+        if($cantidad===1){    
+            echo "aqui" ;   
+            $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
+            $this->contador++;       
+            $sql=" INSERT INTO carrito (idProducto,idUsuario,Comprado,unidades)
+            VALUES ('$producto','$this->usuario',0,'$cantidad')";
+         
+        }else{
+           
+            $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'";         
+        }
+        if (mysqli_query($mysqli, $sql)) {
+            return true;
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+            return false;
+        }
 
+    }
+  
     public function eliminarCarrito($producto){
         $enc=false;
         $i=0;
@@ -67,7 +85,7 @@ class carritoObjeto{
 		return $precioTotal;     
     }
     public function cargarCarrito($idUser){
-    
+        
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
         $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idUsuario='%s'",
@@ -80,15 +98,11 @@ class carritoObjeto{
         $fila1=$result1->fetch_assoc();
         if(($result && $result->num_rows >0) && $fila1['total']>0 ){
             $this->contador=$fila1['total'];
-            //echo $result->num_rows ."cont:". $fila1['total'];
-
             for($i=0; $i < $result->num_rows; $i++){
                 
                 $fila=$result->fetch_assoc();
-                //echo $fila['idProducto']."----".$fila['idUsuario'];
                 $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
                 $this->productos[$i]=$producto;
-                // echo"i:".$i ."valor del id producto". $fila['id'] . $fila['idUsuario'];
 
             }
         }

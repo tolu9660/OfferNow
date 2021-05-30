@@ -32,7 +32,7 @@
         </li>
        
        <li>
-       <a href="<?=RUTA_APP.'/procesarCarrito.php'?>" rel="nofollow" target="_blank" class="button" > 
+       <a href="<?=RUTA_APP.'/procesarCarrito.php'?>"   class="button" > 
                     <img src="<?=RUTA_APP.'/imagenes/iconos/carrito.png'?>" class="carrito" alt="carrito"/> </a>
         </li>  
         </ul>

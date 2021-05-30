@@ -223,12 +223,11 @@ class usuario{
   public function muestraCarrito(){
     
     $array=$this->carrito->cargarCarrito($this->idCorreo);
-    
     return $array;
 
   }
-  public function addCarrito($idProducto){
-    $this->carrito->AgregarCarrito($idProducto);
+  public function addCarrito($idProducto,$cantidad=1){
+    $this->carrito->AgregarCarrito($idProducto,$cantidad);
   }
 
 }

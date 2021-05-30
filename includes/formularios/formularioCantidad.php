@@ -4,10 +4,11 @@ require_once RUTA_CLASES.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
-class formularioAniadeCarrito extends form{
+
+class formularioCantidad extends form{
     private $idProducto;
     public function __construct($id) {
-        parent::__construct('formAniadeCarrito');
+        parent::__construct('formCantidad');
         $this->idProducto=$id;
         $this->ok=false;
     }
@@ -20,10 +21,11 @@ class formularioAniadeCarrito extends form{
        
         /*mostrar el contenido previo*/
         $html = <<<EOF
-        <input type="hidden" name="idProducto" value="{$this->idProducto}" />
-        <div class="iniciosesion">
-            <button type="submit" name="login">Añadir Carrito</button>
-        </div>
+                    
+            <input type="hidden" name="idProducto" value="{$this->idProducto}" />
+            <p>Cantidad: <input type="number" name="cantidad" min="1" value="1"> 
+                        <input type="submit" value="agregar"></p>
+                
       
         EOF;
         return $html;
@@ -31,15 +33,15 @@ class formularioAniadeCarrito extends form{
 
     protected function procesaFormulario($datos){
         $result = array();
-        if(isset($datos['idProducto']) && isset($_SESSION["login"])){
+        if(isset($datos['cantidad']) && isset($_SESSION["login"])){
             
-        $idProducto = $datos['idProducto'] ?? '' ;
+        $cantidad = $datos['cantidad'] ?? '' ;
         $nombreUsuario =$_SESSION['nombre'];
         $this->ok=true;
-        $result= RUTA_APP.'/nuestraTienda.php';
+        //$result= RUTA_APP.'/nuestraTienda.php';
        
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->addCarrito($idProducto);     
+        $user->addCarrito($this->idProducto,$cantidad);     
             
         }
         else{

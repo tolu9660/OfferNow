@@ -3,6 +3,7 @@
 require_once __DIR__.'/includes/config.php';
 require RUTA_CLASES.'/ofertaObjeto.php';
 require_once RUTA_USUARIO.'/usuarios.php';
+require_once RUTA_FORMS.'/formularioCantidad.php';
 
 
 
@@ -29,6 +30,8 @@ if(estaLogado()){
 				</tr>
 			</thead>	
 		EOS;
+		
+
 	for ($i = 0; $i < sizeof($carritoArray); $i++) {
 		$nombreOferta=strval($carritoArray[$i]->muestraNombre());
 		$precioOferta=strval($carritoArray[$i]->muestraPrecio());
@@ -49,7 +52,13 @@ if(estaLogado()){
 					</div>
 				</div>
 				<div class="cantidad">
-					<td>3</td>
+					<td>
+		EOS;
+		$form = new formularioCantidad($carritoArray[$i]->muestraID());
+		$htmlFormAniadirCarrito = $form->gestiona();
+		$productos.=<<<EOS
+						$htmlFormAniadirCarrito
+					</td>
 				</div>
 			</tr>
 		EOS;

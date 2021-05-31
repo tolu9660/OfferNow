@@ -133,8 +133,9 @@ class aplicacion
 	 * El parametro $carpetaImgDir debe ser la subcarpeta dentro de la ruta RUTA_IMGS, ej:
 	 * 		"/ofertas/"
 	 */
+	/*
 	public static function comprobarImagen($carpetaImgDir){
-		
+		//C:\Pablo\Universidad\xampp\htdocs\AW\OfferNow\includes/../imagenes/productos/ofertas/ordenador_asus_.jpgno entro
 		$ofertaImagenDir = $carpetaImgDir . $_FILES["productoImagen"]["name"];
 		$directorioServerImg = ALMACEN.$ofertaImagenDir;
 		$tmp_name = $_FILES['productoImagen']['tmp_name'];
@@ -155,4 +156,57 @@ class aplicacion
 			return false;
 		}
 	}
+	*/
+
+	private static function comprobarExtensionArchivo($filename){
+        $extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');
+
+        $end = explode(".", $filename);
+        $extensionImagen = strtolower(end($end));
+        if (in_array($extensionImagen, $extensionesValidas)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static function comprobarNombreArchivo($filename) {
+        return (bool) ((mb_ereg_match('/^[0-9A-Z-_\.]+$/i',$filename) === 1) ? true : false );
+    }
+
+    private static function comprobarLongitudArchivo($filename) {
+        return (bool) ((mb_strlen($filename,'UTF-8') < 250) ? true : false);
+    }
+
+    private static function quitarCaracteresInvalidos($filename) {
+		$newName = mb_ereg_replace('([^A-Za-z0-9.])', '_', $filename);
+        $newName = mb_ereg_replace("([\.]{2,})", '', $newName);
+        return $newName;
+    }
+
+	public static function comprobarImagen($carpetaArchivoDir){
+        //Comprueba la extension del archivo
+        if (//aplicacion::comprobarNombreArchivo($nuevoNombre) &&
+			//aplicacion::comprobarLongitudArchivo($nuevoNombre) &&
+            aplicacion::comprobarExtensionArchivo($_FILES["productoImagen"]["name"])) {
+			
+			$tmp_name = $_FILES['productoImagen']['tmp_name'];
+			$nuevoNombre = aplicacion::quitarCaracteresInvalidos($_FILES["productoImagen"]["name"]);
+			
+            $directorioServerArchivo = ALMACEN.$carpetaArchivoDir.$nuevoNombre;
+            //Si la extension es correcta comprueba que el fichero no exista
+            if(!file_exists($directorioServerArchivo)) {
+                if (move_uploaded_file($tmp_name, $directorioServerArchivo)) {
+                    return $nuevoNombre;
+                } else {
+                    return false;
+                }
+            } else {
+                //El fichero existe por lo que no se copia y se devuelve el nuevo nombre
+                return $nuevoNombre;
+            }
+        } else {
+            return false;
+        }       
+    }
 }

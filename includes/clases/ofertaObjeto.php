@@ -56,7 +56,7 @@ class ofertaObjeto extends producto{
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
 				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['segundaMano']);
+											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
 			}
 			return $ofertasArray;
 		}

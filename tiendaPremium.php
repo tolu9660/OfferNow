@@ -1,7 +1,7 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
 	require RUTA_CLASES.'/art2ManoObjeto.php';
-    require RUTA_CLASES.'/ofertaObjeto.php';
+    //require RUTA_CLASES.'/ofertaObjeto.php';
 
 	$tituloPagina = 'Zona Premium';
 	$productos = '';

@@ -10,14 +10,11 @@ class formularioSubirOferta extends form{
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
-   
-       
-
         // Se generan los mensajes de error si existen.
-       /* $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
-        $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-      */
+        /* $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
+            $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
+            $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
+        */
         $html = <<<EOF
             <div class="subirOferta">
             <div class="producto">
@@ -49,7 +46,7 @@ class formularioSubirOferta extends form{
         $url2Mano;
 
         if(!empty($datos["oferta2ManoUrl"])){
-            $cadena_buscada   = '?id=';
+            $cadena_buscada = '?id=';
             $buscarCadena = explode($cadena_buscada, $datos["oferta2ManoUrl"]);
             //Se ha encontrado
             if(is_array($buscarCadena)) {
@@ -68,18 +65,17 @@ class formularioSubirOferta extends form{
         $urlOferta = htmlspecialchars(trim(strip_tags($datos["ofertaUrl"])));
         $precio = htmlspecialchars(trim(strip_tags($datos["ofertaPrecio"])));
         $creador = $_SESSION["correo"];
-        if(aplicacion::comprobarImagen("/ofertas/")){
+        $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
+        if($nombreNuevo != false){
             if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,
-                    $_FILES["productoImagen"]["name"],$precio,$creador, $url2Mano)) {   
+                    $nombreNuevo,$precio,$creador, $url2Mano)) {   
                 $result = RUTA_APP.'/index.php';
             } else {
-                echo"maaaaaaaal";
                 $result[]= "Error: al crear la oferta";
             }
         } else {
             $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
         }
-        
         return $result;
     }
 

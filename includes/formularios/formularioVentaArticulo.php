@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../config.php';
-require_once RUTA_FORMS.'/form.php';
+require_once RUTA_CLASES.'/form.php';
 require_once RUTA_CLASES.'/posiblesVentasObjeto.php';
 
 class formularioVentaArticulo extends form{

@@ -48,5 +48,5 @@
         $newName = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $filename);
         $newName = mb_ereg_replace("([\.]{2,})", '', $newName);
         return $newName;
-      }
+    }
 ?>

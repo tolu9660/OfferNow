@@ -94,12 +94,9 @@ abstract class form
                     ?>
                     <script type="text/javascript">
                         alert("<?php echo $mensaje; ?>");
-                       //descomentar estas lineas-> redireccion
-                       
-                      // window.location.href="<?php
-                        //  echo $result; 
-                        ?>";
-                    </script>';
+                        //descomentar estas lineas-> redireccion
+                        window.location.href="<?php echo $result;?>";
+                    </script>
                 <?php
                 }
                 //header("Location:$result");

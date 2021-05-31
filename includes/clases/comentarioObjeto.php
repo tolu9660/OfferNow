@@ -88,7 +88,6 @@ class comentarioObjeto{
 						$conn->real_escape_string($id));
 
 		$rs = $conn->query($query);
-
 		if ($rs && $rs->num_rows == 1) {
 			$fila = $rs->fetch_assoc();
 			$coment = new comentarioObjeto($fila['Numero'], $fila['Texto'], $fila['Titulo'],
@@ -113,7 +112,12 @@ class comentarioObjeto{
 	}
 	
 	public function muestraUsuario() {
-		return $this->usuario;
+		//Busca el nombre del usuario en vez de usar el correo
+		$app = aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$result = $mysqli->query("SELECT Nombre FROM usuario WHERE Correo='$this->usuario'");
+		$fila = $result->fetch_assoc();
+		return $fila['Nombre'];
 	}
 }
 ?>

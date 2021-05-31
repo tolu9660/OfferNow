@@ -4,7 +4,7 @@ require_once __DIR__.'/includes/config.php';
 require RUTA_CLASES.'/ofertaObjeto.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 require_once RUTA_FORMS.'/formularioCantidad.php';
-
+require_once RUTA_FORMS.'/formularioEliminarCarrito.php';
 
 
 $tituloPagina = 'carrito';
@@ -27,6 +27,7 @@ if(estaLogado()){
 					<th>DESCRIPCION</th>
 					<th>PRECIO</th>
 					<th>CANTIDAD</th>
+					<th>ELIMINAR</th>
 				</tr>
 			</thead>	
 		EOS;
@@ -58,6 +59,15 @@ if(estaLogado()){
 		$htmlFormAniadirCarrito = $form->gestiona();
 		$productos.=<<<EOS
 						$htmlFormAniadirCarrito
+					</td>
+				</div>
+				<div class="eliminar">
+					<td>
+		EOS;
+		$form = new formularioEliminarCarrito($carritoArray[$i]->muestraID());
+		$htmlFormEliminarCarrito = $form->gestiona();
+		$productos.=<<<EOS
+						$htmlFormEliminarCarrito
 					</td>
 				</div>
 			</tr>

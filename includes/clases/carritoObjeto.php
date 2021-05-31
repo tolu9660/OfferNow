@@ -47,7 +47,21 @@ class carritoObjeto{
     }
   
     public function eliminarCarrito($producto){
-        $enc=false;
+       /* $app = aplicacion::getSingleton();
+        $mysqli = $app->conexionBd(); 
+        $sql;
+
+        $sql = " DELETE FROM carrito (idProducto,idUsuario,Comprado,unidades) WHERE IdProducto='$producto'";
+        $this->contador--;
+
+        if (mysqli_query($mysqli, $sql)) {
+            return true;
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+            return false;
+        }*/
+
+        /*$enc=false;
         $i=0;
         while(!$enc && $i< $this->cont){
             if( $this->productos[$i]==$producto){
@@ -62,7 +76,7 @@ class carritoObjeto{
         }
         else{
             echo "no se encuentra el producto en el carrito";
-        }
+        }*/
 
     }
     public function agregarListaDeseos($producto){

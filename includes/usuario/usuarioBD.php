@@ -230,4 +230,8 @@ class usuario{
     $this->carrito->AgregarCarrito($idProducto,$cantidad);
   }
 
+  public function quitarCarrito($idProducto){
+    $this->carrito->eliminarCarrito($idProducto);
+  }
+
 }

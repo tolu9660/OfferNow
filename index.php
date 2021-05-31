@@ -1,9 +1,18 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
 	require RUTA_CLASES.'/ofertaObjeto.php';
+
+	//Para los botones de ordenar
+	$filtrosBusqueda = array("Nombre","Valoracion","Precio","Fecha");
 	
 	//Carga las ofertas en un array
-	$ofertasArray = ofertaObjeto::cargarOfertas("Valoracion");
+	if(isset($_GET['ordenar']) && in_array($_GET['ordenar'], $filtrosBusqueda)) {
+		$ofertasArray = ofertaObjeto::cargarOfertas($_GET['ordenar']);
+	}
+	else{
+		$ofertasArray = ofertaObjeto::cargarOfertas("Valoracion");
+	}
+	
 
 	//Mostrar las ofertas recorriendo el array
 	$tituloPagina = 'Inicio';

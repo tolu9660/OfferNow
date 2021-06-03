@@ -26,6 +26,7 @@ class carritoObjeto{
         $app = aplicacion::getSingleton();
         $mysqli = $app->conexionBd(); 
         $sql;
+       
         if($cantidad===1){    
             echo "aqui" ;   
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
@@ -47,11 +48,13 @@ class carritoObjeto{
     }
   
     public function eliminarCarrito($producto){
-       /* $app = aplicacion::getSingleton();
-        $mysqli = $app->conexionBd(); 
-        $sql;
+        $app = aplicacion::getSingleton();
+        $mysqli = $app->conexionBd();
+        
+        $nombreUsuario = $_SESSION['nombre'];
+        $producto = $_POST["idProducto"];
 
-        $sql = " DELETE FROM carrito (idProducto,idUsuario,Comprado,unidades) WHERE IdProducto='$producto'";
+        $sql = "DELETE FROM carrito WHERE idProducto = '$producto' AND idUsuario = '$nombreUsuario'"; // filtrar por usuario
         $this->contador--;
 
         if (mysqli_query($mysqli, $sql)) {
@@ -59,7 +62,7 @@ class carritoObjeto{
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
             return false;
-        }*/
+        }
 
         /*$enc=false;
         $i=0;

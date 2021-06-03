@@ -30,7 +30,7 @@ class ofertaObjeto extends producto{
 	}
 
 	public static function cargarOfertas($orden){
-		$result = parent::hacerConsulta("SELECT * FROM oferta ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY $orden");
 		$ofertasArray;
 		
 		if($result != null) {
@@ -100,6 +100,7 @@ class ofertaObjeto extends producto{
 		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
 		$result = $mysqli->query($query);
 		*/
+
 		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
 		if($result) {
 			$fila = $result->fetch_assoc();
@@ -124,8 +125,7 @@ class ofertaObjeto extends producto{
 		$descripcionAux = parent::muestraDescripcion();
 		$creadornAux = $this->muestraCreador();
 		$valorSegundaMano=$this->getSegundamano();
-	
-	
+		
 		$productos = '';
 		$productos.=<<<EOS
 				<div class="imgProducto">
@@ -137,7 +137,7 @@ class ofertaObjeto extends producto{
 				<p>$descripcionAux</p>
 				<p>
 					Enlaces:
-					<a href="$this->urlOferta" rel="nofollow" >Enlace Oferta</a>				
+					<a href="$this->urlOferta" rel="nofollow" >Enlace Oferta</a>
 			EOS;
 				if($this->segundaMano != 0){
 					$IDSegundaMano = PRODUCTOS.'/productoSegundaMano.php?id='.$this->segundaMano;

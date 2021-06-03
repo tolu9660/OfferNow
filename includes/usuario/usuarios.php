@@ -45,6 +45,7 @@ require_once __DIR__.'/usuarioBD.php';
 		unset($_SESSION["esAdmin"]);
 		unset($_SESSION["nombre"]);
 		unset($_SESSION["idUsuario"]);
+		unset($_SESSION["esPremium"]);
 		
 		session_destroy();
 		session_start();

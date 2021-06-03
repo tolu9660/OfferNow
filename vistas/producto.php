@@ -22,7 +22,6 @@
 				<input type="hidden" value="$id" name="comentarioUrlDeOferta"/>
 				<input type="hidden" value="true" name="esOferta"/>
 				<p><input type="submit" value="Publicar"></p>
-				
 			</form>
 		</div>
 	EOS;

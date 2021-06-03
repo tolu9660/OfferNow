@@ -25,7 +25,7 @@ class art2ManoObjeto extends producto{
 		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 		$result = $mysqli->query($query);
 		*/
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden");
 
 		$ofertasArray;
 		
@@ -68,20 +68,11 @@ class art2ManoObjeto extends producto{
 	}
 	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
-		$app = aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);
 		$precioFiltrado=$mysqli->real_escape_string($precio);
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		//Insert into inserta en la tabla articulos_segunda_mano y las columnas entre parentesis los valores en VALUES
-		$sql = "INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades, Precio, Imagen)
-						VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado')";
-		*/
 
 		$result = parent::hacerConsulta("INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades,
 											Precio, Imagen)
@@ -96,18 +87,20 @@ class art2ManoObjeto extends producto{
 	}
 	
 	public static function buscaArt2Mano($id) {
-		$app = aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'";
-		$result = $mysqli->query($query);
+		//Si esta logeado y es premium busca todos
+		if(estaLogado() && $_SESSION["esPremium"]) {
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Numero = '$id'");
+		}
+		else{
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Numero = '$id' AND Premium = 0");
+		}
 		
-		if($result) {
+		if($result && $result->num_rows == 1) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 			return $ofertaObj;
 		} else{
-			echo"Error al buscar en la base de datos";
 			return false;
 		}
 	}

@@ -7,66 +7,13 @@ require_once RUTA_FORMS.'/formularioAniadeCarrito.php';
 
 class art2ManoObjeto extends producto{
 	private $unidades;
-	//private $precio;
-	//private $urlImagen;
-	//private $comentariosArray;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
-			//"SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$id' ORDER BY ValoracionUtilidad");
 		$this->unidades = $unidades;
 	}
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function cargarProductos2Mano($orden){
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
-		$result = $mysqli->query($query);
-		*/
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden");
-
-		$ofertasArray;
-		
-		if($result) {
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
-			}
-			return $ofertasArray;
-		}
-		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
-		}
-	}
-
-	//-------------------------------------------PREMIUM----------------------------------------
-	public static function cargarArticulos2ManoPremium($orden){
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();;
-		$query = sprintf("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
-		$result = $mysqli->query($query);
-		*/
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
-		$ofertasArray;
-		
-		if($result) {
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
-									
-			}
-			return $ofertasArray;
-		}
-		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
-		}
-	}
-	
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
@@ -104,6 +51,49 @@ class art2ManoObjeto extends producto{
 			return false;
 		}
 	}
+
+	public static function cargarProductos2Mano($orden){
+		/*
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
+		$result = $mysqli->query($query);
+		*/
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden");
+
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);		
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
+
+	//-------------------------------------------PREMIUM----------------------------------------
+	public static function cargarArticulos2ManoPremium($orden){
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
+		$ofertasArray;
+		
+		if($result) {
+			for ($i = 0; $i < $result->num_rows; $i++) {
+				$fila = $result->fetch_assoc();
+				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
+									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+									
+			}
+			return $ofertasArray;
+		}
+		else{
+			echo "Error in ".$query."<br>".$mysqli->error;
+		}
+	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){
@@ -139,5 +129,5 @@ class art2ManoObjeto extends producto{
 		$DIRimagen.=parent::muestraURLImagen();
 		return $DIRimagen;
 	}
-  }
+}
 ?>

@@ -3,7 +3,4 @@
 	require_once RUTA_CLASES.'/ofertaObjeto.php';
 
     ofertaObjeto::incrementarVotos(file_get_contents('php://input'));
-
-
-
 ?>

@@ -3,7 +3,6 @@
 	require_once RUTA_FORMS.'/formularioDirecciones.php';
 	
     $tituloPagina = 'Direcciones';
-   
     
     $form = new formularioDirecciones();
     $htmlFormDireccion = $form->gestiona();

@@ -5,11 +5,12 @@
 
 	$id = $_GET['id'];
 	$productos='';
-	//Muestra el articulo
+	//Busca el articulo
 	$ofertaObj = art2ManoObjeto::buscaArt2Mano($id);
 	//Ha devuelto un objeto
 	if($ofertaObj != false) {
 		$ruta=POSTEAR;
+		$tituloPagina = $ofertaObj->muestraNombre();
 		$productos.=$ofertaObj->muestraOfertaString();
 		if(estaLogado()){
 		$productos.=<<<EOS
@@ -38,7 +39,6 @@
 			</div>
 			EOS;
 		}
-		$tituloPagina = $ofertaObj->muestraNombre();
 	}
 	//Si no
 	else{
@@ -48,7 +48,6 @@
 		$tituloPagina = "Objeto no encontrado";
 	}
 
-	
 	$contenidoPrincipal=<<<EOS
 		$productos
 	EOS;

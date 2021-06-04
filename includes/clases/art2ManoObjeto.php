@@ -15,6 +15,10 @@ class art2ManoObjeto extends producto{
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
+		//NECESARIO PARA EL FILTRADO
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$unidadesFiltrado=$mysqli->real_escape_string($unidades);

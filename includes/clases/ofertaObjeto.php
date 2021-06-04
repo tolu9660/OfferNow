@@ -21,6 +21,10 @@ class ofertaObjeto extends producto{
 	
 	//--------------------------------------------Funciones estaticas----------------------------------------------
 	public static function subeOfertaBD($nombre,$descripcion,$urlOferta,$urlImagen,$precio,$creador,$url2Mano) {
+		//NECESARIO PARA EL FILTRADO
+		$app = Aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		
 		$nombreFiltrado=$mysqli->real_escape_string($nombre);
 		$descripcionFiltrado=$mysqli->real_escape_string($descripcion);;
 		$urlOfertaFiltrado=$mysqli->real_escape_string($urlOferta);
@@ -40,22 +44,20 @@ class ofertaObjeto extends producto{
 	}
 
 	public static function buscaOferta($id) {
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = "SELECT * FROM oferta WHERE Numero = '$id'";
-		$result = $mysqli->query($query);
-		*/
+		if(estaLogado() && $_SESSION["esPremium"]) {
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
+		}
+		else{
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id' AND Premium = 0");
+		}
 
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Numero = '$id'");
-		if($result) {
+		if($result && $result->num_rows == 1) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 									$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
 			
 			return $ofertaObj;
 		} else{
-			echo"Error al buscar en la base de datos";
 			return false;
 		}	
 	}
@@ -109,7 +111,7 @@ class ofertaObjeto extends producto{
 	//esta función no debería estar aquí, si no en una clase de vista (en esta clase solo deberiamos tener la logica con el servidor,
 	//no un html que hable con el cliente)
 	public function muestraOfertaString(){
-		$Ruta=RUTA_APP;
+		$Ruta = RUTA_APP;
 		$DIRimagen = $this->muestraURLImagen();
 		
 		$nombreAux = parent::muestraNombre();
@@ -132,7 +134,7 @@ class ofertaObjeto extends producto{
 			</p>
 		EOS;
 		//Si la oferta la tenemos como producto de segunda mano ponemos su enlace
-		if($this->segundaMano != 0){
+		if($this->segundaMano != 0) {
 			$IDSegundaMano = PRODUCTOS.'/productoSegundaMano.php?id='.$this->segundaMano;
 			$productos.=<<<EOS
 				<p>Tenemos el producto en nuestra tienda, <a href="{$IDSegundaMano}" rel="nofollow" >MIRALO.</a></p>

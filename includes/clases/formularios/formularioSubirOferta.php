@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__.'/../config.php';
-require_once RUTA_CLASES.'/form.php';
+
+require_once RUTA_FORMS.'/form.php';
 require_once RUTA_CLASES.'/ofertaObjeto.php';
 
 class formularioSubirOferta extends form{
@@ -40,9 +40,7 @@ class formularioSubirOferta extends form{
     }
 
     protected function procesaFormulario($datos){
-        //Temporal
         //Si hay un link para el artciulo de 2 mano se procesa
-
         $url2Mano;
 
         if(!empty($datos["oferta2ManoUrl"])){

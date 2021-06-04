@@ -1,6 +1,6 @@
 <?php
 
-require_once RUTA_CLASES.'/form.php';
+require_once RUTA_FORMS.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 

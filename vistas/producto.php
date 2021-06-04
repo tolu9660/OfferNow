@@ -3,10 +3,15 @@
 	require RUTA_CLASES.'/ofertaObjeto.php';
 	require_once RUTA_USUARIO.'/usuarios.php';
 
-	$id = $_GET['id'];
+	if(isset($_GET['id'])){
+		//Busca el articulo
+		$id = $_GET['id'];
+		$ofertaObj = ofertaObjeto::buscaOferta($id);
+	}
+	else {
+		$ofertaObj = false;
+	}
 	$productos='';
-	//Busca el articulo
-	$ofertaObj = ofertaObjeto::buscaOferta($id);
 	
 	//Ha devuelto un objeto
 	if($ofertaObj != false) {

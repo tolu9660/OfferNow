@@ -3,10 +3,16 @@
 	require RUTA_CLASES.'/art2ManoObjeto.php';
 	require_once RUTA_USUARIO.'/usuarios.php';
 
-	$id = $_GET['id'];
+	if(isset($_GET['id'])){
+		//Busca el articulo
+		$id = $_GET['id'];
+		$ofertaObj = art2ManoObjeto::buscaArt2Mano($id);
+	}
+	else {
+		$ofertaObj =false;
+	}
 	$productos='';
-	//Busca el articulo
-	$ofertaObj = art2ManoObjeto::buscaArt2Mano($id);
+	
 	//Ha devuelto un objeto
 	if($ofertaObj != false) {
 		$ruta=POSTEAR;

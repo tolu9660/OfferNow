@@ -84,7 +84,6 @@ class ofertaObjeto extends producto{
 				
 				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
 											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
-				
 			}
 			return $ofertasArray;
 		}

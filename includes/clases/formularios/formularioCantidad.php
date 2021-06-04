@@ -9,7 +9,8 @@ class formularioCantidad extends form{
     private $idProducto;
     public function __construct($id) {
         parent::__construct('formCantidad');
-        $this->idProducto=$id;
+         $this->idProducto=$id;
+        $this->cantidad=$cant;
         $this->ok=false;
     }
 
@@ -23,7 +24,7 @@ class formularioCantidad extends form{
         $html = <<<EOF
                     
             <input type="hidden" name="idProducto" value="{$this->idProducto}" />
-            <p>Cantidad: <input type="number" name="cantidad" min="1" value="1"> 
+            <p>Cantidad: <input type="number" name="cantidad" min="1" value="$this->cantidad"> 
                         <input type="submit" value="agregar"></p>
                 
       
@@ -37,11 +38,12 @@ class formularioCantidad extends form{
             
         $cantidad = $datos['cantidad'] ?? '' ;
         $nombreUsuario =$_SESSION['nombre'];
+        $idPro=$datos['idProducto'];
         $this->ok=true;
         //$result= RUTA_APP.'/nuestraTienda.php';
        
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->addCarrito($this->idProducto,$cantidad);     
+        $user->addCarrito($idPro,$cantidad);     
             
         }
         else{

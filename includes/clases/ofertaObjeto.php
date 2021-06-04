@@ -62,16 +62,17 @@ class ofertaObjeto extends producto{
 		}	
 	}
 
-	public static function cargarOfertas($orden, $tipo){
+	public static function cargarOfertas($orden, $tipo, $busquedaPremium = 0){
 		//Array con las posibles ordenaciones
 		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
 		$filtrosTipo = array("ASC", "DESC");
 		//Si $orden esta en $filtrosBusqueda, se ordena con ese orden, sino se ordena por Valoracion
-		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo)){
-			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY $orden $tipo");
+		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo) &&
+		($busquedaPremium == 0 || $busquedaPremium == 1)) {
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = $busquedaPremium ORDER BY $orden $tipo");
 		}
 		else{
-			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY Valoracion DESC");
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = $busquedaPremium ORDER BY Valoracion DESC");
 		}
 
 		$ofertasArray;
@@ -99,6 +100,7 @@ class ofertaObjeto extends producto{
 	}
 
 	//-------------------------------------------PREMIUM----------------------------------------
+	/*
 	public static function cargarOfertasPremium($orden){
 		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden DESC");
 		$ofertasArray;
@@ -115,6 +117,7 @@ class ofertaObjeto extends producto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+	*/
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
 	//esta función no debería estar aquí, si no en una clase de vista (en esta clase solo deberiamos tener la logica con el servidor,

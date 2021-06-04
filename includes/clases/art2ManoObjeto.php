@@ -56,16 +56,19 @@ class art2ManoObjeto extends producto{
 		}
 	}
 
-	public static function cargarProductos2Mano($orden, $tipo){
+	public static function cargarProductos2Mano($orden, $tipo, $busquedaPremium = 0){
 		//Array con las posibles ordenaciones
 		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
 		$filtrosTipo = array("ASC", "DESC");
 		//Si $orden esta en $filtrosBusqueda, se ordena con ese orden, sino se ordena por Valoracion
-		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo)){
-			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden $tipo");
+		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo) &&
+				($busquedaPremium == 0 || $busquedaPremium == 1)) {
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano
+						WHERE Premium = $busquedaPremium ORDER BY $orden $tipo");
 		}
 		else{
-			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY Precio DESC");
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano
+						WHERE Premium = $busquedaPremium ORDER BY Precio DESC");
 		}
 		$ofertasArray;
 		
@@ -83,6 +86,7 @@ class art2ManoObjeto extends producto{
 	}
 
 	//-------------------------------------------PREMIUM----------------------------------------
+	/*
 	public static function cargarArticulos2ManoPremium($orden){
 		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden DESC");
 		$ofertasArray;
@@ -100,6 +104,7 @@ class art2ManoObjeto extends producto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
+	*/
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){

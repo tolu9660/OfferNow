@@ -1,16 +1,13 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
 	require RUTA_CLASES.'/ofertaObjeto.php';
-
-	//Para los botones de ordenar
-	$filtrosBusqueda = array("Nombre","Valoracion","Precio","Fecha");
 	
-	//Carga las ofertas en un array
-	if(isset($_GET['ordenar']) && in_array($_GET['ordenar'], $filtrosBusqueda)) {
-		$ofertasArray = ofertaObjeto::cargarOfertas($_GET['ordenar']);
+	//Carga las ofertas en un array, si hay un metodo de ordenacion se ordena usandolo
+	if(isset($_GET['ordenNombre']) && isset($_GET['ordenTipo'])) {
+		$ofertasArray = ofertaObjeto::cargarOfertas($_GET['ordenNombre'], $_GET['ordenTipo']);
 	}
 	else{
-		$ofertasArray = ofertaObjeto::cargarOfertas("Valoracion");
+		$ofertasArray = ofertaObjeto::cargarOfertas("Valoracion", "DESC");
 	}
 	
 	//Mostrar las ofertas recorriendo el array
@@ -26,17 +23,17 @@
 			$nombreOferta=strval($ofertasArray[$i]->muestraNombre());
 			$precioOferta=strval($ofertasArray[$i]->muestraPrecio());
 			$urlImagen=strval($ofertasArray[$i]->muestraURLImagen());
+			$valoracionOferta=strval($ofertasArray[$i]->muestraValoracion());
 			//URL del producto junto con el id
 			$id = PRODUCTOS.'/producto.php?id='.$ofertasArray[$i]->muestraID();
 			$productos.=<<<EOS
-			
-			<li>
-				<a href=$id rel="nofollow">
-					<img src=$urlImagen width="200" height="200" alt="Producto" />
-					<h3>$nombreOferta</h3>
-					<p>$precioOferta €</p>
-				</a>
-			</li>	
+				<li>
+					<a href=$id rel="nofollow">
+						<img src=$urlImagen width="200" height="200" alt="Producto" />
+						<h3>$nombreOferta</h3>
+						<p>$precioOferta €, Valoracion: $valoracionOferta</p>
+					</a>
+				</li>	
 			EOS;
 		}
 	} else{

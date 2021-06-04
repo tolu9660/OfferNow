@@ -6,13 +6,48 @@
 	?>
 
 	<nav class="menuizq">
-
 	<ul>
-		<h3>Ordenar</h3>
-		<li><a href="#">Valoración</a></li>
-		<li><a href="#">Precio</a></li>
+		<h3>¡¡Ordena los productos!!</h3>
+		<li><a href="#">Valoracion</a></li>
 		<li><a href="#">Fecha</a></li>
-		<li><a href="#">Nombre</a></li>
+		<li>
+			Por precio:
+			<ul>
+				<li>
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
+						<input type="submit", value="Menor primero">
+						<input type="hidden" name="ordenNombre", value = Precio><br>
+						<input type="hidden" name="ordenTipo", value = ASC><br>
+					</form>
+				</li>
+				<li>
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
+						<input type="submit", value="Mayor primero">
+						<input type="hidden" name="ordenNombre", value = Precio><br>
+						<input type="hidden" name="ordenTipo", value = DESC><br>
+					</form>
+					</li>
+				</ul>
+			</li>
+		<li>
+			Por nombre:
+			<ul>
+				<li>
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
+					<input type="submit", value="A-Z">
+						<input type="hidden" name="ordenNombre", value = Nombre><br>
+						<input type="hidden" name="ordenTipo", value = ASC><br>
+					</form>
+				</li>
+				<li>
+					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
+						<input type="submit", value="Z-A">
+						<input type="hidden" name="ordenNombre", value = Nombre><br>
+						<input type="hidden" name="ordenTipo", value = DESC><br>
+					</form>
+				</li>
+			</ul>
+		</li>
 		<?php
 			if(estaLogado()){
 				?>

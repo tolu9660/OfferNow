@@ -2,8 +2,13 @@
 	require_once __DIR__.'/includes/config.php';
 	require RUTA_CLASES.'/art2ManoObjeto.php';
 
-	//Carga los productos en un array
-	$ofertasArray = art2ManoObjeto::cargarProductos2Mano("Precio");
+	//Carga los productos en un array, si hay un metodo de ordenacion se ordena usandolo
+	if(isset($_GET['ordenar'])) {
+		$ofertasArray = art2ManoObjeto::cargarProductos2Mano($_GET['ordenar']);
+	}
+	else{
+		$ofertasArray = art2ManoObjeto::cargarProductos2Mano("Precio");
+	}
 	
 	//Mostrar los productos
 	$tituloPagina = 'Nuestra tienda';

@@ -62,10 +62,19 @@ class ofertaObjeto extends producto{
 		}	
 	}
 
-	public static function cargarOfertas($orden){
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY $orden");
+	public static function cargarOfertas($orden, $tipo){
+		//Array con las posibles ordenaciones
+		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
+		$filtrosTipo = array("ASC", "DESC");
+		//Si $orden esta en $filtrosBusqueda, se ordena con ese orden, sino se ordena por Valoracion
+		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo)){
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY $orden $tipo");
+		}
+		else{
+			$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 0 ORDER BY Valoracion DESC");
+		}
+
 		$ofertasArray;
-		
 		if($result != null) {
 			for ($i = 0; $i < $result->num_rows; $i++) {
 				$fila = $result->fetch_assoc();
@@ -91,7 +100,7 @@ class ofertaObjeto extends producto{
 
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarOfertasPremium($orden){
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden DESC");
 		$ofertasArray;
 	
 		if($result != null) {

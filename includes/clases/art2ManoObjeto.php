@@ -63,7 +63,7 @@ class art2ManoObjeto extends producto{
 		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
 		$result = $mysqli->query($query);
 		*/
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden DESC");
 
 		$ofertasArray;
 		
@@ -82,7 +82,7 @@ class art2ManoObjeto extends producto{
 
 	//-------------------------------------------PREMIUM----------------------------------------
 	public static function cargarArticulos2ManoPremium($orden){
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden");
+		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden DESC");
 		$ofertasArray;
 		
 		if($result) {

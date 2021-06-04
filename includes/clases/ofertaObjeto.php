@@ -62,6 +62,8 @@ class ofertaObjeto extends producto{
 		}	
 	}
 
+	/*$busquedaPremium = 0 -> por defecto busca los no premium y cuando queremos que busque los
+	premium le pasamos un 1*/
 	public static function cargarOfertas($orden, $tipo, $busquedaPremium = 0){
 		//Array con las posibles ordenaciones
 		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
@@ -98,26 +100,6 @@ class ofertaObjeto extends producto{
 		$valoracion = $result->fetch_object()->Valoracion + 1;
 		parent::hacerConsulta("UPDATE oferta SET Valoracion = $valoracion WHERE Numero = $idOferta");
 	}
-
-	//-------------------------------------------PREMIUM----------------------------------------
-	/*
-	public static function cargarOfertasPremium($orden){
-		$result = parent::hacerConsulta("SELECT * FROM oferta WHERE Premium = 1 ORDER BY $orden DESC");
-		$ofertasArray;
-	
-		if($result != null) {
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new ofertaObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],$fila['URL_Oferta'],
-											$fila['URL_Imagen'],$fila['Valoracion'],$fila['Precio'],$fila['Creador'],$fila['ID2Mano']);
-			}
-			return $ofertasArray;
-		}
-		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
-		}
-	}
-	*/
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
 	//esta función no debería estar aquí, si no en una clase de vista (en esta clase solo deberiamos tener la logica con el servidor,

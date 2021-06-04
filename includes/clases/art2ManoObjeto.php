@@ -56,9 +56,14 @@ class art2ManoObjeto extends producto{
 		}
 	}
 
+	/*$busquedaPremium = 0 -> por defecto busca los no premium y cuando queremos que busque los
+	premium le pasamos un 1*/
 	public static function cargarProductos2Mano($orden, $tipo, $busquedaPremium = 0){
 		//Array con las posibles ordenaciones
-		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
+		if($orden === "Valoracion"){
+			$orden = "Unidades";
+		}
+		$filtrosBusqueda = array("Nombre","Unidades","Precio","Numero");
 		$filtrosTipo = array("ASC", "DESC");
 		//Si $orden esta en $filtrosBusqueda, se ordena con ese orden, sino se ordena por Valoracion
 		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo) &&
@@ -84,27 +89,6 @@ class art2ManoObjeto extends producto{
 			echo "Error in ".$query."<br>".$mysqli->error;
 		}
 	}
-
-	//-------------------------------------------PREMIUM----------------------------------------
-	/*
-	public static function cargarArticulos2ManoPremium($orden){
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium  = 1 ORDER BY $orden DESC");
-		$ofertasArray;
-		
-		if($result) {
-			for ($i = 0; $i < $result->num_rows; $i++) {
-				$fila = $result->fetch_assoc();
-				$ofertasArray[] = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
-									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
-									
-			}
-			return $ofertasArray;
-		}
-		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
-		}
-	}
-	*/
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		
 	public function muestraOfertaString(){

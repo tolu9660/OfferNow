@@ -4,12 +4,38 @@ require_once RUTA_CLASES.'/productoObjeto.php';
 require_once RUTA_CLASES.'/art2ManoObjeto.php';
 
 class carritoObjeto{
+
+    public static function listaDePedidos($userId){
+        $app = aplicacion::getSingleton();
+		$mysqli = $app->conexionBd(); 
+        $consultaCarritoPedidos = sprintf("SELECT * FROM carrito WHERE  Comprado=1 and idUsuario='%s'",
+        $mysqli->real_escape_string($userId));
+        $result = $mysqli->query($consultaCarritoPedidos);
+        $ListaPedidos;
+
+        if(($result && $result->num_rows >0)  ){
+
+            for($i=0; $i < $result->num_rows; $i++){
+                
+                $fila=$result->fetch_assoc();
+                $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
+                $ListaPedidos[$i]=$producto;
+
+            }
+        }
+        else{
+            $ListaPedidos="vacia";
+        }
+    return $ListaPedidos;
+    }
+
+
     private $id;
     private $contador;
-    private $contDeseos;
+
     private $usuario;
     private $productos;
-    private $listaDeseos;
+
 
     function __construct($userId) {
 
@@ -17,7 +43,7 @@ class carritoObjeto{
 		$this->contador =0;
         $this->contDeseos=0;
         $this->productos=array();
-        $this->listaDeseos=array();  
+         
 	}
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
@@ -64,28 +90,10 @@ class carritoObjeto{
             return false;
         }
 
-        /*$enc=false;
-        $i=0;
-        while(!$enc && $i< $this->cont){
-            if( $this->productos[$i]==$producto){
-                $enc=true;
-            }
-            else{
-                $i++;
-            }
-        }
-        if($enc){
-            unset($this->productos[$i]);
-        }
-        else{
-            echo "no se encuentra el producto en el carrito";
-        }*/
+       
 
     }
-    public function agregarListaDeseos($producto){
-        $this->listaDeseos[$this->contDeseos]=$producto;
-        $this->contDeseos++;
-    }
+  
 
     public function getCont(){
         return $this->contador;

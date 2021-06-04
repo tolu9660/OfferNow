@@ -19,9 +19,11 @@ class formularioConfiguracion extends form{
         $correo=$user->idCorreo();
         $calle= $user->Direccion();//str_replace(' ', '-nº', $user->Direccion());
         if($user->getPremium()){
+       
             $esPremium="Eres premium";
         }
         else{
+            echo "premium";
             $ruta = SESION.'/premium.php';
             $esPremium=<<<EOS
                 Puedes serlo pinchando aqui <a href="$ruta">Hazte premium;</a>
@@ -41,7 +43,7 @@ class formularioConfiguracion extends form{
             <label>Direccion: </label>$calle[0]  <label> Nº</label> $calle[1] 
             $errorDireccion
             </p> 
-            <p><label>Eres premium: </label> $esPremium</p>  
+            <p><label>Rango: </label> $esPremium</p>  
             
             $htmlErroresGlobales
             <button type="submit" name="login">Cambiar</button>

@@ -15,10 +15,6 @@ class formularioEliminarCarrito extends form{
 
     protected function generaCamposFormulario($datos, $errores = array()){
    
-        // Se generan los mensajes de error si existen.
-        $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorDireccion = self::createMensajeError($errores, 'quitarCarrito', 'span', array('class' => 'error'));
-        /*mostrar el contenido previo*/
         $html = <<<EOF
             <input type="hidden" name="idProducto" value="{$this->idProducto}"/>
             <input type="submit" value="eliminar producto"></p>
@@ -34,9 +30,9 @@ class formularioEliminarCarrito extends form{
         $nombreUsuario =$_SESSION['nombre'];
 
         $this->ok=true;
-       
+        $idPro=$datos['idProducto'];
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->quitarCarrito($this->idProducto);     
+        $user->quitarCarrito($idPro);     
             
         }
         else{

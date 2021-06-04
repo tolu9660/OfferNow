@@ -7,7 +7,7 @@ require_once RUTA_FORMS.'/formularioAniadeCarrito.php';
 
 class art2ManoObjeto extends producto{
 	private $unidades;
-	
+	private $cantidad;
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
 		$this->unidades = $unidades;
@@ -50,6 +50,15 @@ class art2ManoObjeto extends producto{
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
+									$resultCant = parent::hacerConsulta("SELECT unidades FROM carrito WHERE idProducto = '$id'");
+			if($resultCant && $resultCant->num_rows == 1){
+			
+				$filacant = $resultCant->fetch_assoc();
+				$cantidad=$filacant['unidades'];
+				$ofertaObj->agregarCantidad($cantidad);
+
+			}
+			
 			return $ofertaObj;
 		} else{
 			return false;
@@ -118,7 +127,12 @@ class art2ManoObjeto extends producto{
 	public function muestraUnidades() {
 		return $this->unidades;
 	}
-	
+	public function agregarCantidad($cant) {
+		$this->cantidad=$cant;
+	}
+	public function cantidad() {
+		return 	$this->cantidad;
+	}
 	public function muestraURLImagen() {
 		$DIRimagen=RUTA_IMGS."/art2mano/";
 		$DIRimagen.=parent::muestraURLImagen();

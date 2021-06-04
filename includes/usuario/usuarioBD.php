@@ -10,15 +10,9 @@ class usuario{
 	private $password;
 
   public static function login($username, $password){
-    //echo "nombre usuario ".$username."  ";
-    //echo $password;
+    
     $user = self::buscaUsuario($username);
-    //la clase usuario está creada:
-    //echo "\ncorreo: ".$user->idCorreo();
-    //echo "\nnombre: ".$user->nombre();
-   //IR AL METODO DE COMPROBACION DE CONTRASEÑA:
-   //echo "\n CONTRASEÑA: ".$user->contra();
-  
+   
     if ($user && $user->compruebaPassword($password)) {
       $app = aplicacion::getSingleton();
 		  $conn = $app->conexionBd();
@@ -30,11 +24,13 @@ class usuario{
       //echo $consultaEsAdmin;
       if ($rs){
         $fila1 = $rs->fetch_assoc();
-        //echo "DATOS LEIDOS\n". "es admin:".$fila1['Admin']. "\t ".$fila2["Premium"];
+     
         if($fila1['Admin']==1){
+         
           $user->esAdmin();
         }
         if($fila1['Premium']==1){
+        
           $user->esPremium();
         }
         //para comprobar que los atributos se estan volcando correctamente
@@ -66,6 +62,14 @@ class usuario{
       $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']
                   /*, $fila['Premium'], $fila['Admin']*/);
       $user->setPass($fila['Contraseña']);
+      if($fila['Admin']==1){
+         
+        $user->esAdmin();
+      }
+      if($fila['Premium']==1){
+    
+        $user->esPremium();
+      }
       $rs->free();
      
       return $user;
@@ -213,6 +217,10 @@ class usuario{
               echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
               return false;
             }
+  }
+  public function listarPedidos(){
+   $pedidos=carritoObjeto::listaDePedidos($this->idCorreo);
+    return $pedidos;
   }
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);

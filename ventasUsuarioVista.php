@@ -28,12 +28,12 @@
 					<p>$precioArticulo €</p>
 					<form method="post" action="procesarAdmitirVentasUsuario.php">
 						<input type="hidden" name="id" value=$id>
-						<img src="../imagenes/iconos/ok.png" width="15" height="15" alt="tick"/> 
+						<img src="imagenes/iconos/ok.png" width="15" height="15" alt="tick"/> 
 						<input type="submit" value="Aceptar compra">
 					</form>
 					<form method="post" action="procesarDenegarVentasUsuario.php">
 						<input type="hidden" name="id" value=$id>
-						<img src="../imagenes/iconos/cruz.png" width="15" height="15" alt="tick"/> 
+						<img src="imagenes/iconos/cruz.png" width="15" height="15" alt="cruz"/> 
 						<input type="submit" value="Rechazar compra">
 					</form>
 				</a>

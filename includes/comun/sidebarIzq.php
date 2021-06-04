@@ -12,23 +12,17 @@
 		<li><a href="#">Fecha</a></li>
 		<li>
 			Por precio:
-			<ul>
-				<li>
 					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
 						<input type="submit", value="Menor primero">
 						<input type="hidden" name="ordenNombre", value = Precio><br>
 						<input type="hidden" name="ordenTipo", value = ASC><br>
 					</form>
-				</li>
-				<li>
 					<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
 						<input type="submit", value="Mayor primero">
 						<input type="hidden" name="ordenNombre", value = Precio><br>
 						<input type="hidden" name="ordenTipo", value = DESC><br>
 					</form>
-					</li>
-				</ul>
-			</li>
+		</li>
 		<li>
 			Por nombre:
 			<ul>

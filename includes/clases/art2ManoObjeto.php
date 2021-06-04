@@ -56,15 +56,17 @@ class art2ManoObjeto extends producto{
 		}
 	}
 
-	public static function cargarProductos2Mano($orden){
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$query = sprintf("SELECT * FROM articulos_segunda_mano ORDER BY $orden");
-		$result = $mysqli->query($query);
-		*/
-		$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden DESC");
-
+	public static function cargarProductos2Mano($orden, $tipo){
+		//Array con las posibles ordenaciones
+		$filtrosBusqueda = array("Nombre","Valoracion","Precio","Numero");
+		$filtrosTipo = array("ASC", "DESC");
+		//Si $orden esta en $filtrosBusqueda, se ordena con ese orden, sino se ordena por Valoracion
+		if(in_array($orden, $filtrosBusqueda) && in_array($tipo, $filtrosTipo)){
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY $orden $tipo");
+		}
+		else{
+			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Premium = 0 ORDER BY Precio DESC");
+		}
 		$ofertasArray;
 		
 		if($result) {

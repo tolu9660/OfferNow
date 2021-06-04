@@ -3,11 +3,11 @@
 	require RUTA_CLASES.'/art2ManoObjeto.php';
 
 	//Carga los productos en un array, si hay un metodo de ordenacion se ordena usandolo
-	if(isset($_GET['ordenar'])) {
-		$ofertasArray = art2ManoObjeto::cargarProductos2Mano($_GET['ordenar']);
+	if(isset($_GET['ordenNombre']) && isset($_GET['ordenTipo'])) {
+		$ofertasArray = art2ManoObjeto::cargarProductos2Mano($_GET['ordenNombre'], $_GET['ordenTipo']);
 	}
 	else{
-		$ofertasArray = art2ManoObjeto::cargarProductos2Mano("Precio");
+		$ofertasArray = art2ManoObjeto::cargarProductos2Mano("Precio", "DESC");
 	}
 	
 	//Mostrar los productos

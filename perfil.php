@@ -9,13 +9,14 @@
     $IconoConfiguracion=RUTA_ICONOS.'/inicioSeguridad.png';
     $rutaConfiguracion=SESION.'/configuracion.php';
     $rutaDirecciones=SESION.'/direcciones.php';
+    $rutaMispedidos=SESION.'/misPedidos.php';
    
     if (isset($_SESSION["login"]) ) {
         $contenidoPrincipal=<<<EOS
         <div id="contenedor">
             <ul class="rejillaPerfil">
             <li>
-                <a href=# rel="nofollow">
+                <a href=$rutaMispedidos rel="nofollow">
                     <img src=$IconoPedido width="100" height="100" alt="Pedidos" />
                     <h3>MIS PEDIDOS</h3>
                     <p>Los pedidos que has realizado</p>

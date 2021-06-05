@@ -54,8 +54,7 @@ class carritoObjeto{
         $mysqli = $app->conexionBd(); 
         $sql;
        
-        if($cantidad===1){    
-            echo "aqui" ;   
+        if($cantidad===1){       
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
             $this->contador++;       
             $sql=" INSERT INTO carrito (idProducto,idUsuario,Comprado,unidades)

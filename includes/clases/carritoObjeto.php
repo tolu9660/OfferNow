@@ -19,6 +19,7 @@ class carritoObjeto{
                 
                 $fila=$result->fetch_assoc();
                 $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
+                $producto->agregarCantidad($fila['unidades']);
                 $ListaPedidos[$i]=$producto;
 
             }

@@ -8,23 +8,40 @@
     $listaPedidos=$user->listarPedidos();
     $productos=<<<EOS
     <div id="contenedor">
-        <ul class="rejilla">
+	<table>
+	<caption>TUS PEDIDOS REALIZADOS</caption>
+			<thead>
+				<tr>
+					<th>PRODUCTO</th>
+					<th>PRECIO</th>
+					<th>UNIDADES</th>
+				
 EOS;
     if(is_array($listaPedidos)) {
         for ($i = 0; $i < sizeof($listaPedidos); $i++) {
 			$nombreOferta=strval($listaPedidos[$i]->muestraNombre());
 			$precioOferta=strval($listaPedidos[$i]->muestraPrecio());
 			$urlImagen=strval($listaPedidos[$i]->muestraURLImagen());
+			$cantidad=$listaPedidos[$i]->cantidad();
 			//URL del producto junto con el id
 			$id = PRODUCTOS.'/productoSegundaMano.php?id='.$listaPedidos[$i]->muestraID();
 			$productos.=<<<EOS
-				<li>
-					<a href=$id rel="nofollow">
-						<img src=$urlImagen width="200" height="200" alt="Producto" />
-						<h3>$nombreOferta</h3>
-						<p>$precioOferta €
-					</a>
-				</li>	
+			<tr>
+				<div class="imgProducto">
+					<td><a href=$id rel="nofollow"> <img src=$urlImagen width="150" height="150" alt="Producto" /></a> </td>
+				</div>
+				<div class="info">
+					<div class="precio">
+						<td>$precioOferta € </td>
+					</div>
+				</div>
+				<div class="cantidad">
+				<td>
+				$cantidad
+				</td>
+				</div>
+			</tr>
+				
 			EOS;
 		}
 

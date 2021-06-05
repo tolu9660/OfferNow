@@ -224,6 +224,20 @@ class usuario{
   }
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
+    
+    
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd();
+    $sql="UPDATE usuario SET Contraseña='$this->password'
+    WHERE Correo='$this->idCorreo'";
+          	if (mysqli_query($mysqli, $sql)) {
+              //$mysqli->close();
+              return true;
+            } else {
+              //$mysqli->close();
+              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+              return false;
+            }
   }
   public function precio(){
     return $this->carrito->precioTotal();

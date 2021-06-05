@@ -32,7 +32,11 @@ class formularioConfiguracion extends form{
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorDireccion = self::createMensajeError($errores, 'NuevoNombre', 'span', array('class' => 'error'));
-       
+        
+        $errorPasswordOld = self::createMensajeError($errores, 'passwordOld', 'span', array('class' => 'error'));
+        $errorPassword = self::createMensajeError($errores, 'password1', 'span', array('class' => 'error'));
+        $errorPassword2 = self::createMensajeError($errores, 'password2', 'span', array('class' => 'error'));
+
         /*mostrar el contenido previo*/
         $html = <<<EOF
         <div class="iniciosesion">
@@ -44,6 +48,11 @@ class formularioConfiguracion extends form{
             $errorDireccion
             </p> 
             <p><label>Rango: </label> $esPremium</p>  
+            <p>CAMBIAR CONTRASEÑA</p>
+            <p><label>Contraseña Antigua:</label> <input type="password" name="passwordOld" />$errorPasswordOld</p>
+            <p><label>Contraseña:</label> <input type="password" name="password1" />$errorPassword</p>
+            
+            <p><label>Confirmar contraseña:</label> <input type="password" name="password2" />$errorPassword2</p>
             
             $htmlErroresGlobales
             <button type="submit" name="login">Cambiar</button>
@@ -57,20 +66,50 @@ class formularioConfiguracion extends form{
         $result = array();
         
         $nuevoNombre =$datos['NuevoNombre'] ?? null;
-        
+        $OldPass=$datos['passwordOld'] ?? null;
+        $changePass=false;
         if ( empty($nuevoNombre) ) {
             $result['NuevoNombre'] = "El campo correo no puede estar vacia";
         }
-       
+        if(!empty($OldPass)){
+            $password1 = isset($datos["password1"]) ? $datos["password1"] : null;
+            if ( empty($password1) || mb_strlen($password1) < 5 ) {
+                $result['password1'] = "El password tiene que tener una longitud de al menos 5 caracteres.";
+            }
+            $password2 = isset($datos['password2']) ? $datos['password2'] : null;
+            if ( empty($password2) || strcmp($password1, $password2) !== 0 ) {
+                $result['password2'] = "Los passwords deben coincidir";
+            }
+            if (count($result) === 0) {
+                $changePass=true;
+              
+            }
+
+        }
+      
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
+         
             $nombreUsuario =$_SESSION['nombre'];
             $user=usuario::buscaUsuario($nombreUsuario);
             if($user->cambiarNombre($nuevoNombre)){
+              
+                if($changePass){
+                  
+                    if($user->compruebaPassword($OldPass)) {
+                   
+              
+                    $user->cambiaPassword($password1);
+                    }
+                    else{
+                        $result['passwordOld']="No valida";
+                    }
+                }
                 $result = RUTA_APP.'/perfil.php';
             }
+          
             else{
-                $result[]="no se ha podido cambiar la direccion";
+                $result[]="no se ha podido realizar cambios";
             }            
         }
         return $result;

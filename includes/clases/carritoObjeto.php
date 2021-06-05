@@ -49,18 +49,51 @@ class carritoObjeto{
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
     // que encuentre
+    public function ComprutebaCantidadProducto($producto){
+        $app = aplicacion::getSingleton();
+		$mysqli = $app->conexionBd(); 
+        $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
+                    $mysqli->real_escape_string($this->usuario));
+           
+        $result1 = $mysqli->query($consultaCarritoCount);
+        $fila1=$result1->fetch_assoc();
+        if($fila1['total']>0 ){
+           return true;
+        }
+        else{
+            return false;
+        }
+
+    }
     public function AgregarCarrito($producto,$cantidad) {   
         $app = aplicacion::getSingleton();
         $mysqli = $app->conexionBd(); 
         $sql;
-       
-        if($cantidad===1){       
+        //cantidad=0 -> inserto un nuevo producto
+       //cantidad=1 -> incremento en 1 las unidades del producto
+       //cantidad!=0 -> modifico con la cantidad adecuada
+
+        if($cantidad===0){       
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
             $this->contador++;       
             $sql=" INSERT INTO carrito (idProducto,idUsuario,Comprado,unidades)
-            VALUES ('$producto','$this->usuario',0,'$cantidad')";
+            VALUES ('$producto','$this->usuario',0,1)";
          
-        }else{
+        }
+        elseif($cantidad===1){
+            
+            $consultaCarritoCount = sprintf("SELECT unidades FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
+            $mysqli->real_escape_string($this->usuario));
+            
+            $result1 = $mysqli->query($consultaCarritoCount);
+            $fila1=$result1->fetch_assoc();
+            $cont=$fila1['unidades'];
+            $cont=$cont+1;
+            $sql=sprintf("UPDATE carrito SET unidades='$cont' WHERE IdProducto='$producto'and idUsuario='%s'",
+            $mysqli->real_escape_string($this->usuario));
+            
+        }
+        else{
            
             $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'";         
         }
@@ -72,6 +105,7 @@ class carritoObjeto{
         }
 
     }
+ 
   
     public function eliminarCarrito($producto){
         $app = aplicacion::getSingleton();

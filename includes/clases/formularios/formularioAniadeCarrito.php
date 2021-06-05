@@ -39,7 +39,7 @@ class formularioAniadeCarrito extends form{
         $result= RUTA_APP.'/nuestraTienda.php';
        
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->addCarrito($idProducto);     
+        $user->addCarrito($idProducto,0);     
             
         }
         else{

@@ -249,7 +249,20 @@ class usuario{
 
   }
   public function addCarrito($idProducto,$cantidad=1){
-    $this->carrito->AgregarCarrito($idProducto,$cantidad);
+    //actualizo
+    if(!$this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
+      
+        $this->carrito->AgregarCarrito($idProducto,0);
+  
+    }
+    elseif($this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
+      echo "aqui";
+      $this->carrito->AgregarCarrito($idProducto,1);
+    }
+    else{
+      $this->carrito->AgregarCarrito($idProducto,$cantidad);
+  
+    }
   }
 
   public function quitarCarrito($idProducto){

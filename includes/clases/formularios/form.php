@@ -86,16 +86,16 @@ abstract class form
                 $mensaje = $this->muestraResultadoCorrecto();
                 //Si es false no se muestra la alerta y solo se redirige
                 if($mensaje == false){
-                    //header("Location:$result");
-                    //exit();
+                    header("Location:$result");
+                    exit();
                 }
                 //Sino se muestra la alerta y se redirige
                 else{
                     ?>
                     <script type="text/javascript">
-                       // alert("<?php echo $mensaje; ?>");
+                        alert("<?php echo $mensaje; ?>");
                         //descomentar estas lineas-> redireccion
-                        //window.location.href="<?php echo $result;?>";
+                        window.location.href="<?php echo $result;?>";
                     </script>
                 <?php
                 }

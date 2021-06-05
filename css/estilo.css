@@ -79,7 +79,7 @@ div.contenedor {
 	display: flex;
 	flex-flow: row;
 	align-items: stretch;
-	min-height: 80%;
+	flex-basis: 80%;
 	background-color: white; /*rgb(197, 145, 235);*/
 	min-height: calc(100vh - 100px - 60px);
 	min-width: 100vh;
@@ -97,7 +97,7 @@ div.subirOferta{
 	margin-bottom:3%;
 }
 div.cabecera{
-	height:20%;
+	flex-basis:20%;
 	min-width: 100vh;
 }
 
@@ -109,9 +109,8 @@ div.general{
 
 div.producto{
 	flex-basis: 90%;
-
-	
 }
+
 
 div#contenedor1 {
 	width: auto;
@@ -187,8 +186,6 @@ div.sesion{
 
 }
 
-
-
 div.imgProducto{
 	width:0%;
 	background-color: #d10d0d;
@@ -201,6 +198,7 @@ div.imgProducto{
 	color: #a80b0b;
 
 }
+
 div.desProducto{
 	
 	margin-right: 30%;

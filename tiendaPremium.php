@@ -7,9 +7,13 @@
 	$productos = '';
 	//------------------------------Carga de articulos 2 mano premium-----------------------------------------
 		$productos.=<<<EOS
-			<div="contenedor">
-			<h3>¡¡¡Aqui puedes ver todos los articulos de segunda mano para usuarios Premium!!!</h3>
+
+			<div="producto">
 			<ul class="rejilla">
+			<h2>¡¡¡Aqui puedes ver todos los articulos de segunda mano para usuarios Premium!!!</h2>
+			</ul>
+			<ul class="rejilla">
+			
 		EOS;
 
 		//Carga los productos de 2 mano en un array
@@ -42,15 +46,17 @@
 		}
 
 	//----------------------------------Carga de ofertas premium---------------------------------------------
-		/* Descomentar cuando esté hecho el css
+		//Descomentar cuando esté hecho el css
 		$productos.=<<<EOS
-				</ul>
-				</div>
-				<div="contenedor">
-				<h3>¡¡¡Aqui puedes ver todas ofertas para usuarios Premium!!!</h3>
+		</ul>
+				<div="producto">
 				<ul class="rejilla">
+				<h2>¡¡¡Aqui puedes ver todas ofertas para usuarios Premium!!!</h2>
+				</ul>
+				<ul class="rejilla">
+				
 		EOS;
-		*/
+		
 		//Carga las ofertas en un array
 		if(isset($_GET['ordenNombre']) && isset($_GET['ordenTipo'])) {
 			$ofertasArray = ofertaObjeto::cargarOfertas($_GET['ordenNombre'], $_GET['ordenTipo'], 1);

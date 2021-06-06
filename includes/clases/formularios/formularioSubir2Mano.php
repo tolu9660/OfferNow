@@ -22,6 +22,7 @@ class formularioSubir2Mano extends form{
                     <input type="number" name="articuloUnidades"/>
                     <p>Imagen:</p>
                     <input type="file" name="productoImagen"/>
+                    <p><input type="checkbox" name="premium" value="false">¿Es Premium?</p>
                     
                     <p><input type="submit" value="Publicar"></p>
             </div>
@@ -38,10 +39,19 @@ class formularioSubir2Mano extends form{
         $descripcion = htmlspecialchars(trim(strip_tags($datos["articuloDescripcion"])));
         $unidades = htmlspecialchars(trim(strip_tags($datos["articuloUnidades"])));
         $precio = htmlspecialchars(trim(strip_tags($datos["articuloPrecio"])));
-        //$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
+
+        if(isset($_POST['premium'])){
+            $esPremium = true;
+        }
+        else{
+            $esPremium = false;
+        }
         
-        if(aplicacion::comprobarImagen("/art2mano/")){
-            if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$_FILES["productoImagen"]["name"])) {
+        //$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
+        $nombreNuevo = aplicacion::comprobarImagen("/art2mano/");
+        if($nombreNuevo != false){
+            if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades,
+                        $precio, $nombreNuevo, $esPremium)) {
                 $result = RUTA_APP.'/nuestraTienda.php';
             } else {
                 $result[]="Error: al crear articulo de segunda mano";

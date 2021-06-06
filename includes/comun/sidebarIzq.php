@@ -69,15 +69,17 @@
 				<li><a href= "<?=RUTA_APP.'/vistas/peticionVentaArticulo.php'?>">¡¡Vendenos un articulo!!</a></li>
 				<?php
 			}
-			if(estaLogado() && ($_SESSION['esAdmin'])){
-				?>
-				<li><a href= "<?=RUTA_APP.'/vistas/subirArticulo2Mano.php'?>">Publica un articulo de segunda mano</a></li>
-				<li><a href= "<?=RUTA_APP.'/ventasUsuarioVista.php'?>">Valida solicitudes de compra</a></li>
-				<?php
-			}
 			if(estaLogado() && ($_SESSION['esPremium'])){
 				?>
+				<h4>Opciones premium:</h4>
 				<li><a href= "<?=RUTA_APP.'/tiendaPremium.php'?>">Comprueba las ofertas Premium!!</a></li>
+				<?php
+			}
+			if(estaLogado() && ($_SESSION['esAdmin'])){
+				?>
+				<h4>Opciones de administrador:</h4>
+				<li><a href= "<?=RUTA_APP.'/vistas/subirArticulo2Mano.php'?>">Publica un articulo de segunda mano</a></li>
+				<li><a href= "<?=RUTA_APP.'/ventasUsuarioVista.php'?>">Valida solicitudes de compra</a></li>
 				<?php
 			}
 		?>

@@ -14,7 +14,7 @@ class art2ManoObjeto extends producto{
 	}
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------
-	public static function subeArt2ManoBD($nombre,$descripcion,$unidades ,$precio,	$imagen) {
+	public static function subeArt2ManoBD($nombre, $descripcion, $unidades, $precio, $imagen, $esPremium) {
 		//NECESARIO PARA EL FILTRADO
 		$app = Aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();
@@ -26,9 +26,9 @@ class art2ManoObjeto extends producto{
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
 
 		$result = parent::hacerConsulta("INSERT INTO articulos_segunda_mano (Nombre, Descripcion, Unidades,
-											Precio, Imagen)
+											Precio, Imagen, Premium)
 										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
-											'$precioFiltrado', '$imagenFiltrado')");
+											'$precioFiltrado', '$imagenFiltrado', '$esPremium')");
 		
 		if ($result != null) {
 			return true;

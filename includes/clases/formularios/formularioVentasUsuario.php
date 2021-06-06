@@ -11,7 +11,7 @@ class formularioVentasUsuario extends form{
 
     protected function generaCamposFormulario($datos, $errores = array()){
         //Carga los productos en un array
-        $ofertasArray = posiblesVentasObjeto::cargarPosiblesCompras("Precio");
+        $ofertasArray = posiblesVentasObjeto::cargarPosiblesCompras("Numero");
 
         //Si hay peticiones de venta
         if($ofertasArray != null){
@@ -22,19 +22,13 @@ class formularioVentasUsuario extends form{
             $mensaje = "<h3> No hay posibles compras para ser validadas </h3>";
         }
         //Muestra el primer producto
-        
-        $html=<<<EOS
-            <div="contenedor">
-            <h3>¡¡¡Valida las solicitudes de compra de otros usuarios!!!</h3>
-            $mensaje
-            <ul class="rejilla">
-        EOS;
         if($numOfertas > 0) {
-            //URL del producto junto con el id
             $id = $ofertasArray[0]->muestraID();
             $objString = $ofertasArray[0]->muestraPosibleCompraString();
-            $html.=<<<EOS
-                <li>
+            $html=<<<EOS
+                <h3>¡¡¡Valida las solicitudes de compra de otros usuarios!!!</h3>
+                $mensaje
+                <div class="rejilla">
                     <a>
                         $objString
                         <input type="hidden" name="idVenta" value=$id>
@@ -43,8 +37,11 @@ class formularioVentasUsuario extends form{
                         <p><input type="checkbox" name="premium" value="false">¿Hacerlo Premium?</p>
                         <p><input type="submit" value="Gestionar peticion"></p>
                     </a>
-                </li>
+                </div>
             EOS;
+        }
+        else{
+            $html = $mensaje;
         }
         return $html;
     }
@@ -52,7 +49,7 @@ class formularioVentasUsuario extends form{
     protected function procesaFormulario($datos){
         $result = array();
         //Acepta la venta
-        if(isset($datos["accion"]) && ($datos["accion"] === true)){
+        if(isset($datos["accion"]) && ($datos["accion"] == "true")){
             $id2Mano = htmlspecialchars(trim(strip_tags($_POST["idVenta"])));
             if(isset($_POST['premium'])){
                 $esPremium = true;
@@ -68,7 +65,6 @@ class formularioVentasUsuario extends form{
         }
         //Deniega la venta
         else{
-            echo"rechazooooooooooo";
             $id2Mano = htmlspecialchars(trim(strip_tags($_POST["idVenta"])));
             if(posiblesVentasObjeto::rechazaCompra($id2Mano)){
                 $result = RUTA_APP.'/ventasUsuarioVista.php';

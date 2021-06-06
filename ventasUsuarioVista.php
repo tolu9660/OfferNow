@@ -2,8 +2,7 @@
 	require_once __DIR__.'/includes/config.php';
 	require_once RUTA_FORMS.'/formularioVentasUsuario.php';
 
-	$tituloPagina = 'subirOferta';
-	
+	$tituloPagina = 'Validar solicitudes de compra';
 	//////////////////implementacion:				
 	$form = new formularioVentasUsuario();
 	$htmlFormOferta = $form->gestiona();

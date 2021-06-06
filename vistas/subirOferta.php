@@ -2,7 +2,7 @@
 	require_once __DIR__.'/../includes/config.php';
 	require_once RUTA_FORMS.'/formularioSubirOferta.php';
 
-	$tituloPagina = 'subirOferta';
+	$tituloPagina = 'Subir Oferta';
 	
 //////////////////implementacion:
 $form = new formularioSubirOferta();

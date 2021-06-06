@@ -45,20 +45,11 @@ class posiblesVentasObjeto extends producto{
 		$precioFiltrado=$mysqli->real_escape_string($precio);
 		$imagenFiltrado=$mysqli->real_escape_string($imagen);
 		$usuarioFiltrado=$mysqli->real_escape_string($usuario);
-	
-		/*
-		$app = Aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$sql = "INSERT INTO posiblescompras (Nombre, Descripcion, Unidades, Precio, Imagen, UsuarioVendedor)
-						VALUES ('$nombreFiltrado', '$descripcionFiltrado',
-							'$unidadesFiltrado', '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')";
-		*/
 
 		$result = parent::hacerConsulta("INSERT INTO posiblescompras (Nombre, Descripcion, Unidades,
                                             Precio, Imagen, UsuarioVendedor)
 		                                VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
                                             '$precioFiltrado', '$imagenFiltrado', '$usuarioFiltrado')");
-
 		if ($result != null) {
 			return true;
 		} else {
@@ -80,7 +71,7 @@ class posiblesVentasObjeto extends producto{
 	}
 
 	//Valida o rechaza las compras
-	public static function aceptaCompra($id2Mano) {
+	public static function aceptaCompra($id2Mano, $esPremium) {
 		//Añadir el producto a la tabla de articulos segunda mano
 		//Busca el objeto en la bd
 		$result = parent::hacerConsulta("SELECT * FROM posiblescompras WHERE Numero = '$id2Mano'");
@@ -90,7 +81,7 @@ class posiblesVentasObjeto extends producto{
 			$vendedor = $fila['UsuarioVendedor'];
 			//Sube el objeto comprado a la bd
 			art2ManoObjeto::subeArt2ManoBD($fila['Nombre'],$fila['Descripcion'],
-							$fila['Unidades'] ,$fila['Precio'],	$fila['Imagen']);
+							$fila['Unidades'] ,$fila['Precio'],	$fila['Imagen'], $esPremium);
 			//Quitar el producto de la tabla deposibles compras
 			$result2 = parent::hacerConsulta("DELETE FROM posiblescompras WHERE Numero = '$id2Mano'");
 			if($result2) {
@@ -123,20 +114,15 @@ class posiblesVentasObjeto extends producto{
 		
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
+		$precioAux = parent::muestraPrecio();
 
 		$productos = '';
 		$productos.=<<<EOS
-		<div id="tarjetaProducto">
-			<div class="imgProducto">
-				<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
-			</div>
-			<div class="desProducto">
-				<p>Nombre del producto: $nombreAux</p>
-				<p>Descripcion:</p>
-				<p>$descripcionAux</p>
-				<p>Creador: $usuarioCreador</p>;
-			</div>
-		</div>
+			<img src="$DIRimagen" width="200" height="200" alt=$nombreAux />
+			<p>Nombre: $nombreAux</p>
+			<p>Descripcion:</p>
+			<p>$descripcionAux</p>
+			<p>Creador: $usuarioCreador. Precio: $precioAux</p>
 		EOS;
 		return $productos;
 	}

@@ -41,8 +41,10 @@ class formularioVentaArticulo extends form{
         //$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
         $usuario = $_SESSION["correo"];
         
-        if(aplicacion::comprobarImagen("/art2mano/")){
-            if (posiblesVentasObjeto::subePeticionVentaArticuloBD($nombre,$descripcion,$unidades ,$precio, $_FILES["productoImagen"]["name"], $usuario)) {
+        $nombreNuevo = aplicacion::comprobarImagen("/art2mano/");
+        if($nombreNuevo != false){
+            if (posiblesVentasObjeto::subePeticionVentaArticuloBD($nombre, $descripcion, $unidades,
+                        $precio, $nombreNuevo, $usuario)) {
                 $result = RUTA_APP.'/index.php';
             } else {
                 $result[]=<<<EOS

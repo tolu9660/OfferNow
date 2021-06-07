@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2021 a las 12:20:52
+-- Tiempo de generación: 07-06-2021 a las 16:29:26
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.15
 
@@ -49,8 +49,7 @@ INSERT INTO `articulos_segunda_mano` (`Numero`, `Nombre`, `Descripcion`, `Unidad
 (12, 'Super_Mario_3D_World_Bowsers_Fury', '¡Únete a Mario, Luigi, Peach y Toad en su misión para salvar el reino de las hadas en Super Mario 3D World + Bowser’s Fury para Nintendo Switch! Rescata a la princesa hada y a sus amigas, en solitario o con hasta 3 jugadores más, en esta versión mejorada de Super Mario 3D World. Y después, también en solitario o con un amigo, ayuda a Bowsy a devolver a su papi a la normalidad en una aventura totalmente nueva: ¡Bowsers Fury!', 5, 40, 'Super_Mario_3D_World.jpg', 1),
 (13, 'BenQ_ZOWIE_XL2411K_Monitor', 'La nueva generación de monitores de PC para e-sports de la serie XL aumenta aún más la flexibilidad y precisión de ajuste, así como la comodidad de los jugadores, lo que les permite centrarse en su rendimiento en el juego, con 144hz una base mas pequeña y un ajuste fluido y flexible incluyendo la nueva tecnología DyAc', 3, 279, 'monitorbenq.jpg', 0),
 (14, 'Seagate_Expansion_2_4TB_USB_3', 'Las unidades portátiles Expansion de Seagate son compactas y perfectas para un estilo de vida activo. Añada más espacio de almacenamiento instantáneamente a su equipo, y lleve sus archivos de gran tamaño a cualquier parte con este disco duro portátil de 2.5\" y una capacidad de 4TB.', 5, 95, 'usb4tb.jpg', 1),
-(25, 'Television LG 32LM6370PLA 32 pulgadas LED FullHD', 'Televisor 32LM6370PLA de LG, su pantalla Full HD ofrece imágenes precisas con una resolución extraordinaria y colores ricos. Estado bueno con un rasguño en la parte superior', 41, 278, 'televisionLG.jpg', 0),
-(26, 'raton', 'asd', 123, 22, 'rat.jpg', 0);
+(25, 'Television LG 32LM6370PLA 32 pulgadas LED FullHD', 'Televisor 32LM6370PLA de LG, su pantalla Full HD ofrece imágenes precisas con una resolución extraordinaria y colores ricos. Estado bueno con un rasguño en la parte superior', 41, 278, 'televisionLG.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -74,8 +73,7 @@ INSERT INTO `carrito` (`id`, `idProducto`, `idUsuario`, `Comprado`, `unidades`) 
 (14, 9, 'luisRoman', 0, 79),
 (15, 4, 'luisRoman', 0, 1),
 (16, 11, 'luisRoman', 0, 1),
-(17, 10, 'luisRoman', 0, 1),
-(18, 9, 'luisRoman', 0, 1);
+(17, 10, 'luisRoman', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -176,18 +174,20 @@ CREATE TABLE `usuario` (
   `Contraseña` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `Premium` tinyint(1) NOT NULL DEFAULT 0,
   `Admin` tinyint(1) NOT NULL DEFAULT 0,
-  `Direccion` varchar(255) COLLATE utf8_spanish_ci NOT NULL
+  `Direccion` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `tarjeta` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`, `Direccion`) VALUES
-('admin@admin.com', 'Admin1', '$2y$10$Lg9eC/a5y6EG4ImYqlX6WeHyE/03UGW6SUE8qD3nUHAbvZhmgIT5y', 1, 1, '0'),
-('luisRoman', 'luisRoman', '$2y$10$pTSRPIxFTVwuCPFJnIP1zu103rs9gZWzBfie2P/dtmwiSFHlxSANm', 1, 1, 'madrid 24'),
-('pepe5', 'pepe5', '$2y$10$IC7o0i1Travw1Sc.V./KxeYiC9s84kRE2BpulscQSTgLRZMQMDMLy', 0, 0, '0'),
-('persona@gmail.com', 'Persona', 'Persona1', 0, 0, '0');
+INSERT INTO `usuario` (`Correo`, `Nombre`, `Contraseña`, `Premium`, `Admin`, `Direccion`, `tarjeta`) VALUES
+('admin@admin.com', 'Admin1', '$2y$10$Lg9eC/a5y6EG4ImYqlX6WeHyE/03UGW6SUE8qD3nUHAbvZhmgIT5y', 1, 1, '0', 0),
+('luisRoman', 'luisRoman', '$2y$10$pTSRPIxFTVwuCPFJnIP1zu103rs9gZWzBfie2P/dtmwiSFHlxSANm', 1, 1, 'madrid 24', 0),
+('pepe2', 'pepe2', '$2y$10$EdPC3zvh0hXIgGlfYTUPn.isInepjG7YRRQbI2oY.RrTND2t4KGtm', 0, 0, 'pepe2', 0),
+('pepe5', 'pepe5', '$2y$10$IC7o0i1Travw1Sc.V./KxeYiC9s84kRE2BpulscQSTgLRZMQMDMLy', 0, 0, '0', 0),
+('persona@gmail.com', 'Persona', 'Persona1', 0, 0, '0', 0);
 
 --
 -- Índices para tablas volcadas

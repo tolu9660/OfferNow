@@ -10,6 +10,7 @@
     $rutaConfiguracion=SESION.'/configuracion.php';
     $rutaDirecciones=SESION.'/direcciones.php';
     $rutaMispedidos=SESION.'/misPedidos.php';
+    //registrar el numero de tarjeta del usuario
    
     if (isset($_SESSION["login"]) ) {
         $contenidoPrincipal=<<<EOS

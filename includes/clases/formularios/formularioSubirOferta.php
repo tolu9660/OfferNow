@@ -66,7 +66,6 @@ class formularioSubirOferta extends form{
         $urlOferta = htmlspecialchars(trim(strip_tags($datos["ofertaUrl"])));
         $precio = htmlspecialchars(trim(strip_tags($datos["ofertaPrecio"])));
         $creador = $_SESSION["correo"];
-        $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
         if(empty($nombre)){
             $result['errorNombre']= "Error: especifica un nombre";
         }
@@ -80,6 +79,7 @@ class formularioSubirOferta extends form{
             $result['errorUrl']= "Error: especifica una url";
         }
         if(sizeof($result) == 0) {
+            $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
             if($nombreNuevo != false){
                 echo count($result);
                 if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,

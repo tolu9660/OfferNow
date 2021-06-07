@@ -95,14 +95,20 @@ class carritoObjeto{
         }
         else{
            
-            $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'";         
+            $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'"; 
+            header("location:procesarCarrito.php");        
         }
+
+        //header("location:procesarCarrito.php");
+
         if (mysqli_query($mysqli, $sql)) {
             return true;
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
             return false;
         }
+
+        //header("location:procesarCarrito.php");
 
     }
  
@@ -124,7 +130,6 @@ class carritoObjeto{
             return false;
         }
 
-       
 
     }
   

@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/../config.php';
+require_once RUTA_CLASES.'/comentarioObjeto.php';
+
 abstract class producto{
     protected $id;
 	private $nombre;
@@ -64,8 +67,17 @@ abstract class producto{
 		}
 	}
 
+
+	public static function incrementarVotosProducto($idProducto){
+		var_dump($idProducto);
+		$result = hacerConsulta("SELECT ValoracionUtilidad FROM comentariosoferta WHERE OfertaID = $idProducto LIMIT 1");
+		$valoracion = $result->fetch_object()->ValoracionUtilidad + 1;
+		hacerConsulta("UPDATE comentariosoferta SET ValoracionUtilidad = $valoracion WHERE OfertaID = $idProducto");
+	}
+
     protected function muestraComentariosString() {
-        
+        $ruta = POSTEAR."/votosComentarioProductoBD.php";
+		$RutaFoto = RUTA_APP;
 		$productos = '';
 		if(is_array($this->comentariosArray)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->comentariosArray); $i++){
@@ -73,13 +85,37 @@ abstract class producto{
 				$comTexto = $this->comentariosArray[$i]->muestraTexto();
 				$comValoracion = $this->comentariosArray[$i]->muestraValoracion();
 				$comUsuario = $this->comentariosArray[$i]->muestraUsuario();
-				$productos.=<<<EOS
+				$productos.=<<<HTML
 					<div class="tarjetacomentario">
 						<p>$comTitulo - $comUsuario - </p>
-						<p>Valoración comentario: $comValoracion</p>
+						
+					<button class="button" type="button"   
+						onclick="incrementarVotosProducto$this->id(this)">    
+						<img src="{$RutaFoto}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
+						Valoración comentario: <span class = "count">$comValoracion</span>
+					</button>
+
+					<script type="text/javascript">
+					const rutaLocall = "$ruta";
+					console.log("El contenido de la variable es: " + rutaLocall)
+					function incrementarVotosProducto$this->id(button){	
+						var xhttp = new XMLHttpRequest();
+						xhttp.open("POST", rutaLocall, true); 
+						xhttp.onreadystatechange = function() {
+							if (this.readyState == 4 && this.status == 200) {	
+								button.querySelector('.count').innerText = parseInt (button.querySelector('.count').innerText)+1 ;
+							//console.log(button.querySelector('.count').innerText);
+							//console.log(button);
+							console.log(this);
+							}
+						};
+						xhttp.send($this->id);
+					}
+					</script>
+
 						<p>$comTexto</p>
 					</div>
-				EOS;
+				HTML;
 			}
 		}
 		return $productos;

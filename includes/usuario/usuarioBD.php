@@ -241,11 +241,14 @@ class usuario{
   }
   public function precio(){
     return $this->carrito->precioTotal();
+    //header("location:procesarCarrito.php");
   }
   public function muestraCarrito(){
     
     $array=$this->carrito->cargarCarrito($this->idCorreo);
     return $array;
+    //header("location:procesarCarrito.php");
+    
 
   }
   public function addCarrito($idProducto,$cantidad=1){
@@ -267,6 +270,7 @@ class usuario{
 
   public function quitarCarrito($idProducto){
     $this->carrito->eliminarCarrito($idProducto);
+    header("location:procesarCarrito.php");
   }
 
 }

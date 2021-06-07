@@ -144,7 +144,7 @@ class ofertaObjeto extends producto{
 			
 			<script type="text/javascript">
 				const rutaLocal = "$ruta";
-				console.log("El contenido de la variable es: " + rutaLocal)
+				//console.log("El contenido de la variable es: " + rutaLocal)
 				function incrementarVotos$this->id(button){	
 					var xhttp = new XMLHttpRequest();
 					xhttp.open("POST", rutaLocal, true); 

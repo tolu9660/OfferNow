@@ -9,6 +9,7 @@ class carritoObjeto{
     private $contador;
     private $usuario;
     private $productos;
+    private $unidadesActuales
 
     function __construct($userId) {
 	    $this->usuario=$userId;

@@ -45,18 +45,15 @@ class formularioAniadeCarrito extends form{
         else{
             $result=SESION.'/login.php';
         }
-        
-        
         return $result;
     }
     protected function muestraResultadoCorrecto() {
         if($this->ok){
-            return "producto añadido al carrito";
+            return "Producto añadido al carrito";
         }
         else{
-            return "no estas logeado";
+            return "No estas logeado";
         }
-        
     }
 }
 

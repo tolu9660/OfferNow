@@ -8,9 +8,23 @@ class usuario{
 	private $idCorreo;
 	private $nombre;
 	private $password;
+  ////////////
+  private $esAdmin;
+  private $esPremium;
+  private $carrito;
+  private $calle;
+
+  function __construct($correo, $nombre,$contraseña,$calle){
+    $this->idCorreo = $correo;
+    $this->nombre = $nombre;
+    $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->esAdmin=0;
+    $this->esPremium=0;
+    $this->calle = $calle;
+    $this->carrito= new carritoObjeto( $this->idCorreo);
+  }
 
   public static function login($username, $password){
-    
     $user = self::buscaUsuario($username);
    
     if ($user && $user->compruebaPassword($password)) {
@@ -41,11 +55,9 @@ class usuario{
       return $user;
     }
     return false;
-     
   }
 
   public static function buscaUsuario($username){
-  
     $app = aplicacion::getSingleton();
     $conn = $app->conexionBd();
     $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
@@ -77,9 +89,7 @@ class usuario{
     return false;
   }
 
-	public static function altaNuevoUsuario($email,$username,$password1,$password2,$calle){
-
-		
+	public static function altaNuevoUsuario($email,$username,$password1,$password2,$calle){		
 		if($password1 != $password2){
 			return false;
 		}
@@ -113,35 +123,8 @@ class usuario{
 			}
 		}
 	}
-  
 
-
-////////////
-  private $esAdmin;
-  private $esPremium;
-  private $carrito;
-  private $calle;
-////////////
-   function __construct($correo, $nombre,$contraseña,$calle){
-    $this->idCorreo = $correo;
-    $this->nombre = $nombre;
-    $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
-    $this->esAdmin=0;
-    $this->esPremium=0;
-    $this->calle = $calle;
-    $this->carrito= new carritoObjeto( $this->idCorreo);
-  }
-  /*
-  //cogerlo con pinzas este constructor
-  function __construct1($correo, $nombre,$contraseña,$premium,$admin){
-    $this->idCorreo = $correo;
-    $this->nombre = $nombre;
-    $this->password = $contraseña;
-    $this->esAdmin=$admin;
-    $this->esPremium=$premium;
-  }
- */
-/////////////
+////////////Getters
   public function esAdmin(){
     $this->esAdmin=1;
   }
@@ -161,8 +144,6 @@ class usuario{
     return $this->password;
   }
   
-
-////////////
   public function idCorreo()
   {
     return $this->idCorreo;
@@ -172,60 +153,50 @@ class usuario{
     return explode(",",$this->calle);
   }
 
-
-  public function nombre()
-  {
+  public function nombre() {
     return $this->nombre;
   }
 
-  public function compruebaPassword($password)  {
-      
+  public function compruebaPassword($password) {  
     return password_verify($password, $this->password);
   }
+
+  ////////////Setters
   public function setPass($pass){
     $this->password= $pass;
   }
 
-  public function cambiarNombre($nuevoNombe)  {
-   
-    
+  public function cambiarNombre($nuevoNombe) {
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
-    $sql="UPDATE usuario SET Nombre='$nuevoNombe'
-    WHERE Correo='$this->idCorreo'";
-          	if (mysqli_query($mysqli, $sql)) {
-              //$mysqli->close();
-              return true;
-            } else {
-              //$mysqli->close();
-              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-              return false;
-            }
+    $sql="UPDATE usuario SET Nombre='$nuevoNombe' WHERE Correo='$this->idCorreo'";
+      if (mysqli_query($mysqli, $sql)) {
+        //$mysqli->close();
+        return true;
+      } else {
+        //$mysqli->close();
+        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        return false;
+      }
   }
-  public function cambiaDireccion($nuevaDireccion)  {
+  public function cambiaDireccion($nuevaDireccion) {
     $this->calle = $nuevaDireccion;
     
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
-    $sql="UPDATE usuario SET Direccion='$nuevaDireccion'
-    WHERE Correo='$this->idCorreo'";
-          	if (mysqli_query($mysqli, $sql)) {
-              //$mysqli->close();
-              return true;
-            } else {
-              //$mysqli->close();
-              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-              return false;
-            }
+    $sql="UPDATE usuario SET Direccion='$nuevaDireccion' WHERE Correo='$this->idCorreo'";
+      if (mysqli_query($mysqli, $sql)) {
+        //$mysqli->close();
+        return true;
+      } else {
+        //$mysqli->close();
+        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        return false;
+      }
   }
-  public function listarPedidos(){
-   $pedidos=carritoObjeto::listaDePedidos($this->idCorreo);
-    return $pedidos;
-  }
+
   public function cambiaPassword($nuevoPassword)  {
     $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
-    
-    
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
     $sql="UPDATE usuario SET Contraseña='$this->password'
@@ -239,32 +210,34 @@ class usuario{
               return false;
             }
   }
+
+  ////////////Carrito
+  public function listarPedidos(){
+    $pedidos=carritoObjeto::listaDePedidos($this->idCorreo);
+     return $pedidos;
+   }
+
   public function precio(){
     return $this->carrito->precioTotal();
     //header("location:procesarCarrito.php");
   }
+
   public function muestraCarrito(){
-    
     $array=$this->carrito->cargarCarrito($this->idCorreo);
     return $array;
     //header("location:procesarCarrito.php");
-    
-
   }
+
   public function addCarrito($idProducto,$cantidad=1){
     //actualizo
-    if(!$this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
-      
-        $this->carrito->AgregarCarrito($idProducto,0);
-  
+    if(!$this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){ 
+      $this->carrito->AgregarCarrito($idProducto,0);
     }
     elseif($this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
-      echo "aqui";
       $this->carrito->AgregarCarrito($idProducto,1);
     }
     else{
       $this->carrito->AgregarCarrito($idProducto,$cantidad);
-  
     }
   }
 
@@ -272,5 +245,4 @@ class usuario{
     $this->carrito->eliminarCarrito($idProducto);
     header("location:procesarCarrito.php");
   }
-
 }

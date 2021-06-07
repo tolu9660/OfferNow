@@ -38,7 +38,7 @@ class formularioLogin extends form{
         $result = array();
         $nombreUsuario =$datos['nombreUsuario'] ?? null;
        
-        if ( empty($nombreUsuario) ) {
+        if (empty($nombreUsuario) ) {
             $result['nombreUsuario'] = "El nombre de usuario no puede estar vacio";
         }
         
@@ -49,7 +49,6 @@ class formularioLogin extends form{
         }
        
         if (count($result) === 0) {
-            //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
            logout();
            $usuario=checkLogin(); 
          

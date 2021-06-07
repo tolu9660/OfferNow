@@ -10,27 +10,30 @@ class formularioSubirOferta extends form{
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
-        // Se generan los mensajes de error si existen.
-        /* $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-            $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
-            $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-        */
+        $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
+        $errorEnlace = self::createMensajeError($errores, 'errorEnlace', 'span', array('class' => 'error'));
+        $errorImagen = self::createMensajeError($errores, 'errorImagen', 'span', array('class' => 'error'));
+        $errorNombre = self::createMensajeError($errores, 'errorNombre', 'span', array('class' => 'error'));
+        $errorDescripcion = self::createMensajeError($errores, 'errorDescripcion', 'span', array('class' => 'error'));
+        $errorPrecio = self::createMensajeError($errores, 'errorPrecio', 'span', array('class' => 'error'));
+        $errorUrl = self::createMensajeError($errores, 'errorUrl', 'span', array('class' => 'error'));
+
         $html = <<<EOF
             <div class="subirOferta">
             <div class="producto">
                 <h1>Subir Oferta</h1>
-                    <p>Nombre oferta:</p>
+                    <p>Nombre oferta:$errorNombre</p>
                     <input type="text" name="ofertaNombre"/>
-                    <p>Descripción:</p>
+                    <p>Descripción:$errorDescripcion</p>
                     <textarea name="ofertaDescripcion" rows="10" cols="30"></textarea>
-                    <p>Precio:</p>
+                    <p>Precio:$errorPrecio</p>
                     <input type="number" name="ofertaPrecio"  />
-                    <p>Url de la oferta (incluyendo https://):</p>
+                    <p>Url de la oferta (incluyendo https://):$errorUrl</p>
                     <input type="text" name="ofertaUrl"/>
-                    <p>¿Tenemos esta oferta en nuestra tienda? ¡¡Pon el enlace!!:</p>
+                    <p>¿Tenemos esta oferta en nuestra tienda? ¡¡Pon el enlace!!:$errorEnlace</p>
                     <input type="text" name="oferta2ManoUrl"/>
                     <p>Imagen:</p>
-                    <input type="file" name="productoImagen"/>
+                    <input type="file" name="productoImagen"/>$errorImagen
                     
                     <p><input type="submit" value="Publicar"></p>
                 </div>
@@ -47,10 +50,10 @@ class formularioSubirOferta extends form{
             $cadena_buscada = '?id=';
             $buscarCadena = explode($cadena_buscada, $datos["oferta2ManoUrl"]);
             //Se ha encontrado
-            if(is_array($buscarCadena)) {
+            if(is_array($buscarCadena) && (sizeof($buscarCadena) == 2)) {
                 $url2Mano = $buscarCadena[1];
             } else {
-                $result[]= "Error: el enlace a nuestro producto es incorrecto";
+                $result['errorEnlace']= "Error: el enlace a nuestro producto es incorrecto";
             }
         } else{
             $url2Mano = NULL;
@@ -64,16 +67,31 @@ class formularioSubirOferta extends form{
         $precio = htmlspecialchars(trim(strip_tags($datos["ofertaPrecio"])));
         $creador = $_SESSION["correo"];
         $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
-        if($nombreNuevo != false){
-            if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,
-                    $nombreNuevo,$precio,$creador, $url2Mano)) {   
-                $result = RUTA_APP.'/index.php';
-            } else {
-                $result[]= "Error: al crear la oferta";
-            }
-        } else {
-            $result[]= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
+        if(empty($nombre)){
+            $result['errorNombre']= "Error: especifica un nombre";
         }
+        if(empty($descripcion)){
+            $result['errorDescripcion']= "Error: especifica una descripcion";
+        }
+        if(empty($precio) || $precio == 0){
+            $result['errorPrecio']= "Error: especifica un precio";
+        }
+        if(empty($urlOferta)){
+            $result['errorUrl']= "Error: especifica una url";
+        }
+        if(sizeof($result) == 0) {
+            if($nombreNuevo != false){
+                echo count($result);
+                if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,
+                        $nombreNuevo,$precio,$creador, $url2Mano)) {   
+                    $result = RUTA_APP.'/index.php';
+                } else {
+                    $result[]= "Error: al crear la oferta";
+                }
+            } else {
+                $result['errorImagen']= "Error: al subir la imagen, solo permite extensiones .png, .jpg, .jpeg y .gif";
+            }
+        } 
         return $result;
     }
 

@@ -263,7 +263,24 @@ class usuario{
     }
     else{
       $this->carrito->AgregarCarrito($idProducto,$cantidad);
-  
+    }
+  }
+
+  public static function altaNuevaTarjeta($correo, $numeroTarjeta){
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd();
+    //se filtra la informacion que se va a introducir en la BD:
+
+    $numeroTarjetaFiltrado=$mysqli->real_escape_string($numeroTarjeta);
+    $sql= "UPDATE usuario SET tarjeta ='$numeroTarjetaFiltrado'
+            WHERE correo = '$correo'";
+    if (mysqli_query($mysqli, $sql)) {
+      //$mysqli->close();
+      return true;
+    } else {
+      //$mysqli->close();
+      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+      return false;
     }
   }
 

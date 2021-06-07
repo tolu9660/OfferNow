@@ -31,7 +31,6 @@ class formularioCarrito extends form{
     }
     
     protected function procesaFormulario($datos){
-        $tarjetaCorrecta = true;
         $result = array();
         
         $numeroTarjeta = $datos['numeroTarjeta'] ?? '';
@@ -40,22 +39,23 @@ class formularioCarrito extends form{
         
         if (empty($numeroTarjeta) || mb_strlen($numeroTarjeta) != 16 ) {
             $result['numeroTarjeta'] = "El numero de la tarjeta debe que tener 16 caracteres.";
-            $tarjetaCorrecta = false;
         }
         
         $titular = isset($datos["username"]) ? $datos["username"] : null;
         if (empty($titular)) {
             $result['username']  = "Tienes que poner un titular.";
-            $tarjetaCorrecta = false;
         }
 
         $codigo = isset($datos["password"]) ? $datos["password"] : null;
         if ( empty($codigo) || mb_strlen($codigo) != 3 ) {
             $result['password'] = "El password tiene que tener una longitud de 3 caracteres.";
-            $tarjetaCorrecta = false;
         }
 
+        if(count($result) == 0){
+            usuario::altaNuevaTarjeta($_SESSION['correo'], $numeroTarjeta);
+        }
         //Si todos los campos son correctos
+        /*
         if($tarjetaCorrecta){
             $compras = carritoObjeto::listaDePedidos($_SESSION["correo"], 0);
             $app = aplicacion::getSingleton();
@@ -73,6 +73,7 @@ class formularioCarrito extends form{
                 }
             }
         }
+        */
         return $result;
     }
 }

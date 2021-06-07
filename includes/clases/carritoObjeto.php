@@ -12,9 +12,9 @@ class carritoObjeto{
 
     function __construct($userId) {
 	    $this->usuario=$userId;
-		$this->contador =0;
-        $this->contDeseos=0;
-        $this->productos=array();     
+		$this->contador = 0;
+        $this->contDeseos = 0;
+        $this->productos = array();     
 	}
 
     public static function listaDePedidos($userId){
@@ -37,6 +37,15 @@ class carritoObjeto{
             $ListaPedidos="vacia";
         }
         return $ListaPedidos;
+    }
+
+    public static function getUnidadesProducto($idProducto){
+        $app = aplicacion::getSingleton();
+        $mysqli = $app->conexionBd();
+        $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
+    
+        $fila=$unidades->fetch_assoc();
+        return $fila['unidades'];
     }
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
@@ -71,11 +80,9 @@ class carritoObjeto{
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
             $this->contador++;       
             $sql=" INSERT INTO carrito (idProducto,idUsuario,Comprado,unidades)
-            VALUES ('$producto','$this->usuario',0,1)";
-         
+                        VALUES ('$producto','$this->usuario',0,1)";
         }
         elseif($cantidad===1){
-            
             $consultaCarritoCount = sprintf("SELECT unidades FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
             $mysqli->real_escape_string($this->usuario));
             
@@ -127,13 +134,8 @@ class carritoObjeto{
         $precioTotal=0;
 		if(is_array($this->productos)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->productos); $i++){
-                $app = aplicacion::getSingleton();
-                $mysqli = $app->conexionBd();
-                $idProducto = $this->productos[$i]->muestraID();
-                $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
-           
-                $fila=$unidades->fetch_assoc();
-                $precio = $this->productos[$i]->muestraPrecio() * $fila['unidades'];
+                $unidades = carritoObjeto::getUnidadesProducto($this->productos[$i]->muestraID());
+                $precio = $this->productos[$i]->muestraPrecio() * $unidades;
                 $precioTotal +=$precio;
             }
 		}

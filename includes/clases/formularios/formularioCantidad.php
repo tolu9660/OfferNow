@@ -3,6 +3,7 @@
 require_once RUTA_FORMS.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
+require_once RUTA_CLASES.'/carritoObjeto.php';
 
 
 class formularioCantidad extends form{
@@ -24,12 +25,19 @@ class formularioCantidad extends form{
         $html = <<<EOF
                     
             <input type="hidden" name="idProducto" value="{$this->idProducto}" />
+<<<<<<< Updated upstream
             <p>Cantidad: <input type="number" name="cantidad" min="1" value="$this->cantidad"> 
                         <input type="submit" value="Agregar" > 
                         </p>
                      
                 
       
+=======
+            <p>Total uds: <input type="number" name="cantidad" min="1" value="$this->cantidad"> 
+            <input type="submit" value="Actualizar cantidad"> 
+            </p>
+            <p>$errorCantidad</p>
+>>>>>>> Stashed changes
         EOF;
         return $html;
     }
@@ -48,6 +56,22 @@ class formularioCantidad extends form{
         $user=usuario::buscaUsuario($nombreUsuario);
         $user->addCarrito($idPro,$cantidad);     
             
+<<<<<<< Updated upstream
+=======
+            //Comprueba que no se selcciona mas unidades de las que tenemos
+            $app = aplicacion::getSingleton();
+            $mysqli = $app->conexionBd();
+            $consulta = $mysqli->query("SELECT Unidades FROM articulos_segunda_mano WHERE Numero = $idPro");
+            $fila=$consulta->fetch_assoc();
+            $stockActual = $fila['Unidades'];
+            if($cantidad > $stockActual) {
+                $result['addCarrito'] = "Has seleccionado mas unidades de las que tenemos en stock (".$stockActual.")";
+            }
+            else{
+                $user=usuario::buscaUsuario($nombreUsuario);
+                $user->addCarrito($idPro,$cantidad);  
+            }
+>>>>>>> Stashed changes
         }
         else{
             $result=SESION.'/login.php';
@@ -56,6 +80,10 @@ class formularioCantidad extends form{
         
         return $result;
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     protected function muestraResultadoCorrecto() {
         if($this->ok){
             return "producto añadido al carrito";

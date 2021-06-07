@@ -5,6 +5,18 @@ require_once RUTA_CLASES.'/art2ManoObjeto.php';
 
 class carritoObjeto{
 
+    private $id;
+    private $contador;
+    private $usuario;
+    private $productos;
+
+    function __construct($userId) {
+	    $this->usuario=$userId;
+		$this->contador =0;
+        $this->contDeseos=0;
+        $this->productos=array();     
+	}
+
     public static function listaDePedidos($userId){
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
@@ -14,38 +26,18 @@ class carritoObjeto{
         $ListaPedidos;
 
         if(($result && $result->num_rows >0)  ){
-
-            for($i=0; $i < $result->num_rows; $i++){
-                
+            for($i=0; $i < $result->num_rows; $i++){  
                 $fila=$result->fetch_assoc();
                 $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
                 $producto->agregarCantidad($fila['unidades']);
                 $ListaPedidos[$i]=$producto;
-
             }
         }
         else{
             $ListaPedidos="vacia";
         }
-    return $ListaPedidos;
+        return $ListaPedidos;
     }
-
-
-    private $id;
-    private $contador;
-
-    private $usuario;
-    private $productos;
-
-
-    function __construct($userId) {
-
-	    $this->usuario=$userId;
-		$this->contador =0;
-        $this->contDeseos=0;
-        $this->productos=array();
-         
-	}
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
     // que encuentre
@@ -90,26 +82,21 @@ class carritoObjeto{
             $cont=$fila1['unidades'];
             $cont=$cont+1;
             $sql=sprintf("UPDATE carrito SET unidades='$cont' WHERE IdProducto='$producto'and idUsuario='%s'",
-            $mysqli->real_escape_string($this->usuario));
-            
+            $mysqli->real_escape_string($this->usuario)); 
         }
         else{
-           
             $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'"; 
-            header("location:procesarCarrito.php");        
+            //header("location:procesarCarrito.php");        
         }
 
-        //header("location:procesarCarrito.php");
-
+        header("location:procesarCarrito.php");
         if (mysqli_query($mysqli, $sql)) {
             return true;
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
             return false;
         }
-
         //header("location:procesarCarrito.php");
-
     }
  
   
@@ -129,20 +116,21 @@ class carritoObjeto{
             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
             return false;
         }
-
-
     }
-  
-
+    
     public function getCont(){
         return $this->contador;
     }
 
     public function precioTotal(){
         $precioTotal=0;
-		if(is_array( $this->productos)){	//Comprueba si es un array para no dar un error
+		if(is_array($this->productos)){	//Comprueba si es un array para no dar un error
 			for($i = 0; $i < sizeof($this->productos); $i++){
-                $precio = $this->productos[$i]->muestraPrecio();
+                $app = aplicacion::getSingleton();
+                $mysqli = $app->conexionBd();
+                $idProducto = $productos[$i]->muestraID();
+                $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
+                $precio = $this->productos[$i]->muestraPrecio() * $unidades;
                 $precioTotal +=$precio;
             }
 		}

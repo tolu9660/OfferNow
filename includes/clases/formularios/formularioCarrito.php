@@ -23,7 +23,7 @@ class formularioCarrito extends form{
             <p><label>Codigo C/V:</label> <input type="password" name="password" />$errorPassword</p>
             $htmlErroresGlobales
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
-            <input type="submit" value="crear">
+            <input type="submit" value="Pagar">
         </div>
         EOF;
     
@@ -32,7 +32,7 @@ class formularioCarrito extends form{
     
     protected function procesaFormulario($datos){
         $result = array();
-        
+        $this->ok=false;
         $numeroTarjeta = $datos['numeroTarjeta'] ?? '';
         //$nombre = $datos['nombre'] ?? '';
         $nombreUsuario = $datos['username'] ?? null;
@@ -53,6 +53,7 @@ class formularioCarrito extends form{
 
         if(count($result) == 0){
             usuario::altaNuevaTarjeta($_SESSION['correo'], $numeroTarjeta);
+            $this->ok=true;
         }
         //Si todos los campos son correctos
         /*
@@ -74,7 +75,16 @@ class formularioCarrito extends form{
             }
         }
         */
+        $result = RUTA_APP.'/nuestraTienda.php';
         return $result;
+    }
+     protected function muestraResultadoCorrecto() {
+        if($this->ok){
+            return "GRACIAS POR LA COMPRA!";
+        }
+        else{
+            return "ERROR";
+        }
     }
 }
 ?>

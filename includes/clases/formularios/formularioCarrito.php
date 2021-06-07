@@ -13,11 +13,12 @@ class formularioCarrito extends form{
         $errorNumeroTarjeta = self::createMensajeError($errores, 'numeroTarjeta', 'span', array('class' => 'error'));
         $errorNombre = self::createMensajeError($errores, 'username', 'span', array('class' => 'error'));
         $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-
+        $usu = $_SESSION["correo"];
         $html = <<<EOF
+        
         <div class="iniciosesion">
-            <h1>Pago de usuario</h1>
-            <p><label>Numero de tarjeta:  </label> <input type="text" name="numeroTarjeta"/>$errorNumeroTarjeta</p>
+            <h1>Pago de usuario: $usu</h1>
+            <p><label>Numero de tarjeta:  </label> <input type="number" name="numeroTarjeta"/>$errorNumeroTarjeta</p>
             <p><label>Titular:</label> <input type="text" name="username" />$errorNombre</p>
             <p><label>Codigo C/V:</label> <input type="password" name="password" />$errorPassword</p>
             $htmlErroresGlobales
@@ -56,11 +57,21 @@ class formularioCarrito extends form{
 
         //Si todos los campos son correctos
         if($tarjetaCorrecta){
+            $compras = carritoObjeto::listaDePedidos($_SESSION["correo"], 0);
             $app = aplicacion::getSingleton();
             $mysqli = $app->conexionBd();
-            $consulta = $mysqli->query("SELECT Unidades FROM articulos_segunda_mano WHERE Numero = $idPro");
-            $fila=$consulta->fetch_assoc();
-            $stockActual = $fila['Unidades'];
+            //Obtengo el carrito del usuario
+            if(is_array($compras)) {
+                for ($i=0; $i < sizeof($compras); $i++) {
+                    $idProducto = $compras[$i]->muestraID();
+                    $unidadesCompradas = carritoObjeto::getUnidadesProducto($idProducto);
+                    //Update de la tablla carrito poniendo el bit de comprado a true
+                    $mysqli->query("UPDATE carrito SET Comprado = 1 WHERE idProducto = $idProducto");
+                    //update de la tabla articulos_segunda_mano restando las unidades compradas
+                    $mysqli->query("UPDATE articulos_segunda_mano SET Unidades = (Unidades-$unidadesCompradas)
+                                WHERE Numero = $idProducto");
+                }
+            }
         }
         return $result;
     }

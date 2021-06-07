@@ -21,11 +21,10 @@ class carritoObjeto{
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
         $consultaCarritoPedidos = sprintf("SELECT * FROM carrito WHERE  Comprado=1 and idUsuario='%s'",
-        $mysqli->real_escape_string($userId));
+                    $mysqli->real_escape_string($userId));
         $result = $mysqli->query($consultaCarritoPedidos);
         $ListaPedidos;
-
-        if(($result && $result->num_rows >0)  ){
+        if(($result && $result->num_rows > 0)  ){
             for($i=0; $i < $result->num_rows; $i++){  
                 $fila=$result->fetch_assoc();
                 $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
@@ -125,10 +124,6 @@ class carritoObjeto{
             return false;
         }
     }
-    
-    public function getCont(){
-        return $this->contador;
-    }
 
     public function precioTotal(){
         $precioTotal=0;
@@ -145,10 +140,10 @@ class carritoObjeto{
         
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
-        $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idUsuario='%s'",
-                    $mysqli->real_escape_string($idUser));
-        $consultaCarrito = sprintf("SELECT * FROM carrito WHERE idUsuario='%s'",
-                    $mysqli->real_escape_string($idUser));
+        $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE Comprado = 0 AND
+                    idUsuario='%s'", $mysqli->real_escape_string($idUser));
+        $consultaCarrito = sprintf("SELECT * FROM carrito WHERE Comprado = 0 AND
+                    idUsuario='%s'", $mysqli->real_escape_string($idUser));
 
         $result = $mysqli->query($consultaCarrito);
         $result1 = $mysqli->query($consultaCarritoCount);
@@ -163,6 +158,23 @@ class carritoObjeto{
 
             }
         }
+        return $this->productos;
+    }
+
+    //Getters
+    public function getCont(){
+        return $this->contador;
+    }
+
+    public function getUsuario(){
+        return $this->usuario;
+    }
+
+    public function getUnidades(){
+        return $this->contador;
+    }
+
+    public function getProductos(){
         return $this->productos;
     }
 }

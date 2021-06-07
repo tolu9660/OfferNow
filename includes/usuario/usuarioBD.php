@@ -8,6 +8,20 @@ class usuario{
 	private $idCorreo;
 	private $nombre;
 	private $password;
+  private $esAdmin;
+  private $esPremium;
+  private $carrito;
+  private $calle;
+
+  function __construct($correo, $nombre,$contraseña,$calle){
+    $this->idCorreo = $correo;
+    $this->nombre = $nombre;
+    $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->esAdmin=0;
+    $this->esPremium=0;
+    $this->calle = $calle;
+    $this->carrito= new carritoObjeto($this->idCorreo);
+  }
 
   public static function login($username, $password){
     
@@ -117,20 +131,7 @@ class usuario{
 
 
 ////////////
-  private $esAdmin;
-  private $esPremium;
-  private $carrito;
-  private $calle;
-////////////
-   function __construct($correo, $nombre,$contraseña,$calle){
-    $this->idCorreo = $correo;
-    $this->nombre = $nombre;
-    $this->password =password_hash($contraseña, PASSWORD_DEFAULT);
-    $this->esAdmin=0;
-    $this->esPremium=0;
-    $this->calle = $calle;
-    $this->carrito= new carritoObjeto( $this->idCorreo);
-  }
+
   /*
   //cogerlo con pinzas este constructor
   function __construct1($correo, $nombre,$contraseña,$premium,$admin){
@@ -187,8 +188,6 @@ class usuario{
   }
 
   public function cambiarNombre($nuevoNombe)  {
-   
-    
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
     $sql="UPDATE usuario SET Nombre='$nuevoNombe'

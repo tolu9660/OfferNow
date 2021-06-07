@@ -52,7 +52,9 @@
         $ruta = SESION  ;
         $ruta.='/login.php';
         $contenidoPrincipal=<<<EOS
-            Usuario desconocido. Inicia Sesion <a href=$ruta>Login</a>;
+        <div class="iniciosesion">
+        <h2>Usuario desconocido. Inicia Sesion <a href=$ruta>Login</h2>
+        </div>
         EOS;
 }
 

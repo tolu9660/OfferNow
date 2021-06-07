@@ -9,7 +9,7 @@
 	$contenidoPrincipal=<<<EOS
 		<div class="producto">
 		<div class="iniciosesion">
-				<h3>GRACIAS Y HASTA PRONTO!   </h3> {$usuario}
+				<h2>GRACIAS Y HASTA PRONTO!   </h2> {$usuario}
 			</div>
 		</div>
 	EOS;

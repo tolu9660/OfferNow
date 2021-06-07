@@ -18,7 +18,7 @@ if(estaLogado()){
 	$precioTotal=$user->Precio();
 	//echo $precioTotal;
 	$productos.=<<<EOS
-		<div="contenedor">
+		<div class ="iniciosesion">
 		<table>
 			<caption>TU PEDIDO</caption>
 			<thead>
@@ -29,7 +29,8 @@ if(estaLogado()){
 					<th>CANTIDAD</th>
 					<th>ELIMINAR</th>
 				</tr>
-			</thead>	
+			</thead>
+			</div	
 		EOS;
 		
 
@@ -85,14 +86,15 @@ if(estaLogado()){
 	<h2><button type ="submit" >Pagar</button></h2>	
 	</form>
 		</div>
-
 	EOS;
 	
 }
 else{
-	$contenidoPrincipal=<<<EOS
 	
-		<h3>Para poder ver tu carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h3>	
+	$contenidoPrincipal=<<<EOS
+	<div class="iniciosesion">
+		<h2>Para poder ver tu carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h2>	
+	</div>
 	EOS;
 
 }

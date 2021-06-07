@@ -34,7 +34,7 @@ class formularioAniadeCarrito extends form{
         if(isset($datos['idProducto']) && isset($_SESSION["login"])){
             
         $idProducto = $datos['idProducto'] ?? '' ;
-        $nombreUsuario =$_SESSION['nombre'];
+        $nombreUsuario =$_SESSION['correo'];
         $this->ok=true;
         $result= RUTA_APP.'/nuestraTienda.php';
        

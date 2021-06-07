@@ -36,7 +36,7 @@ class formularioCantidad extends form{
         if(isset($datos['cantidad']) && isset($_SESSION["login"])){       
             $cantidad = $datos['cantidad'] ?? '' ;
         
-            $nombreUsuario =$_SESSION['nombre'];
+            $nombreUsuario =$_SESSION['correo'];
             $idPro=$datos['idProducto'];
             $this->ok=true;
             //$result= RUTA_APP.'/nuestraTienda.php';

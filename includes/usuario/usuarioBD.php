@@ -289,4 +289,22 @@ class usuario{
     header("location:procesarCarrito.php");
   }
 
+  public function hacerPremium(){
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd(); 
+    $sql= "UPDATE usuario SET Premium = 1
+            WHERE correo = '$this->idCorreo'";
+    
+    if (mysqli_query($mysqli, $sql)) {
+    //$mysqli->close();
+      $this->esPremium = 1;
+      $_SESSION["esPremium"] = true;
+      return true;
+    } else {
+          //$mysqli->close();
+        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        return false;
+        }
+  }
+
 }

@@ -12,7 +12,7 @@ class formularioConfiguracion extends form{
 
     protected function generaCamposFormulario($datos, $errores = array()){
    
-        $nombreUsuario =$_SESSION['nombre'];
+        $nombreUsuario =$_SESSION['correo'];
         
         $user=usuario::buscaUsuario($nombreUsuario);
         $nombre=$user->nombre();

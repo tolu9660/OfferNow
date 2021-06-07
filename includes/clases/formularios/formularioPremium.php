@@ -5,19 +5,20 @@ require_once RUTA_USUARIO.'/usuarioBD.php';
 require_once RUTA_USUARIO.'/usuarios.php';
 
 
-class formularioEliminarCarrito extends form{
-    private $idProducto;
-    public function __construct($id) {
-        parent::__construct('formEliminarCarrito');
-        $this->idProducto=$id;
+class formularioPremium extends form{
+    public function __construct() {
+        parent::__construct('formPremium');
         $this->ok=false;
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
    
         $html = <<<EOF
-            <input type="hidden" name="idProducto" value="{$this->idProducto}"/>
-            <input type="submit" value="eliminar producto"></p>
+        <h1>¿QUIERES ENTERARTE DE LAS OFERTAS ANTES QUE NADIE?</h1>
+        <h2>ESCOGE TU PACK: </h2>
+            <input type="submit" value="1 mes por 3 euros."></p>
+            <input type="submit" value="3 meses por 7 euros."></p>
+            <input type="submit" value="12 meses por 25 euros."></p>
         EOF;
         return $html;
     }
@@ -26,14 +27,12 @@ class formularioEliminarCarrito extends form{
         $result = array();
         if(isset($_SESSION["login"])){
 
-        //$idProducto = $_POST["idProducto"];
         $nombreUsuario =$_SESSION['correo'];
 
         $this->ok=true;
-        $idPro=$datos['idProducto'];
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->quitarCarrito($idPro);     
-            
+        $user->hacerPremium(); 
+        $result= RUTA_APP.'/nuestraTienda.php';
         }
         else{
             $result=SESION.'/login.php';
@@ -44,7 +43,7 @@ class formularioEliminarCarrito extends form{
     }
     protected function muestraResultadoCorrecto() {
         if($this->ok){
-            return "producto eliminado del carrito";
+            return "Importaremos de tu cuenta la cantidad. ¡Disfruta del contenido!";
         }
         else{
             return "no estas logeado";

@@ -3,7 +3,7 @@
 	require_once RUTA_FORMS.'/formularioDirecciones.php';
 	
     $tituloPagina = 'Direcciones';
-    $nombreUsuario =$_SESSION['nombre'];
+    $nombreUsuario =$_SESSION['correo'];
     $user=usuario::buscaUsuario($nombreUsuario);
     $listaPedidos=$user->listarPedidos();
     $productos=<<<EOS

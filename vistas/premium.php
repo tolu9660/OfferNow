@@ -1,22 +1,12 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
+	require_once RUTA_FORMS.'/formularioPremium.php';
 
 	$tituloPagina = 'Hazte Premium';
+	$form = new formularioPremium();
+	$htmlFormPremium = $form->gestiona();
 	$contenidoPrincipal=<<<EOS
-		<div id = "contenedor">
-		<ul class = "rejilla">
-			
-			<article>
-				<h1>¿QUIERES ENTERARTE DE LAS OFERTAS ANTES QUE NADIE?</h1>
-				<h2>ESCOGE TU PACK: </h2>
-				<p> - 1 mes por 3 euros. </p>
-				<p> - 3 meses por 7 euros. </p>
-				<p> - 12 meses por 25 euros. </p>
-			</article>
-			
-		</ul>
-		</div>
+				$htmlFormPremium
 	EOS;
-
 	require RUTA_LAYOUT.'/layout.php';
 ?>

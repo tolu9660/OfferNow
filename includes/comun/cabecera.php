@@ -7,7 +7,9 @@
         <nav class="titulocabecera">
         <ul> 
                 <li> 
-                        <img src="<?=RUTA_APP.'/imagenes/OfferNow_Logo1.png'?>" class="logo" alt="logo"/>
+                        <a href="<?=RUTA_APP.'/index.php'?>" title="inicio">
+                                <img src="<?=RUTA_APP.'/imagenes/OfferNow_Logo1.png'?>" class="logo" alt="logo"/>
+                        </a>
                 </li>
                 <li>
                         <h2>Tú página de ofertas preferida</h2>

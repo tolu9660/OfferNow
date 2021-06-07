@@ -49,6 +49,8 @@ class carritoObjeto{
            
         $result1 = $mysqli->query($consultaCarritoCount);
         $fila1=$result1->fetch_assoc();
+        //agregar consulta  stock
+        
         if($fila1['total']>0 ){
            return true;
         }
@@ -86,10 +88,9 @@ class carritoObjeto{
         }
         else{
             $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'"; 
-            //header("location:procesarCarrito.php");        
+            header("location:procesarCarrito.php");        
         }
 
-        header("location:procesarCarrito.php");
         if (mysqli_query($mysqli, $sql)) {
             return true;
         } else {
@@ -128,9 +129,11 @@ class carritoObjeto{
 			for($i = 0; $i < sizeof($this->productos); $i++){
                 $app = aplicacion::getSingleton();
                 $mysqli = $app->conexionBd();
-                $idProducto = $productos[$i]->muestraID();
+                $idProducto = $this->productos[$i]->muestraID();
                 $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
-                $precio = $this->productos[$i]->muestraPrecio() * $unidades;
+           
+                $fila=$unidades->fetch_assoc();
+                $precio = $this->productos[$i]->muestraPrecio() * $fila['unidades'];
                 $precioTotal +=$precio;
             }
 		}

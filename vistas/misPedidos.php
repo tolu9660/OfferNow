@@ -7,7 +7,7 @@
     $user=usuario::buscaUsuario($nombreUsuario);
     $listaPedidos=$user->listarPedidos();
     $productos=<<<EOS
-    <div id="contenedor">
+    <div class="iniciosesion">
 	<table>
 	<caption>TUS PEDIDOS REALIZADOS</caption>
 			<thead>

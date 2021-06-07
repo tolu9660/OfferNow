@@ -70,9 +70,9 @@ abstract class producto{
 
 	public static function incrementarVotosProducto($idProducto){
 		var_dump($idProducto);
-		$result = hacerConsulta("SELECT ValoracionUtilidad FROM comentariosoferta WHERE OfertaID = $idProducto LIMIT 1");
+		$result = producto::hacerConsulta("SELECT ValoracionUtilidad FROM comentariosoferta WHERE OfertaID = $idProducto LIMIT 1");
 		$valoracion = $result->fetch_object()->ValoracionUtilidad + 1;
-		hacerConsulta("UPDATE comentariosoferta SET ValoracionUtilidad = $valoracion WHERE OfertaID = $idProducto");
+		producto::hacerConsulta("UPDATE comentariosoferta SET ValoracionUtilidad = $valoracion WHERE OfertaID = $idProducto");
 	}
 
     protected function muestraComentariosString() {

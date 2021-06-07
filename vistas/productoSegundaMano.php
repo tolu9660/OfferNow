@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require RUTA_CLASES.'/art2ManoObjeto.php';
+	require_once RUTA_CLASES.'/art2ManoObjeto.php';
+	require_once RUTA_FORMS.'/formularioSubirComentario2Mano.php';
 	require_once RUTA_USUARIO.'/usuarios.php';
 
 	if(isset($_GET['id'])){
@@ -18,23 +19,10 @@
 		$ruta=POSTEAR;
 		$tituloPagina = $ofertaObj->muestraNombre();
 		$productos.=$ofertaObj->muestraOfertaString();
-		if(estaLogado()){
-		$productos.=<<<EOS
-			<div class="tarjetacomentario">
-				
-					<h1>Subir Comentario</h1>
-					<form method="post" action="${ruta}/subirComentario2ManoBD.php">
-						<p>Titulo</p>
-						<input type="text" name="comentarioTitulo"/>
-						<p>Descripcion:</p>
-						<textarea name="comentarioDescripcion" rows="5" cols="48"></textarea>
-						<input type="hidden" value="$id" name="comentarioUrlDeOferta"/>
-						<input type="hidden" value="false" name="esOferta"/>
-						<p><input type="submit" value="Publicar"></p>
-						
-					</form>
-				</div>
-			EOS;
+		if(estaLogado() ){
+			$form = new formularioSubirComentario2Mano();
+			$htmlFormRegistro = $form->gestiona();
+			$productos.=$htmlFormRegistro;	
 		}
 		else{
 			$ruta = SESION;//RUTA_VISTAS;

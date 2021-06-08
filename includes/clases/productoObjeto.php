@@ -68,11 +68,16 @@ abstract class producto{
 	}
 
 
-	public static function incrementarVotosProducto($idProducto){
+	public static function incrementarVotosComentarioProducto($idProducto){
 		var_dump($idProducto);
+
 		$result = producto::hacerConsulta("SELECT ValoracionUtilidad FROM comentariosoferta WHERE OfertaID = $idProducto LIMIT 1");
 		$valoracion = $result->fetch_object()->ValoracionUtilidad + 1;
 		producto::hacerConsulta("UPDATE comentariosoferta SET ValoracionUtilidad = $valoracion WHERE OfertaID = $idProducto");
+
+		$result = producto::hacerConsulta("SELECT ValoracionUtilidad FROM comentariossegundamano WHERE SegundaManoID = $idProducto LIMIT 1");
+		$valoracion = $result->fetch_object()->ValoracionUtilidad + 1;
+		producto::hacerConsulta("UPDATE comentariossegundamano SET ValoracionUtilidad = $valoracion WHERE SegundaManoID = $idProducto");
 	}
 
     protected function muestraComentariosString() {
@@ -90,15 +95,15 @@ abstract class producto{
 						<p>$comTitulo - $comUsuario - </p>
 						
 					<button class="button" type="button"   
-						onclick="incrementarVotosProducto$this->id(this)">    
-						<img src="{$RutaFoto}/imagenes/iconos/ok.png" width="15" height="15" alt="votos"/>    
+						onclick="incrementarVotosComentarioProducto$this->id(this)">    
+						<img src="{$RutaFoto}/imagenes/iconos/estrella.png" width="15" height="15" alt="votos"/>    
 						Valoración comentario: <span class = "count">$comValoracion</span>
 					</button>
 
 					<script type="text/javascript">
 					const rutaLocall = "$ruta";
 					console.log("El contenido de la variable es: " + rutaLocall)
-					function incrementarVotosProducto$this->id(button){	
+					function incrementarVotosComentarioProducto$this->id(button){	
 						var xhttp = new XMLHttpRequest();
 						xhttp.open("POST", rutaLocall, true); 
 						xhttp.onreadystatechange = function() {

@@ -15,9 +15,9 @@ define('BD_NAME', 'aw_p2');
 define('BD_USER', 'root');
 define('BD_PASS', '');
 
-define('RUTA_APP', '/proyecto/practica4');	//Ruta de Luis
+//define('RUTA_APP', '/proyecto/practica4');	//Ruta de Luis
 //define('RUTA_APP', '/OfferNow-practica4');			//Ruta de Jorge
-//define('RUTA_APP', '/proyecto/OfferNow');	//Ruta de Olga
+define('RUTA_APP', '/proyecto/OfferNow');	//Ruta de Olga
 //define('RUTA_APP', '/ProyectoFinal/OfferNow'); //Ruta Muad
 //define('RUTA_APP', '/AW/OfferNow');	//Ruta de Pablo
 //define('RUTA_APP', '/proyecto/OfferNow');

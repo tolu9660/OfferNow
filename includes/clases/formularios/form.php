@@ -88,8 +88,8 @@ abstract class form
                 //Si es false no se muestra la alerta y solo se redirige
                 if($mensaje == false){
                     //$mensaje = "Error";
-                    header("Location:$result");
-                    exit();
+                    //("Location:$result");
+                    //exit();
                 }
                 //Sino se muestra la alerta y se redirige
                 else{
@@ -97,7 +97,7 @@ abstract class form
                         <script type="text/javascript">
                             alert("<?php echo $mensaje; ?>");
                             //descomentar estas lineas-> redireccion
-                            window.location.href="<?php echo $result;?>";
+                            //window.location.href="<?php echo $result;?>";
                         </script>
                     <?php
                 }

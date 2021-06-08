@@ -67,12 +67,13 @@ class carritoObjeto{
         cantidad=1 -> incremento en 1 las unidades del producto
         cantidad!=0 -> modifico con la cantidad adecuada
         */
-
+        $cantidadesRestadas=0;
         if($cantidad===0){       
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
             $this->contador++;       
             $sql=" INSERT INTO carrito (idProducto,idUsuario,Comprado,unidades)
                         VALUES ('$producto','$this->usuario',0,1)";
+         
         }
         elseif($cantidad===1){
             $consultaCarritoCount = sprintf("SELECT unidades FROM carrito
@@ -86,14 +87,19 @@ class carritoObjeto{
             $sql=sprintf("UPDATE carrito SET unidades='$cont'
                         WHERE IdProducto='$producto'and idUsuario='%s'",
             $mysqli->real_escape_string($this->usuario));
+            
         }
         else{
-            $sql="UPDATE carrito SET unidades='$cantidad'
-                        WHERE IdProducto='$producto'"; 
+            $sql=sprintf("UPDATE carrito SET unidades='$cantidad'
+            WHERE IdProducto='$producto'and idUsuario='%s'",
+            $mysqli->real_escape_string($this->usuario));
+          
             header("location:procesarCarrito.php");        
         }
 
         if (mysqli_query($mysqli, $sql)) {
+          
+
             return true;
         } else {
             //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);

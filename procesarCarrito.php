@@ -37,6 +37,7 @@
 			$precioOferta=strval($carritoArray[$i]->muestraPrecio());
 			$urlImagen=strval($carritoArray[$i]->muestraURLImagen());
 			$Descripcion=strval($carritoArray[$i]->muestraDescripcion());
+			$cantidad=$carritoArray[$i]->cantidad();
 			$productos.=<<<EOS
 				<tr>
 					<div class="imgProducto">
@@ -54,7 +55,8 @@
 					<div class="cantidad">
 						<td>
 			EOS;
-			$form = new formularioCantidad($carritoArray[$i]->muestraID(), $carritoArray[$i]->cantidad());
+			
+			$form = new formularioCantidad($carritoArray[$i]->muestraID(),$cantidad );
 			$htmlFormAniadirCarrito = $form->gestiona();
 			$productos.=<<<EOS
 							$htmlFormAniadirCarrito

@@ -13,6 +13,7 @@ class art2ManoObjeto extends producto{
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
 		$this->unidades = $unidades;
+		$this->cantidad=1;
 	}
 
 	//--------------------------------------------Funciones estaticas----------------------------------------------

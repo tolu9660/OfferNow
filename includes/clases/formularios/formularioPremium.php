@@ -12,14 +12,30 @@ class formularioPremium extends form{
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
+        $premium1 = RUTA_APP.'/imagenes/iconos/1mes.png';
+        $premium2 = RUTA_APP.'/imagenes/iconos/3meses.png';
+        $premium3 = RUTA_APP.'/imagenes/iconos/12meses.png';
    
-        $html = <<<EOF
-        <h1>¿QUIERES ENTERARTE DE LAS OFERTAS ANTES QUE NADIE?</h1>
-        <h2>ESCOGE TU PACK: </h2>
-            <input type="submit" value="1 mes por 3 euros."></p>
-            <input type="submit" value="3 meses por 7 euros."></p>
-            <input type="submit" value="12 meses por 25 euros."></p>
-        EOF;
+        $html = <<<EOS
+            <h1>¿QUIERES ENTERARTE DE LAS OFERTAS ANTES QUE NADIE?</h1>
+            <h2>ESCOGE TU PACK: </h2>
+            <div id="contenedor">
+                <ul class="rejilla">
+                    <li>
+                        <img src="$premium1" class="logo" alt="logo"/>
+                        <input type="submit" value="1 mes por 3 euros."></p>
+                    </li>
+                    <li>
+                        <img src="$premium2" class="logo" alt="logo"/>
+                        <input type="submit" value="3 meses por 7 euros."></p>
+                    </li>
+                    <li>
+                        <img src="$premium3" class="logo" alt="logo"/>
+                        <input type="submit" value="12 meses por 25 euros."></p>
+                    </li>
+                </ul>
+            </div>
+            EOS;
         return $html;
     }
 

@@ -46,7 +46,12 @@
                         <li><a href="<?=RUTA_APP.'/vistas/login.php'?>">Inicio Sesión</a></li>
                         <li><a href="<?=RUTA_APP.'/vistas/registro.php'?>">Registro</a></li>
                         <!--<li><a href="<?=SESION.'/logout.php'?>">Cerrar Sesión</a></li>-->
-                        <li><a href="<?=RUTA_APP.'/vistas/premium.php'?>">Hazte premium -- No implementado</a></li>
+                        <?php
+                                if(isset($_SESSION["esPremium"]) && !$_SESSION["esPremium"]){
+                                        $direccion = RUTA_APP.'/vistas/premium.php';
+                                        echo "<li><a href=".$direccion.">Hazte premium</a></li>";
+                                }
+                        ?>
                 </ul>
                 </nav>
 	</div>

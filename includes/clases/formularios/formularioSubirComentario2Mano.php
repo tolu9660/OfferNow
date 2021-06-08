@@ -43,6 +43,7 @@ class formularioSubirComentario2Mano extends form{
         if(empty($descripcion)){
             $result['errorDescripcion']= "Error: especifica una descripcion";
         }
+        
         if(sizeof($result) == 0) {
             if (comentarioObjeto::subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador)) {
                 $result = $_SERVER['REQUEST_URI'];

@@ -45,20 +45,17 @@ class art2ManoObjeto extends producto{
 		else{
 			$result = parent::hacerConsulta("SELECT * FROM articulos_segunda_mano WHERE Numero = '$id' AND Premium = 0");
 		}
-		
+		//Si solo hay un id crea el objeto y lo devuelve
 		if($result && $result->num_rows == 1) {
 			$fila = $result->fetch_assoc();
 			$ofertaObj = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 									$resultCant = parent::hacerConsulta("SELECT unidades FROM carrito WHERE idProducto = '$id'");
 			if($resultCant && $resultCant->num_rows == 1){
-			
 				$filacant = $resultCant->fetch_assoc();
 				$cantidad=$filacant['unidades'];
 				$ofertaObj->agregarCantidad($cantidad);
-
-			}
-			
+			}		
 			return $ofertaObj;
 		} else{
 			return false;
@@ -95,7 +92,8 @@ class art2ManoObjeto extends producto{
 			return $ofertasArray;
 		}
 		else{
-			echo "Error in ".$query."<br>".$mysqli->error;
+			//echo "Error in ".$query."<br>".$mysqli->error;
+			return false;
 		}
 	}
 	

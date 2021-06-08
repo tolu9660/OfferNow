@@ -7,9 +7,9 @@
     
     $form = new formularioConfiguracion();
     $htmlFormDireccion = $form->gestiona();
-//meterlo dentro de un formulario
+    
     $contenidoPrincipal=<<<EOS
         $htmlFormDireccion
     EOS;
 
-require RUTA_LAYOUT.'/layout.php';
+    require RUTA_LAYOUT.'/layout.php';

@@ -38,15 +38,6 @@ class carritoObjeto{
         return $ListaPedidos;
     }
 
-    public static function getUnidadesProducto($idProducto){
-        $app = aplicacion::getSingleton();
-        $mysqli = $app->conexionBd();
-        $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
-    
-        $fila=$unidades->fetch_assoc();
-        return $fila['unidades'];
-    }
-
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
     // que encuentre
     public function ComprutebaCantidadProducto($producto){
@@ -71,9 +62,11 @@ class carritoObjeto{
         $app = aplicacion::getSingleton();
         $mysqli = $app->conexionBd(); 
         $sql;
-        //cantidad=0 -> inserto un nuevo producto
-       //cantidad=1 -> incremento en 1 las unidades del producto
-       //cantidad!=0 -> modifico con la cantidad adecuada
+        /*
+        cantidad=0 -> inserto un nuevo producto
+        cantidad=1 -> incremento en 1 las unidades del producto
+        cantidad!=0 -> modifico con la cantidad adecuada
+        */
 
         if($cantidad===0){       
             $this->productos[$this->contador]=art2ManoObjeto::buscaArt2Mano($producto);
@@ -82,25 +75,28 @@ class carritoObjeto{
                         VALUES ('$producto','$this->usuario',0,1)";
         }
         elseif($cantidad===1){
-            $consultaCarritoCount = sprintf("SELECT unidades FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
+            $consultaCarritoCount = sprintf("SELECT unidades FROM carrito
+                        WHERE idProducto=$producto and idUsuario='%s'",
             $mysqli->real_escape_string($this->usuario));
             $result1 = $mysqli->query($consultaCarritoCount);
             $fila1=$result1->fetch_assoc();
             $cont=$fila1['unidades'];
             $cont=$cont+1;
             
-            $sql=sprintf("UPDATE carrito SET unidades='$cont' WHERE IdProducto='$producto'and idUsuario='%s'",
+            $sql=sprintf("UPDATE carrito SET unidades='$cont'
+                        WHERE IdProducto='$producto'and idUsuario='%s'",
             $mysqli->real_escape_string($this->usuario));
         }
         else{
-            $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'"; 
+            $sql="UPDATE carrito SET unidades='$cantidad'
+                        WHERE IdProducto='$producto'"; 
             header("location:procesarCarrito.php");        
         }
 
         if (mysqli_query($mysqli, $sql)) {
             return true;
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+            //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
             return false;
         }
         //header("location:procesarCarrito.php");
@@ -136,6 +132,7 @@ class carritoObjeto{
 		}
 		return $precioTotal;     
     }
+
     public function cargarCarrito($idUser){
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
@@ -160,7 +157,7 @@ class carritoObjeto{
         return $this->productos;
     }
 
-    //Getters
+    //-----------------------------------------------------Getters---------------------------------------------
     public function getCont(){
         return $this->contador;
     }
@@ -175,6 +172,15 @@ class carritoObjeto{
 
     public function getProductos(){
         return $this->productos;
+    }
+
+    public static function getUnidadesProducto($idProducto){
+        $app = aplicacion::getSingleton();
+        $mysqli = $app->conexionBd();
+        $unidades = $mysqli->query("SELECT unidades FROM carrito WHERE idProducto = $idProducto");
+    
+        $fila=$unidades->fetch_assoc();
+        return $fila['unidades'];
     }
 }
 ?>

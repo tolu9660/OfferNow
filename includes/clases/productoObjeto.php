@@ -30,7 +30,6 @@ abstract class producto{
         $this->cargaComentarios($tablaDondeBuscarComentarios);
     }
 
-    //Creo que es mejor dividirla en 2 y bajarla a los hijos -> si lo haces no va por cosas estaticas y objetos no creados
     protected function cargaComentarios($tablaDondeBuscarComentarios) {
         if($tablaDondeBuscarComentarios == "comentariosoferta"){
             $result = $this->hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
@@ -55,19 +54,6 @@ abstract class producto{
         }
 	}
 
-    protected static function hacerConsulta($query){
-		$app = aplicacion::getSingleton();
-		$mysqli = $app->conexionBd();
-		$result = $mysqli->query($query);
-		if($result) {
-			return $result;
-		}
-		else{
-			return null;
-		}
-	}
-
-
 	public static function incrementarVotosComentarioProducto($idProducto){
 		var_dump($idProducto);
 
@@ -80,6 +66,19 @@ abstract class producto{
 		producto::hacerConsulta("UPDATE comentariossegundamano SET ValoracionUtilidad = $valoracion WHERE SegundaManoID = $idProducto");
 	}
 
+	protected static function hacerConsulta($query){
+		$app = aplicacion::getSingleton();
+		$mysqli = $app->conexionBd();
+		$result = $mysqli->query($query);
+		if($result) {
+			return $result;
+		}
+		else{
+			return null;
+		}
+	}
+
+	//--------------------------------------------------Vista--------------------------------------------------		
     protected function muestraComentariosString() {
         $ruta = POSTEAR."/votosComentarioProductoBD.php";
 		$RutaFoto = RUTA_APP;
@@ -125,11 +124,11 @@ abstract class producto{
 		}
 		return $productos;
 	}
-    ///////////////////////////SETTERS//////////////////////////////////
+    //--------------------------------------------------SETTERS--------------------------------------------------
     protected function setComentariosArray($arrayComent){
         $this->comentariosArray = $arrayComent;
     }
-    ///////////////////////////GETTERS//////////////////////////////////
+    //--------------------------------------------------GETTERS--------------------------------------------------
     public function muestraID() {
 		return $this->id;
 	}

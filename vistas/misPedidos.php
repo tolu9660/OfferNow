@@ -7,16 +7,16 @@
     $user=usuario::buscaUsuario($nombreUsuario);
     $listaPedidos=$user->listarPedidos();
     $productos=<<<EOS
-    <div class="iniciosesion">
+	<div class="iniciosesion">
 	<table>
 	<caption>TUS PEDIDOS REALIZADOS</caption>
 			<thead>
 				<tr>
 					<th>PRODUCTO</th>
 					<th>PRECIO</th>
-					<th>UNIDADES</th>
-				
-EOS;
+					<th>UNIDADES</th>			
+	EOS;
+
     if(is_array($listaPedidos)) {
         for ($i = 0; $i < sizeof($listaPedidos); $i++) {
 			$nombreOferta=strval($listaPedidos[$i]->muestraNombre());
@@ -40,18 +40,15 @@ EOS;
 				$cantidad
 				</td>
 				</div>
-			</tr>
-				
+			</tr>	
 			EOS;
 		}
-
     }
 
-//meterlo dentro de un formulario
     $contenidoPrincipal=<<<EOS
-    $productos
-    </ul>
-    </div>
-EOS;
+		$productos
+		</ul>
+		</div>
+	EOS;
 
-require RUTA_LAYOUT.'/layout.php';
+	require RUTA_LAYOUT.'/layout.php';

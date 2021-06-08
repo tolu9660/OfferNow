@@ -58,7 +58,7 @@ class formularioVentasUsuario extends form{
                 $esPremium = false;
             }
             if(posiblesVentasObjeto::aceptaCompra($id2Mano, $esPremium)){
-                $result = RUTA_APP.'/ventasUsuarioVista.php';
+                $result = RUTA_APP.'/vistas/ventasUsuarioVista.php';
             } else {
                 $result[]= "<h3>Error al aceptar el producto</h3>";
             }

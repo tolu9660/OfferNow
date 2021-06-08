@@ -8,12 +8,9 @@ class posiblesVentasObjeto extends producto{
 
 	private $unidades;
 	private $creador;
-	//private $precio;
-	//private $urlImagen;
 	
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen, $creador) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio,"posiblescompras");
-			//"SELECT * FROM posiblescompras WHERE SegundaManoID = '$id'");
 		$this->unidades = $unidades;
 		$this->creador = $creador;
 	}
@@ -107,7 +104,7 @@ class posiblesVentasObjeto extends producto{
 		}
 	}
 	
-	//--------------------------------------------------Vista-----------------------------------------------------		
+	//--------------------------------------------------Vista-----------------------------------------------------
 	public function muestraPosibleCompraString(){
 		$DIRimagen = $this->muestraURLImagen();
 		$usuarioCreador = $this->muestraCreador();

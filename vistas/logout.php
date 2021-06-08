@@ -8,7 +8,7 @@
 	$tituloPagina = 'Logout';
 	$contenidoPrincipal=<<<EOS
 		<div class="producto">
-		<div class="iniciosesion">
+			<div class="iniciosesion">
 				<h2>GRACIAS Y HASTA PRONTO!   </h2> {$usuario}
 			</div>
 		</div>

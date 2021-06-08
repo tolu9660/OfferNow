@@ -101,8 +101,6 @@ class ofertaObjeto extends producto{
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------
-	//esta función no debería estar aquí, si no en una clase de vista (en esta clase solo deberiamos tener la logica con el servidor,
-	//no un html que hable con el cliente)
 	public function muestraOfertaString(){
 		$Ruta = RUTA_APP;
 		$DIRimagen = $this->muestraURLImagen();

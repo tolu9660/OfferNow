@@ -41,7 +41,6 @@ class formularioSubir2Mano extends form{
     protected function procesaFormulario($datos){
         $result = array();
         
-       //Muestra si se ha subido o no
         $nombre = htmlspecialchars(trim(strip_tags($datos["articuloNombre"])));
         $descripcion = htmlspecialchars(trim(strip_tags($datos["articuloDescripcion"])));
         $unidades = htmlspecialchars(trim(strip_tags($datos["articuloUnidades"])));
@@ -65,8 +64,8 @@ class formularioSubir2Mano extends form{
         if(empty($unidades) || $unidades == 0){
             $result['errorUnidades']= "Error: especifica las unidades";
         }
+
         if(sizeof($result) == 0) {
-            //$imagen = htmlspecialchars(trim(strip_tags($_POST["productoImagen"])));
             $nombreNuevo = aplicacion::comprobarImagen("/art2mano/");
             if($nombreNuevo != false){
                 if (art2ManoObjeto::subeArt2ManoBD($nombre,$descripcion,$unidades,

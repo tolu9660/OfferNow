@@ -82,24 +82,15 @@ class formularioConfiguracion extends form{
             }
             if (count($result) === 0) {
                 $changePass=true;
-              
             }
-
         }
-      
         if (count($result) === 0) {
-            //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
-         
             $nombreUsuario =$_SESSION['nombre'];
             $user=usuario::buscaUsuario($nombreUsuario);
             if($user->cambiarNombre($nuevoNombre)){
-              
                 if($changePass){
-                  
                     if($user->compruebaPassword($OldPass)) {
-                   
-              
-                    $user->cambiaPassword($password1);
+                        $user->cambiaPassword($password1);
                     }
                     else{
                         $result['passwordOld']="No valida";
@@ -107,7 +98,6 @@ class formularioConfiguracion extends form{
                 }
                 $result = RUTA_APP.'/perfil.php';
             }
-          
             else{
                 $result[]="no se ha podido realizar cambios";
             }            
@@ -119,5 +109,4 @@ class formularioConfiguracion extends form{
         return "La configuración se ha modificado correctamente";
     } 
 }
-
 ?>

@@ -78,6 +78,7 @@ class formularioSubirOferta extends form{
         if(empty($urlOferta)){
             $result['errorUrl']= "Error: especifica una url";
         }
+        
         if(sizeof($result) == 0) {
             $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
             if($nombreNuevo != false){

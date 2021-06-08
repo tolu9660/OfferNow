@@ -21,7 +21,6 @@ class formularioRegistro extends form{
         $errorPassword = self::createMensajeError($errores, 'password1', 'span', array('class' => 'error'));
         $errorPassword2 = self::createMensajeError($errores, 'password2', 'span', array('class' => 'error'));
 
-
         $html = <<<EOF
         <div class="iniciosesion">
             <h1>Registro de usuario</h1>
@@ -37,7 +36,6 @@ class formularioRegistro extends form{
              $htmlErroresGlobales
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
             <input type="submit" value="crear">
-      
         </div>
         EOF;
     
@@ -48,39 +46,38 @@ class formularioRegistro extends form{
         $result = array();
         
         $nombreUsuario = $datos['username'] ?? null;
-        
-        if ( empty($nombreUsuario) || mb_strlen($nombreUsuario) < 5 ) {
+        if (empty($nombreUsuario) || mb_strlen($nombreUsuario) < 5 ) {
             $result['username'] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
         }
         
         $correo = isset($datos["email"]) ? $datos["email"] : null;
-        if ( empty($correo) || mb_strlen($correo) < 5 ) {
+        if (empty($correo) || mb_strlen($correo) < 5 ) {
             $result['email']  = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
         }
+
         $calle = isset($datos["calle"]) ? $datos["calle"] : null;
-        if ( empty($calle)) {
+        if (empty($calle)) {
             $result['calle']  = "el campo no puede estar vacio.";
         }
         
         $password1 = isset($datos["password1"]) ? $datos["password1"] : null;
-        if ( empty($password1) || mb_strlen($password1) < 5 ) {
+        if (empty($password1) || mb_strlen($password1) < 5 ) {
             $result['password1'] = "El password tiene que tener una longitud de al menos 5 caracteres.";
         }
         $password2 = isset($datos['password2']) ? $datos['password2'] : null;
-        if ( empty($password2) || strcmp($password1, $password2) !== 0 ) {
+        if (empty($password2) || strcmp($password1, $password2) !== 0 ) {
             $result['password2'] = "Los passwords deben coincidir";
         }
       
         if (count($result) === 0) {
-       
-           if(usuario::altaNuevoUsuario($correo,$nombreUsuario,$password1,$password2,$calle)){
-            $result ="Usuario registrado con exito!";
-            $_SESSION['login'] = true;
-            $_SESSION['nombre'] = $nombreUsuario;
-			$_SESSION["correo"] = $correo;
-            $_SESSION["esPremium"] = false;
-            $_SESSION["esAdmin"] = false;
-            $result = RUTA_APP.'/index.php';
+            if(usuario::altaNuevoUsuario($correo,$nombreUsuario,$password1,$password2,$calle)){
+                $result ="Usuario registrado con exito!";
+                $_SESSION['login'] = true;
+                $_SESSION['nombre'] = $nombreUsuario;
+                $_SESSION["correo"] = $correo;
+                $_SESSION["esPremium"] = false;
+                $_SESSION["esAdmin"] = false;
+                $result = RUTA_APP.'/index.php';
             }
             else{
                 $result[]="Error en el registro!";

@@ -31,7 +31,6 @@ class formularioDirecciones extends form{
             <label>Nº:</label> <input type="text" name="numero" value=$dir[1] />
             $errorDireccion
             </p>
-          
             $htmlErroresGlobales
             <button type="submit" name="login">Cambiar</button>
         </div>
@@ -45,7 +44,6 @@ class formularioDirecciones extends form{
         
         $dir =$datos['NuevaDir'] ?? null;
         $numero =$datos['numero'] ?? null;
-        
         
         if ( empty($dir) ) {
             $result['NuevaDir'] = "La direccion no puede estar vacia";

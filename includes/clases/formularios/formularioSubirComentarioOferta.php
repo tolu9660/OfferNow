@@ -45,6 +45,7 @@ class formularioSubirComentarioOferta extends form{
         if(empty($descripcion)){
             $result['errorDescripcion']= "Error: especifica una descripcion";
         }
+        
         if(sizeof($result) == 0) {
             if (comentarioObjeto::subeComentarioOfertaBD($titulo,$descripcion,$urlOferta,$esOferta,$creador)) {
                 $result = $_SERVER['REQUEST_URI'];

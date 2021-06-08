@@ -8,5 +8,5 @@
 	$contenidoPrincipal=<<<EOS
 				$htmlFormPremium
 	EOS;
+	
 	require RUTA_LAYOUT.'/layout.php';
-?>

@@ -7,13 +7,11 @@
 	$productos = '';
 	//------------------------------Carga de articulos 2 mano premium-----------------------------------------
 		$productos.=<<<EOS
-
 			<div="producto">
 			<ul class="rejilla">
 			<h2>¡¡¡Aqui puedes ver todos los articulos de segunda mano para usuarios Premium!!!</h2>
 			</ul>
 			<ul class="rejilla">
-			
 		EOS;
 
 		//Carga los productos de 2 mano en un array
@@ -32,13 +30,13 @@
 				//URL del producto junto con el id
 				$id = PRODUCTOS.'/productoSegundaMano.php?id='.$articulos2ManoArray[$i]->muestraID();
 				$productos.=<<<EOS
-				<li>
-					<a href=$id rel="nofollow">
-						<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
-						<h3>$nombreArticulo</h3>
-						<p>$precioArticulo €</p>
-					</a>
-				</li>	
+					<li>
+						<a href=$id rel="nofollow">
+							<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
+							<h3>$nombreArticulo</h3>
+							<p>$precioArticulo €</p>
+						</a>
+					</li>	
 				EOS;
 			}
 		} else{
@@ -46,15 +44,13 @@
 		}
 
 	//----------------------------------Carga de ofertas premium---------------------------------------------
-		//Descomentar cuando esté hecho el css
 		$productos.=<<<EOS
-		</ul>
-				<div="producto">
+			</ul>
+			<div="producto">
 				<ul class="rejilla">
-				<h2>¡¡¡Aqui puedes ver todas ofertas para usuarios Premium!!!</h2>
+					<h2>¡¡¡Aqui puedes ver todas ofertas para usuarios Premium!!!</h2>
 				</ul>
 				<ul class="rejilla">
-				
 		EOS;
 		
 		//Carga las ofertas en un array
@@ -91,4 +87,5 @@
 		</ul>
 		</div>
 	EOS;
-require RAIZ_APP.'/includes/comun/layout.php';
+
+	require RAIZ_APP.'/includes/comun/layout.php';

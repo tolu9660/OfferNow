@@ -42,19 +42,16 @@ class formularioPremium extends form{
     protected function procesaFormulario($datos){
         $result = array();
         if(isset($_SESSION["login"])){
+            $nombreUsuario =$_SESSION['correo'];
 
-        $nombreUsuario =$_SESSION['correo'];
-
-        $this->ok=true;
-        $user=usuario::buscaUsuario($nombreUsuario);
-        $user->hacerPremium(); 
-        $result= RUTA_APP.'/nuestraTienda.php';
+            $this->ok=true;
+            $user=usuario::buscaUsuario($nombreUsuario);
+            $user->hacerPremium(); 
+            $result= RUTA_APP.'/nuestraTienda.php';
         }
         else{
             $result=SESION.'/login.php';
         }
-        
-        
         return $result;
     }
     protected function muestraResultadoCorrecto() {
@@ -64,7 +61,6 @@ class formularioPremium extends form{
         else{
             return "no estas logeado";
         }
-        
     }
 }
 

@@ -11,5 +11,5 @@
 	$contenidoPrincipal = <<<EOS
 		$htmlFormCarrito
 	EOS;
-
+	
 	require RUTA_LAYOUT.'/layout.php';

@@ -5,10 +5,11 @@
 	$tituloPagina = 'Subir Oferta';
 	
 //////////////////implementacion:
-$form = new formularioSubirOferta();
-$htmlFormOferta = $form->gestiona();
+	$form = new formularioSubirOferta();
+	$htmlFormOferta = $form->gestiona();
 
-$contenidoPrincipal=<<<EOS
-	$htmlFormOferta
-EOS;
-require RUTA_LAYOUT.'/layout.php';
+	$contenidoPrincipal=<<<EOS
+		$htmlFormOferta
+	EOS;
+
+	require RUTA_LAYOUT.'/layout.php';

@@ -23,18 +23,17 @@ class usuario{
     $this->carrito= new carritoObjeto($this->idCorreo);
   }
 
+  //------------------------------------------Funciones estaticas//------------------------------------------
   public static function login($email, $password){
     $user = self::buscaUsuario($email);
    
     if ($user && $user->compruebaPassword($password)) {
       $app = aplicacion::getSingleton();
 		  $conn = $app->conexionBd();
-      //hacer consulta de premium y admin
-      //si devuelve un 1 el usuario es administrador 
+      //hacer consulta de premium y admin, si devuelve un 1 el usuario es administrador 
       $consultaEsAdmin=sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                                 $conn->real_escape_string($email));			  
       $rs = $conn->query($consultaEsAdmin);
-      //echo $consultaEsAdmin;
       if ($rs){
         $fila1 = $rs->fetch_assoc();
      
@@ -59,30 +58,21 @@ class usuario{
   public static function buscaUsuario($email){ 
     $app = aplicacion::getSingleton();
     $conn = $app->conexionBd();
-    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'",
-                    $conn->real_escape_string($email));
+    $consultaUsuario = sprintf("SELECT * FROM usuario WHERE Correo='%s'", $conn->real_escape_string($email));
     
     $rs = $conn->query($consultaUsuario);
     if($rs && $rs->num_rows == 1){
       $fila = $rs->fetch_assoc();
-      //para ver los datos obtenidos de la BD
-      /*echo "DATOS LEIDOS\n". "correo:".$fila['Correo']." "." nombre: ".$fila['Nombre'].'\n'.
-      " contraseña:".$fila['Contraseña'].'\n'/*." Es premium: ". $fila['Premium'].'\n'.
-      " es admin:". $fila['Admin']*/;
   
-      $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']
-                  /*, $fila['Premium'], $fila['Admin']*/);
+      $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']);
       $user->setPass($fila['Contraseña']);
       if($fila['Admin']==1){
-         
         $user->esAdmin();
       }
       if($fila['Premium']==1){
-    
         $user->esPremium();
       }
       $rs->free();
-     
       return $user;
     }
     return false;
@@ -93,7 +83,7 @@ class usuario{
 			return false;
 		}
 		else{
-       //creo un objeto de tipo usuario para poder usarlo en caso de que el 
+      //creo un objeto de tipo usuario para poder usarlo en caso de que el 
       //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
 
       $user = new usuario($email, $username,$password1,$calle);
@@ -117,13 +107,13 @@ class usuario{
 				return true;
 			} else {
 				//$mysqli->close();
-				echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+				//echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 				return false;
 			}
 		}
 	}
 
-/////////////
+//------------------------------------------Getters------------------------------------------
   public function esAdmin(){
     $this->esAdmin=1;
   }
@@ -177,7 +167,7 @@ class usuario{
 		}
   }
 
-  ////////////////
+  //------------------------------------------Cambio atributos------------------------------------------
   public function cambiarNombre($nuevoNombe)  {
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
@@ -187,7 +177,7 @@ class usuario{
       return true;
     } else {
       //$mysqli->close();
-      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
@@ -203,18 +193,9 @@ class usuario{
       return true;
     } else {
       //$mysqli->close();
-      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
-  }
-
-  public function listarPedidos(){
-    $pedidos=carritoObjeto::listaDePedidos($this->idCorreo);
-    return $pedidos;
-  }
-
-  public function listarPedidosNoComprados(){
-    return $this->carrito->cargarCarrito($this->idCorreo);
   }
 
   public function cambiaPassword($nuevoPassword)  {
@@ -228,10 +209,56 @@ class usuario{
       return true;
     } else {
       //$mysqli->close();
+      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+      return false;
+    }
+  }
+
+  public function hacerPremium(){
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd(); 
+    $sql= "UPDATE usuario SET Premium = 1 WHERE correo = '$this->idCorreo'";
+    
+    if (mysqli_query($mysqli, $sql)) {
+    //$mysqli->close();
+      $this->esPremium = 1;
+      $_SESSION["esPremium"] = true;
+      return true;
+    } else {
+        //$mysqli->close();
+        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        return false;
+    }
+  }
+
+  public function altaNuevaTarjeta($numeroTarjeta){
+    $app = aplicacion::getSingleton();
+    $mysqli = $app->conexionBd();
+    //se filtra la informacion que se va a introducir en la BD:
+
+    $correo = $this->idCorreo;
+    $numeroTarjetaFiltrado=$mysqli->real_escape_string($numeroTarjeta);
+    $sql= "UPDATE usuario SET tarjeta ='$numeroTarjetaFiltrado' WHERE correo = '$correo'";
+    if (mysqli_query($mysqli, $sql)) {
+      //$mysqli->close();
+      return true;
+    } else {
+      //$mysqli->close();
       echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
+
+  //------------------------------------------Carrito usuario------------------------------------------
+  public function listarPedidos(){
+    $pedidos=carritoObjeto::listaDePedidos($this->idCorreo);
+    return $pedidos;
+  }
+
+  public function listarPedidosNoComprados(){
+    return $this->carrito->cargarCarrito($this->idCorreo);
+  }
+
   public function precio(){
     return $this->carrito->precioTotal();
     //header("location:procesarCarrito.php");
@@ -255,43 +282,8 @@ class usuario{
     }
   }
 
-  public function altaNuevaTarjeta($numeroTarjeta){
-    $app = aplicacion::getSingleton();
-    $mysqli = $app->conexionBd();
-    //se filtra la informacion que se va a introducir en la BD:
-
-    $correo = $this->idCorreo;
-    $numeroTarjetaFiltrado=$mysqli->real_escape_string($numeroTarjeta);
-    $sql= "UPDATE usuario SET tarjeta ='$numeroTarjetaFiltrado' WHERE correo = '$correo'";
-    if (mysqli_query($mysqli, $sql)) {
-      //$mysqli->close();
-      return true;
-    } else {
-      //$mysqli->close();
-      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-      return false;
-    }
-  }
-
   public function quitarCarrito($idProducto){
     $this->carrito->eliminarCarrito($idProducto);
     header("location:procesarCarrito.php");
-  }
-
-  public function hacerPremium(){
-    $app = aplicacion::getSingleton();
-    $mysqli = $app->conexionBd(); 
-    $sql= "UPDATE usuario SET Premium = 1 WHERE correo = '$this->idCorreo'";
-    
-    if (mysqli_query($mysqli, $sql)) {
-    //$mysqli->close();
-      $this->esPremium = 1;
-      $_SESSION["esPremium"] = true;
-      return true;
-    } else {
-        //$mysqli->close();
-        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-        return false;
-    }
   }
 }

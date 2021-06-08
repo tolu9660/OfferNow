@@ -14,7 +14,6 @@ class formularioEliminarCarrito extends form{
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){
-   
         $html = <<<EOF
             <input type="hidden" name="idProducto" value="{$this->idProducto}"/>
             <input type="submit" value="eliminar producto"></p>
@@ -25,21 +24,15 @@ class formularioEliminarCarrito extends form{
     protected function procesaFormulario($datos){
         $result = array();
         if(isset($_SESSION["login"])){
-
-        //$idProducto = $_POST["idProducto"];
-        $nombreUsuario =$_SESSION['correo'];
-
-        $this->ok=true;
-        $idPro=$datos['idProducto'];
-        $user=usuario::buscaUsuario($nombreUsuario);
-        $user->quitarCarrito($idPro);     
-            
+            $nombreUsuario =$_SESSION['correo'];
+            $this->ok=true;
+            $idPro=$datos['idProducto'];
+            $user=usuario::buscaUsuario($nombreUsuario);
+            $user->quitarCarrito($idPro);   
         }
         else{
             $result=SESION.'/login.php';
         }
-        
-        
         return $result;
     }
     protected function muestraResultadoCorrecto() {
@@ -48,8 +41,7 @@ class formularioEliminarCarrito extends form{
         }
         else{
             return "no estas logeado";
-        }
-        
+        } 
     }
 }
 

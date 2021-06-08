@@ -64,7 +64,7 @@
 			if(estaLogado()){
 				?>
 				<h3>Navegacion:</h3>
-				<li><a href="<?=RUTA_APP.'/vistas/logout.php'?>">Cerrar Sesión</a></li>
+				<li><a href= "<?=RUTA_APP.'/vistas/logout.php'?>">Cerrar Sesión</a></li>
 				<li><a href= "<?=RUTA_APP.'/vistas/subirOferta.php'?>">Publica una oferta</a></li>
 				<li><a href= "<?=RUTA_APP.'/vistas/peticionVentaArticulo.php'?>">¡¡Vendenos un articulo!!</a></li>
 				<?php
@@ -79,7 +79,7 @@
 				?>
 				<h4>Opciones de administrador:</h4>
 				<li><a href= "<?=RUTA_APP.'/vistas/subirArticulo2Mano.php'?>">Publica un articulo de segunda mano</a></li>
-				<li><a href= "<?=RUTA_APP.'/ventasUsuarioVista.php'?>">Valida solicitudes de compra</a></li>
+				<li><a href= "<?=RUTA_APP.'/vistas/ventasUsuarioVista.php'?>">Valida solicitudes de compra</a></li>
 				<?php
 			}
 		?>

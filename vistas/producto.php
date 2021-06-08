@@ -14,7 +14,7 @@
 	}
 	$productos='';
 	
-	//Ha devuelto un objeto
+	//Si no ha devuelto false entonces ha encontrado el articulo
 	if($ofertaObj != false) {
 		$ruta=POSTEAR;
 		$tituloPagina = $ofertaObj->muestraNombre();
@@ -46,4 +46,4 @@
 		$productos
 	EOS;
 
-require RUTA_LAYOUT.'/layout.php';
+	require RUTA_LAYOUT.'/layout.php';

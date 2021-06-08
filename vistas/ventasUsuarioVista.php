@@ -1,5 +1,5 @@
 <?php
-	require_once __DIR__.'/includes/config.php';
+	require_once __DIR__.'/../includes/config.php';
 	require_once RUTA_FORMS.'/formularioVentasUsuario.php';
 
 	$tituloPagina = 'Validar solicitudes de compra';
@@ -10,4 +10,5 @@
 	$contenidoPrincipal=<<<EOS
 		$htmlFormOferta
 	EOS;
-require RUTA_LAYOUT.'/layout.php';
+	
+	require RUTA_LAYOUT.'/layout.php';

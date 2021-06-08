@@ -59,6 +59,7 @@ class formularioVentaArticulo extends form{
         if(empty($unidades) || $unidades == 0){
             $result['errorUnidades']= "Error: especifica las unidades";
         }
+        
         if(sizeof($result) == 0) {
             $nombreNuevo = aplicacion::comprobarImagen("/art2mano/");
             if($nombreNuevo != false){

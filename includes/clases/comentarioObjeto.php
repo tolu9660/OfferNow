@@ -40,8 +40,6 @@ class comentarioObjeto{
 	}
 	
 	public static function subeComentario2ManoBD($titulo,$descripcion,$urlOferta,$esOferta,$creador){
-		
-		
 		//Insert into inserta en la tabla comentariossegundamano y las columnas entre parentesis los valores en VALUES
 		$app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd();	

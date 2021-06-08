@@ -56,7 +56,7 @@ class formularioSubirOferta extends form{
                 $result['errorEnlace']= "Error: el enlace a nuestro producto es incorrecto";
             }
         } else{
-            $url2Mano = NULL;
+            $url2Mano = 0;
         }
 
         $result = array();
@@ -82,7 +82,6 @@ class formularioSubirOferta extends form{
         if(sizeof($result) == 0) {
             $nombreNuevo = aplicacion::comprobarImagen("/ofertas/");
             if($nombreNuevo != false){
-                echo count($result);
                 if (ofertaObjeto::subeOfertaBD($nombre,$descripcion,$urlOferta,
                         $nombreNuevo,$precio,$creador, $url2Mano)) {   
                     $result = RUTA_APP.'/index.php';

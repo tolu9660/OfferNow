@@ -47,10 +47,10 @@ class formularioSubir2Mano extends form{
         $precio = htmlspecialchars(trim(strip_tags($datos["articuloPrecio"])));
 
         if(isset($_POST['premium'])){
-            $esPremium = true;
+            $esPremium = 1;
         }
         else{
-            $esPremium = false;
+            $esPremium = 0;
         }
         if(empty($nombre)){
             $result['errorNombre']= "Error: especifica un nombre";

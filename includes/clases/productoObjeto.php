@@ -33,7 +33,7 @@ abstract class producto{
     protected function cargaComentarios($tablaDondeBuscarComentarios) {
         if($tablaDondeBuscarComentarios == "comentariosoferta"){
             $result = $this->hacerConsulta("SELECT * FROM comentariosoferta WHERE OfertaID = '$this->id' ORDER BY ValoracionUtilidad");
-            if($result != null) {		
+            if($result != null) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
                     $this->comentariosArray[] = new comentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],
@@ -42,7 +42,7 @@ abstract class producto{
             }
         } else if ($tablaDondeBuscarComentarios == "comentariossegundamano"){
             $result = $this->hacerConsulta("SELECT * FROM comentariossegundamano WHERE SegundaManoID = '$this->id' ORDER BY ValoracionUtilidad");
-            if($result != null) {		
+            if($result != null) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $fila = $result->fetch_assoc();
                     $this->comentariosArray[] = new comentarioObjeto($fila['ID'],$fila['Texto'],$fila['Titulo'],

@@ -52,10 +52,10 @@ class formularioVentasUsuario extends form{
         if(isset($datos["accion"]) && ($datos["accion"] == "true")){
             $id2Mano = htmlspecialchars(trim(strip_tags($_POST["idVenta"])));
             if(isset($_POST['premium'])){
-                $esPremium = true;
+                $esPremium = 1;
             }
             else{
-                $esPremium = false;
+                $esPremium = 0;
             }
             if(posiblesVentasObjeto::aceptaCompra($id2Mano, $esPremium)){
                 $result = RUTA_APP.'/vistas/ventasUsuarioVista.php';

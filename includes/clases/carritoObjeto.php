@@ -107,7 +107,7 @@ class carritoObjeto{
         $app = aplicacion::getSingleton();
         $mysqli = $app->conexionBd();
         
-        $nombreUsuario = $_SESSION['nombre'];
+        $nombreUsuario = $_SESSION['correo'];
         $producto = $_POST["idProducto"];
 
         $sql = "DELETE FROM carrito WHERE idProducto = '$producto' AND idUsuario = '$nombreUsuario'"; // filtrar por usuario

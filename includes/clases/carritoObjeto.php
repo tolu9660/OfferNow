@@ -20,7 +20,7 @@ class carritoObjeto{
     public static function listaDePedidos($userId){
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
-        $consultaCarritoPedidos = sprintf("SELECT * FROM carrito WHERE  Comprado=1 and idUsuario='%s'",
+        $consultaCarritoPedidos = sprintf("SELECT * FROM carrito WHERE  Comprado = 1 and idUsuario='%s'",
                     $mysqli->real_escape_string($userId));
         $result = $mysqli->query($consultaCarritoPedidos);
         $ListaPedidos;
@@ -84,13 +84,13 @@ class carritoObjeto{
         elseif($cantidad===1){
             $consultaCarritoCount = sprintf("SELECT unidades FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
             $mysqli->real_escape_string($this->usuario));
-            
             $result1 = $mysqli->query($consultaCarritoCount);
             $fila1=$result1->fetch_assoc();
             $cont=$fila1['unidades'];
             $cont=$cont+1;
+            
             $sql=sprintf("UPDATE carrito SET unidades='$cont' WHERE IdProducto='$producto'and idUsuario='%s'",
-            $mysqli->real_escape_string($this->usuario)); 
+            $mysqli->real_escape_string($this->usuario));
         }
         else{
             $sql="UPDATE carrito SET unidades='$cantidad' WHERE IdProducto='$producto'"; 
@@ -137,7 +137,6 @@ class carritoObjeto{
 		return $precioTotal;     
     }
     public function cargarCarrito($idUser){
-        
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
         $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE Comprado = 0 AND

@@ -26,11 +26,10 @@ class formularioVentasUsuario extends form{
             $id = $ofertasArray[0]->muestraID();
             $objString = $ofertasArray[0]->muestraPosibleCompraString();
             $html=<<<EOS
-            <div class="rejilla">
-            <a>
-                <h2>¡¡¡Valida las solicitudes de compra de otros usuarios!!!</h2>
-                $mensaje
-               
+                <div class="rejilla">
+                    <a>
+                        <h2>¡¡¡Valida las solicitudes de compra de otros usuarios!!!</h2>
+                        $mensaje
                         $objString
                         <input type="hidden" name="idVenta" value=$id>
                         <p><input type="radio" name="accion" value=true>Aceptar Oferta</p>

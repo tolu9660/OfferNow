@@ -10,6 +10,7 @@
     $rutaConfiguracion=SESION.'/configuracion.php';
     $rutaDirecciones=SESION.'/direcciones.php';
     $rutaMispedidos=SESION.'/misPedidos.php';
+    $rutaMisPagos = SESION.'/aniadirTarjeta.php';
     //registrar el numero de tarjeta del usuario
    
     if (isset($_SESSION["login"]) ) {
@@ -31,7 +32,7 @@
                 </a>
             </li>	
             <li>
-                <a href=# rel="nofollow">
+                <a href=$rutaMisPagos rel="nofollow">
                     <img src=$IconoPagos width="100" height="100" alt="Pedidos" />
                     <h3>TUS PAGOS</h3>
                     <p>Configura tu forma de pago</p>

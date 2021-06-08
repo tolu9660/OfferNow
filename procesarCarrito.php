@@ -6,7 +6,6 @@ require_once RUTA_USUARIO.'/usuarios.php';
 require_once RUTA_FORMS.'/formularioCantidad.php';
 require_once RUTA_FORMS.'/formularioEliminarCarrito.php';
 
-
 $tituloPagina = 'carrito';
 $contenidoPrincipal = '';
 $productos = '';
@@ -32,8 +31,7 @@ if(estaLogado()){
 			</thead>
 			</div	
 		EOS;
-		
-
+	
 	for ($i = 0; $i < sizeof($carritoArray); $i++) {
 		$nombreOferta=strval($carritoArray[$i]->muestraNombre());
 		$precioOferta=strval($carritoArray[$i]->muestraPrecio());
@@ -77,25 +75,22 @@ if(estaLogado()){
 	}
 	$ruta = 'vistas/pagos.php';
 	$contenidoPrincipal.=<<<EOS
-			$productos
-		<div class="precioTotal">
+		$productos
+			<div class="precioTotal">
 				<td>total:$precioTotal</td>
-		</div>
-		</table>
+			</div>
+			</table>
 			<form action= $ruta>
-	<h2><button type ="submit" >Pagar</button></h2>	
-	</form>
+			<h2><button type ="submit">Pagar</button></h2>	
+			</form>
 		</div>
 	EOS;
-	
 }
 else{
-	
 	$contenidoPrincipal=<<<EOS
 	<div class="iniciosesion">
 		<h2>Para poder ver tu carrito, inicia sesión <a href='vistas/login.php'>aquí</a>.</h2>	
 	</div>
 	EOS;
-
 }
 require RUTA_LAYOUT.'/layout.php';

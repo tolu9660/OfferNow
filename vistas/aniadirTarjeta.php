@@ -1,11 +1,11 @@
 <?php
 	require_once __DIR__.'/../includes/config.php';
-	require_once RUTA_FORMS.'/formularioPagar.php';
+	require_once RUTA_FORMS.'/formularioAniadirTarjeta.php';
 
 
 	$tituloPagina = 'Pagos';
 
-	$form = new formularioPagar();
+	$form = new formularioAniadirTarjeta();
 	$htmlFormCarrito = $form->gestiona();
 	
 	$contenidoPrincipal = <<<EOS

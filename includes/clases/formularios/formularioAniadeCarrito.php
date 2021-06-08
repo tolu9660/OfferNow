@@ -39,22 +39,19 @@ class formularioAniadeCarrito extends form{
         $result= RUTA_APP.'/nuestraTienda.php';
        
         $user=usuario::buscaUsuario($nombreUsuario);
-        $user->addCarrito($idProducto,0);     
-            
+        $user->addCarrito($idProducto,0);
         }
         else{
             $result=SESION.'/login.php';
         }
-        
-        
         return $result;
     }
     protected function muestraResultadoCorrecto() {
         if($this->ok){
-            return "producto añadido al carrito";
+            return "Producto añadido al carrito";
         }
         else{
-            return "no estas logeado";
+            return "No estas logeado";
         }
         
     }

@@ -2,10 +2,13 @@
 require_once RUTA_FORMS.'/form.php';
 require_once RUTA_USUARIO.'/usuarioBD.php';
 
-class formularioCarrito extends form{
+class formularioAniadirTarjeta extends form{
+
+    private $usuario;
 
     public function __construct() {
         parent::__construct('formCarrito');
+        $this->usuario = usuario::buscaUsuario($_SESSION['correo']);
     }
 
     protected function generaCamposFormulario($datos,$errores = array()){
@@ -13,17 +16,25 @@ class formularioCarrito extends form{
         $errorNumeroTarjeta = self::createMensajeError($errores, 'numeroTarjeta', 'span', array('class' => 'error'));
         $errorNombre = self::createMensajeError($errores, 'username', 'span', array('class' => 'error'));
         $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-        $usu = $_SESSION["correo"];
+
+        $tarjeta = $this->usuario->getTarjeta();
+        if($tarjeta != false) {
+            $tarjeta = "<h1>Actualmente su tarjeta es:</h1><p>".$tarjeta."</p>";
+        }
+        else{
+            $tarjeta = "<h1>Actualmente no tiene tarjeta</h1>";
+        }
+
         $html = <<<EOF
-        
         <div class="iniciosesion">
-            <h1>Pago de usuario: $usu</h1>
+            $tarjeta
+            <h1>Crear nueva tarjeta:</h1>
             <p><label>Numero de tarjeta:  </label> <input type="number" name="numeroTarjeta"/>$errorNumeroTarjeta</p>
             <p><label>Titular:</label> <input type="text" name="username" />$errorNombre</p>
             <p><label>Codigo C/V:</label> <input type="password" name="password" />$errorPassword</p>
             $htmlErroresGlobales
             <input type="checkbox" name="cb-terminosservicio" required> Acepto los términos del servicio<br>
-            <input type="submit" value="Pagar">
+            <input type="submit" value="Actualizar tarjeta">
         </div>
         EOF;
     
@@ -32,7 +43,6 @@ class formularioCarrito extends form{
     
     protected function procesaFormulario($datos){
         $result = array();
-        $this->ok=false;
         $numeroTarjeta = $datos['numeroTarjeta'] ?? '';
         //$nombre = $datos['nombre'] ?? '';
         $nombreUsuario = $datos['username'] ?? null;
@@ -52,39 +62,14 @@ class formularioCarrito extends form{
         }
 
         if(count($result) == 0){
-            usuario::altaNuevaTarjeta($_SESSION['correo'], $numeroTarjeta);
-            $this->ok=true;
+            $usuario = usuario::buscaUsuario($_SESSION['correo']);
+            $usuario->altaNuevaTarjeta($numeroTarjeta);
+            $result = RUTA_APP.'/nuestraTienda.php';
         }
-        //Si todos los campos son correctos
-        /*
-        if($tarjetaCorrecta){
-            $compras = carritoObjeto::listaDePedidos($_SESSION["correo"], 0);
-            $app = aplicacion::getSingleton();
-            $mysqli = $app->conexionBd();
-            //Obtengo el carrito del usuario
-            if(is_array($compras)) {
-                for ($i=0; $i < sizeof($compras); $i++) {
-                    $idProducto = $compras[$i]->muestraID();
-                    $unidadesCompradas = carritoObjeto::getUnidadesProducto($idProducto);
-                    //Update de la tablla carrito poniendo el bit de comprado a true
-                    $mysqli->query("UPDATE carrito SET Comprado = 1 WHERE idProducto = $idProducto");
-                    //update de la tabla articulos_segunda_mano restando las unidades compradas
-                    $mysqli->query("UPDATE articulos_segunda_mano SET Unidades = (Unidades-$unidadesCompradas)
-                                WHERE Numero = $idProducto");
-                }
-            }
-        }
-        */
-        $result = RUTA_APP.'/nuestraTienda.php';
         return $result;
     }
      protected function muestraResultadoCorrecto() {
-        if($this->ok){
-            return "GRACIAS POR LA COMPRA!";
-        }
-        else{
-            return "ERROR";
-        }
+        return "Tarjeta actualizada con exito, ya puede pagar si lo desea";
     }
 }
 ?>

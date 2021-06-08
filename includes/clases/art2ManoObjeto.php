@@ -105,8 +105,10 @@ class art2ManoObjeto extends producto{
 		
 		$nombreAux = parent::muestraNombre();
 		$descripcionAux = parent::muestraDescripcion();
+
 		$form = new formularioAniadeCarrito(parent::muestraID());
 		$htmlFormAniadirCarrito = $form->gestiona();
+		
 		$productos = '';
 		$productos.=<<<EOS
 			<div class="imgProducto">

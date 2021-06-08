@@ -80,7 +80,8 @@ abstract class form
             return $this->generaFormulario();
         } else {
             $result = $this->procesaFormulario($_POST);
-            if ( is_array($result) ) {
+            if (is_array($result) ) {
+                //Ha habido un error al procesarlo
                 return $this->generaFormulario($result, $_POST);
             } else {
                 $mensaje = $this->muestraResultadoCorrecto();

@@ -46,7 +46,7 @@ class formularioLogin extends form{
         }
        
         if (count($result) === 0) {
-            //logout();
+            logout();
             $usuario = checkLogin(); 
             if(!$usuario) {
                 // No se da pistas a un posible atacante

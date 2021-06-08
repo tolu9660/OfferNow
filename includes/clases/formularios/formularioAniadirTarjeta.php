@@ -63,8 +63,12 @@ class formularioAniadirTarjeta extends form{
 
         if(count($result) == 0){
             $usuario = usuario::buscaUsuario($_SESSION['correo']);
-            $usuario->altaNuevaTarjeta($numeroTarjeta);
-            $result = RUTA_APP.'/nuestraTienda.php';
+            if($usuario->altaNuevaTarjeta($numeroTarjeta)){
+                $result = RUTA_APP.'/nuestraTienda.php';
+            }
+            else{
+                $result[] = "Error";
+            }
         }
         return $result;
     }

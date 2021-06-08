@@ -85,7 +85,7 @@ class formularioConfiguracion extends form{
             }
         }
         if (count($result) === 0) {
-            $nombreUsuario =$_SESSION['nombre'];
+            $nombreUsuario = $_SESSION['correo'];
             $user=usuario::buscaUsuario($nombreUsuario);
             if($user->cambiarNombre($nuevoNombre)){
                 if($changePass){

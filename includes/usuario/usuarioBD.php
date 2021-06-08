@@ -175,6 +175,8 @@ class usuario{
     $sql="UPDATE usuario SET Nombre='$nuevoNombe' WHERE Correo='$this->idCorreo'";
     if (mysqli_query($mysqli, $sql)) {
       //$mysqli->close();
+      $_SESSION["nombre"] = $nuevoNombe;
+      $this->nombre = $nuevoNombe;
       return true;
     } else {
       //$mysqli->close();
@@ -218,7 +220,7 @@ class usuario{
   public function hacerPremium(){
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd(); 
-    $sql= "UPDATE usuario SET Premium = 1 WHERE correo = '$this->idCorreo'";
+    $sql= "UPDATE usuario SET Premium = 1 WHERE Correo = '$this->idCorreo'";
     
     if (mysqli_query($mysqli, $sql)) {
     //$mysqli->close();
@@ -239,7 +241,7 @@ class usuario{
 
     $correo = $this->idCorreo;
     $numeroTarjetaFiltrado=$mysqli->real_escape_string($numeroTarjeta);
-    $sql= "UPDATE usuario SET tarjeta ='$numeroTarjetaFiltrado' WHERE correo = '$correo'";
+    $sql= "UPDATE usuario SET tarjeta ='$numeroTarjetaFiltrado' WHERE Correo = '$correo'";
     if (mysqli_query($mysqli, $sql)) {
       //$mysqli->close();
       return true;

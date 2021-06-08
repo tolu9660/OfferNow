@@ -87,9 +87,9 @@ abstract class form
                 $mensaje = $this->muestraResultadoCorrecto();
                 //Si es false no se muestra la alerta y solo se redirige
                 if($mensaje == false){
-                    $mensaje = "Error";
-                    //header("Location:$result");
-                    //exit();
+                    //$mensaje = "Error";
+                    header("Location:$result");
+                    exit();
                 }
                 //Sino se muestra la alerta y se redirige
                 ?>

@@ -1,4 +1,4 @@
- <?php
+<?php
 require_once __DIR__.'/aplicacion.php';
 //DEFINES PARA EL SERVIDOR
 /*
@@ -54,5 +54,3 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 $APP =aplicacion::getSingleton();
 $APP->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS));
 register_shutdown_function(array($APP, 'shutdown'));
-
-//session_start();

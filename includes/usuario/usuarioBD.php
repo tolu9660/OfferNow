@@ -27,6 +27,7 @@ class usuario{
   public static function login($email, $password){
     $user = self::buscaUsuario($email);
    
+    
     if ($user && $user->compruebaPassword($password)) {
       $app = aplicacion::getSingleton();
 		  $conn = $app->conexionBd();

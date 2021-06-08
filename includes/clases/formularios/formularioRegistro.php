@@ -80,7 +80,7 @@ class formularioRegistro extends form{
                 $result = RUTA_APP.'/index.php';
             }
             else{
-                $result[]="Error en el registro!";
+                $result[]="¡Error en el registro!";
             }
         }
         return $result;

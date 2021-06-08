@@ -46,8 +46,8 @@ class formularioLogin extends form{
         }
        
         if (count($result) === 0) {
-            logout();
-            $usuario=checkLogin(); 
+            //logout();
+            $usuario = checkLogin(); 
             if(!$usuario) {
                 // No se da pistas a un posible atacante
                 $result[] = "El usuario o el password no coinciden";
@@ -60,7 +60,7 @@ class formularioLogin extends form{
     }
 
     protected function muestraResultadoCorrecto() {
-        return false;
+        return "¡Usuario logueado con exito!";
     }
 }
 ?>

@@ -17,14 +17,14 @@ class formularioAniadeCarrito extends form{
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorDireccion = self::createMensajeError($errores, 'addCarrito', 'span', array('class' => 'error'));
+        $errorCantidad = self::createMensajeError($errores, 'errorCantidad', 'span', array('class' => 'error'));
        
         /*mostrar el contenido previo*/
         $html = <<<EOF
-        <input type="hidden" name="idProducto" value="{$this->idProducto}" />
-        <div class="iniciosesion">
-            <button type="submit" name="login">Añadir Carrito</button>
-        </div>
-        
+            <input type="hidden" name="idProducto" value="{$this->idProducto}" />
+            <div class="iniciosesion">
+                <p><button type="submit" name="login">Añadir Carrito</button>$errorCantidad</p>
+            </div>
         EOF;
         return $html;
     }
@@ -33,16 +33,24 @@ class formularioAniadeCarrito extends form{
         $result = array();
         if(isset($datos['idProducto']) && isset($_SESSION["login"])){
             
-        $idProducto = $datos['idProducto'] ?? '' ;
-        $nombreUsuario =$_SESSION['correo'];
-        $this->ok=true;
-        $result= RUTA_APP.'/nuestraTienda.php';
-       
-        $user=usuario::buscaUsuario($nombreUsuario);
-        $user->addCarrito($idProducto,0);
+            $idProducto = $datos['idProducto'] ?? '' ;
+            $nombreUsuario =$_SESSION['correo'];
+            $this->ok=true;
+            
+            $user=usuario::buscaUsuario($nombreUsuario);
+            $app = aplicacion::getSingleton();
+            //Comprueba la cantidad
+            $stockActual = art2ManoObjeto::buscaUnidadesArticulo($idProducto);
+            if($stockActual == "0") {
+                $result['errorCantidad'] = "Error: No tenemos stock de este producto";
+            }
+            else{
+                $user->addCarrito($idProducto,0);
+                $result= RUTA_APP.'/nuestraTienda.php';
+            }
         }
         else{
-            $result=SESION.'/login.php';
+            $result = SESION.'/login.php';
         }
         return $result;
     }
@@ -53,8 +61,6 @@ class formularioAniadeCarrito extends form{
         else{
             return "No estas logeado";
         }
-        
     }
 }
-
 ?>

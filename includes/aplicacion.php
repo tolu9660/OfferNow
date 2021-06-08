@@ -128,34 +128,10 @@ class aplicacion
 	}
 
 	/**
-	 * Hace las comprobaciones para evr si el fichero subido es una imagen y la guarda en la ruta
+	 * Hace las comprobaciones para ver si el fichero subido es una imagen y la guarda en la ruta
 	 * El parametro $carpetaImgDir debe ser la subcarpeta dentro de la ruta RUTA_IMGS, ej:
 	 * 		"/ofertas/"
 	 */
-	/*
-	public static function comprobarImagen($carpetaImgDir){
-		//C:\Pablo\Universidad\xampp\htdocs\AW\OfferNow\includes/../imagenes/productos/ofertas/ordenador_asus_.jpgno entro
-		$ofertaImagenDir = $carpetaImgDir . $_FILES["productoImagen"]["name"];
-		$directorioServerImg = ALMACEN.$ofertaImagenDir;
-		$tmp_name = $_FILES['productoImagen']['tmp_name'];
-		
-		//Comprueba la extension del archivo
-		$end = explode(".", $_FILES["productoImagen"]["name"]);
-		$extensionImagen = strtolower(end($end));
-		$extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');
-		
-		if (in_array($extensionImagen, $extensionesValidas)) {
-			//Si la extension es correcta mueve la imagen
-			if (move_uploaded_file($tmp_name, "$directorioServerImg")) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-	*/
 
 	private static function comprobarExtensionArchivo($filename){
         $extensionesValidas = array('jpg', 'gif', 'png', 'jpeg');

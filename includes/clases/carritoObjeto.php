@@ -40,7 +40,7 @@ class carritoObjeto{
 
     // en caso de colocar 2 productos iguales y se quiera borrar  se va a seleccionar el primero
     // que encuentre
-    public function ComprutebaCantidadProducto($producto){
+    public function CompruebaCantidadProducto($producto){
         $app = aplicacion::getSingleton();
 		$mysqli = $app->conexionBd(); 
         $consultaCarritoCount = sprintf("SELECT COUNT(*) total FROM carrito WHERE idProducto=$producto and idUsuario='%s'",
@@ -147,11 +147,9 @@ class carritoObjeto{
         if(($result && $result->num_rows >0) && $fila1['total']>0 ){
             $this->contador=$fila1['total'];
             for($i=0; $i < $result->num_rows; $i++){
-                
                 $fila=$result->fetch_assoc();
                 $producto = art2ManoObjeto::buscaArt2Mano($fila['idProducto']);
                 $this->productos[$i]=$producto;
-
             }
         }
         return $this->productos;

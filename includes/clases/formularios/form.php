@@ -92,13 +92,15 @@ abstract class form
                     exit();
                 }
                 //Sino se muestra la alerta y se redirige
-                ?>
-                    <script type="text/javascript">
-                        alert("<?php echo $mensaje; ?>");
-                        //descomentar estas lineas-> redireccion
-                        window.location.href="<?php echo $result;?>";
-                    </script>
-                <?php
+                else{
+                    ?>
+                        <script type="text/javascript">
+                            alert("<?php echo $mensaje; ?>");
+                            //descomentar estas lineas-> redireccion
+                            window.location.href="<?php echo $result;?>";
+                        </script>
+                    <?php
+                }
             }
         }
     }

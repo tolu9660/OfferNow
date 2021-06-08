@@ -13,10 +13,10 @@ class usuario{
   private $carrito;
   private $calle;
 
-  function __construct($correo, $nombre,$contraseña,$calle){
+  function __construct($correo, $nombre,$Contrasenia,$calle){
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
-    $this->password = password_hash($contraseña, PASSWORD_DEFAULT);
+    $this->password = password_hash($Contrasenia, PASSWORD_DEFAULT);
     $this->esAdmin=0;
     $this->esPremium=0;
     $this->calle = $calle;
@@ -46,9 +46,6 @@ class usuario{
         
           $user->esPremium();
         }
-        //para comprobar que los atributos se estan volcando correctamente
-        //echo "esAdmin:".$user->getAdmin();
-        //echo "esPremium:".$user->getPremium();
         $rs->free();
       } 
       return $user;
@@ -66,7 +63,7 @@ class usuario{
       $fila = $rs->fetch_assoc();
   
       $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']);
-      $user->setPass($fila['Contraseña']);
+      $user->setPass($fila['Contrasenia']);
       if($fila['Admin']==1){
         $user->esAdmin();
       }
@@ -85,30 +82,27 @@ class usuario{
 		}
 		else{
       //creo un objeto de tipo usuario para poder usarlo en caso de que el 
-      //usuario quisiera seguir navegando y al mismo tiempo  guardo la contraseña encriptada
+      //usuario quisiera seguir navegando y al mismo tiempo  guardo la Contrasenia encriptada
 
       $user = new usuario($email, $username,$password1,$calle);
       $correo=$user->idCorreo();
       $usuario=$user->nombre();
       $pass=$user->getContrasenia();
-			//Insert into inserta en la tabla comentarios y las columnas entre parentesis los valores en VALUES
-			$app = aplicacion::getSingleton();
-		  $mysqli = $app->conexionBd();
+			
       //se filtra la informacion que se va a introducir en la BD:
+      $app = aplicacion::getSingleton();
+		  $mysqli = $app->conexionBd();
       
       $usuarioFiltrado=$mysqli->real_escape_string($username);
       $correoFiltrado=$mysqli->real_escape_string($correo);
       $passFiltrado=$mysqli->real_escape_string($pass);
       $calleAUX=$mysqli->real_escape_string($calle);
       $calleFiltrado=str_replace(' ', ',', $calleAUX);
-			$sql="INSERT INTO usuario (Correo, Nombre,Contraseña,Premium,Admin,Direccion)
+			$sql="INSERT INTO usuario (Correo, Nombre,Contrasenia,Premium,Admin,Direccion)
 					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0,'$calleFiltrado')";
 			if (mysqli_query($mysqli, $sql)) {
-				//$mysqli->close();
 				return true;
 			} else {
-				//$mysqli->close();
-				//echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 				return false;
 			}
 		}
@@ -146,7 +140,7 @@ class usuario{
     return password_verify($password, $this->password);
   }
   public function setPass($pass){
-    $this->password= $pass;
+    $this->password = $pass;
   }
 
   public function getTarjeta(){
@@ -174,13 +168,10 @@ class usuario{
     $mysqli = $app->conexionBd();
     $sql="UPDATE usuario SET Nombre='$nuevoNombe' WHERE Correo='$this->idCorreo'";
     if (mysqli_query($mysqli, $sql)) {
-      //$mysqli->close();
       $_SESSION["nombre"] = $nuevoNombe;
       $this->nombre = $nuevoNombe;
       return true;
     } else {
-      //$mysqli->close();
-      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
@@ -192,11 +183,8 @@ class usuario{
     $mysqli = $app->conexionBd();
     $sql="UPDATE usuario SET Direccion='$nuevaDireccion' WHERE Correo='$this->idCorreo'";
     if (mysqli_query($mysqli, $sql)) {
-      //$mysqli->close();
       return true;
     } else {
-      //$mysqli->close();
-      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
@@ -206,13 +194,10 @@ class usuario{
     
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
-    $sql="UPDATE usuario SET Contraseña='$this->password' WHERE Correo='$this->idCorreo'";
+    $sql="UPDATE usuario SET Contrasenia='$this->password' WHERE Correo='$this->idCorreo'";
     if (mysqli_query($mysqli, $sql)) {
-      //$mysqli->close();
       return true;
     } else {
-      //$mysqli->close();
-      //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
@@ -229,7 +214,7 @@ class usuario{
       return true;
     } else {
         //$mysqli->close();
-        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        //echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
         return false;
     }
   }
@@ -247,7 +232,6 @@ class usuario{
       return true;
     } else {
       //$mysqli->close();
-      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
       return false;
     }
   }
@@ -264,20 +248,18 @@ class usuario{
 
   public function precio(){
     return $this->carrito->precioTotal();
-    //header("location:procesarCarrito.php");
   }
   public function muestraCarrito(){
     $array=$this->carrito->cargarCarrito($this->idCorreo);
     return $array;
-    //header("location:procesarCarrito.php");
   }
 
   public function addCarrito($idProducto, $cantidad=1){
     //actualizo
-    if(!$this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
+    if(!$this->carrito->CompruebaCantidadProducto($idProducto) && $cantidad==0){
       $this->carrito->AgregarCarrito($idProducto,0);
     }
-    elseif($this->carrito->ComprutebaCantidadProducto($idProducto) && $cantidad===0){
+    elseif($this->carrito->CompruebaCantidadProducto($idProducto) && $cantidad==0){
       $this->carrito->AgregarCarrito($idProducto,1);
     }
     else{

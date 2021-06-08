@@ -6,10 +6,13 @@ require_once RUTA_USUARIO.'/usuarios.php';
 require_once RUTA_CLASES.'/carritoObjeto.php';
 
 class formularioCantidad extends form{
+
     private $idProducto;
+    private $cantidad;
+    
     public function __construct($id,$cant) {
         parent::__construct('formCantidad');
-         $this->idProducto=$id;
+        $this->idProducto=$id;
         $this->cantidad=$cant;
         $this->ok=false;
     }
@@ -23,7 +26,7 @@ class formularioCantidad extends form{
         /*mostrar el contenido previo*/
         $html=<<<EOS
             <input type="hidden" name="idProducto" value="{$this->idProducto}" />
-            <p>Total uds: <input type="number" name="cantidad" min="1" value="$this->cantidad"> 
+            <p>Total uds: <input type="number" name="cantidad" min="1" value="{$this->cantidad}"> 
             <input type="submit" value="Actualizar cantidad"> 
             </p>
             <p>$errorCantidad</p>
@@ -37,25 +40,20 @@ class formularioCantidad extends form{
             $cantidad = $datos['cantidad'] ?? '' ;
         
             $nombreUsuario =$_SESSION['correo'];
-            $idPro=$datos['idProducto'];
+            $idProducto=$datos['idProducto'];
             $this->ok=true;
             //$result= RUTA_APP.'/nuestraTienda.php';
         
-            $user=usuario::buscaUsuario($nombreUsuario);
-            $user->addCarrito($idPro,$cantidad);     
+            $user=usuario::buscaUsuario($nombreUsuario); 
                 
             //Comprueba que no se selcciona mas unidades de las que tenemos
-            $app = aplicacion::getSingleton();
-            $mysqli = $app->conexionBd();
-            $consulta = $mysqli->query("SELECT Unidades FROM articulos_segunda_mano WHERE Numero = $idPro");
-            $fila=$consulta->fetch_assoc();
-            $stockActual = $fila['Unidades'];
+           $stockActual = art2ManoObjeto::buscaUnidadesArticulo($idProducto);
             if($cantidad > $stockActual) {
                 $result['addCarrito'] = "Has seleccionado mas unidades de las que tenemos en stock (".$stockActual.")";
             }
             else{
                 $user=usuario::buscaUsuario($nombreUsuario);
-                $user->addCarrito($idPro,$cantidad);  
+                $user->addCarrito($idProducto,$cantidad);  
             }
         }
         else{

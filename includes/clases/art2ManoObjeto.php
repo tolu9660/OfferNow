@@ -6,8 +6,10 @@ require_once RUTA_CLASES.'/productoObjeto.php';
 require_once RUTA_FORMS.'/formularioAniadeCarrito.php';
 
 class art2ManoObjeto extends producto{
+	
 	private $unidades;
 	private $cantidad;
+
 	function __construct($id, $nombre, $descripcion, $unidades, $precio, $urlImagen) {
 		parent::creaPadre($id, $nombre, $descripcion, $urlImagen, $precio, "comentariossegundamano");
 		$this->unidades = $unidades;
@@ -95,6 +97,12 @@ class art2ManoObjeto extends producto{
 			//echo "Error in ".$query."<br>".$mysqli->error;
 			return false;
 		}
+	}
+
+	public static function buscaUnidadesArticulo($idArticulo) {
+		$result = parent::hacerConsulta("SELECT Unidades FROM articulos_segunda_mano WHERE Numero = $idArticulo");
+		$fila=$result->fetch_assoc();
+        return $fila['Unidades'];
 	}
 	
 	//--------------------------------------------------Vista-----------------------------------------------------		

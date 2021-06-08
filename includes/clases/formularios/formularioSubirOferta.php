@@ -73,7 +73,7 @@ class formularioSubirOferta extends form{
             $result['errorDescripcion']= "Error: especifica una descripcion";
         }
         if(empty($precio) || $precio == 0){
-            $result['errorPrecio']= "Error: especifica un precio";
+            $result['errorPrecio']= "Error: especifica un precio (mayor que 0)";
         }
         if(empty($urlOferta)){
             $result['errorUrl']= "Error: especifica una url";

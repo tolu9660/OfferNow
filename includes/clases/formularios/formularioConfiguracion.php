@@ -23,7 +23,6 @@ class formularioConfiguracion extends form{
             $esPremium="Eres premium";
         }
         else{
-            echo "premium";
             $ruta = SESION.'/premium.php';
             $esPremium=<<<EOS
                 Puedes serlo pinchando aqui <a href="$ruta">Hazte premium;</a>

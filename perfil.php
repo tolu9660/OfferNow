@@ -3,7 +3,7 @@
 
 	$tituloPagina = 'Mi perfil';
     $IconoPedido=RUTA_ICONOS.'/pedidos.png';
-    $IconoDirecciones=RUTA_ICONOS.'/Direcciones.png';
+    $IconoDirecciones=RUTA_ICONOS.'/direcciones.png';
     $IconoPagos=RUTA_ICONOS.'/TusPagos.png';
     $IconoConfiguracion=RUTA_ICONOS.'/inicioSeguridad.png';
     $rutaConfiguracion=SESION.'/configuracion.php';

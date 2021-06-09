@@ -54,7 +54,7 @@ class formularioDirecciones extends form{
         
         if (count($result) === 0) {
             //se rompe al coloccar estas funciones que contienen el el codigo que viene abajo
-            $nombreUsuario =$_SESSION['nombre'];
+            $nombreUsuario =$_SESSION['correo'];
             $user=usuario::buscaUsuario($nombreUsuario);
             $nuevaDireccion=$dir.','.$numero;
            

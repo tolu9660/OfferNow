@@ -49,19 +49,18 @@ class art2ManoObjeto extends producto{
 		//Si solo hay un id crea el objeto y lo devuelve
 		if($result && $result->num_rows == 1) {
 			$fila = $result->fetch_assoc();
-			$idUser=$_SESSION['correo'];
-		
-			$resultCant = parent::hacerConsulta("SELECT unidades FROM carrito WHERE idProducto = '$id' and idUsuario='$idUser'");
-		
+
 			$ofertaObj = new art2ManoObjeto($fila['Numero'],$fila['Nombre'],$fila['Descripcion'],
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
-			
-				if($resultCant && $resultCant->num_rows >0){
-					$filacant = $resultCant->fetch_assoc();
-					$cantidad=$filacant['unidades'];
-					$ofertaObj->agregarCantidad($cantidad);	
-				}
-				
+			if(estaLogado()) {
+				$idUser=$_SESSION['correo'];
+				$resultCant = parent::hacerConsulta("SELECT unidades FROM carrito WHERE idProducto = '$id' and idUsuario='$idUser'");
+					if($resultCant && $resultCant->num_rows >0){
+						$filacant = $resultCant->fetch_assoc();
+						$cantidad=$filacant['unidades'];
+						$ofertaObj->agregarCantidad($cantidad);	
+					}
+			}	
 			return $ofertaObj;
 		} else{
 			return false;

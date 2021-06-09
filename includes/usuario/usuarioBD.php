@@ -146,7 +146,7 @@ class usuario{
   public function getTarjeta(){
     $app = aplicacion::getSingleton();
     $mysqli = $app->conexionBd();
-    $query="SELECT tarjeta FROM Usuario WHERE Correo='$this->idCorreo'";
+    $query="SELECT tarjeta FROM usuario WHERE Correo='$this->idCorreo'";
     $result = $mysqli->query($query);	
 		if($result) {
       $fila = $result->fetch_assoc();

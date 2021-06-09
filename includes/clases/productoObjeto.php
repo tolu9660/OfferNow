@@ -108,9 +108,9 @@ abstract class producto{
 						xhttp.onreadystatechange = function() {
 							if (this.readyState == 4 && this.status == 200) {	
 								button.querySelector('.count').innerText = parseInt (button.querySelector('.count').innerText)+1 ;
-							//console.log(button.querySelector('.count').innerText);
-							//console.log(button);
-							console.log(this);
+								//console.log(button.querySelector('.count').innerText);
+								//console.log(button);
+								//console.log(this);
 							}
 						};
 						xhttp.send($this->id);

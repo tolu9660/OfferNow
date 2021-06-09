@@ -31,7 +31,6 @@ class art2ManoObjeto extends producto{
 											Precio, Imagen, Premium)
 										VALUES ('$nombreFiltrado', '$descripcionFiltrado', '$unidadesFiltrado',
 											'$precioFiltrado', '$imagenFiltrado', '$esPremium')");
-		
 		if ($result != null) {
 			return true;
 		} else {
@@ -58,13 +57,9 @@ class art2ManoObjeto extends producto{
 									$fila['Unidades'],$fila['Precio'],$fila['Imagen']);
 			
 				if($resultCant && $resultCant->num_rows >0){
-				
 					$filacant = $resultCant->fetch_assoc();
 					$cantidad=$filacant['unidades'];
-				
-					$ofertaObj->agregarCantidad($cantidad);
-					
-					
+					$ofertaObj->agregarCantidad($cantidad);	
 				}
 				
 			return $ofertaObj;

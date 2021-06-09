@@ -55,7 +55,6 @@ class formularioPagar extends form{
             }
             //Realiza el pago
             else{
-                echo"pagooooentrooo";
                 if(count($result) == 0){
                     //Lista de los productos en el carrito
                     $compras = $this->usuario->listarPedidosNoComprados();
@@ -80,7 +79,6 @@ class formularioPagar extends form{
         else{
             $result['metodoPago']  = "Tienes que seleccionar un metodo de pago.";
         }
-        //echo $result;
         return $result;
     }
     protected function muestraResultadoCorrecto() { 

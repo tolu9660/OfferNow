@@ -23,6 +23,7 @@
 				$nombreArticulo=strval($ofertasArray[$i]->muestraNombre());
 				$precioArticulo=strval($ofertasArray[$i]->muestraPrecio());
 				$urlImagen=strval($ofertasArray[$i]->muestraURLImagen());
+				$cantidadArticulo = $ofertasArray[$i]->muestraUnidades();
 				//URL del producto junto con el id
 				$id = PRODUCTOS.'/productoSegundaMano.php?id='.$ofertasArray[$i]->muestraID();
 				$productos.=<<<EOS
@@ -30,7 +31,7 @@
 					<a href=$id rel="nofollow">
 						<img src=$urlImagen width="200" height="200" alt=$nombreArticulo />
 						<h3>$nombreArticulo</h3>
-						<p>$precioArticulo €</p>
+						<p>$precioArticulo €. Stock: $cantidadArticulo</p>
 					</a>
 				</li>	
 				EOS;

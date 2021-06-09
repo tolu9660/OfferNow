@@ -24,7 +24,6 @@ class formularioAniadirTarjeta extends form{
         else{
             $tarjeta = "<h1>Actualmente no tiene tarjeta</h1>";
         }
-
         $html = <<<EOF
         <div class="iniciosesion">
             $tarjeta

@@ -31,7 +31,7 @@ class formularioAniadeCarrito extends form{
 
     protected function procesaFormulario($datos){
         $result = array();
-        if(isset($datos['idProducto']) && isset($_SESSION["login"])){
+        if(isset($datos['idProducto']) && estaLogado()){
             
             $idProducto = $datos['idProducto'] ?? '' ;
             $nombreUsuario =$_SESSION['correo'];

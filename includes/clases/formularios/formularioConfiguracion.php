@@ -19,11 +19,9 @@ class formularioConfiguracion extends form{
         $correo=$user->idCorreo();
         $calle= $user->Direccion();//str_replace(' ', '-nº', $user->Direccion());
         if($user->getPremium()){
-       
             $esPremium="Eres premium";
         }
         else{
-            echo "premium";
             $ruta = SESION.'/premium.php';
             $esPremium=<<<EOS
                 Puedes serlo pinchando aqui <a href="$ruta">Hazte premium;</a>

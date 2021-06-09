@@ -75,7 +75,7 @@
 				<li><a href= "<?=RUTA_APP.'/tiendaPremium.php'?>">Comprueba las ofertas Premium!!</a></li>
 				<?php
 			}
-			if(estaLogado() && ($_SESSION['esAdmin'])){
+			if(estaLogado() && ($_SESSION['esAdministrador'])){
 				?>
 				<h4>Opciones de administrador:</h4>
 				<li><a href= "<?=RUTA_APP.'/vistas/subirArticulo2Mano.php'?>">Publica un articulo de segunda mano</a></li>

@@ -8,7 +8,7 @@ class usuario{
 	private $idCorreo;
 	private $nombre;
 	private $password;
-  private $esAdmin;
+  private $esAdministrador;
   private $esPremium;
   private $carrito;
   private $calle;
@@ -17,7 +17,7 @@ class usuario{
     $this->idCorreo = $correo;
     $this->nombre = $nombre;
     $this->password = password_hash($Contrasenia, PASSWORD_DEFAULT);
-    $this->esAdmin=0;
+    $this->esAdministrador=0;
     $this->esPremium=0;
     $this->calle = $calle;
     $this->carrito= new carritoObjeto($this->idCorreo);
@@ -31,16 +31,16 @@ class usuario{
     if ($user && $user->compruebaPassword($password)) {
       $app = aplicacion::getSingleton();
 		  $conn = $app->conexionBd();
-      //hacer consulta de premium y admin, si devuelve un 1 el usuario es administrador 
-      $consultaEsAdmin=sprintf("SELECT * FROM usuario WHERE Correo='%s'",
+      //hacer consulta de premium y Administrador, si devuelve un 1 el usuario es Administradoristrador 
+      $consultaEsAdministrador=sprintf("SELECT * FROM usuario WHERE Correo='%s'",
                                 $conn->real_escape_string($email));			  
-      $rs = $conn->query($consultaEsAdmin);
+      $rs = $conn->query($consultaEsAdministrador);
       if ($rs){
         $fila1 = $rs->fetch_assoc();
      
-        if($fila1['Admin']==1){
+        if($fila1['Administrador']==1){
          
-          $user->esAdmin();
+          $user->esAdministrador();
         }
         if($fila1['Premium']==1){
         
@@ -64,8 +64,8 @@ class usuario{
   
       $user = new usuario($fila['Correo'], $fila['Nombre'],'',$fila['Direccion']);
       $user->setPass($fila['Contrasenia']);
-      if($fila['Admin']==1){
-        $user->esAdmin();
+      if($fila['Administrador']==1){
+        $user->esAdministrador();
       }
       if($fila['Premium']==1){
         $user->esPremium();
@@ -98,7 +98,7 @@ class usuario{
       $passFiltrado=$mysqli->real_escape_string($pass);
       $calleAUX=$mysqli->real_escape_string($calle);
       $calleFiltrado=str_replace(' ', ',', $calleAUX);
-			$sql="INSERT INTO usuario (Correo, Nombre,Contrasenia,Premium,Admin,Direccion)
+			$sql="INSERT INTO usuario (Correo, Nombre,Contrasenia,Premium,Administrador,Direccion)
 					VALUES ('$correoFiltrado','$usuarioFiltrado','$passFiltrado',0,0,'$calleFiltrado')";
 			if (mysqli_query($mysqli, $sql)) {
 				return true;
@@ -109,14 +109,14 @@ class usuario{
 	}
 
 //------------------------------------------Getters------------------------------------------
-  public function esAdmin(){
-    $this->esAdmin=1;
+  public function esAdministrador(){
+    $this->esAdministrador=1;
   }
   public function esPremium(){
      $this->esPremium=1;
   }
-  public function getAdmin(){
-    return $this->esAdmin;
+  public function getAdministrador(){
+    return $this->esAdministrador;
   }
   public function getPremium(){
     return $this->esPremium;

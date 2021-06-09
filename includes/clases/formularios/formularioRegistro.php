@@ -76,7 +76,7 @@ class formularioRegistro extends form{
                 $_SESSION['nombre'] = $nombreUsuario;
                 $_SESSION["correo"] = $correo;
                 $_SESSION["esPremium"] = false;
-                $_SESSION["esAdmin"] = false;
+                $_SESSION["esAdministrador"] = false;
                 $result = RUTA_APP.'/index.php';
             }
             else{

@@ -22,7 +22,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["correo"] = $usuario->idCorreo();
 			$_SESSION["nombre"] = $usuario->nombre();
 			$_SESSION["esPremium"] = $usuario->getPremium();
-			$_SESSION["esAdmin"] = $usuario->getAdmin();
+			$_SESSION["esAdministrador"] = $usuario->getAdministrador();
 			return $usuario;
 		}
 		else{
@@ -30,7 +30,7 @@ require_once __DIR__.'/usuarioBD.php';
 			$_SESSION["nombre"] = null;
 			$_SESSION["correo"] = null;
 			$_SESSION["esPremium"] = null;
-			$_SESSION["esAdmin"] = null;
+			$_SESSION["esAdministrador"] = null;
 			return false;
 		}
 	}
@@ -38,7 +38,7 @@ require_once __DIR__.'/usuarioBD.php';
     function logout() {
 		//Doble seguridad: unset + destroy
 		unset($_SESSION["login"]);
-		unset($_SESSION["esAdmin"]);
+		unset($_SESSION["esAdministrador"]);
 		unset($_SESSION["nombre"]);
 		unset($_SESSION["idUsuario"]);
 		unset($_SESSION["esPremium"]);
